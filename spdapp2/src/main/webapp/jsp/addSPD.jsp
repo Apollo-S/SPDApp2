@@ -9,12 +9,12 @@
 <title>Add new SPD</title>
 </head>
 
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
 
 <body>
 	<h1 align="center">Добавление нового СПД</h1>
 	<p>
-	<form class="form" role="form" action="viewSPD" method="post">
+	<form class="form" role="form" action="spd" method="post">
 
 		<input type="hidden" name="add">
 
@@ -22,7 +22,7 @@
 			<label for="surname" class="col-sm-10 control-label">Фамилия</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="surname" name="surname"
-					placeholder="Введите фамилию">
+					placeholder="Введите фамилию" enctype="multipart/form-data; UTF-8">
 			</div>
 		</div>
 
@@ -43,6 +43,15 @@
 		</div>
 
 		<div class="form-group">
+			<label for="alias" class="col-sm-10 control-label">Короткое
+				ФИО</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="alias" name="alias"
+					placeholder="Введите короткое ФИО">
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label for="inn" class="col-sm-10 control-label">ИНН</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="inn" name="inn"
@@ -51,21 +60,29 @@
 		</div>
 
 		<div class="form-group">
-		<label for="button" class="col-sm-10 control-label"></label>
+			<label for="passport" class="col-sm-10 control-label">Паспорт</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="passport"
+					name="passport" placeholder="Введите паспортные данные">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="button" class="col-sm-10 control-label"></label>
 			<div class="col-sm-offset-10 col-sm-10">
-				<input type="submit" class="btn btn-success" id="button" value="Сохранить">
-				<br>
-				<a href="listAllSPD">Вернуться к списку СПД</a>
+				<input type="submit" class="btn btn-success" id="button"
+					value="Сохранить"> <br> <a href="listAllSPD">Вернуться
+					к списку СПД</a>
 			</div>
 		</div>
 	</form>
-	
-		
 
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="js/bootstrap.min.js"></script>
+
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -23,9 +23,9 @@ public class SPDDaoImpl implements SPDDAO {
 	private static final String CONTEXT_LOOKUP = "java:/comp/env/jdbc/spd";
 	private static final String SELECT_ALL_SPD = "select * from spd";
 	private static final String SELECT_SPD_BY_ID = "select * from spd where id = ?";
-	private static final String CREATE_SPD = "insert into spd (surname, firstname, lastname, alias, birthdate, inn, passport, employmentDate, terminationDateCheck, terminationDate) "
-			+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String UPDATE_SPD = "update spd set surname=?, firstname=?, lastname=?, alias=?, birthdate=?, inn=?, passport=?, employmentDate=?, terminationDateCheck=?, terminationDate=? where id=?";
+	private static final String CREATE_SPD = "insert into spd (surname, firstname, lastname, alias, inn, passport) "
+			+ "values (?, ?, ?, ?, ?, ?)";
+	private static final String UPDATE_SPD = "update spd set surname=?, firstname=?, lastname=?, alias=?, inn=?, passport=? where id=?";
 	private static final String DELETE_SPD = "delete from spd where id=?";
 
 	private final DataSource dataSource;
@@ -47,13 +47,19 @@ public class SPDDaoImpl implements SPDDAO {
 	public void create(SPD spd) throws SQLException {
 		Connection connection = dataSource.getConnection();
 		try {
-			PreparedStatement statement = connection.prepareStatement(CREATE_SPD, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement statement = connection.prepareStatement(CREATE_SPD, PreparedStatement.RETURN_GENERATED_KEYS);
+			statement.setString(1, spd.getSurname());
+			statement.setString(2, spd.getFirstname());
+			statement.setString(3, spd.getLastname());
+			statement.setString(4, spd.getAlias());
+			statement.setString(5, spd.getInn());
+			statement.setString(6, spd.getPassport());
 			statement.executeUpdate();
 			try {
 				ResultSet generatedKeys = statement.getGeneratedKeys();
 				try {
 					if (generatedKeys.next())
-						spd.setId(generatedKeys.getInt("id"));
+						spd.setId(generatedKeys.getInt(1));
 				} finally {
 					generatedKeys.close();
 				}
@@ -125,6 +131,7 @@ public class SPDDaoImpl implements SPDDAO {
 		Connection connection = dataSource.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SELECT_SPD_BY_ID);
+			statement.setInt(1, id);
 			try {
 				ResultSet results = statement.executeQuery();
 				try {
@@ -151,12 +158,8 @@ public class SPDDaoImpl implements SPDDAO {
 		spd.setFirstname(results.getObject("firstname", String.class));
 		spd.setLastname(results.getObject("lastname", String.class));
 		spd.setAlias(results.getObject("alias", String.class));
-		spd.setBirthdate(results.getObject("birthdate", Date.class));
 		spd.setInn(results.getObject("inn", String.class));
 		spd.setPassport(results.getObject("passport", String.class));
-		spd.setEmploymentDate(results.getObject("employment_date", Date.class));
-		spd.setTerminationDateCheck(results.getObject("termination_date_check", Boolean.class));
-		spd.setTerminationDate(results.getObject("termination_date", Date.class));
 		return spd;
 	}
 
