@@ -76,6 +76,13 @@ public class SPDDaoImpl implements SPDDAO {
 		Connection connection = dataSource.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(UPDATE_SPD);
+			statement.setString(1, spd.getSurname());
+			statement.setString(2, spd.getFirstname());
+			statement.setString(3, spd.getLastname());
+			statement.setString(4, spd.getAlias());
+			statement.setString(5, spd.getInn());
+			statement.setString(6, spd.getPassport());
+			statement.setInt(7, spd.getId());
 			try {
 				statement.executeUpdate();
 			} finally {
@@ -91,6 +98,8 @@ public class SPDDaoImpl implements SPDDAO {
 		Connection connection = dataSource.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(DELETE_SPD);
+			statement.setInt(1, spd.getId());
+
 			try {
 				statement.executeUpdate();
 			} finally {
