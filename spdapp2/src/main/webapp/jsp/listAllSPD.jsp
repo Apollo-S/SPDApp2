@@ -15,11 +15,13 @@
 <body>
 
 	<form action="main" method="get">
-		<button class = "btn btn-success">На главную</button>
+		<button class="btn btn-primary">На главную</button>
 	</form>
 	<p>
-
-	<a href="spd?add">Новый контрагент</a>
+	<form action="spd" method="get">
+		<input type="hidden" name="add"> 
+		<button type="submit" class = "btn btn-success">Новый контрагент</button>
+	</form>
 
 	<h2 align="center">Список СПД</h2>
 
@@ -30,16 +32,28 @@
 				<th>Alias</th>
 				<th>ИНН</th>
 				<th>Подробнее</th>
+				<th>Удалить</th>
 			</tr>
 		</thead>
 
 		<c:forEach items="${spdList}" var="spd">
 			<tr>
-				<td scope="row">${spd.id}</td>
+				<td>${spd.id}</td>
 				<td>${spd.alias}</td>
 				<td>${spd.inn}</td>
-				<td><a href="spdDetail?id=${spd.id}">Подробнее</a>
 				<td>
+					<form action="spd" method="get">
+						<input type="hidden" name="id" value="${spd.id}"> 
+						<button type="submit" class = "btn btn-success">Подробнее</button>
+					</form>
+				</td>
+				<td>
+					<form action="spd" method="post">
+						<input type="hidden" name="delete"> 
+						<input type="hidden" name="id" value="${spd.id}"> 
+						<button type="submit" class = "btn btn-danger">Удалить</button>
+					</form>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>
