@@ -13,17 +13,31 @@ public class SPD implements Serializable {
 	String alias;
 	String inn;
 	String passport;
+	String address;
+	String registrationInfo;
 
 	public SPD() {
 	}
 
-	public SPD(String surname, String firstname, String lastname, String alias, String inn, String passport) {
+	public SPD(String surname, String firstname, String lastname, String alias, String inn, String passport,
+			String address, String registrationInfo) {
+		super();
 		this.surname = surname;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.alias = alias;
 		this.inn = inn;
 		this.passport = passport;
+		this.address = address;
+		this.registrationInfo = registrationInfo;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public int getId() {
@@ -76,6 +90,14 @@ public class SPD implements Serializable {
 
 	public String getPassport() {
 		return passport;
+	}
+
+	public String getRegistrationInfo() {
+		return registrationInfo;
+	}
+
+	public void setRegistrationInfo(String registrationInfo) {
+		this.registrationInfo = registrationInfo;
 	}
 
 	public void setPassport(String passport) {
