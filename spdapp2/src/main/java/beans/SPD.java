@@ -1,9 +1,6 @@
 package beans;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 public class SPD implements Serializable {
 
@@ -14,7 +11,6 @@ public class SPD implements Serializable {
 	String firstname;
 	String lastname;
 	String alias;
-
 	String inn;
 	String passport;
 
@@ -26,10 +22,8 @@ public class SPD implements Serializable {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.alias = alias;
-
 		this.inn = inn;
 		this.passport = passport;
-
 	}
 
 	public int getId() {
