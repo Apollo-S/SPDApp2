@@ -35,7 +35,6 @@ public class RegistrationInfoDaoImpl implements RegistrationInfoDAO {
 		}
 	}
 
-	@Override
 	public void create(RegistrationInfo regInfo) throws SQLException {
 		Connection connection = dataSource.getConnection();
 		try {
@@ -60,7 +59,6 @@ public class RegistrationInfoDaoImpl implements RegistrationInfoDAO {
 		}
 	}
 
-	@Override
 	public void update(RegistrationInfo regInfo) throws SQLException {
 		Connection connection = dataSource.getConnection();
 		try {
@@ -78,7 +76,6 @@ public class RegistrationInfoDaoImpl implements RegistrationInfoDAO {
 		}
 	}
 
-	@Override
 	public void delete(RegistrationInfo regInfo) throws SQLException {
 		Connection connection = dataSource.getConnection();
 		try {
@@ -95,7 +92,6 @@ public class RegistrationInfoDaoImpl implements RegistrationInfoDAO {
 		}
 	}
 
-	@Override
 	public RegistrationInfo selectById(int id) throws SQLException {
 		Connection connection = dataSource.getConnection();
 		try {

@@ -4,19 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
 import beans.SPD;
 import dao.SPDDAO;
-import jdbc.DBUtil;
 
 public class SPDDaoImpl implements SPDDAO {
 
@@ -43,7 +38,6 @@ public class SPDDaoImpl implements SPDDAO {
 		}
 	}
 
-	@Override
 	public void create(SPD spd) throws SQLException {
 		Connection connection = dataSource.getConnection();
 		try {
@@ -73,7 +67,6 @@ public class SPDDaoImpl implements SPDDAO {
 		}
 	}
 
-	@Override
 	public void update(SPD spd) throws SQLException {
 		Connection connection = dataSource.getConnection();
 		try {
@@ -97,7 +90,6 @@ public class SPDDaoImpl implements SPDDAO {
 		}
 	}
 
-	@Override
 	public void delete(SPD spd) throws SQLException {
 		Connection connection = dataSource.getConnection();
 		try {
@@ -114,7 +106,6 @@ public class SPDDaoImpl implements SPDDAO {
 		}
 	}
 
-	@Override
 	public List<SPD> selectAll() throws SQLException {
 		List<SPD> spdList = new ArrayList<SPD>();
 		Connection connection = dataSource.getConnection();
@@ -139,7 +130,6 @@ public class SPDDaoImpl implements SPDDAO {
 		return spdList;
 	}
 
-	@Override
 	public SPD selectById(int id) throws SQLException {
 		Connection connection = dataSource.getConnection();
 		try {
