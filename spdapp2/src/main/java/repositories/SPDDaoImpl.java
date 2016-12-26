@@ -23,9 +23,9 @@ public class SPDDaoImpl implements SPDDAO {
 	private static final String CONTEXT_LOOKUP = "java:/comp/env/jdbc/spd";
 	private static final String SELECT_ALL_SPD = "select * from spd";
 	private static final String SELECT_SPD_BY_ID = "select * from spd where id = ?";
-	private static final String CREATE_SPD = "insert into spd (surname, firstname, lastname, alias, inn, passport) "
+	private static final String CREATE_SPD = "insert into spd (surname, firstname, lastname, alias, inn, passport, address, registration_info) "
 			+ "values (?, ?, ?, ?, ?, ?)";
-	private static final String UPDATE_SPD = "update spd set surname=?, firstname=?, lastname=?, alias=?, inn=?, passport=? where id=?";
+	private static final String UPDATE_SPD = "update spd set surname=?, firstname=?, lastname=?, alias=?, inn=?, passport=?, address=?, registration_info=? where id=?";
 	private static final String DELETE_SPD = "delete from spd where id=?";
 
 	private final DataSource dataSource;
@@ -54,6 +54,8 @@ public class SPDDaoImpl implements SPDDAO {
 			statement.setString(4, spd.getAlias());
 			statement.setString(5, spd.getInn());
 			statement.setString(6, spd.getPassport());
+			statement.setInt(7, spd.getAddressId());
+			statement.setInt(8, spd.getRegistrationInfoId());
 			statement.executeUpdate();
 			try {
 				ResultSet generatedKeys = statement.getGeneratedKeys();
@@ -82,7 +84,9 @@ public class SPDDaoImpl implements SPDDAO {
 			statement.setString(4, spd.getAlias());
 			statement.setString(5, spd.getInn());
 			statement.setString(6, spd.getPassport());
-			statement.setInt(7, spd.getId());
+			statement.setInt(7, spd.getAddressId());
+			statement.setInt(8, spd.getRegistrationInfoId());
+			statement.setInt(9, spd.getId());
 			try {
 				statement.executeUpdate();
 			} finally {
@@ -169,6 +173,8 @@ public class SPDDaoImpl implements SPDDAO {
 		spd.setAlias(results.getObject("alias", String.class));
 		spd.setInn(results.getObject("inn", String.class));
 		spd.setPassport(results.getObject("passport", String.class));
+		spd.setAddressId(results.getObject("address_id", Integer.class));
+		spd.setRegistrationInfoId(results.getObject("registration_info_id", Integer.class));
 		return spd;
 	}
 

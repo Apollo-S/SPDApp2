@@ -69,6 +69,22 @@
 		</div>
 
 		<div class="form-group">
+			<label for="country" class="col-sm-10 control-label">Страна</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="country"
+					name="country" placeholder="Страна">
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+
+		<div class="form-group">
 			<label for="button" class="col-sm-10 control-label"></label>
 			<div class="col-sm-offset-10 col-sm-10">
 				<input type="submit" class="btn btn-success" id="button"
