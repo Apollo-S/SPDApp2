@@ -1,15 +1,34 @@
 package beans;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	int id;
-	int spdid;
 	String country;
-	String index;
 	String region;
 	String city;
 	String street;
 	String building;
 	String flat;
+	String zip;
+
+	public Address() {
+	}
+
+	public Address(String country, String region, String city, String street, String building, String flat,
+			String zip) {
+		super();
+		this.country = country;
+		this.region = region;
+		this.city = city;
+		this.street = street;
+		this.building = building;
+		this.flat = flat;
+		this.zip = zip;
+	}
 
 	public int getId() {
 		return id;
@@ -17,14 +36,6 @@ public class Address {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getSpdid() {
-		return spdid;
-	}
-
-	public void setSpdid(int spdid) {
-		this.spdid = spdid;
 	}
 
 	public String getCountry() {
@@ -35,12 +46,12 @@ public class Address {
 		this.country = country;
 	}
 
-	public String getIndex() {
-		return index;
+	public String getZip() {
+		return zip;
 	}
 
-	public void setIndex(String index) {
-		this.index = index;
+	public void setZip(String zip) {
+		this.zip = zip;
 	}
 
 	public String getRegion() {
