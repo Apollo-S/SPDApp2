@@ -133,7 +133,7 @@
 					<div class="form-group">
 						<label for="dated" class="col-sm-10 control-label">Дата</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="dated"
+							<input type="date" class="form-control" id="dated"
 								name="dated" placeholder="Дата">
 						</div>
 					</div>
