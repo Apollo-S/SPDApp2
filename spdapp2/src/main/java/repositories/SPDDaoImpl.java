@@ -18,9 +18,9 @@ public class SPDDaoImpl implements SPDDAO {
 	private static final String CONTEXT_LOOKUP = "java:/comp/env/jdbc/spd";
 	private static final String SELECT_ALL_SPD = "select * from spd";
 	private static final String SELECT_SPD_BY_ID = "select * from spd where id = ?";
-	private static final String CREATE_SPD = "insert into spd (surname, firstname, lastname, alias, inn, passport, address, registration_info) "
-			+ "values (?, ?, ?, ?, ?, ?)";
-	private static final String UPDATE_SPD = "update spd set surname=?, firstname=?, lastname=?, alias=?, inn=?, passport=?, address=?, registration_info=? where id=?";
+	private static final String CREATE_SPD = "insert into spd (surname, firstname, lastname, alias, inn, passport, address_id, registration_info_id) "
+			+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String UPDATE_SPD = "update spd set surname=?, firstname=?, lastname=?, alias=?, inn=?, passport=?, address_id=?, registration_info_id=? where id=?";
 	private static final String DELETE_SPD = "delete from spd where id=?";
 
 	private final DataSource dataSource;
