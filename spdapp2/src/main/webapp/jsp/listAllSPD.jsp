@@ -25,7 +25,7 @@
 
 	<h2 align="center">Список СПД</h2>
 
-	<table class="table table-sm">
+	<table class="table table-sm table-striped">
 		<thead class="thead-inverse">
 			<tr>
 				<th>ID</th>
