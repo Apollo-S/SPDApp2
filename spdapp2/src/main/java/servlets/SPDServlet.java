@@ -26,6 +26,7 @@ public class SPDServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		// get add row
 		try {
 			if (request.getParameter("add") != null) {
 				request.getRequestDispatcher("jsp/addSPD.jsp").forward(request, response);
@@ -37,8 +38,10 @@ public class SPDServlet extends HttpServlet {
 				request.setAttribute("spd", spd);
 				request.setAttribute("address", address);
 				request.setAttribute("regInfo", regInfo);
+		// get edit row
 				if (request.getParameter("edit") != null) {
 					request.getRequestDispatcher("jsp/editSPD.jsp").forward(request, response);
+		// get view row
 				} else {
 					request.getRequestDispatcher("jsp/viewSPD.jsp").forward(request, response);
 				}
@@ -54,6 +57,7 @@ public class SPDServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		try {
+			// post add row
 			if (request.getParameter("add") != null) {
 				
 				Address address = new Address(request.getParameter("country"), request.getParameter("region"),
@@ -61,8 +65,9 @@ public class SPDServlet extends HttpServlet {
 						request.getParameter("flat"), request.getParameter("zip"));
 				addressDao.create(address);
 				
+				String dated = request.getParameter("dated");
 				RegistrationInfo regInfo = new RegistrationInfo(request.getParameter("description"), 
-						Date.valueOf(request.getParameter("dated")));
+						Date.valueOf(dated));
 				regInfoDao.create(regInfo);
 				
 				SPD spd = new SPD(request.getParameter("surname"), request.getParameter("firstname"),
@@ -71,6 +76,7 @@ public class SPDServlet extends HttpServlet {
 				spdDao.create(spd);
 				
 				response.sendRedirect("spd?id=" + spd.getId());
+			// post edit row
 			} else if (request.getParameter("edit") != null) {
 				int id = Integer.parseInt(request.getParameter("id"));
 				SPD spd = spdDao.selectById(id);
@@ -82,9 +88,14 @@ public class SPDServlet extends HttpServlet {
 				spd.setPassport(request.getParameter("passport"));
 				spdDao.update(spd);
 				response.sendRedirect("spd?id=" + spd.getId());
+			// post delete row
 			} else if (request.getParameter("delete") != null) {
 				int id = Integer.parseInt(request.getParameter("id"));
 				SPD spd = spdDao.selectById(id);
+				Address address = addressDao.selectById(spd.getAddressId());
+				RegistrationInfo regInfo = regInfoDao.selectById(spd.getRegistrationInfoId());
+				addressDao.delete(address);
+				regInfoDao.delete(regInfo);
 				spdDao.delete(spd);
 				response.sendRedirect("listAllSPD");
 			} else {
