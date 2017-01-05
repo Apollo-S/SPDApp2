@@ -3,14 +3,17 @@ package servlets;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import beans.Account;
 import beans.Address;
 import beans.RegistrationInfo;
 import beans.SPD;
+import repositories.AccountDaoImpl;
 import repositories.AddressDaoImpl;
 import repositories.RegistrationInfoDaoImpl;
 import repositories.SPDDaoImpl;
@@ -21,13 +24,13 @@ public class SPDServlet extends HttpServlet {
 	private final SPDDaoImpl spdDao = new SPDDaoImpl();
 	private final AddressDaoImpl addressDao = new AddressDaoImpl();
 	private final RegistrationInfoDaoImpl regInfoDao = new RegistrationInfoDaoImpl();
+	private final AccountDaoImpl accountDao = new AccountDaoImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		// get add row
-		try {
+		try { // get add row
 			if (request.getParameter("add") != null) {
 				request.getRequestDispatcher("jsp/addSPD.jsp").forward(request, response);
 			} else {
@@ -35,52 +38,44 @@ public class SPDServlet extends HttpServlet {
 				SPD spd = spdDao.selectById(id);
 				Address address = addressDao.selectById(spd.getAddressId());
 				RegistrationInfo regInfo = regInfoDao.selectById(spd.getRegistrationInfoId());
+				List<Account> accounts = accountDao.selectAllBySPDId(id); 
 				request.setAttribute("spd", spd);
 				request.setAttribute("address", address);
 				request.setAttribute("regInfo", regInfo);
-		// get edit row
-				if (request.getParameter("edit") != null) {
+				request.setAttribute("accounts", accounts);
+				if (request.getParameter("edit") != null) { // get edit row
 					request.getRequestDispatcher("jsp/editSPD.jsp").forward(request, response);
-		// get view row
-				} else {
+				} else { // get view row
 					request.getRequestDispatcher("jsp/viewSPD.jsp").forward(request, response);
 				}
 			}
 		} catch (SQLException e) {
 			throw new ServletException(e);
 		}
-
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		try {
-			// post add row
+		try { // post add row
 			if (request.getParameter("add") != null) {
-				
 				Address address = new Address(request.getParameter("country"), request.getParameter("region"),
 						request.getParameter("city"), request.getParameter("street"), request.getParameter("building"),
 						request.getParameter("flat"), request.getParameter("zip"));
 				addressDao.create(address);
-				
 				String dated = request.getParameter("dated");
 				RegistrationInfo regInfo = new RegistrationInfo(request.getParameter("description"), 
 						Date.valueOf(dated));
 				regInfoDao.create(regInfo);
-				
 				SPD spd = new SPD(request.getParameter("surname"), request.getParameter("firstname"),
 						request.getParameter("lastname"), request.getParameter("alias"), request.getParameter("inn"),
 						request.getParameter("passport"), address.getId(), regInfo.getId());
 				spdDao.create(spd);
-				
 				response.sendRedirect("spd?id=" + spd.getId());
-			// post edit row
-			} else if (request.getParameter("edit") != null) {
+			} else if (request.getParameter("edit") != null) { // post edit row
 				int id = Integer.parseInt(request.getParameter("id"));
 				SPD spd = spdDao.selectById(id);
-				
 				Address address = addressDao.selectById(spd.getAddressId());
 				address.setCountry(request.getParameter("country"));
 				address.setRegion(request.getParameter("region"));
@@ -89,12 +84,10 @@ public class SPDServlet extends HttpServlet {
 				address.setBuilding(request.getParameter("building"));
 				address.setFlat(request.getParameter("flat"));
 				address.setZip(request.getParameter("zip"));
-				
 				RegistrationInfo regInfo = regInfoDao.selectById(spd.getRegistrationInfoId());
 				String dated = request.getParameter("dated");
 				regInfo.setDescription(request.getParameter("description"));
 				regInfo.setDated(Date.valueOf(dated));
-				
 				spd.setSurname(request.getParameter("surname"));
 				spd.setFirstname(request.getParameter("firstname"));
 				spd.setLastname(request.getParameter("lastname"));
@@ -103,14 +96,11 @@ public class SPDServlet extends HttpServlet {
 				spd.setPassport(request.getParameter("passport"));
 				spd.setAddressId(address.getId());
 				spd.setRegistrationInfoId(regInfo.getId());
-				
 				addressDao.update(address);
 				regInfoDao.update(regInfo);
 				spdDao.update(spd);
-				
 				response.sendRedirect("spd?id=" + spd.getId());
-			// post delete row
-			} else if (request.getParameter("delete") != null) {
+			} else if (request.getParameter("delete") != null) { // post delete row
 				int id = Integer.parseInt(request.getParameter("id"));
 				SPD spd = spdDao.selectById(id);
 				Address address = addressDao.selectById(spd.getAddressId());
@@ -125,7 +115,6 @@ public class SPDServlet extends HttpServlet {
 		} catch (SQLException e) {
 			throw new ServletException(e);
 		}
-
 	}
 
 }
