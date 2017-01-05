@@ -25,14 +25,14 @@
 
 	<h2 align="center">Список СПД</h2>
 
-	<table class="table table-sm table-striped">
+	<table class="table table-sm table-bordered table-stripped">
 		<thead class="thead-inverse">
 			<tr>
-				<th>ID</th>
-				<th>Alias</th>
-				<th>ИНН</th>
-				<th>Подробнее</th>
-				<th>Удалить</th>
+				<th align="center">ID</th>
+				<th align="center">Alias</th>
+				<th align="center">ИНН</th>
+				<th align="center">Подробнее</th>
+				<th align="center">Удалить</th>
 			</tr>
 		</thead>
 
