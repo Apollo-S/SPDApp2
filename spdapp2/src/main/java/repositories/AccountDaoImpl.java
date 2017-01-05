@@ -4,29 +4,25 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
 import beans.Account;
 import dao.AccountDAO;
-import jdbc.DBUtil;
 
 public class AccountDaoImpl implements AccountDAO {
 
 	private static final String CONTEXT_LOOKUP = "java:/comp/env/jdbc/spd";
 	private static final String SELECT_ACCOUNT_BY_ID = "select * from account where id = ?";
+	private static final String SELECT_ALL_ACCOUNTS_BY_SPD_ID = "select * from account where spd_id = ?";
 	private static final String CREATE_ACCOUNT = "insert into account (spd_id, account_number, mfo, bank_name) "
 			+ "values (?, ?, ?, ?)";
 	private static final String UPDATE_ACCOUNT = "update account set spd_id=?, account_number=?, mfo=?, bank_name=? where id=?";
 	private static final String DELETE_ACCOUNT = "delete from account where id=?";
-	
+
 	private final DataSource dataSource;
 
 	public AccountDaoImpl() {
@@ -45,7 +41,8 @@ public class AccountDaoImpl implements AccountDAO {
 	public void create(Account account) throws SQLException {
 		Connection connection = dataSource.getConnection();
 		try {
-			PreparedStatement statement = connection.prepareStatement(CREATE_ACCOUNT, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement statement = connection.prepareStatement(CREATE_ACCOUNT,
+					PreparedStatement.RETURN_GENERATED_KEYS);
 			statement.setInt(1, account.getSpdId());
 			statement.setString(2, account.getAccountNumber());
 			statement.setString(3, account.getMfo());
@@ -99,6 +96,31 @@ public class AccountDaoImpl implements AccountDAO {
 		} finally {
 			connection.close();
 		}
+	}
+
+	public List<Account> selectAllBySPDId(int spdId) throws SQLException {
+		List<Account> accounts = new ArrayList<Account>();
+		Connection connection = dataSource.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(SELECT_ALL_ACCOUNTS_BY_SPD_ID);
+			statement.setInt(1, spdId);
+			try {
+				ResultSet results = statement.executeQuery();
+				try {
+					while (results.next()) {
+						Account account = unmarshal(results);
+						accounts.add(account);
+					}
+				} finally {
+					results.close();
+				}
+			} finally {
+				statement.close();
+			}
+		} finally {
+			connection.close();
+		}
+		return accounts;
 	}
 
 	public Account selectById(int id) throws SQLException {
