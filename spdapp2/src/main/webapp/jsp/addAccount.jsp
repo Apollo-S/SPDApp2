@@ -26,7 +26,7 @@
 							name="spdId" value="${spd.id}">
 					</div>
 					<div class="form-group">
-						<label for="bankAccount" class="col-sm-10 control-label">Номер счета</label>
+						<label for="accountNumber" class="col-sm-10 control-label">Номер счета</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="accountNumber"
 								name="accountNumber" placeholder="Введите номер счета">
