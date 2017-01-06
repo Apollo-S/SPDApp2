@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 import beans.Account;
 import dao.AccountDAO;
 
-public class AccountDaoImpl implements AccountDAO {
+public class AccountDAOImpl implements AccountDAO {
 
 	private static final String CONTEXT_LOOKUP = "java:/comp/env/jdbc/spd";
 	private static final String SELECT_ACCOUNT_BY_ID = "select * from account where id = ?";
@@ -25,7 +25,7 @@ public class AccountDaoImpl implements AccountDAO {
 
 	private final DataSource dataSource;
 
-	public AccountDaoImpl() {
+	public AccountDAOImpl() {
 		try {
 			Context context = new InitialContext();
 			try {

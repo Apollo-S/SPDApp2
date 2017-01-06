@@ -18,7 +18,7 @@ import beans.Address;
 import dao.AddressDAO;
 import jdbc.DBUtil;
 
-public class AddressDaoImpl implements AddressDAO {
+public class AddressDAOImpl implements AddressDAO {
 
 	private static final String CONTEXT_LOOKUP = "java:/comp/env/jdbc/spd";
 	private static final String SELECT_ADDRESS_BY_ID = "select * from address where id = ?";
@@ -29,7 +29,7 @@ public class AddressDaoImpl implements AddressDAO {
 
 	private final DataSource dataSource;
 
-	public AddressDaoImpl() {
+	public AddressDAOImpl() {
 		try {
 			Context context = new InitialContext();
 			try {

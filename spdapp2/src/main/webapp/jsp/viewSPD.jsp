@@ -59,26 +59,68 @@
 					<form action="spd" method="get">
 						<input type="hidden" name="edit"> <input type="hidden"
 							name="id" value="${spd.id}">
-						<button type="submit" class="btn btn-warning">Редактировать</button>
+						<button type="submit" class="btn btn-warning">Редактировать СПД</button>
 					</form>
 				</tr>
 				<tr>
 					<form action="spd" method="post">
 						<input type="hidden" name="delete"> <input type="hidden"
 							name="id" value="${spd.id}">
-						<button type="submit" class="btn btn-danger">Удалить</button>
+						<button type="submit" class="btn btn-danger">Удалить СПД (осторожно!)</button>
 					</form>
 				</tr>
 			</table>
 			<p>
 		</div>
-		<div class="tab-pane" id="agreement" role="tabpanel">Договора...</div>
+		<div class="tab-pane" id="agreement" role="tabpanel">
+		<p>
+			<form action="agreement" method="get">
+				<input type="hidden" name="add"> 
+				<input type="hidden" name="spdId" value="${spd.id}">
+				<button type="submit" class="btn btn-success">Новый договор</button>
+			</form>
+		<p>
+		<table class="table table-sm table-bordered">
+				<thead class="thead-default">
+					<tr>
+						<th>Номер</th>
+						<th>Дата</th>
+						<th></th>
+					</tr>
+				</thead>
+				<c:forEach items="${agreements}" var="agreement">
+					<tr>
+						<td valign="middle"><c:out value="${agreement.number}"/></td>
+						<td valign="middle"><c:out value="${agreement.dateStart}"/></td>
+						<td valign="middle">
+							<table>
+								<tr>
+									<form action="agreement" method="get">
+										<input type="hidden" name="edit"> 
+										<input type="hidden" name="id" value="${agreement.id}">
+										<button type="submit" class="btn btn-outline-warning btn-sm">Редактировать</button>
+									</form>
+								</tr>
+								<tr>
+									<form action="agreement" method="post">
+										<input type="hidden" name="delete"> 
+										<input type="hidden" name="id" value="${agreement.id}">
+										<button type="submit" class="btn btn-outline-danger btn-sm">Удалить</button>
+									</form>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+
+		</div>
 		<div class="tab-pane" id="bankprops" role="tabpanel">
 		<p>
 			<form action="account" method="get">
 				<input type="hidden" name="add"> <input type="hidden"
 					name="spdId" value="${spd.id}">
-				<button type="submit" class="btn btn-success">Новый</button>
+				<button type="submit" class="btn btn-success">Новый счет</button>
 			</form>
 		<p>
 			<table class="table table-sm table-bordered">

@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 import beans.SPD;
 import dao.SPDDAO;
 
-public class SPDDaoImpl implements SPDDAO {
+public class SPDDAOImpl implements SPDDAO {
 
 	private static final String CONTEXT_LOOKUP = "java:/comp/env/jdbc/spd";
 	private static final String SELECT_ALL_SPD = "select * from spd";
@@ -25,7 +25,7 @@ public class SPDDaoImpl implements SPDDAO {
 
 	private final DataSource dataSource;
 
-	public SPDDaoImpl() {
+	public SPDDAOImpl() {
 		try {
 			Context context = new InitialContext();
 			try {

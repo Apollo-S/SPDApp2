@@ -11,20 +11,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import beans.Account;
 import beans.Address;
+import beans.Agreement;
 import beans.RegistrationInfo;
 import beans.SPD;
-import repositories.AccountDaoImpl;
-import repositories.AddressDaoImpl;
-import repositories.RegistrationInfoDaoImpl;
-import repositories.SPDDaoImpl;
+import repositories.AccountDAOImpl;
+import repositories.AddressDAOImpl;
+import repositories.AgreementDAOImpl;
+import repositories.RegistrationInfoDAOImpl;
+import repositories.SPDDAOImpl;
 
 @WebServlet("/spd")
 public class SPDServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private final SPDDaoImpl spdDao = new SPDDaoImpl();
-	private final AddressDaoImpl addressDao = new AddressDaoImpl();
-	private final RegistrationInfoDaoImpl regInfoDao = new RegistrationInfoDaoImpl();
-	private final AccountDaoImpl accountDao = new AccountDaoImpl();
+	private final SPDDAOImpl spdDao = new SPDDAOImpl();
+	private final AddressDAOImpl addressDao = new AddressDAOImpl();
+	private final RegistrationInfoDAOImpl regInfoDao = new RegistrationInfoDAOImpl();
+	private final AccountDAOImpl accountDao = new AccountDAOImpl();
+	private final AgreementDAOImpl agreementDao = new AgreementDAOImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,10 +42,12 @@ public class SPDServlet extends HttpServlet {
 				Address address = addressDao.selectById(spd.getAddressId());
 				RegistrationInfo regInfo = regInfoDao.selectById(spd.getRegistrationInfoId());
 				List<Account> accounts = accountDao.selectAllBySPDId(id); 
+				List<Agreement> agreements = agreementDao.selectAllBySPDId(id); 
 				request.setAttribute("spd", spd);
 				request.setAttribute("address", address);
 				request.setAttribute("regInfo", regInfo);
 				request.setAttribute("accounts", accounts);
+				request.setAttribute("agreements", agreements);
 				if (request.getParameter("edit") != null) { // get edit row
 					request.getRequestDispatcher("jsp/editSPD.jsp").forward(request, response);
 				} else { // get view row

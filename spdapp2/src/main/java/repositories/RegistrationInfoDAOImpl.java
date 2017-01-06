@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 import beans.RegistrationInfo;
 import dao.RegistrationInfoDAO;
 
-public class RegistrationInfoDaoImpl implements RegistrationInfoDAO {
+public class RegistrationInfoDAOImpl implements RegistrationInfoDAO {
 
 	private static final String CONTEXT_LOOKUP = "java:/comp/env/jdbc/spd";
 	private static final String SELECT_REGINFO_BY_ID = "select * from registration_info where id = ?";
@@ -22,7 +22,7 @@ public class RegistrationInfoDaoImpl implements RegistrationInfoDAO {
 
 	private final DataSource dataSource;
 
-	public RegistrationInfoDaoImpl() {
+	public RegistrationInfoDAOImpl() {
 		try {
 			Context context = new InitialContext();
 			try {
