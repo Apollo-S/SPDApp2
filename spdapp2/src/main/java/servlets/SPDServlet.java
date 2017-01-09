@@ -121,6 +121,10 @@ public class SPDServlet extends HttpServlet {
 					}
 					agreementDao.delete(agreement);
 				}
+				List<Account> accounts = accountDao.selectAllBySPDId(spdId);
+				for(Account account : accounts) {
+					accountDao.delete(account);
+				}
 				addressDao.delete(address);
 				regInfoDao.delete(regInfo);
 				spdDao.delete(spd);
