@@ -64,7 +64,7 @@ public class AgreementServlet extends HttpServlet {
 				Date dateStart =  Date.valueOf(request.getParameter("dateStart"));
 				Agreement agreement = new Agreement(spdId, number, dateStart);
 				agreementDao.create(agreement);
-				response.sendRedirect("agreement?id=" + agreement.getId());
+				response.sendRedirect("agreement?id=" + agreement.getId() + "&spdId=" + spdId);
 			} else if (request.getParameter("edit") != null) {
 				int spdId = Integer.parseInt(request.getParameter("spdId"));
 				int agreementId = Integer.parseInt(request.getParameter("id"));
