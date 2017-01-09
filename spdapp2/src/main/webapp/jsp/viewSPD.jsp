@@ -98,14 +98,22 @@
 									<form action="agreement" method="get">
 										<input type="hidden" name="edit"> 
 										<input type="hidden" name="id" value="${agreement.id}">
-										<button type="submit" class="btn btn-outline-warning btn-sm">Редактировать</button>
+										<input type="hidden" name="spdId" value="${agreement.spdId}">
+										<button type="submit" class="btn btn-outline-warning btn-sm">Подробнее</button>
 									</form>
 								</tr>
 								<tr>
 									<form action="agreement" method="post">
 										<input type="hidden" name="delete"> 
 										<input type="hidden" name="id" value="${agreement.id}">
-										<button type="submit" class="btn btn-outline-danger btn-sm">Удалить</button>
+										<button type="submit" class="btn btn-outline-danger btn-sm">Удалить (осторожно!)</button>
+									</form>
+								</tr>
+								<tr>
+									<form action="tarif" method="get">
+										<input type="hidden" name="add"> 
+										<input type="hidden" name="agreementId" value="${agreement.id}">
+										<button type="submit" class="btn btn-outline-success btn-sm">Новые ставки к договору</button>
 									</form>
 								</tr>
 							</table>
@@ -113,6 +121,7 @@
 					</tr>
 				</c:forEach>
 			</table>
+
 
 		</div>
 		<div class="tab-pane" id="bankprops" role="tabpanel">

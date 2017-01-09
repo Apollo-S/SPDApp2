@@ -33,16 +33,16 @@ public class SPDServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		try { // get add row
+		try {
 			if (request.getParameter("add") != null) {
 				request.getRequestDispatcher("jsp/addSPD.jsp").forward(request, response);
 			} else {
-				int id = Integer.parseInt(request.getParameter("id"));
-				SPD spd = spdDao.selectById(id);
+				int spdId = Integer.parseInt(request.getParameter("id"));
+				SPD spd = spdDao.selectById(spdId);
 				Address address = addressDao.selectById(spd.getAddressId());
 				RegistrationInfo regInfo = regInfoDao.selectById(spd.getRegistrationInfoId());
-				List<Account> accounts = accountDao.selectAllBySPDId(id); 
-				List<Agreement> agreements = agreementDao.selectAllBySPDId(id); 
+				List<Account> accounts = accountDao.selectAllBySPDId(spdId); 
+				List<Agreement> agreements = agreementDao.selectAllBySPDId(spdId); 
 				request.setAttribute("spd", spd);
 				request.setAttribute("address", address);
 				request.setAttribute("regInfo", regInfo);

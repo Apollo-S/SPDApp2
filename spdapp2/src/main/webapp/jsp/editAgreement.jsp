@@ -9,10 +9,10 @@
 <title>Edit agreement</title>
 </head>
 
-<!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
 
 <body>
-	<h1 align="center">СПД <c:out value="${spd.alias}"/> | Редактирование договора</h1>
+	<h1 align="center">СПД <c:out value="${spd.alias}"/> | Просмотр договора</h1>
 	<p>
 	<form class="form" role="form" action="agreement" method="post">
 		<input type="hidden" name="edit">
@@ -41,13 +41,82 @@
 					</div>
 			</tr>
 		</table>
+		<p>
+
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="nav-item"><a class="nav-link active"
+				data-toggle="tab" href="#tarif" role="tab">Ставки</a></li>
+			<li class="nav-item"><a class="nav-link" data-toggle="tab"
+				href="#spec" role="tab">Спецификации</a></li>
+		</ul>
+		<p>
+		<!-- Tab panes -->
+		
+		<div class="tab-content">
+			<div class="tab-pane active" id="tarif" role="tabpanel">
+				<p>
+					
+			<a href="tarif?add=&agreementId=${agreement.id}">Добавить тариф</a>
+				
+				<p>
+				<table class="table table-sm table-bordered">
+				<thead class="thead-default">
+					<tr>
+						<th>Конфигурирование</th>
+						<th>Программирование</th>
+						<th>Архит. доработки</th>
+						<th>Начало действия</th>
+						<th></th>
+					</tr>
+				</thead>
+				<c:forEach items="${tarifs}" var="tarif">
+					<tr>
+						<td valign="middle">${tarif.configuring}</td>
+						<td valign="middle">${tarif.programming}</td>
+						<td valign="middle">${tarif.architecting}</td>
+						<td valign="middle">${tarif.dateStart}</td>
+						<td>
+						<table>
+								<tr>
+									<form action="tarif" method="get">
+										<input type="hidden" name="edit"> 
+										<input type="hidden" name="id" value="${tarif.id}">
+										<input type="hidden" name="agreementId" value="${agreement.id}">
+										<button type="submit" class="btn btn-outline-warning btn-sm">Подробнее</button>
+									</form>
+								</tr>
+								<tr>
+									<form action="tarif" method="post">
+										<input type="hidden" name="delete"> 
+										<input type="hidden" name="id" value="${tarif.id}">
+										<input type="hidden" name="spdId" value="${agreement.spdId}">
+										<button type="submit" class="btn btn-outline-danger btn-sm">Удалить (осторожно!)</button>
+									</form>
+								</tr>
+							</table>
+						
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+			</div>
+			<div class="tab-pane" id="spec" role="tabpanel">...</div>
+		</div>
+
+
+
+
 		<!-- ---------------------------------------------------------------------------------------- -->
 		<div class="form-group">
 			<label for="button" class="col-sm-10 control-label"></label>
 			<div class="col-sm-offset-10 col-sm-10">
 				<input type="submit" class="btn btn-success" id="button"
-					value="Сохранить"> <br> <a href="listAllSPD">Вернуться
-					к списку СПД</a>
+					value="ОК"> 
+					<p>
+					<a href=<c:out value="spd?id=${spd.id}"/>>Вернуться к текущему СПД</a>
+					<p>
+					<a href="listAllSPD">Вернуться к списку СПД</a>
 			</div>
 		</div>
 	</form>
