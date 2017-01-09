@@ -9,9 +9,10 @@
 <title>Add new agreement</title>
 </head>
 
-<!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
 
 <body>
+	<p>
 	<h1 align="center">СПД <c:out value="${spd.alias}"/> | Добавление нового договора</h1>
 	<p>
 	<form class="form" role="form" action="agreement" method="post">
