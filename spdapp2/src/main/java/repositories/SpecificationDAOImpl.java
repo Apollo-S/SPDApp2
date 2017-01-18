@@ -22,11 +22,11 @@ public class SpecificationDAOImpl implements SpecificationDAO {
 			+ "where agreement_id = ?";
 	private static final String SELECT_ALL_SPECIFICATIONS_BY_AGREEMENT_ID = "select * from specification where agreement_id = ?";
 	private static final String CREATE_SPECIFICATION = "insert into specification ("
-			+ "spd_id, agreement_id, agreement_tarif_id, specification_number, date_start, date_finish, "
+			+ "agreement_id, agreement_tarif_id, specification_number, date_start, date_finish, "
 			+ "specification_sum, configuring_hours, programming_hours, architecting_hours, company_id) "
-			+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE_SPECIFICATION = "update specification set "
-			+ "spd_id=?, agreement_id=?, agreement_tarif_id=?, specification_number=?, date_start=?, date_finish=? , "
+			+ "agreement_id=?, agreement_tarif_id=?, specification_number=?, date_start=?, date_finish=? , "
 			+ "specification_sum=?, configuring_hours=?, programming_hours=?, architecting_hours=?, company_id=? "
 			+ "where id=?";
 	private static final String DELETE_SPECIFICATION = "delete from specification where id=?";
@@ -51,17 +51,16 @@ public class SpecificationDAOImpl implements SpecificationDAO {
 		try {
 			PreparedStatement statement = connection.prepareStatement(CREATE_SPECIFICATION,
 					PreparedStatement.RETURN_GENERATED_KEYS);
-			statement.setInt(1, specification.getSpdId());
-			statement.setInt(2, specification.getAgreementId());
-			statement.setInt(3, specification.getAgreementTarifId());
-			statement.setInt(4, specification.getSpecificationNumber());
-			statement.setDate(5, specification.getDateStart());
-			statement.setDate(6, specification.getDateFinish());
-			statement.setDouble(7, specification.getSpecificationSum());
-			statement.setInt(8, specification.getConfiguringHours());
-			statement.setInt(9, specification.getProgrammingHours());
-			statement.setInt(10, specification.getArchitectingHours());
-			statement.setInt(11, specification.getCompanyId());
+			statement.setInt(1, specification.getAgreementId());
+			statement.setInt(2, specification.getAgreementTarifId());
+			statement.setInt(3, specification.getSpecificationNumber());
+			statement.setDate(4, specification.getDateStart());
+			statement.setDate(5, specification.getDateFinish());
+			statement.setDouble(6, specification.getSpecificationSum());
+			statement.setInt(7, specification.getConfiguringHours());
+			statement.setInt(8, specification.getProgrammingHours());
+			statement.setInt(9, specification.getArchitectingHours());
+			statement.setInt(10, specification.getCompanyId());
 			statement.executeUpdate();
 			try {
 				ResultSet generatedKeys = statement.getGeneratedKeys();
@@ -83,18 +82,17 @@ public class SpecificationDAOImpl implements SpecificationDAO {
 		Connection connection = dataSource.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(UPDATE_SPECIFICATION);
-			statement.setInt(1, specification.getSpdId());
-			statement.setInt(2, specification.getAgreementId());
-			statement.setInt(3, specification.getAgreementTarifId());
-			statement.setInt(4, specification.getSpecificationNumber());
-			statement.setDate(5, specification.getDateStart());
-			statement.setDate(6, specification.getDateFinish());
-			statement.setDouble(7, specification.getSpecificationSum());
-			statement.setInt(8, specification.getConfiguringHours());
-			statement.setInt(9, specification.getProgrammingHours());
-			statement.setInt(10, specification.getArchitectingHours());
-			statement.setInt(11, specification.getCompanyId());
-			statement.setInt(12, specification.getId());
+			statement.setInt(1, specification.getAgreementId());
+			statement.setInt(2, specification.getAgreementTarifId());
+			statement.setInt(3, specification.getSpecificationNumber());
+			statement.setDate(4, specification.getDateStart());
+			statement.setDate(5, specification.getDateFinish());
+			statement.setDouble(6, specification.getSpecificationSum());
+			statement.setInt(7, specification.getConfiguringHours());
+			statement.setInt(8, specification.getProgrammingHours());
+			statement.setInt(9, specification.getArchitectingHours());
+			statement.setInt(10, specification.getCompanyId());
+			statement.setInt(11, specification.getId());
 			try {
 				statement.executeUpdate();
 			} finally {
@@ -147,17 +145,31 @@ public class SpecificationDAOImpl implements SpecificationDAO {
 	
 	public int getLastSpecificationNumberByAgreementId(int agreementId) throws SQLException {
 		int specificationNumber = 0;
-		List<Specification> specifications = selectAllByAgreementId(agreementId);
-		Specification specification = new Specification();
-		if(specifications.isEmpty()) {
-			return 0;
-		} else {
-			int lastIndexOfSpecification = specifications.size() - 1;
-			specification = specifications.get(lastIndexOfSpecification);
-			specificationNumber = specification.getSpecificationNumber();
+		Connection connection = dataSource.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(SELECT_MAX_SPECIFICATION_NUMBER_BY_AGREEMENT_ID);
+			statement.setInt(1, agreementId);
+			try {
+				ResultSet results = statement.executeQuery();
+				try {
+					while (results.next()) {
+						specificationNumber = results.getInt(1);
+					}
+					if (specificationNumber == 0) {
+						return 0;
+					}
+				} finally {
+					results.close();
+				}
+			} finally {
+				statement.close();
+			}
+		} finally {
+			connection.close();
 		}
 		return specificationNumber;
 	}
+		
 
 
 	public Specification selectById(int specificationId) throws SQLException {
@@ -187,7 +199,6 @@ public class SpecificationDAOImpl implements SpecificationDAO {
 	private static Specification unmarshal(ResultSet results) throws SQLException {
 		Specification specification = new Specification();
 		specification.setId(results.getObject("id", Integer.class));
-		specification.setSpdId(results.getObject("spd_id", Integer.class));
 		specification.setAgreementId(results.getObject("agreement_id", Integer.class));
 		specification.setAgreementTarifId(results.getObject("agreement_tarif_id", Integer.class));
 		specification.setSpecificationNumber(results.getObject("specification_number", Integer.class));

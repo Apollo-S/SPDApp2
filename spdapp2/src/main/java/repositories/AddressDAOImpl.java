@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 
 import beans.Address;
 import dao.AddressDAO;
-import jdbc.DBUtil;
+import utils.DBUtil;
 
 public class AddressDAOImpl implements AddressDAO {
 

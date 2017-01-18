@@ -18,6 +18,8 @@ public class AgreementTarifDAOImpl implements AgreementTarifDAO {
 
 	private static final String CONTEXT_LOOKUP = "java:/comp/env/jdbc/spd";
 	private static final String SELECT_AGREEMENT_TARIF_BY_ID = "select * from agreement_tarif where id = ?";
+	private static final String SELECT_AGREEMENT_TARIF_BY_ACTUAL_DATE = "select * from agreement_tarif WHERE agreement_id = ? and datestart = "
+			+ "(select max(datestart) FROM agreement_tarif where agreement_id = ? and datestart <= ?)";
 	private static final String SELECT_ALL_AGREEMENT_TARIFS_BY_AGREEMENT_ID = "select * from agreement_tarif where agreement_id = ?";
 	private static final String CREATE_AGREEMENT_TARIF = "insert into agreement_tarif (agreement_id, configuring, programming, architecting, datestart) "
 			+ "values (?, ?, ?, ?, ?)";
@@ -105,11 +107,11 @@ public class AgreementTarifDAOImpl implements AgreementTarifDAO {
 	}
 
 	@Override
-	public AgreementTarif selectById(int id) throws SQLException {
+	public AgreementTarif selectById(int tarifId) throws SQLException {
 		Connection connection = dataSource.getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(SELECT_AGREEMENT_TARIF_BY_ID);
-			statement.setInt(1, id);
+			statement.setInt(1, tarifId);
 			try {
 				ResultSet results = statement.executeQuery();
 				try {
@@ -129,6 +131,33 @@ public class AgreementTarifDAOImpl implements AgreementTarifDAO {
 		}
 	}
 
+	@Override
+	public AgreementTarif selectByActualDate(int tarifId, Date date) throws SQLException {
+		Connection connection = dataSource.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(SELECT_AGREEMENT_TARIF_BY_ACTUAL_DATE);
+			statement.setInt(1, tarifId);
+			statement.setInt(2, tarifId);
+			statement.setDate(3, date);
+			try {
+				ResultSet results = statement.executeQuery();
+				try {
+					if (results.next()) {
+						return unmarshal(results);
+					} else {
+						return null;
+					}
+				} finally {
+					results.close();
+				}
+			} finally {
+				statement.close();
+			}
+		} finally {
+			connection.close();
+		}
+	}
+	
 	@Override
 	public List<AgreementTarif> selectAllByAgreementId(int agreementId) throws SQLException {
 		List<AgreementTarif> tarifs = new ArrayList<AgreementTarif>();

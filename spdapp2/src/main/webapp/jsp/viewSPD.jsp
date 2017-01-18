@@ -13,14 +13,11 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
 <body>
+
 	<p>
-	
-	<form action="listAllSPD" method="get">
-		<button type="submit" class="btn btn-default">Вернуться к
-			списку СПД</button>
-	</form>
 	<p>
-	
+	<a class="btn btn-primary" href="listAllSPD" role="button">Вернуться к списку СПД</a>
+	<p>
 	<h1>
 		СПД
 		<c:out value="${spd.alias}" />
@@ -31,7 +28,7 @@
 		<li class="nav-item"><a class="nav-link active" data-toggle="tab"
 			href="#main" role="tab">Основные данные</a></li>
 		<li class="nav-item"><a class="nav-link" data-toggle="tab"
-			href="#agreement" role="tab">Договора</a></li>
+			href="#agreement" role="tab">Договоры</a></li>
 		<li class="nav-item"><a class="nav-link" data-toggle="tab"
 			href="#bankprops" role="tab">Банковские реквизиты</a></li>
 		<li class="nav-item"><a class="nav-link" data-toggle="tab"
@@ -41,6 +38,16 @@
 	<!-- Tab panes -->
 	<div class="tab-content">
 		<div class="tab-pane active" id="main" role="tabpanel">
+			<p>
+			<dl class="row">
+				<dt class="col-sm-3">Полное ФИО:</dt>
+  				<dd class="col-sm-9"><c:out	value="${spd.surname} ${spd.firstname} ${spd.lastname}" /></dd>
+			
+				<dt class="col-sm-3">ИНН:</dt>
+  				<dd class="col-sm-9"><c:out value="${spd.inn}" /></dd>
+			
+			</dl>
+			
 			<p>
 			<ul>
 				<li><b>Полное ФИО: </b> <c:out
@@ -59,7 +66,7 @@
 					<form action="spd" method="get">
 						<input type="hidden" name="edit"> <input type="hidden"
 							name="id" value="${spd.id}">
-						<button type="submit" class="btn btn-warning">Редактировать СПД</button>
+						<button type="submit" class="btn btn-warning">Редактировать данные</button>
 					</form>
 				</tr>
 				<tr>

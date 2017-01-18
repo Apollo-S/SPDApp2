@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,10 +15,12 @@ import beans.Account;
 import beans.Agreement;
 import beans.AgreementTarif;
 import beans.SPD;
+import beans.Specification;
 import repositories.AccountDAOImpl;
 import repositories.AgreementDAOImpl;
 import repositories.AgreementTarifDAOImpl;
 import repositories.SPDDAOImpl;
+import repositories.SpecificationDAOImpl;
 
 @WebServlet("/agreement")
 public class AgreementServlet extends HttpServlet {
@@ -25,6 +28,7 @@ public class AgreementServlet extends HttpServlet {
 	private final SPDDAOImpl spdDao = new SPDDAOImpl();
 	private final AgreementDAOImpl agreementDao = new AgreementDAOImpl();
 	private final AgreementTarifDAOImpl tarifDao = new AgreementTarifDAOImpl();
+	private final SpecificationDAOImpl specDao = new SpecificationDAOImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,8 +44,13 @@ public class AgreementServlet extends HttpServlet {
 				int agreementId = Integer.parseInt(request.getParameter("id"));
 				Agreement agreement = agreementDao.selectById(agreementId);
 				List<AgreementTarif> tarifs = tarifDao.selectAllByAgreementId(agreementId);
+				List<Specification> specifications = specDao.selectAllByAgreementId(agreementId);
+				int specNumber = specDao.getLastSpecificationNumberByAgreementId(agreementId);
 				request.setAttribute("agreement", agreement);
 				request.setAttribute("tarifs", tarifs);
+				request.setAttribute("specifications", specifications);
+				request.setAttribute("specNumber", specNumber + 1);
+				request.setAttribute("dateStart", LocalDate.now());
 				if (request.getParameter("edit") != null) {
 					request.getRequestDispatcher("jsp/editAgreement.jsp").forward(request, response);
 				} else {
