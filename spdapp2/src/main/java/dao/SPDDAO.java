@@ -2,7 +2,8 @@ package dao;
 
 import java.sql.SQLException;
 import java.util.List;
-import beans.SPD;
+
+import entity.SPD;
 
 public interface SPDDAO {
 	public void create(SPD spd) throws SQLException;

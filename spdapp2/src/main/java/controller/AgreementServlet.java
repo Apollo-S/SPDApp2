@@ -1,4 +1,4 @@
-package servlets;
+package controller;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -11,16 +11,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import beans.Account;
-import beans.Agreement;
-import beans.AgreementTarif;
-import beans.SPD;
-import beans.Specification;
-import repositories.AccountDAOImpl;
-import repositories.AgreementDAOImpl;
-import repositories.AgreementTarifDAOImpl;
-import repositories.SPDDAOImpl;
-import repositories.SpecificationDAOImpl;
+
+import dao.impl.AccountDAOImpl;
+import dao.impl.AgreementDAOImpl;
+import dao.impl.AgreementTarifDAOImpl;
+import dao.impl.SPDDAOImpl;
+import dao.impl.SpecificationDAOImpl;
+import entity.Account;
+import entity.Agreement;
+import entity.AgreementTarif;
+import entity.SPD;
+import entity.Specification;
 
 @WebServlet("/agreement")
 public class AgreementServlet extends HttpServlet {

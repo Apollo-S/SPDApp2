@@ -3,7 +3,7 @@ package dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import beans.Specification;
+import entity.Specification;
 
 public interface SpecificationDAO {
 	public void create(Specification specification) throws SQLException;

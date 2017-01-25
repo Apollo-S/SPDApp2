@@ -1,16 +1,16 @@
 package utils;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class DBUtil {
-	
+abstract class JdbcManager {
+
 	private static final String CONTEXT_LOOKUP = "java:/comp/env/jdbc/spd";
 
 	private static DataSource dataSource;
@@ -37,6 +37,28 @@ public class DBUtil {
 		System.err.println("Error message: " + e.getMessage());
 		System.err.println("Error code: " + e.getErrorCode());
 		System.err.println("SQL state: " + e.getSQLState());
+	}
+
+	private void closeQuietly(final Connection connection, final PreparedStatement statement,
+			final ResultSet resultSet) {
+		if (null != resultSet)
+			try {
+				resultSet.close();
+			} catch (final SQLException e) {
+				e.printStackTrace();
+			}
+		if (null != statement)
+			try {
+				statement.close();
+			} catch (final SQLException e) {
+				e.printStackTrace();
+			}
+		if (null != connection)
+			try {
+				connection.close();
+			} catch (final SQLException e) {
+				e.printStackTrace();
+			}
 	}
 
 }

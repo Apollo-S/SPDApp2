@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
-import beans.AgreementTarif;
+import entity.AgreementTarif;
 
 public interface AgreementTarifDAO {
 	public void create(AgreementTarif tarif) throws SQLException;

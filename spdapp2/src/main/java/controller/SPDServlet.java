@@ -1,4 +1,4 @@
-package servlets;
+package controller;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -9,18 +9,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import beans.Account;
-import beans.Address;
-import beans.Agreement;
-import beans.AgreementTarif;
-import beans.RegistrationInfo;
-import beans.SPD;
-import repositories.AccountDAOImpl;
-import repositories.AddressDAOImpl;
-import repositories.AgreementDAOImpl;
-import repositories.AgreementTarifDAOImpl;
-import repositories.RegistrationInfoDAOImpl;
-import repositories.SPDDAOImpl;
+
+import dao.PaymentDAO;
+import dao.impl.AccountDAOImpl;
+import dao.impl.AddressDAOImpl;
+import dao.impl.AgreementDAOImpl;
+import dao.impl.AgreementTarifDAOImpl;
+import dao.impl.PaymentDAOImpl;
+import dao.impl.RegistrationInfoDAOImpl;
+import dao.impl.SPDDAOImpl;
+import entity.Account;
+import entity.Address;
+import entity.Agreement;
+import entity.AgreementTarif;
+import entity.Payment;
+import entity.RegistrationInfo;
+import entity.SPD;
 
 @WebServlet("/spd")
 public class SPDServlet extends HttpServlet {
@@ -31,6 +35,7 @@ public class SPDServlet extends HttpServlet {
 	private final AccountDAOImpl accountDao = new AccountDAOImpl();
 	private final AgreementDAOImpl agreementDao = new AgreementDAOImpl();
 	private final AgreementTarifDAOImpl tarifDao = new AgreementTarifDAOImpl();
+	private final PaymentDAO paymentDAO = new PaymentDAOImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -46,11 +51,13 @@ public class SPDServlet extends HttpServlet {
 				RegistrationInfo regInfo = regInfoDao.selectById(spd.getRegistrationInfoId());
 				List<Account> accounts = accountDao.selectAllBySPDId(spdId); 
 				List<Agreement> agreements = agreementDao.selectAllBySPDId(spdId); 
+				List<Payment> payments = paymentDAO.selectAllBySPDId(spdId);
 				request.setAttribute("spd", spd);
 				request.setAttribute("address", address);
 				request.setAttribute("regInfo", regInfo);
 				request.setAttribute("accounts", accounts);
 				request.setAttribute("agreements", agreements);
+				request.setAttribute("payments", payments);
 				if (request.getParameter("edit") != null) {
 					request.getRequestDispatcher("jsp/editSPD.jsp").forward(request, response);
 				} else {

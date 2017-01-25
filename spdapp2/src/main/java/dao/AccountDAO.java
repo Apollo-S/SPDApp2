@@ -3,7 +3,7 @@ package dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import beans.Account;
+import entity.Account;
 
 public interface AccountDAO {
 	public void create(Account account) throws SQLException;

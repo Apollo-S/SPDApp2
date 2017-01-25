@@ -2,11 +2,18 @@ package utils;
 
 import java.sql.Date;
 
-import beans.Specification;
+import entity.Specification;
 
-public class BeanUtils {
+public class BeanUtil {
 	
-	public static Specification editSpecificationSetters(
+	public Date requestedDateFormatter (String requestedDate) {
+		if (requestedDate.equals(""))  {
+			return null;
+		}
+		return Date.valueOf(requestedDate);
+	}
+	
+	public Specification editSpecificationSetters(
 			Specification specification, int agreementId, int agreementTarifId, int specificationNumber, Date dateStart,
 			Date dateFinish, double specificationSum, int configuringHours, int programmingHours, int architectingHours, int companyId) {
 		specification.setAgreementId(agreementId);

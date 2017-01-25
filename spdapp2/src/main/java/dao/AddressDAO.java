@@ -2,7 +2,8 @@ package dao;
 
 import java.sql.SQLException;
 import java.util.List;
-import beans.Address;
+
+import entity.Address;
 
 public interface AddressDAO {
 	public void create(Address address) throws SQLException;

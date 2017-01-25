@@ -1,4 +1,4 @@
-package repositories;
+package dao.impl;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -13,8 +13,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import beans.Agreement;
 import dao.AgreementDAO;
+import entity.Agreement;
 
 public class AgreementDAOImpl implements AgreementDAO {
 

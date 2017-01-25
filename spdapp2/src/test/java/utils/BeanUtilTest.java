@@ -5,13 +5,28 @@ import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.Test;
 
-import beans.Specification;
-import utils.BeanUtils;
-
+import entity.Specification;
+import utils.BeanUtil;
 import java.sql.Date;
 
-public class BeanUtilsTest {
-
+public class BeanUtilTest {
+	
+	BeanUtil beanUtils = new BeanUtil();
+	
+	@Test
+	public void testRequestedDateFormatterWithTextDate() {
+		String textDate = "2017-01-01";
+		Date sqlDate = Date.valueOf(textDate);
+		assertThat(beanUtils.requestedDateFormatter(textDate), is(sqlDate));
+	}
+	
+	@Test
+	public void testRequestedDateFormatterWithEmptyValue() {
+		String textDate = "";
+		Date sqlDate = null;
+		assertThat(beanUtils.requestedDateFormatter(textDate), is(sqlDate));
+	}
+	
 	@Test
 	public void testSpecificationEditSettersValues() {
 		Specification specification = new Specification();
@@ -28,7 +43,7 @@ public class BeanUtilsTest {
 		
 		Specification changedSpecification = new Specification();
 	
-		changedSpecification = BeanUtils.editSpecificationSetters(specification, 4, 5, 678, 
+		changedSpecification = beanUtils.editSpecificationSetters(specification, 4, 5, 678, 
 				(Date.valueOf("2019-06-06")), (Date.valueOf("2020-02-02")), 54000d, 67, 78, 89, 1);
 		
 		assertEquals(specification, (changedSpecification));

@@ -157,7 +157,8 @@
 							<table>
 								<tr>
 									<form action="account" method="get">
-										<input type="hidden" name="edit"> <input type="hidden"
+										<input type="hidden" name="edit"> 
+										<input type="hidden"
 											name="id" value="${account.id}">
 										<button type="submit" class="btn btn-outline-warning btn-sm">Редактировать</button>
 									</form>
@@ -176,7 +177,95 @@
 			</table>
 			
 		</div>
-		<div class="tab-pane" id="payments" role="tabpanel">Выплаты...</div>
+		<div class="tab-pane" id="payments" role="tabpanel">
+		<p>
+		<p>
+		<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPayment">Добавить...</button>
+		<p>
+		<!-- Modal -->
+			<div class="modal fade" id="modalPayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h5 class="modal-title" id="exampleModalLabel">Выплата | Добавление</h5>
+						</div>
+						<div class="modal-body">
+						<form action="payment" method="post">
+							<input type="hidden" name="add"> 
+							<input type="hidden" name="spdId" value="${spd.id}">
+							<table border="0" width="50%">
+								<tr>
+									<td valign="top">
+										<div class="form-group">
+											<label for="specNumber" class="col-sm-10 control-label">Номер спецификации (п/п)</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="specNumber" name="specNumber" value="${specNumber}">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="dateStart" class="col-sm-10 control-label">Дата спецификации</label>
+											<div class="col-sm-10">
+												<input type="date" class="form-control" id="dateStart" name="dateStart"
+													placeholder="Введите дату спецификации" value="${dateStart}">
+											</div>
+										</div>
+									</td>
+								</tr>
+							</table>
+						<p>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+							<input type="submit" class="btn btn-primary" id="button" value="Добавить">
+						</div>
+					</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p>
+		<table class="table table-sm table-bordered">
+			<thead class="thead-default">
+				<tr>
+					<th>Наименование</th>
+					<th>Сумма</th>
+					<th>Дата действия</th>
+					<th></th>
+				</tr>
+			</thead>
+			<c:forEach items="${payments}" var="payment">
+				<tr>
+					<td valign="middle">${payment.paymentTypeId}</td>
+					<td valign="middle">${payment.value}</td>
+					<td valign="middle">${payment.dateStart}</td>
+					<td valign="middle">
+						<table>
+							<tr>
+								<form action="account" method="get">
+									<input type="hidden" name="edit"> <input type="hidden"
+										name="id" value="${payment.id}">
+									<button type="submit" class="btn btn-outline-warning btn-sm">Редактировать</button>
+								</form>
+							</tr>
+							<tr>
+								<form action="account" method="post">
+									<input type="hidden" name="delete"> <input
+										type="hidden" name="id" value="${payment.id}">
+									<button type="submit" class="btn btn-outline-danger btn-sm">Удалить</button>
+								</form>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</c:forEach>
+		</table>
+
+		</div>
+		
 	</div>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

@@ -3,7 +3,7 @@ package dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import beans.Agreement;
+import entity.Agreement;
 
 public interface AgreementDAO {
 	public void create(Agreement agreement) throws SQLException;

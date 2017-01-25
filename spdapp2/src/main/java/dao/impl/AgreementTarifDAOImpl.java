@@ -1,4 +1,4 @@
-package repositories;
+package dao.impl;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -11,8 +11,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import beans.AgreementTarif;
+
 import dao.AgreementTarifDAO;
+import entity.AgreementTarif;
 
 public class AgreementTarifDAOImpl implements AgreementTarifDAO {
 

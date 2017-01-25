@@ -1,4 +1,4 @@
-package servlets;
+package controller;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -8,10 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import beans.Agreement;
-import beans.AgreementTarif;
-import repositories.AgreementDAOImpl;
-import repositories.AgreementTarifDAOImpl;
+
+import dao.impl.AgreementDAOImpl;
+import dao.impl.AgreementTarifDAOImpl;
+import entity.Agreement;
+import entity.AgreementTarif;
 
 @WebServlet("/tarif")
 public class AgreementTarifServlet extends HttpServlet {

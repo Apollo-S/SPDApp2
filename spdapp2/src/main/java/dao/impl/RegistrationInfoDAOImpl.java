@@ -1,4 +1,4 @@
-package repositories;
+package dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,8 +9,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import beans.RegistrationInfo;
+
 import dao.RegistrationInfoDAO;
+import entity.RegistrationInfo;
 
 public class RegistrationInfoDAOImpl implements RegistrationInfoDAO {
 

@@ -1,7 +1,8 @@
 package dao;
 
 import java.sql.SQLException;
-import beans.RegistrationInfo;
+
+import entity.RegistrationInfo;
 
 public interface RegistrationInfoDAO {
 	public void create(RegistrationInfo regInfo) throws SQLException;

@@ -1,4 +1,4 @@
-package servlets;
+package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -7,9 +7,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import beans.Account;
-import repositories.AccountDAOImpl;
-import repositories.SPDDAOImpl;
+
+import dao.impl.AccountDAOImpl;
+import dao.impl.SPDDAOImpl;
+import entity.Account;
 
 @WebServlet("/account")
 public class AccountServlet extends HttpServlet {
