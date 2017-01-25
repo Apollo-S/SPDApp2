@@ -47,10 +47,9 @@ public class SpecificationDAOImpl implements SpecificationDAO {
 	}
 
 	public void create(Specification specification) throws SQLException {
-		Connection connection = dataSource.getConnection();
-		try {
-			PreparedStatement statement = connection.prepareStatement(CREATE_SPECIFICATION,
-					PreparedStatement.RETURN_GENERATED_KEYS);
+		try (Connection connection = dataSource.getConnection();
+				PreparedStatement statement = connection.prepareStatement(CREATE_SPECIFICATION,
+						PreparedStatement.RETURN_GENERATED_KEYS);) {
 			statement.setInt(1, specification.getAgreementId());
 			statement.setInt(2, specification.getAgreementTarifId());
 			statement.setInt(3, specification.getSpecificationNumber());
@@ -62,26 +61,16 @@ public class SpecificationDAOImpl implements SpecificationDAO {
 			statement.setInt(9, specification.getArchitectingHours());
 			statement.setInt(10, specification.getCompanyId());
 			statement.executeUpdate();
-			try {
-				ResultSet generatedKeys = statement.getGeneratedKeys();
-				try {
-					if (generatedKeys.next())
-						specification.setId(generatedKeys.getInt(1));
-				} finally {
-					generatedKeys.close();
-				}
-			} finally {
-				statement.close();
+			try (ResultSet generatedKeys = statement.getGeneratedKeys();) {
+				if (generatedKeys.next())
+					specification.setId(generatedKeys.getInt(1));
 			}
-		} finally {
-			connection.close();
 		}
 	}
 
 	public void update(Specification specification) throws SQLException {
-		Connection connection = dataSource.getConnection();
-		try {
-			PreparedStatement statement = connection.prepareStatement(UPDATE_SPECIFICATION);
+		try (Connection connection = dataSource.getConnection();
+				PreparedStatement statement = connection.prepareStatement(UPDATE_SPECIFICATION);) {
 			statement.setInt(1, specification.getAgreementId());
 			statement.setInt(2, specification.getAgreementTarifId());
 			statement.setInt(3, specification.getSpecificationNumber());
@@ -93,107 +82,62 @@ public class SpecificationDAOImpl implements SpecificationDAO {
 			statement.setInt(9, specification.getArchitectingHours());
 			statement.setInt(10, specification.getCompanyId());
 			statement.setInt(11, specification.getId());
-			try {
-				statement.executeUpdate();
-			} finally {
-				statement.close();
-			}
-		} finally {
-			connection.close();
+			statement.executeUpdate();
 		}
 	}
 
 	public void delete(Specification specification) throws SQLException {
-		Connection connection = dataSource.getConnection();
-		try {
-			PreparedStatement statement = connection.prepareStatement(DELETE_SPECIFICATION);
+		try (Connection connection = dataSource.getConnection();
+				PreparedStatement statement = connection.prepareStatement(DELETE_SPECIFICATION);) {
 			statement.setInt(1, specification.getId());
-			try {
-				statement.executeUpdate();
-			} finally {
-				statement.close();
-			}
-		} finally {
-			connection.close();
+			statement.executeUpdate();
 		}
 	}
 
 	public List<Specification> selectAllByAgreementId(int agreementId) throws SQLException {
 		List<Specification> specifications = new ArrayList<Specification>();
-		Connection connection = dataSource.getConnection();
-		try {
-			PreparedStatement statement = connection.prepareStatement(SELECT_ALL_SPECIFICATIONS_BY_AGREEMENT_ID);
+		try (Connection connection = dataSource.getConnection();
+				PreparedStatement statement = connection.prepareStatement(SELECT_ALL_SPECIFICATIONS_BY_AGREEMENT_ID);) {
 			statement.setInt(1, agreementId);
-			try {
-				ResultSet results = statement.executeQuery();
-				try {
-					while (results.next()) {
-						Specification specification = unmarshal(results);
-						specifications.add(specification);
-					}
-				} finally {
-					results.close();
+			try (ResultSet results = statement.executeQuery();) {
+				while (results.next()) {
+					Specification specification = unmarshal(results);
+					specifications.add(specification);
 				}
-			} finally {
-				statement.close();
 			}
-		} finally {
-			connection.close();
 		}
 		return specifications;
 	}
-	
+
 	public int getLastSpecificationNumberByAgreementId(int agreementId) throws SQLException {
 		int specificationNumber = 0;
-		Connection connection = dataSource.getConnection();
-		try {
-			PreparedStatement statement = connection.prepareStatement(SELECT_MAX_SPECIFICATION_NUMBER_BY_AGREEMENT_ID);
+		try (Connection connection = dataSource.getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement(SELECT_MAX_SPECIFICATION_NUMBER_BY_AGREEMENT_ID);) {
 			statement.setInt(1, agreementId);
-			try {
-				ResultSet results = statement.executeQuery();
-				try {
-					while (results.next()) {
-						specificationNumber = results.getInt(1);
-					}
-					if (specificationNumber == 0) {
-						return 0;
-					}
-				} finally {
-					results.close();
+			try (ResultSet results = statement.executeQuery();) {
+				while (results.next()) {
+					specificationNumber = results.getInt(1);
 				}
-			} finally {
-				statement.close();
+				if (specificationNumber == 0) {
+					return 0;
+				}
 			}
-		} finally {
-			connection.close();
 		}
 		return specificationNumber;
 	}
-		
-
 
 	public Specification selectById(int specificationId) throws SQLException {
-		Connection connection = dataSource.getConnection();
-		try {
-			PreparedStatement statement = connection.prepareStatement(SELECT_SPECIFICATION_BY_ID);
+		try (Connection connection = dataSource.getConnection();
+				PreparedStatement statement = connection.prepareStatement(SELECT_SPECIFICATION_BY_ID);) {
 			statement.setInt(1, specificationId);
-			try {
-				ResultSet results = statement.executeQuery();
-				try {
-					if (results.next()) {
-						return unmarshal(results);
-					} else {
-						return null;
-					}
-				} finally {
-					results.close();
-				}
-			} finally {
-				statement.close();
+			try (ResultSet results = statement.executeQuery();) {
+				if (results.next()) {
+					return unmarshal(results);
+				}		
 			}
-		} finally {
-			connection.close();
 		}
+		return null;
 	}
 
 	private static Specification unmarshal(ResultSet results) throws SQLException {
