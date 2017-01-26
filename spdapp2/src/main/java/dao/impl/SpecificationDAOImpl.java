@@ -13,10 +13,10 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import dao.SpecificationDAO;
 import entity.Specification;
+import utils.JdbcManager;
 
 public class SpecificationDAOImpl implements SpecificationDAO {
 
-	private static final String CONTEXT_LOOKUP = "java:/comp/env/jdbc/spd";
 	private static final String SELECT_SPECIFICATION_BY_ID = "select * from specification where id = ?";
 	private static final String SELECT_MAX_SPECIFICATION_NUMBER_BY_AGREEMENT_ID = "select max(specification_number) FROM specification "
 			+ "where agreement_id = ?";
@@ -30,36 +30,17 @@ public class SpecificationDAOImpl implements SpecificationDAO {
 			+ "specification_sum=?, configuring_hours=?, programming_hours=?, architecting_hours=?, company_id=? "
 			+ "where id=?";
 	private static final String DELETE_SPECIFICATION = "delete from specification where id=?";
-
-	private final DataSource dataSource;
-
-	public SpecificationDAOImpl() {
-		try {
-			Context context = new InitialContext();
-			try {
-				dataSource = (DataSource) context.lookup(CONTEXT_LOOKUP);
-			} finally {
-				context.close();
-			}
-		} catch (NamingException e) {
-			throw new RuntimeException(e);
-		}
-	}
+	private final JdbcManager jdbcManager = new JdbcManager();
 
 	public void create(Specification specification) throws SQLException {
-		try (Connection connection = dataSource.getConnection();
+		try (Connection connection = jdbcManager.getConnection();
 				PreparedStatement statement = connection.prepareStatement(CREATE_SPECIFICATION,
 						PreparedStatement.RETURN_GENERATED_KEYS);) {
-			statement.setInt(1, specification.getAgreementId());
-			statement.setInt(2, specification.getAgreementTarifId());
-			statement.setInt(3, specification.getSpecificationNumber());
-			statement.setDate(4, specification.getDateStart());
-			statement.setDate(5, specification.getDateFinish());
-			statement.setDouble(6, specification.getSpecificationSum());
-			statement.setInt(7, specification.getConfiguringHours());
-			statement.setInt(8, specification.getProgrammingHours());
-			statement.setInt(9, specification.getArchitectingHours());
-			statement.setInt(10, specification.getCompanyId());
+			jdbcManager.setParameters(statement, specification.getAgreementId(), specification.getAgreementTarifId(),
+					specification.getSpecificationNumber(), specification.getDateStart(), specification.getDateFinish(),
+					specification.getSpecificationSum(), specification.getConfiguringHours(),
+					specification.getProgrammingHours(), specification.getArchitectingHours(),
+					specification.getCompanyId());
 			statement.executeUpdate();
 			try (ResultSet generatedKeys = statement.getGeneratedKeys();) {
 				if (generatedKeys.next())
@@ -69,36 +50,30 @@ public class SpecificationDAOImpl implements SpecificationDAO {
 	}
 
 	public void update(Specification specification) throws SQLException {
-		try (Connection connection = dataSource.getConnection();
+		try (Connection connection = jdbcManager.getConnection();
 				PreparedStatement statement = connection.prepareStatement(UPDATE_SPECIFICATION);) {
-			statement.setInt(1, specification.getAgreementId());
-			statement.setInt(2, specification.getAgreementTarifId());
-			statement.setInt(3, specification.getSpecificationNumber());
-			statement.setDate(4, specification.getDateStart());
-			statement.setDate(5, specification.getDateFinish());
-			statement.setDouble(6, specification.getSpecificationSum());
-			statement.setInt(7, specification.getConfiguringHours());
-			statement.setInt(8, specification.getProgrammingHours());
-			statement.setInt(9, specification.getArchitectingHours());
-			statement.setInt(10, specification.getCompanyId());
-			statement.setInt(11, specification.getId());
+			jdbcManager.setParameters(statement, specification.getAgreementId(), specification.getAgreementTarifId(),
+					specification.getSpecificationNumber(), specification.getDateStart(), specification.getDateFinish(),
+					specification.getSpecificationSum(), specification.getConfiguringHours(),
+					specification.getProgrammingHours(), specification.getArchitectingHours(),
+					specification.getCompanyId(), specification.getId());
 			statement.executeUpdate();
 		}
 	}
 
 	public void delete(Specification specification) throws SQLException {
-		try (Connection connection = dataSource.getConnection();
+		try (Connection connection = jdbcManager.getConnection();
 				PreparedStatement statement = connection.prepareStatement(DELETE_SPECIFICATION);) {
-			statement.setInt(1, specification.getId());
+			jdbcManager.setParameters(statement, specification.getId());
 			statement.executeUpdate();
 		}
 	}
 
 	public List<Specification> selectAllByAgreementId(int agreementId) throws SQLException {
 		List<Specification> specifications = new ArrayList<Specification>();
-		try (Connection connection = dataSource.getConnection();
+		try (Connection connection = jdbcManager.getConnection();
 				PreparedStatement statement = connection.prepareStatement(SELECT_ALL_SPECIFICATIONS_BY_AGREEMENT_ID);) {
-			statement.setInt(1, agreementId);
+			jdbcManager.setParameters(statement, agreementId);
 			try (ResultSet results = statement.executeQuery();) {
 				while (results.next()) {
 					Specification specification = unmarshal(results);
@@ -111,10 +86,10 @@ public class SpecificationDAOImpl implements SpecificationDAO {
 
 	public int getLastSpecificationNumberByAgreementId(int agreementId) throws SQLException {
 		int specificationNumber = 0;
-		try (Connection connection = dataSource.getConnection();
+		try (Connection connection = jdbcManager.getConnection();
 				PreparedStatement statement = connection
 						.prepareStatement(SELECT_MAX_SPECIFICATION_NUMBER_BY_AGREEMENT_ID);) {
-			statement.setInt(1, agreementId);
+			jdbcManager.setParameters(statement, agreementId);
 			try (ResultSet results = statement.executeQuery();) {
 				while (results.next()) {
 					specificationNumber = results.getInt(1);
@@ -128,13 +103,13 @@ public class SpecificationDAOImpl implements SpecificationDAO {
 	}
 
 	public Specification selectById(int specificationId) throws SQLException {
-		try (Connection connection = dataSource.getConnection();
+		try (Connection connection = jdbcManager.getConnection();
 				PreparedStatement statement = connection.prepareStatement(SELECT_SPECIFICATION_BY_ID);) {
-			statement.setInt(1, specificationId);
+			jdbcManager.setParameters(statement, specificationId);
 			try (ResultSet results = statement.executeQuery();) {
 				if (results.next()) {
 					return unmarshal(results);
-				}		
+				}
 			}
 		}
 		return null;
