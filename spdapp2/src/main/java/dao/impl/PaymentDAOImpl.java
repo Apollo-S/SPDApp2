@@ -1,6 +1,9 @@
 package dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +17,12 @@ import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
-
 import dao.PaymentDAO;
 import entity.Payment;
+import utils.JdbcManager;
 
-public class PaymentDAOImpl implements PaymentDAO {
+public class PaymentDAOImpl extends JdbcManager implements PaymentDAO {
 
 	private static final String CONTEXT_LOOKUP = "java:/comp/env/jdbc/spd";
 	private static final String SELECT_PAYMENT_BY_ID = "select * from payment where id = ?";
@@ -30,8 +32,8 @@ public class PaymentDAOImpl implements PaymentDAO {
 	private static final String UPDATE_PAYMENT = "update payment set "
 			+ "spd_id=?, payment_type_id=?, value=?, date_start=?, date_finish=? where id=?";
 	private static final String DELETE_PAYMENT = "delete from payment where id=?";
-	private static final List<Payment> EMPTY_LIST = new ArrayList<Payment>();
 	private final DataSource dataSource;
+	private JdbcManager jdbcManager = new JdbcManager();
 	private QueryRunner dbAccess = new QueryRunner();
 
 	public PaymentDAOImpl() {
@@ -47,19 +49,20 @@ public class PaymentDAOImpl implements PaymentDAO {
 		}
 	}
 
-	@Override
-	public int create(Payment payment) throws SQLException {
-		Connection connection = dataSource.getConnection();
-		try {
-			int id = dbAccess.insert(connection, CREATE_PAYMENT, new ScalarHandler<Integer>(), payment.getSpdId(),
-					payment.getPaymentTypeId(), payment.getValue(), payment.getDateStart(), payment.getDateFinal());
-			return id;
+	public void create(Payment payment) throws SQLException {
+		try (Connection connection = dataSource.getConnection();
+				PreparedStatement statement = connection.prepareStatement(CREATE_PAYMENT,
+						PreparedStatement.RETURN_GENERATED_KEYS);) {
+			jdbcManager.setParameters(statement, payment.getSpdId(), payment.getPaymentTypeId(), payment.getValue(),
+					payment.getDateStart(), payment.getDateFinish());
+			statement.executeUpdate();
+			try (ResultSet generatedKeys = statement.getGeneratedKeys();) {
+				if (generatedKeys.next())
+					payment.setId(generatedKeys.getInt(1));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			DbUtils.close(connection);
 		}
-		return -1;
 	}
 
 	@Override
@@ -81,7 +84,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 		Connection connection = dataSource.getConnection();
 		try {
 			dbAccess.update(connection, UPDATE_PAYMENT, payment.getSpdId(), payment.getPaymentTypeId(),
-					payment.getValue(), payment.getDateStart(), payment.getDateFinal(), payment.getId());
+					payment.getValue(), payment.getDateStart(), payment.getDateFinish(), payment.getId());
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -108,16 +111,30 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 	@Override
 	public List<Payment> selectAllBySPDId(int spdId) throws SQLException {
-		Connection connection = dataSource.getConnection();
-		try {
-			return dbAccess.query(connection, SELECT_ALL_PAYMENTS_BY_SPD_ID, 
-					new BeanListHandler<Payment>(Payment.class), Integer.valueOf(spdId));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DbUtils.close(connection);
+		List<Payment> payments = new ArrayList<Payment>();
+		try (Connection connection = dataSource.getConnection();
+				PreparedStatement statement = connection.prepareStatement(SELECT_ALL_PAYMENTS_BY_SPD_ID);) {
+			statement.setInt(1, spdId);
+			try (ResultSet results = statement.executeQuery();) {
+				while (results.next()) {
+					Payment payment = unmarshal(results);
+					payments.add(payment);
+				}
+			}
 		}
-		return EMPTY_LIST;
+		return payments;
+	}
+
+	private static Payment unmarshal(ResultSet results) throws SQLException {
+		Payment payment = new Payment();
+		payment.setId(results.getObject("id", Integer.class));
+		payment.setSpdId(results.getObject("spd_id", Integer.class));
+		payment.setPaymentTypeId(results.getObject("payment_type_id", Integer.class));
+		payment.setValue(results.getObject("value", Double.class));
+		payment.setDateStart(results.getObject("date_start", Date.class));
+		payment.setDateFinish(results.getObject("date_finish", Date.class));
+
+		return payment;
 	}
 
 }
