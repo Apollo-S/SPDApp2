@@ -78,7 +78,7 @@ public class SPDServlet extends HttpServlet {
 				Address address = new Address(request.getParameter("country"), request.getParameter("region"),
 						request.getParameter("city"), request.getParameter("street"), request.getParameter("building"),
 						request.getParameter("flat"), request.getParameter("zip"));
-				addressDao.create(address);
+				addressDao.save(address);
 				String dated = request.getParameter("dated");
 				RegistrationInfo regInfo = new RegistrationInfo(request.getParameter("description"), 
 						Date.valueOf(dated));
@@ -86,7 +86,7 @@ public class SPDServlet extends HttpServlet {
 				SPD spd = new SPD(request.getParameter("surname"), request.getParameter("firstname"),
 						request.getParameter("lastname"), request.getParameter("alias"), request.getParameter("inn"),
 						request.getParameter("passport"), address.getId(), regInfo.getId());
-				spdDao.create(spd);
+				spdDao.save(spd);
 				response.sendRedirect("spd?id=" + spd.getId());
 			} else if (request.getParameter("edit") != null) {
 				int id = Integer.parseInt(request.getParameter("id"));
@@ -111,9 +111,9 @@ public class SPDServlet extends HttpServlet {
 				spd.setPassport(request.getParameter("passport"));
 				spd.setAddressId(address.getId());
 				spd.setRegistrationInfoId(regInfo.getId());
-				addressDao.update(address);
+				addressDao.save(address);
 				regInfoDao.update(regInfo);
-				spdDao.update(spd);
+				spdDao.save(spd);
 				response.sendRedirect("spd?id=" + spd.getId());
 			} else if (request.getParameter("delete") != null) { // post delete row
 				int spdId = Integer.parseInt(request.getParameter("id"));

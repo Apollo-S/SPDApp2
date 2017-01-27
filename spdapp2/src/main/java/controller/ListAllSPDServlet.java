@@ -19,13 +19,9 @@ public class ListAllSPDServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try {
 			request.setAttribute("spdList", spdDao.selectAll());
 			RequestDispatcher view = request.getRequestDispatcher("jsp/listAllSPD.jsp");
 			view.forward(request, response);
-		} catch (SQLException e) {
-			throw new ServletException(e);
-		}
 	}
 
 }
