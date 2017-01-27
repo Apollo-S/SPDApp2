@@ -1,5 +1,7 @@
 package dao.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
@@ -18,6 +20,10 @@ public class Repository<E> {
 		return manager.find(entityClass, id);
 	}
 
+	public List<E> selectAll() {
+		return manager.createQuery("from " + entityClass.getSimpleName(), entityClass).getResultList();
+	}
+	
 	public void save(E entity) {
 		manager.merge(entity);
 	}
