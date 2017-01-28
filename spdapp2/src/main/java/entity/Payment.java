@@ -3,14 +3,34 @@ package entity;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Payment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private int id;
-	private int spdId;
-	private int paymentTypeId;
-	private double value;
+
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
+	private Integer id;
+
+	@Column(name = "spd_id")
+	private Integer spdId;
+
+	@Column(name = "payment_type_id")
+	private Integer paymentTypeId;
+
+	@Column(name = "value")
+	private Double value;
+
+	@Column(name = "date_start")
 	private Date dateStart;
+
+	@Column(name = "date_finish")
 	private Date dateFinish;
 
 	public Payment() {
@@ -70,10 +90,6 @@ public class Payment implements Serializable {
 
 	public void setDateFinish(Date dateFinish) {
 		this.dateFinish = dateFinish;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 }

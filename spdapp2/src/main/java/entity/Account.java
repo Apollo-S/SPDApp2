@@ -2,14 +2,31 @@ package entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Account implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
 	private Integer id;
+	
+	@Column(name = "spd_id")
 	private Integer spdId;
+	
+	@Column(name = "account_number")	
 	private String accountNumber;
+	
+	@Column(name = "mfo")		
 	private String mfo;
+	
+	@Column(name = "bank_name")	
 	private String bankName;
 
 	public Account() {

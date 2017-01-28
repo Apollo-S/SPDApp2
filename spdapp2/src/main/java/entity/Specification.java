@@ -3,21 +3,49 @@ package entity;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Specification implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private int id;
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
+	private Integer id;
 
-	private int agreementId;
-	private int agreementTarifId;
-	private int specificationNumber;
+	@Column(name = "agreement_id")
+	private Integer agreementId;
+	
+	@Column(name = "agreement_tarif_id")
+	private Integer agreementTarifId;
+	
+	@Column(name = "specification_number")
+	private Integer specificationNumber;
+	
+	@Column(name = "date_start")
 	private Date dateStart;
+	
+	@Column(name = "date_finish")
 	private Date dateFinish;
-	private double specificationSum;
-	private int configuringHours;
-	private int programmingHours;
-	private int architectingHours;
-	private int companyId;
+	
+	@Column(name = "specification_sum")
+	private Double specificationSum;
+	
+	@Column(name = "configuring_hours")
+	private Integer configuringHours;
+	
+	@Column(name = "programming_hours")
+	private Integer programmingHours;
+	
+	@Column(name = "architecting_hours")
+	private Integer architectingHours;
+	
+	@Column(name = "company_id")
+	private Integer companyId;
 
 	public Specification() {
 	}
@@ -123,10 +151,6 @@ public class Specification implements Serializable {
 
 	public void setCompanyId(int companyId) {
 		this.companyId = companyId;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 	
 }

@@ -14,7 +14,8 @@ public class Address implements Serializable {
 
 	@Id
 	@GeneratedValue
-	private int id;
+	@Column(name = "id")
+	private Integer id;
 
 	@Column(name = "country")
 	private String country;
@@ -22,19 +23,19 @@ public class Address implements Serializable {
 	@Column(name = "region")
 	private String region;
 
-	@Column
+	@Column(name = "city")
 	private String city;
 
-	@Column
+	@Column(name = "street")
 	private String street;
 
-	@Column
+	@Column(name = "building")
 	private String building;
 
-	@Column
+	@Column(name = "flat")
 	private String flat;
 	
-	@Column
+	@Column(name = "zip")
 	private String zip;
 
 	public Address() {

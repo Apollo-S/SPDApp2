@@ -3,23 +3,35 @@ package entity;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class AgreementTarif implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private int id;
-	private int agreementId;
-	private double configuring;
-	private double programming;
-	private double architecting;
+
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
+	private Integer id;
+
+	@Column(name = "agreement_id")
+	private Integer agreementId;
+
+	@Column(name = "configuring")
+	private Double configuring;
+
+	@Column(name = "programming")
+	private Double programming;
+
+	@Column(name = "architecting")
+	private Double architecting;
+
+	@Column(name = "date_start")
 	private Date dateStart;
-
-	public Date getDateStart() {
-		return dateStart;
-	}
-
-	public void setDateStart(Date dateStart) {
-		this.dateStart = dateStart;
-	}
 
 	public AgreementTarif() {
 	}
@@ -74,8 +86,12 @@ public class AgreementTarif implements Serializable {
 		this.architecting = architecting;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public Date getDateStart() {
+		return dateStart;
+	}
+
+	public void setDateStart(Date dateStart) {
+		this.dateStart = dateStart;
 	}
 
 }
