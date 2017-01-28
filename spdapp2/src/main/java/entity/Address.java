@@ -2,18 +2,40 @@ package entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Address implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	int id;
-	String country;
-	String region;
-	String city;
-	String street;
-	String building;
-	String flat;
-	String zip;
+	@Id
+	@GeneratedValue
+	private int id;
+
+	@Column(name = "country")
+	private String country;
+
+	@Column(name = "region")
+	private String region;
+
+	@Column
+	private String city;
+
+	@Column
+	private String street;
+
+	@Column
+	private String building;
+
+	@Column
+	private String flat;
+	
+	@Column
+	private String zip;
 
 	public Address() {
 	}

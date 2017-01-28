@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +12,7 @@ import dao.impl.SPDDAOImpl;
 
 @WebServlet("/listAllSPD")
 public class ListAllSPDServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
 
 	private final SPDDAOImpl spdDao = new SPDDAOImpl();

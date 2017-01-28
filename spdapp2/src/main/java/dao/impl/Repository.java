@@ -7,7 +7,7 @@ import javax.persistence.Persistence;
 
 public class Repository<E> {
 	
-	private static final String REF_NAME = "spdjpa";
+	private static final String REF_NAME = "spd";
 
 	private final EntityManager manager = Persistence.createEntityManagerFactory(REF_NAME).createEntityManager();
 	private final Class<E> entityClass;
@@ -24,8 +24,11 @@ public class Repository<E> {
 		return manager.createQuery("from " + entityClass.getSimpleName(), entityClass).getResultList();
 	}
 	
-	public void save(E entity) {
-		manager.merge(entity);
+	public E save(E entity) {
+		manager.getTransaction().begin();;
+		entity = manager.merge(entity);
+		manager.getTransaction().commit();
+		return entity;
 	}
 
 	public void delete(E entity) {

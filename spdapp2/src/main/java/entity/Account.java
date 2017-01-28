@@ -6,8 +6,8 @@ public class Account implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private int id;
-	private int spdId;
+	private Integer id;
+	private Integer spdId;
 	private String accountNumber;
 	private String mfo;
 	private String bankName;

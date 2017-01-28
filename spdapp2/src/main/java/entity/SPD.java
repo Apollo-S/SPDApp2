@@ -2,19 +2,45 @@ package entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+
+@Entity
 public class SPD implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	int id;
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
+	Integer id;
+	
+	@Column(name = "surname")
 	String surname;
+	
+	@Column(name = "firstname")
 	String firstname;
+	
+	@Column(name = "lastname")
 	String lastname;
+	
+	@Column(name = "alias")
 	String alias;
+	
+	@Column(name = "inn")
 	String inn;
+	
+	@Column(name = "passport")
 	String passport;
-	int addressId;
-	int registrationInfoId;
+	
+	@Column(name = "address_id")
+	Integer addressId;
+	
+	@Column(name = "registration_info_id")
+	Integer registrationInfoId;
 
 	public SPD() {
 	}
