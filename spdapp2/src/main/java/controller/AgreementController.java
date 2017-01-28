@@ -24,7 +24,7 @@ import entity.SPD;
 import entity.Specification;
 
 @WebServlet("/agreement")
-public class AgreementServlet extends HttpServlet {
+public class AgreementController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final SPDDAOImpl spdDao = new SPDDAOImpl();
 	private final AgreementDAOImpl agreementDao = new AgreementDAOImpl();

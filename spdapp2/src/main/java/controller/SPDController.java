@@ -27,7 +27,7 @@ import entity.RegistrationInfo;
 import entity.SPD;
 
 @WebServlet("/spd")
-public class SPDServlet extends HttpServlet {
+public class SPDController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final SPDDAOImpl spdDao = new SPDDAOImpl();
 	private final AddressDAOImpl addressDao = new AddressDAOImpl();

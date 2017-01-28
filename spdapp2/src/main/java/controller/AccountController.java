@@ -13,7 +13,7 @@ import dao.impl.SPDDAOImpl;
 import entity.Account;
 
 @WebServlet("/account")
-public class AccountServlet extends HttpServlet {
+public class AccountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final SPDDAOImpl spdDao = new SPDDAOImpl();
 	private final AccountDAOImpl accountDao = new AccountDAOImpl();

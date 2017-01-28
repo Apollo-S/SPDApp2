@@ -15,7 +15,7 @@ import entity.Agreement;
 import entity.AgreementTarif;
 
 @WebServlet("/tarif")
-public class AgreementTarifServlet extends HttpServlet {
+public class AgreementTarifController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final AgreementDAOImpl agreementDao = new AgreementDAOImpl();
 	private final AgreementTarifDAOImpl tarifDao = new AgreementTarifDAOImpl();
