@@ -2,50 +2,59 @@ package entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "spd")
 public class SPD implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
-	Integer id;
-	
+	private Integer id;
+
 	@Column(name = "surname")
-	String surname;
-	
+	private String surname;
+
 	@Column(name = "firstname")
-	String firstname;
-	
+	private String firstname;
+
 	@Column(name = "lastname")
-	String lastname;
-	
+	private String lastname;
+
 	@Column(name = "alias")
-	String alias;
-	
+	private String alias;
+
 	@Column(name = "inn")
-	String inn;
-	
+	private String inn;
+
 	@Column(name = "passport")
-	String passport;
-	
-	@Column(name = "address_id")
-	Integer addressId;
-	
-	@Column(name = "registration_info_id")
-	Integer registrationInfoId;
+	private String passport;
+
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinColumn(name = "address_id")
+	private Address address;
+
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinColumn(name = "registration_info_id")
+	private RegistrationInfo registrationInfo;
 
 	public SPD() {
 	}
 
 	public SPD(String surname, String firstname, String lastname, String alias, String inn, String passport,
-			int addressId, int registrationInfoId) {
+			Address address, RegistrationInfo registrationInfo) {
 		super();
 		this.surname = surname;
 		this.firstname = firstname;
@@ -53,11 +62,11 @@ public class SPD implements Serializable {
 		this.alias = alias;
 		this.inn = inn;
 		this.passport = passport;
-		this.addressId = addressId;
-		this.registrationInfoId = registrationInfoId;
+		this.address = address;
+		this.registrationInfo = registrationInfo;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -109,28 +118,24 @@ public class SPD implements Serializable {
 		return passport;
 	}
 
-	public int getAddressId() {
-		return addressId;
-	}
-
-	public void setAddressId(int addressId) {
-		this.addressId = addressId;
-	}
-
-	public int getRegistrationInfoId() {
-		return registrationInfoId;
-	}
-
-	public void setRegistrationInfoId(int registrationInfoId) {
-		this.registrationInfoId = registrationInfoId;
-	}
-
 	public void setPassport(String passport) {
 		this.passport = passport;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public RegistrationInfo getRegistrationInfo() {
+		return registrationInfo;
+	}
+
+	public void setRegistrationInfo(RegistrationInfo registrationInfo) {
+		this.registrationInfo = registrationInfo;
 	}
 
 }

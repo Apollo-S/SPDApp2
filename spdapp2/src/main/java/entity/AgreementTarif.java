@@ -7,8 +7,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name ="agreement_tarif")
 public class AgreementTarif implements Serializable {
 
 	private static final long serialVersionUID = 1L;

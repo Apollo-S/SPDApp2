@@ -2,26 +2,26 @@ package entity;
 
 import java.io.Serializable;
 import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "registration_info")
 public class RegistrationInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue
-	@Column(name = "id")
 	private Integer id;
-	
+
 	@Column(name = "description")
 	private String description;
-	
-	@Column(name = "dated")	
+
+	@Column(name = "dated")
 	private Date dated;
 
 	public RegistrationInfo() {
@@ -54,10 +54,6 @@ public class RegistrationInfo implements Serializable {
 
 	public void setDated(Date dated) {
 		this.dated = dated;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 }
