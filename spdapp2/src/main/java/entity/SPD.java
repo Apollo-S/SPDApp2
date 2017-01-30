@@ -42,11 +42,13 @@ public class SPD implements Serializable {
 	@Column(name = "passport")
 	private String passport;
 
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+//	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToOne(orphanRemoval=true, fetch=FetchType.LAZY)
 	@JoinColumn(name = "address_id")
 	private Address address;
 
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+//	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToOne(orphanRemoval=true, fetch=FetchType.LAZY)
 	@JoinColumn(name = "registration_info_id")
 	private RegistrationInfo registrationInfo;
 

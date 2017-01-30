@@ -7,7 +7,7 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<non-jta-data-source>java:comp/env/jdbc/spd</non-jta-data-source>
         <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.hbm2ddl.auto" value="update" />
         </properties>
