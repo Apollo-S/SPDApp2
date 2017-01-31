@@ -32,7 +32,9 @@ public class Repository<E> {
 	}
 
 	public void delete(E entity) {
+		manager.getTransaction().begin();;
 		manager.remove(entity);
+		manager.getTransaction().commit();
 	}
 
 }
