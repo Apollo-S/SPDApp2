@@ -2,74 +2,67 @@ package controller;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.sql.SQLException;
-import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import dao.PaymentDAO;
-import dao.impl.AccountDAOImpl;
-
-import dao.impl.AgreementDAOImpl;
-
-import dao.impl.PaymentDAOImpl;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import dao.impl.SPDDAOImpl;
-import entity.Account;
 import entity.Address;
-import entity.Agreement;
-
-import entity.Payment;
 import entity.RegistrationInfo;
 import entity.SPD;
 
-@WebServlet("/spd")
-public class SPDController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private final SPDDAOImpl spdDao = new SPDDAOImpl();
-	
-	private final AccountDAOImpl accountDao = new AccountDAOImpl();
-	private final AgreementDAOImpl agreementDao = new AgreementDAOImpl();
-	
-	private final PaymentDAO paymentDAO = new PaymentDAOImpl();
+@Controller
+public class SPDController {
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	private static final String ATTRIBUTE_SPD_LIST = "spdList";
+	private static final String PAGE_LIST_ALL_SPD = "view/spd/listAllSPD.jsp";
+	
+	@Autowired
+	private SPDDAOImpl spdDao;
+
+	@RequestMapping(value = "/listAllSPD", method = RequestMethod.GET)
+	public void getSPDList(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setAttribute(ATTRIBUTE_SPD_LIST, spdDao.selectAll());
+		RequestDispatcher view = request.getRequestDispatcher(PAGE_LIST_ALL_SPD);
+		view.forward(request, response);
+	}
+
+	@RequestMapping(value = "/spd", method = RequestMethod.GET)
+	public void getSPD(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		try {
 			if (request.getParameter("add") != null) {
-				request.getRequestDispatcher("jsp/addSPD.jsp").forward(request, response);
+				request.getRequestDispatcher("view/spd/addSPD.jsp").forward(request, response);
 			} else {
 				int spdId = Integer.parseInt(request.getParameter("id"));
 				SPD spd = spdDao.selectById(spdId);
 				Address address = spd.getAddress();
 				RegistrationInfo regInfo = spd.getRegistrationInfo();
-				List<Account> accounts = accountDao.selectAllBySPDId(spdId);
-				List<Agreement> agreements = agreementDao.selectAllBySPDId(spdId);
-				List<Payment> payments = paymentDAO.selectAllBySPDId(spdId);
+//				List<Account> accounts = spd.getAccounts();
+//				List<Agreement> agreements = spd.getAgreements();
+//				List<Payment> payments = spd.getPayments();
 				request.setAttribute("spd", spd);
 				request.setAttribute("address", address);
 				request.setAttribute("regInfo", regInfo);
-				request.setAttribute("accounts", accounts);
-				request.setAttribute("agreements", agreements);
-				request.setAttribute("payments", payments);
+//				request.setAttribute("accounts", accounts);
+//				request.setAttribute("agreements", agreements);
+//				request.setAttribute("payments", payments);
 				if (request.getParameter("edit") != null) {
-					request.getRequestDispatcher("jsp/editSPD.jsp").forward(request, response);
+					request.getRequestDispatcher("view/spd/editSPD.jsp").forward(request, response);
 				} else {
-					request.getRequestDispatcher("jsp/viewSPD.jsp").forward(request, response);
+					request.getRequestDispatcher("view/spd/viewSPD.jsp").forward(request, response);
 				}
 			}
-		} catch (SQLException e) {
-			throw new ServletException(e);
-		}
+	
 	}
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	@RequestMapping(value = "/spd", method = RequestMethod.POST)
+	public void postSPD(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		if (request.getParameter("add") != null) {
@@ -113,8 +106,6 @@ public class SPDController extends HttpServlet {
 			SPD spd = spdDao.selectById(spdId);
 			spdDao.delete(spd);
 			response.sendRedirect("listAllSPD");
-		} else {
-			super.doPost(request, response);
 		}
 	}
 
