@@ -2,15 +2,17 @@ package controller;
 
 import java.io.IOException;
 import java.sql.Date;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import dao.impl.SPDDAOImpl;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import dao.SPDRepository;
 import entity.Address;
 import entity.RegistrationInfo;
 import entity.SPD;
@@ -18,52 +20,51 @@ import entity.SPD;
 @Controller
 public class SPDController {
 
-	private static final String ATTRIBUTE_SPD_LIST = "spdList";
-	private static final String PAGE_LIST_ALL_SPD = "view/spd/listAllSPD.jsp";
-	
 	@Autowired
-	private SPDDAOImpl spdDao;
+	private SPDRepository spdRepository;
 
-	@RequestMapping(value = "/listAllSPD", method = RequestMethod.GET)
-	public void getSPDList(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.setAttribute(ATTRIBUTE_SPD_LIST, spdDao.selectAll());
-		RequestDispatcher view = request.getRequestDispatcher(PAGE_LIST_ALL_SPD);
-		view.forward(request, response);
+	@RequestMapping(value = "/getAllSPD", method = RequestMethod.GET)
+	public String getAllSPD(Model model) {
+		model.addAttribute("spds", spdRepository.findAll());
+		return "spd/getAll";
+	}
+
+	@RequestMapping(value = "/spd", params = "add", method = RequestMethod.GET)
+	public String getAddSPD() {
+		return "spd/add";
+	}
+
+	@RequestMapping(value = "/spd", params = "edit", method = RequestMethod.GET)
+	public String getEditSPD(@RequestParam int id, Model model) {
+		model.addAttribute("spd", spdRepository.findOne(id));
+		return "spd/edit";
 	}
 
 	@RequestMapping(value = "/spd", method = RequestMethod.GET)
-	public void getSPD(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-			if (request.getParameter("add") != null) {
-				request.getRequestDispatcher("view/spd/addSPD.jsp").forward(request, response);
-			} else {
-				int spdId = Integer.parseInt(request.getParameter("id"));
-				SPD spd = spdDao.selectById(spdId);
-				Address address = spd.getAddress();
-				RegistrationInfo regInfo = spd.getRegistrationInfo();
-//				List<Account> accounts = spd.getAccounts();
-//				List<Agreement> agreements = spd.getAgreements();
-//				List<Payment> payments = spd.getPayments();
-				request.setAttribute("spd", spd);
-				request.setAttribute("address", address);
-				request.setAttribute("regInfo", regInfo);
-//				request.setAttribute("accounts", accounts);
-//				request.setAttribute("agreements", agreements);
-//				request.setAttribute("payments", payments);
-				if (request.getParameter("edit") != null) {
-					request.getRequestDispatcher("view/spd/editSPD.jsp").forward(request, response);
-				} else {
-					request.getRequestDispatcher("view/spd/viewSPD.jsp").forward(request, response);
-				}
-			}
-	
+	public String getViewSPD(@RequestParam int id, Model model) {
+		model.addAttribute("spd", spdRepository.findOne(id));
+		return "spd/edit";
 	}
 
+	@RequestMapping(value = "/spd", params = "add", method = RequestMethod.POST)
+	public String postAddSPD(@RequestParam String surname, @RequestParam String firstname,
+			@RequestParam String lastname, @RequestParam String alias, @RequestParam String inn,
+			@RequestParam String passport, @RequestParam String description, @RequestParam Date dated,
+			@RequestParam String country, @RequestParam String region, @RequestParam String city,
+			@RequestParam String street, @RequestParam String building, @RequestParam String flat,
+			@RequestParam String zip) {
+		Address address = new Address(country, region, city, street, building, flat, zip);
+		RegistrationInfo regInfo = new RegistrationInfo(description, dated);
+		SPD spd = new SPD(surname, firstname, lastname, alias, inn, passport, address, regInfo);
+		spd = spdRepository.save(spd);
+		return "redirect:spd?id=" + spd.getId();
+	}
+	
+	@RequestMapping(value = "/spd", params = "edit", method = RequestMethod.POST)
+	public String postAddSPD(
+
 	@RequestMapping(value = "/spd", method = RequestMethod.POST)
-	public void postSPD(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void postSPD(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		if (request.getParameter("add") != null) {
 			Address address = new Address(request.getParameter("country"), request.getParameter("region"),
@@ -74,11 +75,11 @@ public class SPDController {
 			SPD spd = new SPD(request.getParameter("surname"), request.getParameter("firstname"),
 					request.getParameter("lastname"), request.getParameter("alias"), request.getParameter("inn"),
 					request.getParameter("passport"), address, regInfo);
-			spd = spdDao.save(spd);
+			spd = spdRepository.save(spd);
 			response.sendRedirect("spd?id=" + spd.getId());
 		} else if (request.getParameter("edit") != null) {
-			int id = Integer.parseInt(request.getParameter("id"));
-			SPD spd = spdDao.selectById(id);
+			int spdId = Integer.parseInt(request.getParameter("id"));
+			SPD spd = spdRepository.findOne(spdId);
 			Address address = spd.getAddress();
 			address.setCountry(request.getParameter("country"));
 			address.setRegion(request.getParameter("region"));
@@ -99,12 +100,12 @@ public class SPDController {
 			spd.setPassport(request.getParameter("passport"));
 			spd.setAddress(address);
 			spd.setRegistrationInfo(regInfo);
-			spdDao.save(spd);
+			spdRepository.save(spd);
 			response.sendRedirect("spd?id=" + spd.getId());
 		} else if (request.getParameter("delete") != null) {
 			int spdId = Integer.parseInt(request.getParameter("id"));
-			SPD spd = spdDao.selectById(spdId);
-			spdDao.delete(spd);
+			SPD spd = spdRepository.findOne(spdId);
+			spdRepository.delete(spd);
 			response.sendRedirect("listAllSPD");
 		}
 	}

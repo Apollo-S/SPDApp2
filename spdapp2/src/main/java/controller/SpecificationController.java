@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.SPDDAO;
+import dao.SPDRepository;
 import dao.impl.AgreementDAOImpl;
 import dao.impl.SPDDAOImpl;
 import dao.impl.SpecificationDAOImpl;
