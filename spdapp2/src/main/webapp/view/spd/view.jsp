@@ -10,13 +10,11 @@
 <title>${spd.alias}</title>
 </head>
 
-<link href="css/bootstrap.min.css" rel="stylesheet">
-
 <body>
 
 	<p>
 	<p>
-	<a class="btn btn-primary" href="listAllSPD" role="button">Вернуться к списку СПД</a>
+	<a class="btn btn-primary" href="getAllSPD" role="button">Вернуться к списку СПД</a>
 	<p>
 	<h1>
 		СПД
@@ -50,6 +48,8 @@
 			
 			<p>
 			<ul>
+				<c:set var="address" value="${spd.address}" />
+				<c:set var="registrationInfo" value="${spd.registrationInfo}" />
 				<li><b>Полное ФИО: </b> <c:out
 						value="${spd.surname} ${spd.firstname} ${spd.lastname}" /></li>
 				<li><b>ИНН: </b> <c:out value="${spd.inn}" /></li>
@@ -57,8 +57,8 @@
 						value="${empty spd.passport ? '-' : spd.passport}" /></li>
 				<li><b>Адрес: </b> <c:if test="${not empty address.zip}">${address.zip}, </c:if><c:if test="${not empty address.country}">${address.country}</c:if><c:if test="${not empty address.region}">, ${address.region}</c:if><c:if test="${not empty address.city}">, ${address.city}</c:if><c:if test="${not empty address.street}">, ${address.street}</c:if><c:if test="${not empty address.building}">, буд. ${address.building}</c:if><c:if test="${not empty address.flat}">, кв. ${address.flat}</c:if></li>
 				<li><b>Данные о регистрации: </b> <c:out
-						value="${regInfo.description} від " /> <fmt:formatDate
-						value="${regInfo.dated}" pattern="dd.MM.yyyy" />р.</li>
+						value="${registrationInfo.description} від " /> <fmt:formatDate
+						value="${registrationInfo.dated}" pattern="dd.MM.yyyy" />р.</li>
 			</ul>
 			<p>
 			<table>
@@ -269,10 +269,10 @@
 	</div>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
+	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
 </body>
 </html>

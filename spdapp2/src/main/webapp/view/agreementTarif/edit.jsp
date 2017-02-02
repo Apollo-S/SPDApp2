@@ -9,8 +9,6 @@
 <title>Edit agreement tarif</title>
 </head>
 
-<!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
-
 <body>
 	<h1 align="center">Изменение тарифа к договору № <c:out value="${agreement.number}"/> </h1>
 	<p>
@@ -61,18 +59,17 @@
 			<label for="button" class="col-sm-10 control-label"></label>
 			<div class="col-sm-offset-10 col-sm-10">
 				<input type="submit" class="btn btn-success" id="button"
-					value="Сохранить"> <br> <a href="listAllSPD">Вернуться
+					value="Сохранить"> <br> <a href="getAllSPD">Вернуться
 					к списку СПД</a>
 			</div>
 		</div>
 	</form>
 
-
-
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
 </body>
 </html>

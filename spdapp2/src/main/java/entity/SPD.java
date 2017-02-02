@@ -30,7 +30,7 @@ public class SPD implements Serializable {
 	@Column(name = "firstname")
 	private String firstname;
 
-	@Column(name = "lastname")
+	@Column(name = "lastname", length = 30)
 	private String lastname;
 
 	@Column(name = "alias")
@@ -42,13 +42,11 @@ public class SPD implements Serializable {
 	@Column(name = "passport")
 	private String passport;
 
-//	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@OneToOne(orphanRemoval=true, fetch=FetchType.LAZY)
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name = "address_id")
 	private Address address;
 
-//	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@OneToOne(orphanRemoval=true, fetch=FetchType.LAZY)
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name = "registration_info_id")
 	private RegistrationInfo registrationInfo;
 

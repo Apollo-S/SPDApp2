@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import dao.SPDRepository;
 import entity.Address;
 import entity.RegistrationInfo;
@@ -15,12 +16,12 @@ import entity.SPD;
 @Controller
 public class SPDController {
 
-	@Autowired
+	@Autowired(required = true)
 	private SPDRepository spdRepository;
 
 	@RequestMapping(value = "/getAllSPD", method = RequestMethod.GET)
 	public String getAllSPD(Model model) {
-		model.addAttribute("spds", spdRepository.findAll());
+		model.addAttribute("spdList", spdRepository.findAll());
 		return "spd/getAll";
 	}
 
@@ -38,7 +39,7 @@ public class SPDController {
 	@RequestMapping(value = "/spd", method = RequestMethod.GET)
 	public String getViewSPD(@RequestParam int id, Model model) {
 		model.addAttribute("spd", spdRepository.findOne(id));
-		return "spd/edit";
+		return "spd/view";
 	}
 
 	@RequestMapping(value = "/spd", params = "add", method = RequestMethod.POST)
@@ -85,7 +86,7 @@ public class SPDController {
 		spdRepository.save(spd);
 		return "redirect:spd?id=" + spd.getId();
 	}
-	
+
 	@RequestMapping(value = "/spd", params = "delete", method = RequestMethod.POST)
 	public String postDeleteSPD(@RequestParam int id) {
 		spdRepository.delete(id);
