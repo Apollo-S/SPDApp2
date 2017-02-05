@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,8 +22,9 @@ public class AgreementTarif implements Serializable {
 	@Column(name = "id")
 	private Integer id;
 
-	@Column(name = "agreement_id")
-	private Integer agreementId;
+	@ManyToOne()
+	@JoinColumn(name = "agreement_id")
+	private Agreement agreement;
 
 	@Column(name = "configuring")
 	private Double configuring;
@@ -38,10 +41,10 @@ public class AgreementTarif implements Serializable {
 	public AgreementTarif() {
 	}
 
-	public AgreementTarif(int agreementId, double configuring, double programming, double architecting,
+	public AgreementTarif(Agreement agreement, double configuring, double programming, double architecting,
 			Date datestart) {
 		super();
-		this.agreementId = agreementId;
+		this.agreement = agreement;
 		this.configuring = configuring;
 		this.programming = programming;
 		this.architecting = architecting;
@@ -56,12 +59,12 @@ public class AgreementTarif implements Serializable {
 		this.id = id;
 	}
 
-	public int getAgreementId() {
-		return agreementId;
+	public Agreement getAgreement() {
+		return agreement;
 	}
 
-	public void setAgreementId(int agreementId) {
-		this.agreementId = agreementId;
+	public void setAgreement(Agreement agreement) {
+		this.agreement = agreement;
 	}
 
 	public double getConfiguring() {

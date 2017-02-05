@@ -1,77 +1,65 @@
 package controller;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import dao.impl.AccountDAOImpl;
-import dao.impl.SPDDAOImpl;
 import entity.Account;
+import entity.SPD;
+import repository.AccountRepository;
+import repository.SPDRepository;
 
-@WebServlet("/account")
-public class AccountController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private final SPDDAOImpl spdDao = new SPDDAOImpl();
-	private final AccountDAOImpl accountDao = new AccountDAOImpl();
+@Controller
+public class AccountController {
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		try { // get add row
-			if (request.getParameter("add") != null) {
-				int spdId = Integer.parseInt(request.getParameter("spdId"));
-				request.setAttribute("spd", spdDao.selectById(spdId));
-				request.getRequestDispatcher("jsp/addAccount.jsp").forward(request, response);
-			} else if (request.getParameter("edit") != null) { // get edit row
-				int id = Integer.parseInt(request.getParameter("id"));
-				request.setAttribute("account", accountDao.selectById(id));
-				request.getRequestDispatcher("jsp/editAccount.jsp").forward(request, response);
-			} else {
-				super.doGet(request, response);
-			}
-		} catch (Exception e) {
-			throw new ServletException(e);
-		}
+	@Autowired(required = true)
+	private AccountRepository accountRepository;
+//	@Autowired(required = true)
+	private SPDRepository spdRepository;
+
+	@RequestMapping(value = "/account", params = "add", method = RequestMethod.GET)
+	public String getAddAccount(@RequestParam int spdId, Model model) {
+		model.addAttribute("spd", spdRepository.findOne(spdId));
+		return "account/add";
 	}
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		try { // post add row
-			if (request.getParameter("add") != null) {
-				int spdId = Integer.parseInt(request.getParameter("spdId"));
-				Account account = new Account(spdId, request.getParameter("accountNumber"), request.getParameter("mfo"),
-						request.getParameter("bankName"));
-				accountDao.create(account);
-				response.sendRedirect("spd?id=" + spdId);
-			} else if (request.getParameter("edit") != null) { // post edit row
-				int spdId = Integer.parseInt(request.getParameter("spdId"));
-				int id = Integer.parseInt(request.getParameter("id"));
-				Account account = accountDao.selectById(id);
-				account.setSpdId(spdId);
-				account.setAccountNumber(request.getParameter("accountNumber"));
-				account.setMfo(request.getParameter("mfo"));
-				account.setBankName(request.getParameter("bankName"));
-				accountDao.update(account);
-				response.sendRedirect("spd?id=" + spdId);
-			} else if (request.getParameter("delete") != null) { // post delete row									
-				int id = Integer.parseInt(request.getParameter("id"));
-				Account account = accountDao.selectById(id);
-				int spdId = account.getSpdId();
-				accountDao.delete(account);
-				response.sendRedirect("spd?id=" + spdId);
-			} else {
-				super.doPost(request, response);
-			}
-		} catch (SQLException e) {
-			throw new ServletException(e);
-		}
+	@RequestMapping(value = "/account", params = "edit", method = RequestMethod.GET)
+	public String getEditAccount(@RequestParam int id, Model model) {
+		model.addAttribute("account", accountRepository.findOne(id));
+		return "account/edit";
+	}
+
+	@RequestMapping(value = "/account", params = "add", method = RequestMethod.POST)
+	public String postAddAccount(@RequestParam int spdId, @RequestParam String accountNumber, @RequestParam String mfo,
+			@RequestParam String bankName) {
+		SPD spd = spdRepository.findOne(spdId);
+		Account account = new Account(spd, accountNumber, mfo, bankName);
+		accountRepository.save(account);
+		return "redirect:spd?id=" + spdId;
+	}
+
+	@RequestMapping(value = "/account", params = "edit", method = RequestMethod.POST)
+	public String postEditAccount(@RequestParam int id, @RequestParam int spdId, @RequestParam String accountNumber,
+			@RequestParam String mfo, @RequestParam String bankName) {
+		Account account = accountRepository.findOne(id);
+		SPD spd = spdRepository.findOne(spdId);
+		account.setSpd(spd);
+		account.setAccountNumber(accountNumber);
+		account.setMfo(mfo);
+		account.setBankName(bankName);
+		accountRepository.save(account);
+		return "redirect:spd?id=" + account.getSpd().getId();
+	}
+
+	@RequestMapping(value = "/account", params = "delete", method = RequestMethod.POST)
+	public String postDeleteAccount(@RequestParam int id) {
+		Account account = accountRepository.findOne(id);
+		int spdId = account.getSpd().getId();
+		accountRepository.delete(account);
+		return "redirect:spd?id=" + spdId;
 	}
 
 }

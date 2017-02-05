@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,8 +11,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import entity.Address;
+import entity.RegistrationInfo;
 
 @Entity
 @Table(name = "spd")
@@ -30,7 +34,7 @@ public class SPD implements Serializable {
 	@Column(name = "firstname")
 	private String firstname;
 
-	@Column(name = "lastname", length = 30)
+	@Column(name = "lastname")
 	private String lastname;
 
 	@Column(name = "alias")
@@ -42,13 +46,39 @@ public class SPD implements Serializable {
 	@Column(name = "passport")
 	private String passport;
 
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "address_id")
 	private Address address;
 
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "registration_info_id")
 	private RegistrationInfo registrationInfo;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "spd")
+	private List<Account> accounts;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "spd")
+	private List<Agreement> agreements;
+
+	public List<Agreement> getAgreements() {
+		return agreements;
+	}
+
+	public void setAgreements(List<Agreement> agreements) {
+		this.agreements = agreements;
+	}
+
+	public List<Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public SPD() {
 	}

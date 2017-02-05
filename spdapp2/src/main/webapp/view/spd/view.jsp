@@ -148,7 +148,7 @@
 						<th></th>
 					</tr>
 				</thead>
-				<c:forEach items="${accounts}" var="account">
+				<c:forEach items="${spd.accounts}" var="account">
 					<tr>
 						<td valign="middle">${account.accountNumber}</td>
 						<td valign="middle">${account.mfo}</td>

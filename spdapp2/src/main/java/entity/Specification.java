@@ -5,10 +5,15 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "specification")
 public class Specification implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -17,11 +22,9 @@ public class Specification implements Serializable {
 	@Column(name = "id")
 	private Integer id;
 
-	@Column(name = "agreement_id")
-	private Integer agreementId;
-	
-	@Column(name = "agreement_tarif_id")
-	private Integer agreementTarifId;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "agreement_id")
+	private Agreement agreement;
 	
 	@Column(name = "specification_number")
 	private Integer specificationNumber;
@@ -50,11 +53,10 @@ public class Specification implements Serializable {
 	public Specification() {
 	}
 
-	public Specification(int agreementId, int agreementTarifId, int specificationNumber, Date dateStart,
+	public Specification(Agreement agreement, int specificationNumber, Date dateStart,
 			Date dateFinish, double specificationSum, int configuringHours, int programmingHours, int architectingHours,
 			int companyId) {
-		this.agreementId = agreementId;
-		this.agreementTarifId = agreementTarifId;
+		this.agreement = agreement;
 		this.specificationNumber = specificationNumber;
 		this.dateStart = dateStart;
 		this.dateFinish = dateFinish;
@@ -73,20 +75,12 @@ public class Specification implements Serializable {
 		this.id = id;
 	}
 
-	public int getAgreementId() {
-		return agreementId;
+	public Agreement getAgreement() {
+		return agreement;
 	}
 
-	public void setAgreementId(int agreementId) {
-		this.agreementId = agreementId;
-	}
-
-	public int getAgreementTarifId() {
-		return agreementTarifId;
-	}
-
-	public void setAgreementTarifId(int agreementTarifId) {
-		this.agreementTarifId = agreementTarifId;
+	public void setAgreement(Agreement agreement) {
+		this.agreement = agreement;
 	}
 
 	public int getSpecificationNumber() {

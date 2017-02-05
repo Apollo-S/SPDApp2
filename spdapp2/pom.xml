@@ -83,7 +83,7 @@
 		<dependency>
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-entitymanager</artifactId>
-		    <version>4.1.7.Final</version>
+		    <version>4.2.20.Final</version>
 		    <scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -97,17 +97,25 @@
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-webmvc</artifactId>
-		    <version>3.1.1.RELEASE</version>
+		    <version>4.2.4.RELEASE</version>
 		    <scope>compile</scope>
 		</dependency>
 		<dependency>
 		    <groupId>org.springframework.data</groupId>
 		    <artifactId>spring-data-jpa</artifactId>
-		    <version>1.2.0.RELEASE</version>
+		    <version>1.3.0.RELEASE</version>
 		    <scope>compile</scope>
 		</dependency>
+		
 			
 	</dependencies>
+	<exclusions>
+	    <exclusion>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-asm</artifactId>
+	    </exclusion>
+	</exclusions> 
+	
 
 	<build>
 		<finalName>spdapp2</finalName>

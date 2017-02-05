@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import dao.SPDRepository;
 import entity.Address;
 import entity.RegistrationInfo;
 import entity.SPD;
+import repository.SPDRepository;
 
 @Controller
 public class SPDController {

@@ -4,10 +4,15 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "account")
 public class Account implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -17,8 +22,9 @@ public class Account implements Serializable {
 	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name = "spd_id")
-	private Integer spdId;
+	@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="spd_id")
+	private SPD spd;
 	
 	@Column(name = "account_number")	
 	private String accountNumber;
@@ -32,8 +38,8 @@ public class Account implements Serializable {
 	public Account() {
 	}
 
-	public Account(int spdId, String accountNumber, String mfo, String bankName) {
-		this.spdId = spdId;
+	public Account(SPD spd, String accountNumber, String mfo, String bankName) {
+		this.spd = spd;
 		this.accountNumber = accountNumber;
 		this.mfo = mfo;
 		this.bankName = bankName;
@@ -47,12 +53,12 @@ public class Account implements Serializable {
 		this.id = id;
 	}
 
-	public int getSpdId() {
-		return spdId;
+	public SPD getSpd() {
+		return spd;
 	}
 
-	public void setSpdId(int spdId) {
-		this.spdId = spdId;
+	public void setSpd(SPD spd) {
+		this.spd = spd;
 	}
 
 	public String getAccountNumber() {
@@ -78,5 +84,11 @@ public class Account implements Serializable {
 	public void setBankName(String bankName) {
 		this.bankName = bankName;
 	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	
 
 }
