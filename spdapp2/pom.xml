@@ -9,12 +9,18 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
+		<spring.version>4.2.1.RELEASE</spring.version>
+		<security.version>4.0.3.RELEASE</security.version>
+		<jdk.version>1.7</jdk.version>
+		<hibernate.version>4.3.5.Final</hibernate.version>
+		<org.aspectj-version>1.7.4</org.aspectj-version>
 		<mysql-connector-version>5.1.37</mysql-connector-version>
 		<java.version>1.7</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
+		<!-- JUnit --> 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -22,13 +28,78 @@
 			<scope>test</scope>
 		</dependency>
 
-
-		<!-- Apache Commons DbUtils -->
+		<!-- Spring -->
 		<dependency>
-			<groupId>commons-dbutils</groupId>
-			<artifactId>commons-dbutils</artifactId>
-			<version>1.6</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>4.2.4.RELEASE</version>  
+		</dependency>  
+
+		<!-- Spring ORM -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>1.8.0.RELEASE</version>
+		</dependency>  
+		
+		<!-- JPA & Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>  
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>4.3.0.Final</version>
+		    <scope>runtime</scope>
+		</dependency>
+		
+		<!-- Connection Pool -->  
+		<!-- Apache Commons DBCP -->  
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-dbcp2</artifactId>
+		    <version>2.1.1</version>
+		</dependency>
+		<!-- bonecp -->
+		<dependency>
+		    <groupId>com.jolbox</groupId>
+		    <artifactId>bonecp</artifactId>
+		    <version>0.8.0.RELEASE</version>
+		</dependency>
+
+		<!-- AspectJ -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>  
 
 		<!--Servlets -->
 		<dependency>
@@ -55,71 +126,15 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- database and connection pool -->
+		<!-- Connection to DB -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql-connector-version}</version>
 		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2 -->
-		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-dbcp2</artifactId>
-		    <version>2.1.1</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.jolbox/bonecp -->
-		<dependency>
-		    <groupId>com.jolbox</groupId>
-		    <artifactId>bonecp</artifactId>
-		    <version>0.8.0.RELEASE</version>
-		</dependency>
-
-<!-- 		<dependency> -->
-<!-- 		    <groupId>org.apache.tomcat</groupId> -->
-<!-- 		    <artifactId>tomcat-jdbc</artifactId> -->
-<!-- 		    <version>8.0.39</version> -->
-<!-- 		</dependency> -->
-		
-		<!-- jpa provider -->
-		<dependency>
-		    <groupId>org.hibernate</groupId>
-		    <artifactId>hibernate-entitymanager</artifactId>
-		    <version>4.2.20.Final</version>
-		    <scope>runtime</scope>
-		</dependency>
-		<dependency>
-		    <groupId>org.hibernate</groupId>
-		    <artifactId>hibernate-validator</artifactId>
-		    <version>4.3.0.Final</version>
-		    <scope>runtime</scope>
-		</dependency>
-		
-		<!-- spring -->
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-webmvc</artifactId>
-		    <version>3.2.16.RELEASE</version>
-		    <scope>compile</scope>
-<!-- 		    <exclusions> -->
-<!-- 			    <exclusion> -->
-<!-- 			        <groupId>org.springframework</groupId> -->
-<!-- 			        <artifactId>spring-asm</artifactId> -->
-<!-- 			    </exclusion> -->
-<!-- 			</exclusions>  -->
-		</dependency>
-		<dependency>
-		    <groupId>org.springframework.data</groupId>
-		    <artifactId>spring-data-jpa</artifactId>
-		    <version>1.2.0.RELEASE</version>
-		    <scope>compile</scope>
-		</dependency>
-		
 			
 	</dependencies>
 	
-	
-
 	<build>
 		<finalName>spdapp2</finalName>
 		<plugins>
@@ -132,7 +147,13 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
-
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>  
 		</plugins>
 	</build>
 
