@@ -22,7 +22,7 @@ public class Account implements Serializable {
 	@Column(name = "id")
 	private Integer id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="spd_id")
 	private SPD spd;
 	
