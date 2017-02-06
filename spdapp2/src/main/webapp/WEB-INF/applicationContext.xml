@@ -7,13 +7,13 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
-	default-autowire="byName">
+	>
 	
 	
-	<bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+	<bean name="dataSource" class="com.jolbox.bonecp.BoneCPDataSource"
 		destroy-method="close">
-		<property name="url" value="jdbc:mysql://localhost:3306/spd" />
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/spd" />
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
 		<property name="username" value="root" />
 		<property name="password" value="rfhmthbcn" />
 	</bean>
@@ -25,8 +25,12 @@
 	
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
+	<bean
+    class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+    
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="spd" />
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
@@ -40,7 +44,7 @@
 	<context:annotation-config />
 	
 	<jpa:repositories base-package="repository" 
-	entity-manager-factory-ref="entityManagerFactory"
-	transaction-manager-ref="transactionManager"/>
+			entity-manager-factory-ref="entityManagerFactory"
+			transaction-manager-ref="transactionManager"/>
 
 </beans>
