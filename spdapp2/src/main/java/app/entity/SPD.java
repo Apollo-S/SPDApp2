@@ -1,4 +1,4 @@
-package entity;
+package app.entity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,8 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import entity.Address;
-import entity.RegistrationInfo;
+
+import app.entity.Address;
+import app.entity.RegistrationInfo;
 
 @Entity
 @Table(name = "spd")

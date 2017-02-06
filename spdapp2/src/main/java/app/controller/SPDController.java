@@ -1,4 +1,4 @@
-package controller;
+package app.controller;
 
 import java.sql.Date;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import entity.Address;
-import entity.RegistrationInfo;
-import entity.SPD;
-import repository.SPDRepository;
+import app.entity.Address;
+import app.entity.RegistrationInfo;
+import app.entity.SPD;
+import app.repository.SPDRepository;
 
 @Controller
 public class SPDController {

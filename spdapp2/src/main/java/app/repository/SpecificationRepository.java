@@ -1,7 +1,8 @@
-package repository;
+package app.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import entity.Specification;
+
+import app.entity.Specification;
 
 public interface SpecificationRepository extends JpaRepository<Specification, Integer> {
 	

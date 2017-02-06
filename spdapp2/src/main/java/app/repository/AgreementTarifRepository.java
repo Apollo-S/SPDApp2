@@ -1,7 +1,8 @@
-package repository;
+package app.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import entity.AgreementTarif;
+
+import app.entity.AgreementTarif;
 
 public interface AgreementTarifRepository extends JpaRepository<AgreementTarif, Integer>{
 
