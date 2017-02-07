@@ -1,11 +1,10 @@
 package app.entity;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,11 +17,11 @@ public class Account implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "id")
 	private Integer id;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne()
     @JoinColumn(name="spd_id")
 	private SPD spd;
 	
@@ -45,11 +44,11 @@ public class Account implements Serializable {
 		this.bankName = bankName;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -85,10 +84,5 @@ public class Account implements Serializable {
 		this.bankName = bankName;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	
-	
 
 }
