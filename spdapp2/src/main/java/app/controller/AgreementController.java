@@ -29,9 +29,9 @@ public class AgreementController {
 	@RequestMapping(value = "/agreement", params = "edit", method = RequestMethod.GET)
 	public String getEditAgreement(@RequestParam int id, Model model) {
 		Agreement agreement = agreementRepository.findOne(id);
-		SPD spd = spdRepository.findOne(agreement.getSpd().getId());
+		int specNumber = agreementRepository.findMaxSpecificationNumberByAgreementId(id);
 		model.addAttribute("agreement", agreement);
-		model.addAttribute("spd", spd);
+		model.addAttribute("specNumber", specNumber + 1);
 		return "agreement/edit";
 	}
 
@@ -40,7 +40,7 @@ public class AgreementController {
 		SPD spd = spdRepository.findOne(spdId);
 		Agreement agreement = new Agreement(spd, number, dateStart);
 		agreement = agreementRepository.save(agreement);
-		return "redirect:agreement?edit=&id=" + agreement.getId() + "&spdId=" + spdId; ///agreement?edit=&id=25&spdId=18
+		return "redirect:agreement?edit=&id=" + agreement.getId() + "&spdId=" + spdId;
 	}
 
 	@RequestMapping(value = "/agreement", params = "edit", method = RequestMethod.POST)

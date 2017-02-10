@@ -12,11 +12,14 @@
 <body>
 	<p>
 	
+	<c:set var="agreement" value="${specification.agreement}" />
+	<c:set var="spd" value="${agreement.spd}" />
+	
 	<form class="form" role="form" action="specification" method="post">
 		<input type="hidden" name="edit">
 		<input type="hidden" name="id" value="${specification.id}">
 		<input type="hidden" name="agreementId" value="${agreement.id}">
-		<input type="hidden" name="spdId" value="${agreement.spdId}">
+		<input type="hidden" name="spdId" value="${spd.id}">
 
 	<table>
 		<tr>
@@ -26,7 +29,7 @@
 			<input type="submit" class="btn btn-success" id="button" value="Записать и вернуться к Договору">
 		</tr>
 		<tr>
-			<a class="btn btn-primary" href="agreement?edit=&id=${agreement.id}&spdId=${agreement.spdId}" role="button">Закрыть без изменений</a>
+			<a class="btn btn-primary" href="agreement?edit=&id=${agreement.id}&spdId=${spd.id}" role="button">Закрыть без изменений</a>
 		</tr>
 	</table>
 	
@@ -43,15 +46,6 @@
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="specificationNumber"
 								name="specificationNumber" placeholder="specificationNumber" value=<c:out value="${specification.specificationNumber}"/>>
-						</div>
-					</div>
-				</td>
-				<td valign="top">
-					<div class="form-group">
-						<label for="agreementTarifId" class="col-sm-10 control-label">Тарифная сетка Id</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="agreementTarifId"
-								name="agreementTarifId" placeholder="Введите сумму (конфигурирование)" value=<c:out value="${specification.agreementTarifId}"/>>
 						</div>
 					</div>
 				</td>
@@ -161,7 +155,7 @@
 						<form action="specification" method="post">
 							<input type="hidden" name="add"> 
 							<input type="hidden" name="specificationId"	value="${specification.id}">
-							<input type="hidden" name="spdId" value="${agreement.spdId}">
+							<input type="hidden" name="spdId" value="${spd.id}">
 							<table border="0" width="50%">
 								<tr>
 									<td valign="top">
@@ -216,7 +210,7 @@
 						<form action="specification" method="post">
 							<input type="hidden" name="add"> 
 							<input type="hidden" name="agreementId"	value="${agreement.id}">
-							<input type="hidden" name="spdId" value="${agreement.spdId}">
+							<input type="hidden" name="spdId" value="${spd.id}">
 							<table border="0" width="50%">
 								<tr>
 									<td valign="top">

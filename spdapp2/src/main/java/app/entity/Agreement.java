@@ -2,7 +2,13 @@ package app.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 @Entity
@@ -37,10 +44,12 @@ public class Agreement implements Serializable {
 	private Date dateStart;
 
 	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "agreement")
+	@OrderBy("id ASC")
 	private Set<AgreementTarif> tarifs;
 
 	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "agreement")
-	private Set<Specification> specifications;
+	@OrderBy("id ASC")
+	private Set<Specification> specifications = Collections.emptySet();
 
 	public Agreement() {
 	}

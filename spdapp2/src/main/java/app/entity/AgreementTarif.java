@@ -6,6 +6,7 @@ import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,7 +19,7 @@ public class AgreementTarif implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Integer id;
 
@@ -41,7 +42,7 @@ public class AgreementTarif implements Serializable {
 	public AgreementTarif() {
 	}
 
-	public AgreementTarif(Agreement agreement, double configuring, double programming, double architecting,
+	public AgreementTarif(Agreement agreement, Double configuring, Double programming, Double architecting,
 			Date datestart) {
 		super();
 		this.agreement = agreement;
@@ -51,11 +52,11 @@ public class AgreementTarif implements Serializable {
 		this.dateStart = datestart;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -67,27 +68,27 @@ public class AgreementTarif implements Serializable {
 		this.agreement = agreement;
 	}
 
-	public double getConfiguring() {
+	public Double getConfiguring() {
 		return configuring;
 	}
 
-	public void setConfiguring(double configuring) {
+	public void setConfiguring(Double configuring) {
 		this.configuring = configuring;
 	}
 
-	public double getProgramming() {
+	public Double getProgramming() {
 		return programming;
 	}
 
-	public void setProgramming(double programming) {
+	public void setProgramming(Double programming) {
 		this.programming = programming;
 	}
 
-	public double getArchitecting() {
+	public Double getArchitecting() {
 		return architecting;
 	}
 
-	public void setArchitecting(double architecting) {
+	public void setArchitecting(Double architecting) {
 		this.architecting = architecting;
 	}
 

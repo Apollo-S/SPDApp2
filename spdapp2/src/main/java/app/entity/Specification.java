@@ -5,8 +5,8 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,11 +18,11 @@ public class Specification implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Integer id;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "agreement_id")
 	private Agreement agreement;
 	
@@ -47,15 +47,15 @@ public class Specification implements Serializable {
 	@Column(name = "architecting_hours")
 	private Integer architectingHours;
 	
-	@Column(name = "company_id")
+	@Column(name = "company_id") // TODO  @OneToOne relations
 	private Integer companyId;
 
 	public Specification() {
 	}
 
-	public Specification(Agreement agreement, int specificationNumber, Date dateStart,
-			Date dateFinish, double specificationSum, int configuringHours, int programmingHours, int architectingHours,
-			int companyId) {
+	public Specification(Agreement agreement, Integer specificationNumber, Date dateStart,
+			Date dateFinish, Double specificationSum, Integer configuringHours, Integer programmingHours, Integer architectingHours,
+			Integer companyId) {
 		this.agreement = agreement;
 		this.specificationNumber = specificationNumber;
 		this.dateStart = dateStart;
@@ -67,11 +67,11 @@ public class Specification implements Serializable {
 		this.companyId = companyId;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -83,11 +83,11 @@ public class Specification implements Serializable {
 		this.agreement = agreement;
 	}
 
-	public int getSpecificationNumber() {
+	public Integer getSpecificationNumber() {
 		return specificationNumber;
 	}
 
-	public void setSpecificationNumber(int specificationNumber) {
+	public void setSpecificationNumber(Integer specificationNumber) {
 		this.specificationNumber = specificationNumber;
 	}
 
@@ -107,43 +107,43 @@ public class Specification implements Serializable {
 		this.dateFinish = dateFinish;
 	}
 
-	public double getSpecificationSum() {
+	public Double getSpecificationSum() {
 		return specificationSum;
 	}
 
-	public void setSpecificationSum(double specificationSum) {
+	public void setSpecificationSum(Double specificationSum) {
 		this.specificationSum = specificationSum;
 	}
 
-	public int getConfiguringHours() {
+	public Integer getConfiguringHours() {
 		return configuringHours;
 	}
 
-	public void setConfiguringHours(int configuringHours) {
+	public void setConfiguringHours(Integer configuringHours) {
 		this.configuringHours = configuringHours;
 	}
 
-	public int getProgrammingHours() {
+	public Integer getProgrammingHours() {
 		return programmingHours;
 	}
 
-	public void setProgrammingHours(int programmingHours) {
+	public void setProgrammingHours(Integer programmingHours) {
 		this.programmingHours = programmingHours;
 	}
 
-	public int getArchitectingHours() {
+	public Integer getArchitectingHours() {
 		return architectingHours;
 	}
 
-	public void setArchitectingHours(int architectingHours) {
+	public void setArchitectingHours(Integer architectingHours) {
 		this.architectingHours = architectingHours;
 	}
 
-	public int getCompanyId() {
+	public Integer getCompanyId() {
 		return companyId;
 	}
 
-	public void setCompanyId(int companyId) {
+	public void setCompanyId(Integer companyId) {
 		this.companyId = companyId;
 	}
 	

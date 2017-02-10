@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import app.entity.Address;
@@ -55,9 +56,11 @@ public class SPD implements Serializable {
 	private RegistrationInfo registrationInfo;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "spd", orphanRemoval = true) // TODO enable LAZY fetchType
+	@OrderBy("id ASC")
 	private Set<Account> accounts;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "spd", orphanRemoval = true)
+	@OrderBy("id ASC")
 	private Set<Agreement> agreements;
 
 	public SPD() {

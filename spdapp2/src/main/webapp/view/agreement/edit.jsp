@@ -10,7 +10,7 @@
 </head>
 
 <body>
-
+	<c:set var="spd" value="${agreement.spd}" />>
 	<p>
 	<form class="form" role="form" action="agreement" method="post">
 		<input type="hidden" name="edit"> 
@@ -70,6 +70,7 @@
 		</ul>
 		<p>
 		
+<!-- 		Specification Tab -->
 		<!-- Tab panes -->
 		<div class="tab-content">
 		
@@ -84,10 +85,10 @@
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Новая спецификация</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<h5 class="modal-title" id="exampleModalLabel">Новая спецификация</h5>
 						</div>
 						<div class="modal-body">
 						<form action="specification" method="post">
@@ -135,7 +136,7 @@
 						<th></th>
 					</tr>
 				</thead>
-				<c:forEach items="${specifications}" var="specification">
+				<c:forEach items="${agreement.specifications}" var="specification">
 					<tr>
 						<td valign="middle">${specification.specificationNumber}</td>
 						<td valign="middle">${specification.dateStart}</td>
@@ -166,6 +167,7 @@
 			</table>
 		</div>
 		
+<!-- 		Tarif Tab -->
 			<div class="tab-pane" id="tarif" role="tabpanel">
 			<p>
 
@@ -179,11 +181,10 @@
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Новые ставки к Договору № ${agreement.number}</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<h5 class="modal-title" id="exampleModalLabel">Новые ставки к Договору № ${agreement.number} от
-								${agreement.dateStart}</h5>
 						</div>
 						<div class="modal-body">
 							<form action="tarif" method="post">
@@ -248,7 +249,7 @@
 						<th></th>
 					</tr>
 				</thead>
-				<c:forEach items="${tarifs}" var="tarif">
+				<c:forEach items="${agreement.tarifs}" var="tarif">
 					<tr>
 						<td valign="middle">${tarif.configuring}</td>
 						<td valign="middle">${tarif.programming}</td>
