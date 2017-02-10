@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.transaction.annotation.Transactional;
 
 import app.entity.Account;
 import app.entity.SPD;
@@ -14,7 +13,6 @@ import app.repository.AccountRepository;
 import app.repository.SPDRepository;
 
 @Controller
-@Transactional
 public class AccountController {
 
 	@Autowired(required = true)
@@ -30,7 +28,10 @@ public class AccountController {
 
 	@RequestMapping(value = "/account", params = "edit", method = RequestMethod.GET)
 	public String getEditAccount(@RequestParam int id, Model model) {
-		model.addAttribute("account", accountRepository.findOne(id));
+		Account account = accountRepository.findOne(id);
+		SPD spd = spdRepository.findOne(account.getSpd().getId());
+		model.addAttribute("account", account);
+		model.addAttribute("spd", spd);
 		return "account/edit";
 	}
 
@@ -60,7 +61,7 @@ public class AccountController {
 	public String postDeleteAccount(@RequestParam int id) {
 		Account account = accountRepository.findOne(id);
 		int spdId = account.getSpd().getId();
-		accountRepository.delete(account);
+		accountRepository.delete(id);
 		return "redirect:spd?id=" + spdId;
 	}
 

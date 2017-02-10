@@ -1,8 +1,7 @@
 package app.entity;
 
 import java.io.Serializable;
-import java.util.List;
-
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,39 +46,19 @@ public class SPD implements Serializable {
 	@Column(name = "passport")
 	private String passport;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	@JoinColumn(name = "address_id")
 	private Address address;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	@JoinColumn(name = "registration_info_id")
 	private RegistrationInfo registrationInfo;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "spd")
-	private List<Account> accounts;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "spd", orphanRemoval = true) // TODO enable LAZY fetchType
+	private Set<Account> accounts;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "spd")
-	private List<Agreement> agreements;
-
-	public List<Agreement> getAgreements() {
-		return agreements;
-	}
-
-	public void setAgreements(List<Agreement> agreements) {
-		this.agreements = agreements;
-	}
-
-	public List<Account> getAccounts() {
-		return accounts;
-	}
-
-	public void setAccounts(List<Account> accounts) {
-		this.accounts = accounts;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "spd", orphanRemoval = true)
+	private Set<Agreement> agreements;
 
 	public SPD() {
 	}
@@ -101,7 +80,7 @@ public class SPD implements Serializable {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -167,6 +146,22 @@ public class SPD implements Serializable {
 
 	public void setRegistrationInfo(RegistrationInfo registrationInfo) {
 		this.registrationInfo = registrationInfo;
+	}
+	
+	public Set<Agreement> getAgreements() {
+		return agreements;
+	}
+
+	public void setAgreements(Set<Agreement> agreements) {
+		this.agreements = agreements;
+	}
+
+	public Set<Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(Set<Account> accounts) {
+		this.accounts = accounts;
 	}
 
 }

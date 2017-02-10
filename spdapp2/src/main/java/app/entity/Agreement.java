@@ -2,13 +2,12 @@ package app.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.List;
-
-import javax.persistence.CascadeType;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,29 +21,26 @@ public class Agreement implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Integer id;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "spd_id")
 	private SPD spd;
 
 	@Column(name = "number")
 	private String number;
 
+// TODO	 use Calendar class with annotation @Temporal(TemporalType.DATE)
 	@Column(name = "date_start")
 	private Date dateStart;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "agreement")
-	private List<AgreementTarif> tarifs;
+	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "agreement")
+	private Set<AgreementTarif> tarifs;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "agreement")
-	private List<Specification> specifications;
-
-	public List<AgreementTarif> getTarifs() {
-		return tarifs;
-	}
+	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "agreement")
+	private Set<Specification> specifications;
 
 	public Agreement() {
 	}
@@ -55,27 +51,27 @@ public class Agreement implements Serializable {
 		this.dateStart = dateStart;
 	}
 
-	public void setTarifs(List<AgreementTarif> tarifs) {
+	public Set<AgreementTarif> getTarifs() {
+		return tarifs;
+	}
+
+	public void setTarifs(Set<AgreementTarif> tarifs) {
 		this.tarifs = tarifs;
 	}
 
-	public List<Specification> getSpecifications() {
+	public Set<Specification> getSpecifications() {
 		return specifications;
 	}
 
-	public void setSpecifications(List<Specification> specifications) {
+	public void setSpecifications(Set<Specification> specifications) {
 		this.specifications = specifications;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

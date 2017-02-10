@@ -38,7 +38,8 @@ public class SPDController {
 
 	@RequestMapping(value = "/spd", method = RequestMethod.GET)
 	public String getViewSPD(@RequestParam int id, Model model) {
-		model.addAttribute("spd", spdRepository.findOne(id));
+		SPD spd = spdRepository.findOne(id);
+		model.addAttribute("spd", spd);
 		return "spd/view";
 	}
 

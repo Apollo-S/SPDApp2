@@ -15,7 +15,7 @@
 	<form class="form" role="form" action="agreement" method="post">
 		<input type="hidden" name="edit"> 
 		<input type="hidden" name="id" value="${agreement.id}"> 
-		<input type="hidden" name="spdId" value="${agreement.spdId}">
+		<input type="hidden" name="spdId" value="${spd.id}">
 
 		<table>
 			<tr>
@@ -93,7 +93,7 @@
 						<form action="specification" method="post">
 							<input type="hidden" name="add"> 
 							<input type="hidden" name="agreementId"	value="${agreement.id}">
-							<input type="hidden" name="spdId" value="${agreement.spdId}">
+							<input type="hidden" name="spdId" value="${spd.id}">
 							<table border="0" width="50%">
 								<tr>
 									<td valign="top">
@@ -155,7 +155,7 @@
 									<form action="specification" method="post">
 										<input type="hidden" name="delete">
 										<input type="hidden" name="id" value="${specification.id}">
-										<input type="hidden" name="spdId" value="${agreement.spdId}">
+										<input type="hidden" name="spdId" value="${spd.id}">
 										<button type="submit" class="btn btn-outline-danger btn-sm">Удалить (осторожно!)</button>
 									</form>
 								</tr>
@@ -188,7 +188,7 @@
 						<div class="modal-body">
 							<form action="tarif" method="post">
 								<input type="hidden" name="add"> 
-								<input type="hidden" name="spdId" value="${agreement.spdId}">
+								<input type="hidden" name="spdId" value="${spd.id}">
 								<table border="0" width="120%">
 									<tr>
 										<td valign="top">
@@ -268,7 +268,7 @@
 									<form action="tarif" method="post">
 										<input type="hidden" name="delete"> 
 										<input type="hidden" name="id" value="${tarif.id}">
-										<input type="hidden" name="spdId" value="${agreement.spdId}">
+										<input type="hidden" name="spdId" value="${spd.id}">
 										<button type="submit" class="btn btn-outline-danger btn-sm">Удалить (осторожно!)</button>
 									</form>
 								</tr>

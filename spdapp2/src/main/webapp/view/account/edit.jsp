@@ -22,7 +22,7 @@
 				<td valign="top">
 					<div class="form-group">
 						<input type="hidden" class="form-control" id="spdId"
-							name="spdId" value="${account.spdId}">
+							name="spdId" value="${spd.id}">
 					</div>
 					<div class="form-group">
 						<label for="accountNumber" class="col-sm-10 control-label">Номер счета</label>

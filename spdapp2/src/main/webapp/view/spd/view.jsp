@@ -21,7 +21,7 @@
 		<c:out value="${spd.alias}" />
 	</h1>
 	<p>
-		<!-- Nav tabs -->
+	<!-- Nav tabs -->
 	<ul class="nav nav-tabs" role="tablist">
 		<li class="nav-item"><a class="nav-link active" data-toggle="tab"
 			href="#main" role="tab">Основные данные</a></li>
@@ -36,16 +36,6 @@
 	<!-- Tab panes -->
 	<div class="tab-content">
 		<div class="tab-pane active" id="main" role="tabpanel">
-			<p>
-			<dl class="row">
-				<dt class="col-sm-3">Полное ФИО:</dt>
-  				<dd class="col-sm-9"><c:out	value="${spd.surname} ${spd.firstname} ${spd.lastname}" /></dd>
-			
-				<dt class="col-sm-3">ИНН:</dt>
-  				<dd class="col-sm-9"><c:out value="${spd.inn}" /></dd>
-			
-			</dl>
-			
 			<p>
 			<ul>
 				<c:set var="address" value="${spd.address}" />
@@ -79,13 +69,58 @@
 			</table>
 			<p>
 		</div>
+		
+<!-- 	Tab panel 'Договоры' -->
 		<div class="tab-pane" id="agreement" role="tabpanel">
-		<p>
-			<form action="agreement" method="get">
-				<input type="hidden" name="add"> 
-				<input type="hidden" name="spdId" value="${spd.id}">
-				<button type="submit" class="btn btn-success">Новый договор</button>
-			</form>
+			<p>
+			<p>
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgreement">Новый договор</button>
+			<!-- Modal -->
+			<div class="modal fade" id="modalAgreement" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">СПД <c:out value="${spd.alias}"/> | Новый договор</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form action="agreement" method="post">
+							<input type="hidden" name="add"> 
+							<input type="hidden" name="spdId" value=<c:out value="${spd.id}"/>>
+							<table border="0" width="70%">
+								<tr>
+									<td valign="top">
+										<div class="form-group">
+											<label for="number" class="col-sm-10 control-label">Номер</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="number"
+													name="number" placeholder="№ договора">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="dateStart" class="col-sm-6 control-label">Дата</label>
+											<div class="col-sm-10">
+												<input type="date" class="form-control" id="dateStart"
+													name="dateStart" placeholder="Дата договора">
+											</div>
+										</div>
+								</tr>
+							</table>
+							<p>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+								<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	
 		<p>
 		<table class="table table-sm table-bordered">
 				<thead class="thead-default">
@@ -95,7 +130,7 @@
 						<th></th>
 					</tr>
 				</thead>
-				<c:forEach items="${agreements}" var="agreement">
+				<c:forEach items="${spd.agreements}" var="agreement">
 					<tr>
 						<td valign="middle"><c:out value="${agreement.number}"/></td>
 						<td valign="middle"><c:out value="${agreement.dateStart}"/></td>
@@ -105,7 +140,7 @@
 									<form action="agreement" method="get">
 										<input type="hidden" name="edit"> 
 										<input type="hidden" name="id" value="${agreement.id}">
-										<input type="hidden" name="spdId" value="${agreement.spdId}">
+										<input type="hidden" name="spdId" value="${spd.id}">
 										<button type="submit" class="btn btn-outline-warning btn-sm">Подробнее</button>
 									</form>
 								</tr>
