@@ -6,9 +6,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -20,14 +17,9 @@ import app.entity.RegistrationInfo;
 
 @Entity
 @Table(name = "spd")
-public class SPD implements Serializable {
+public class SPD extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-	private Integer id;
 
 	@Column(name = "surname")
 	private String surname;
@@ -81,14 +73,6 @@ public class SPD implements Serializable {
 		this.passport = passport;
 		this.address = address;
 		this.registrationInfo = registrationInfo;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getSurname() {

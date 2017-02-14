@@ -5,23 +5,15 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "payment")
-public class Payment implements Serializable {
+public class Payment extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-	private Integer id;
 
 	@ManyToOne
 	@JoinColumn(name = "spd_id")
@@ -48,14 +40,6 @@ public class Payment implements Serializable {
 		this.value = value;
 		this.dateStart = dateStart;
 		this.dateFinish = dateFinish;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public SPD getSpd() {
