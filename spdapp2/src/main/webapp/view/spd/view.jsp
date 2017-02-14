@@ -272,7 +272,7 @@
 					<th></th>
 				</tr>
 			</thead>
-			<c:forEach items="${payments}" var="payment">
+			<c:forEach items="${spd.payments}" var="payment">
 				<tr>
 					<td valign="middle">${payment.paymentTypeId}</td>
 					<td valign="middle">${payment.value}</td>

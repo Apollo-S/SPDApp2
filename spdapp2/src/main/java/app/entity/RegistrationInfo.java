@@ -21,7 +21,7 @@ public class RegistrationInfo implements Serializable {
 	@Column(name = "description")
 	private String description;
 
-	@Column(name = "dated")
+	@Column(name = "dated") // TODO	 use Calendar class with annotation @Temporal(TemporalType.DATE)
 	private Date dated;
 
 	public RegistrationInfo() {

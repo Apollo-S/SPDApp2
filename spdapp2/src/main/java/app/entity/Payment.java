@@ -6,7 +6,10 @@ import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,12 +19,13 @@ public class Payment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Integer id;
 
-	@Column(name = "spd_id")
-	private Integer spdId;
+	@ManyToOne
+	@JoinColumn(name = "spd_id")
+	private SPD spd;
 
 	@Column(name = "payment_type_id")
 	private Integer paymentTypeId;
@@ -38,43 +42,43 @@ public class Payment implements Serializable {
 	public Payment() {
 	}
 
-	public Payment(int spdId, int paymentTypeId, double value, Date dateStart, Date dateFinish) {
-		this.spdId = spdId;
+	public Payment(SPD spd, Integer paymentTypeId, Double value, Date dateStart, Date dateFinish) {
+		this.spd = spd;
 		this.paymentTypeId = paymentTypeId;
 		this.value = value;
 		this.dateStart = dateStart;
 		this.dateFinish = dateFinish;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getSpdId() {
-		return spdId;
+	public SPD getSpd() {
+		return spd;
 	}
 
-	public void setSpdId(int spdId) {
-		this.spdId = spdId;
+	public void setSpdId(SPD spd) {
+		this.spd = spd;
 	}
 
-	public int getPaymentTypeId() {
+	public Integer getPaymentTypeId() {
 		return paymentTypeId;
 	}
 
-	public void setPaymentTypeId(int paymentTypeId) {
+	public void setPaymentTypeId(Integer paymentTypeId) {
 		this.paymentTypeId = paymentTypeId;
 	}
 
-	public double getValue() {
+	public Double getValue() {
 		return value;
 	}
 
-	public void setValue(double value) {
+	public void setValue(Double value) {
 		this.value = value;
 	}
 

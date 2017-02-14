@@ -62,6 +62,10 @@ public class SPD implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "spd", orphanRemoval = true)
 	@OrderBy("id ASC")
 	private Set<Agreement> agreements;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "spd", orphanRemoval = true)
+	@OrderBy("id ASC")
+	private Set<Payment> payments;
 
 	public SPD() {
 	}
@@ -165,6 +169,14 @@ public class SPD implements Serializable {
 
 	public void setAccounts(Set<Account> accounts) {
 		this.accounts = accounts;
+	}
+
+	public Set<Payment> getPayments() {
+		return payments;
+	}
+
+	public void setPayments(Set<Payment> payments) {
+		this.payments = payments;
 	}
 
 }

@@ -49,7 +49,7 @@ public class Agreement implements Serializable {
 
 	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "agreement")
 	@OrderBy("id ASC")
-	private Set<Specification> specifications = Collections.emptySet();
+	private Set<Specification> specifications;
 
 	public Agreement() {
 	}
