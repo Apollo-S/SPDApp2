@@ -41,5 +41,10 @@ public class RegistrationInfo extends BaseEntity implements Serializable {
 	public void setDated(Date dated) {
 		this.dated = dated;
 	}
+	
+	@Override
+	public String getUrl() {
+		return null;
+	}
 
 }

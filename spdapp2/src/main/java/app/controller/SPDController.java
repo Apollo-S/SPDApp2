@@ -56,7 +56,7 @@ public class SPDController {
 		RegistrationInfo regInfo = new RegistrationInfo(description, dated);
 		SPD spd = new SPD(surname, firstname, lastname, alias, inn, passport, address, regInfo);
 		spd = spdRepository.save(spd);
-		return "redirect:spd?id=" + spd.getId();
+		return "redirect:" + spd.getUrl();
 	}
 
 	@RequestMapping(value = "/spd", params = "edit", method = RequestMethod.POST)
@@ -87,7 +87,7 @@ public class SPDController {
 		spd.setAddress(address);
 		spd.setRegistrationInfo(regInfo);
 		spdRepository.save(spd);
-		return "redirect:spd?id=" + spd.getId();
+		return "redirect:" + spd.getUrl();
 	}
 
 	@RequestMapping(value = "/spd", params = "delete", method = RequestMethod.POST)

@@ -52,15 +52,15 @@ public class AgreementController {
 		agreement.setNumber(number);
 		agreement.setDateStart(dateStart);
 		agreement = agreementRepository.save(agreement);
-		return "redirect:spd?id=" + agreement.getSpd().getId();
+		return "redirect:spd?id=" + agreement.getSpd().getId(); // TODO  replace redirect:spd?id= to spd.getUrl()
 	}
 
 	@RequestMapping(value = "/agreement", params = "delete", method = RequestMethod.POST)
 	public String postDeleteAgreement(@RequestParam int id) {
-		Agreement agreement = agreementRepository.findOne(id);
+		Agreement agreement = agreementRepository.findOne(id); 
 		int spdId = agreement.getSpd().getId();
 		agreementRepository.delete(id);
-		return "redirect:spd?id=" + spdId;
+		return "redirect:spd?id=" + spdId;  // TODO  replace redirect:spd?id= to spd.getUrl()
 	}
 
 }

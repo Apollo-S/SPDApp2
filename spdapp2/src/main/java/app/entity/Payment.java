@@ -81,5 +81,10 @@ public class Payment extends BaseEntity implements Serializable {
 	public void setDateFinish(Date dateFinish) {
 		this.dateFinish = dateFinish;
 	}
+	
+	@Override
+	public String getUrl() {
+		return "payment?id=" + getId();
+	}
 
 }

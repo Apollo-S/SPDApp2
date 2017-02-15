@@ -9,6 +9,13 @@ import javax.persistence.Table;
 public class PaymentType extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	@Override
+	public String getUrl() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 
 }

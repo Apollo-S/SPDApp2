@@ -23,7 +23,7 @@
 				<input type="submit" class="btn btn-success" id="button" value="Сохранить изменения">
 			</tr>
 			<tr>
-				<a class="btn btn-primary" href="spd?id=${spd.id}" role="button">Закрыть
+				<a class="btn btn-primary" href="${spd.url}" role="button">Закрыть
 					без изменений</a>
 			</tr>
 		</table>

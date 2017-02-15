@@ -28,7 +28,7 @@
 		<thead class="thead-inverse">
 			<tr>
 				<th align="center">ID</th>
-				<th align="center">Alias</th>
+				<th align="center">ФИО</th>
 				<th align="center">ИНН</th>
 				<th align="center">Подробнее</th>
 				<th align="center">Удалить</th>

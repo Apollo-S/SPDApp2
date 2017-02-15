@@ -89,5 +89,10 @@ public class Agreement extends BaseEntity implements Serializable {
 	public void setDateStart(Date dateStart) {
 		this.dateStart = dateStart;
 	}
+	
+	@Override
+	public String getUrl() {
+		return "agreement?id=" + getId();
+	}
 
 }

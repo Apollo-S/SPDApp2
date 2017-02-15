@@ -163,4 +163,11 @@ public class SPD extends BaseEntity implements Serializable {
 		this.payments = payments;
 	}
 
+	@Override
+	public String getUrl() {
+		return "spd?id=" + getId();
+	}
+	
+	
+
 }

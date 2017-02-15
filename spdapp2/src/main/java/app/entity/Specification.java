@@ -132,4 +132,9 @@ public class Specification extends BaseEntity implements Serializable {
 		this.companyId = companyId;
 	}
 	
+	@Override
+	public String getUrl() {
+		return "specification?id=" + getId();
+	}
+	
 }

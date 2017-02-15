@@ -83,5 +83,10 @@ public class AgreementTarif extends BaseEntity implements Serializable {
 	public void setDateStart(Date dateStart) {
 		this.dateStart = dateStart;
 	}
+	
+	@Override
+	public String getUrl() {
+		return "tarif?id=" + getId();
+	}
 
 }

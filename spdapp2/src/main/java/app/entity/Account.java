@@ -69,5 +69,9 @@ public class Account extends BaseEntity implements Serializable {
 		this.bankName = bankName;
 	}
 
-
+	@Override
+	public String getUrl() {
+		return "account?id=" + getId();
+	}
+	
 }

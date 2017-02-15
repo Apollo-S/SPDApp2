@@ -102,5 +102,10 @@ public class Address extends BaseEntity implements Serializable {
 	public void setFlat(String flat) {
 		this.flat = flat;
 	}
+	
+	@Override
+	public String getUrl() {
+		return "address?id=" + getId();
+	}
 
 }
