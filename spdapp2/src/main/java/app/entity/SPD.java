@@ -47,15 +47,15 @@ public class SPD extends UrlEntity implements Serializable {
 	@JoinColumn(name = "registration_info_id")
 	private RegistrationInfo registrationInfo;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "spd", orphanRemoval = true) // TODO enable LAZY fetchType
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "spd", orphanRemoval = true) 
 	@OrderBy("id ASC")
 	private Set<Account> accounts;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "spd", orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "spd", orphanRemoval = true) // TODO try to remove orphanRemoval and use cascadeType.ALL instead; example in favorite video 
 	@OrderBy("id ASC")
 	private Set<Agreement> agreements;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "spd", orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "spd", orphanRemoval = true)
 	@OrderBy("id ASC")
 	private Set<Payment> payments;
 

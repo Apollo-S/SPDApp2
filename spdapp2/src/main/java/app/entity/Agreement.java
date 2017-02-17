@@ -29,11 +29,11 @@ public class Agreement extends UrlEntity implements Serializable {
 	@Column(name = "date_start")
 	private Date dateStart;
 
-	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "agreement")
+	@OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "agreement")
 	@OrderBy("id ASC")
 	private Set<AgreementTarif> tarifs;
 
-	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "agreement")
+	@OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "agreement")
 	@OrderBy("id ASC")
 	private Set<Specification> specifications;
 
