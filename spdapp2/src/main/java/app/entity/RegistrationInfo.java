@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "registration_info")
-public class RegistrationInfo extends BaseEntity implements Serializable {
+public class RegistrationInfo extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,9 +42,4 @@ public class RegistrationInfo extends BaseEntity implements Serializable {
 		this.dated = dated;
 	}
 	
-	@Override
-	public String getUrl() {
-		return null;
-	}
-
 }

@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name ="agreement_tarif")
-public class AgreementTarif extends BaseEntity implements Serializable {
+public class AgreementTarif extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -84,9 +84,4 @@ public class AgreementTarif extends BaseEntity implements Serializable {
 		this.dateStart = dateStart;
 	}
 	
-	@Override
-	public String getUrl() {
-		return "tarif?id=" + getId();
-	}
-
 }

@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "payment")
-public class Payment extends BaseEntity implements Serializable {
+public class Payment extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -80,11 +80,6 @@ public class Payment extends BaseEntity implements Serializable {
 
 	public void setDateFinish(Date dateFinish) {
 		this.dateFinish = dateFinish;
-	}
-	
-	@Override
-	public String getUrl() {
-		return "payment?id=" + getId();
 	}
 
 }

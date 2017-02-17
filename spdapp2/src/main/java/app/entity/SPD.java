@@ -17,7 +17,7 @@ import app.entity.RegistrationInfo;
 
 @Entity
 @Table(name = "spd")
-public class SPD extends BaseEntity implements Serializable {
+public class SPD extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -162,12 +162,5 @@ public class SPD extends BaseEntity implements Serializable {
 	public void setPayments(Set<Payment> payments) {
 		this.payments = payments;
 	}
-
-	@Override
-	public String getUrl() {
-		return "spd?id=" + getId();
-	}
 	
-	
-
 }

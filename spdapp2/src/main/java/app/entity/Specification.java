@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "specification")
-public class Specification extends BaseEntity implements Serializable {
+public class Specification extends UrlEntity implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -130,11 +130,6 @@ public class Specification extends BaseEntity implements Serializable {
 
 	public void setCompanyId(Integer companyId) {
 		this.companyId = companyId;
-	}
-	
-	@Override
-	public String getUrl() {
-		return "specification?id=" + getId();
 	}
 	
 }

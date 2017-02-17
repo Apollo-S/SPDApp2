@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "account")
-public class Account extends BaseEntity implements Serializable {
+public class Account extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -69,9 +69,4 @@ public class Account extends BaseEntity implements Serializable {
 		this.bankName = bankName;
 	}
 
-	@Override
-	public String getUrl() {
-		return "account?id=" + getId();
-	}
-	
 }

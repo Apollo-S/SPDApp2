@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "address")
-public class Address extends BaseEntity implements Serializable {
+public class Address extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -103,9 +103,4 @@ public class Address extends BaseEntity implements Serializable {
 		this.flat = flat;
 	}
 	
-	@Override
-	public String getUrl() {
-		return "address?id=" + getId();
-	}
-
 }
