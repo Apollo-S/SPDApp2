@@ -39,11 +39,11 @@ public class SPD extends UrlEntity implements Serializable {
 	@Column(name = "passport")
 	private String passport;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	@JoinColumn(name = "address_id")
 	private Address address;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	@JoinColumn(name = "registration_info_id")
 	private RegistrationInfo registrationInfo;
 
@@ -56,7 +56,7 @@ public class SPD extends UrlEntity implements Serializable {
 	private Set<Agreement> agreements;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "spd", orphanRemoval = true)
-	@OrderBy("id ASC")
+	@OrderBy("payment_type_id ASC")
 	private Set<Payment> payments;
 
 	public SPD() {

@@ -3,10 +3,14 @@ package app.entity;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 @Entity
@@ -19,8 +23,9 @@ public class Payment extends UrlEntity implements Serializable {
 	@JoinColumn(name = "spd_id")
 	private SPD spd;
 
-	@Column(name = "payment_type_id")
-	private Integer paymentTypeId;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	@JoinColumn(name = "payment_type_id")
+	private PaymentType paymentType;
 
 	@Column(name = "value")
 	private Double value;
@@ -34,9 +39,10 @@ public class Payment extends UrlEntity implements Serializable {
 	public Payment() {
 	}
 
-	public Payment(SPD spd, Integer paymentTypeId, Double value, Date dateStart, Date dateFinish) {
+	public Payment(SPD spd, PaymentType paymentType, Double value, Date dateStart, Date dateFinish) {
+		super();
 		this.spd = spd;
-		this.paymentTypeId = paymentTypeId;
+		this.paymentType = paymentType;
 		this.value = value;
 		this.dateStart = dateStart;
 		this.dateFinish = dateFinish;
@@ -50,12 +56,16 @@ public class Payment extends UrlEntity implements Serializable {
 		this.spd = spd;
 	}
 
-	public Integer getPaymentTypeId() {
-		return paymentTypeId;
+	public PaymentType getPaymentType() {
+		return paymentType;
 	}
 
-	public void setPaymentTypeId(Integer paymentTypeId) {
-		this.paymentTypeId = paymentTypeId;
+	public void setPaymentType(PaymentType paymentType) {
+		this.paymentType = paymentType;
+	}
+
+	public void setSpd(SPD spd) {
+		this.spd = spd;
 	}
 
 	public Double getValue() {

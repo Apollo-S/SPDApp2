@@ -273,8 +273,9 @@
 				</tr>
 			</thead>
 			<c:forEach items="${spd.payments}" var="payment">
+			<c:set var="paymentType" value="${payment.paymentType}" />
 				<tr>
-					<td valign="middle">${payment.paymentTypeId}</td>
+					<td valign="middle">${paymentType.title}</td>
 					<td valign="middle">${payment.value}</td>
 					<td valign="middle">${payment.dateStart}</td>
 					<td valign="middle">
