@@ -1,61 +1,49 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Edit agreement</title>
-</head>
+<%@page contentType="text/html;charset=UTF-8" language="java"%>
 
-<body>
-	<c:set var="spd" value="${agreement.spd}" />>
+<jsp:include page="../header.jsp" />
+
+<title>Edit agreement</title>
+
+<div class="container-fluid">
+
+	<c:set var="spd" value="${agreement.spd}"/>
+
+	<nav class="breadcrumb">
+		<a class="breadcrumb-item" href="main">Главная</a>
+		<a class="breadcrumb-item" href="getAllSPD">Список СПД</a> 
+		<a class="breadcrumb-item" href="${spd.url}">СПД <c:out	value="${spd.alias}" /></a> 
+		<span class="breadcrumb-item active"><b>Договор № <c:out value="${agreement.number}" /></b></span>
+	</nav>
+
 	<p>
+	
 	<form class="form" role="form" action="agreement" method="post">
 		<input type="hidden" name="edit"> 
 		<input type="hidden" name="id" value="${agreement.id}"> 
 		<input type="hidden" name="spdId" value="${spd.id}">
 
-		<table>
-			<tr>
-				<a class="btn btn-primary" href="getAllSPD" role="button">Вернуться к списку СПД</a>
-			</tr>
-			<tr>
-				<input type="submit" class="btn btn-success" id="button" value="Сохранить и вернуться к СПД ${spd.alias}">
-			</tr>
-			<tr>
-				<a class="btn btn-primary" href="spd?id=${spd.id}" role="button">Вернуться без изменений</a>
-			</tr>
-		</table>
+		<input type="submit" class="btn btn-success" id="button" value="Записать"> 	
+		<a class="btn btn-danger" href="${spd.url}" role="button">Отмена</a>
 
 		<p>
-		<h1 align="center">
-			СПД
-			<c:out value="${spd.alias}" />
-			| Просмотр договора
-		</h1>
-
-		<p>
-		<table border="0" width="50%">
-			<tr>
-				<td valign="top">
+		<div class="form-group row">
 					<div class="form-group">
-						<label for="number" class="col-sm-10 control-label">Номер</label>
-						<div class="col-sm-10">
+
+						<label for="number" class="col-sm-12 control-label">Номер</label>
+						<div class="col-sm-12">
 							<input type="text" class="form-control" id="number" name="number" placeholder="Введите номер договора"
 								value="${agreement.number}">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="dateStart" class="col-sm-6 control-label">Дата</label>
-						<div class="col-sm-10">
+						<label for="date" class="col-sm-12 control-label">Дата</label>
+						<div class="col-sm-12">
 							<input type="date" class="form-control" id="dateStart" name="dateStart" placeholder="Введите дату"
 								value="${agreement.dateStart}">
 						</div>
 					</div>
-			</tr>
-		</table>
+				</div>
 	</form>
 	
 	<p>
@@ -280,14 +268,7 @@
 			</table>
 		</div>
 	</div>
-
-	<!-- ---------------------------------------------------------------------------------------- -->
-
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-
-</body>
-</html>
+</div> <!-- .container-fluid -->
+	
+<!-- footer -->
+<jsp:include page="../footer.jsp" />

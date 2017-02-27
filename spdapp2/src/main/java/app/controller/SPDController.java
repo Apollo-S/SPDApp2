@@ -1,6 +1,9 @@
 package app.controller;
 
 import java.sql.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,12 +20,15 @@ import app.repository.SPDRepository;
 @Controller
 @Transactional
 public class SPDController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(SPDController.class);
 
 	@Autowired(required = true)
 	private SPDRepository spdRepository;
 
 	@RequestMapping(value = "/getAllSPD", method = RequestMethod.GET)
 	public String getAllSPD(Model model) {
+		logger.info("Entering to the getAllSPD() method***");
 		model.addAttribute("spdList", spdRepository.findAll());
 		return "spd/getAll";
 	}
