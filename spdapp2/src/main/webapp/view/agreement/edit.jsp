@@ -246,7 +246,7 @@
 						<td>
 						<table>
 								<tr>
-									<form action="tarif" method="get">
+									<form action="agreementTarif" method="get">
 										<input type="hidden" name="edit"> 
 										<input type="hidden" name="id" value="${tarif.id}">
 										<input type="hidden" name="agreementId" value="${agreement.id}">

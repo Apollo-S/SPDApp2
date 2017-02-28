@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,7 @@
 		
 	.p-invert {
 		text-align: center;
-		filter: invert(100%);
+		filter: invert(20%);
 	}
 </style>
 
@@ -29,10 +30,19 @@
 		</button>
 		<a class="navbar-brand" href="main">SPDApp2</a>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-			<div class="navbar-nav">
-				<a class="nav-item nav-link active" href="getAllSPD">About <span class="sr-only">(current)</span></a> <a
-					class="nav-item nav-link" href="#">Features</a> <a class="nav-item nav-link" href="#">Pricing</a> <a
-					class="nav-item nav-link disabled" href="#">Disabled</a>
+			<div class="nav navbar-nav">
+				<li class="nav-item dropdown">
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          Справочники
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+			          <a class="dropdown-item" href="#">Налоги</a>
+			          <a class="dropdown-item" href="#">Another action</a>
+			          <a class="dropdown-item" href="#">Something else here</a>
+			        </div>
+		      	</li>
+				<a class="nav-item nav-link" href="features">Features</a> 
+				<a class="nav-item nav-link disabled" href="#">Disabled</a>
 			</div>
 		</div>
 	</nav>

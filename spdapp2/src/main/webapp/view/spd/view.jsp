@@ -133,9 +133,7 @@
 							<table>
 								<tr>
 									<form action="agreement" method="get">
-										<input type="hidden" name="edit"> 
 										<input type="hidden" name="id" value="${agreement.id}">
-										<input type="hidden" name="spdId" value="${spd.id}">
 										<button type="submit" class="btn btn-outline-warning btn-sm">Подробнее</button>
 									</form>
 								</tr>
@@ -298,8 +296,8 @@
 		</div>
 		
 	</div>
-</div>
-<p>
-
+	
+</div> <!-- .container-fluid -->
+	
 <!-- footer -->
 <jsp:include page="../footer.jsp" />

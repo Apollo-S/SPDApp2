@@ -1,38 +1,28 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Edit | СПД <c:out value="${spd.alias}" /></title>
-</head>
 
-<body>
+<jsp:include page="../header.jsp" />
+
+<title>Edit | СПД <c:out value="${spd.alias}" /></title>
+
+<div class="container-fluid">
+
+	<nav class="breadcrumb">
+		<a class="breadcrumb-item" href="main">Главная</a>
+		<a class="breadcrumb-item" href="getAllSPD">Список СПД</a> 
+<%-- 		<a class="breadcrumb-item" href="${spd.url}">СПД <c:out	value="${spd.alias}" /></a>  --%>
+		<span class="breadcrumb-item active"><b>СПД <c:out value="${spd.alias}" /> => Редактирование</b></span>
+	</nav>
+		
+	<p>
 
 	<form class="form" role="form" action="spd" method="post">
 		<input type="hidden" name="edit"> 
 		<input type="hidden" name="id" value="${spd.id}">
 		
-		<table>
-			<tr>
-				<a class="btn btn-primary" href="getAllSPD" role="button">Вернуться к списку СПД</a>
-			</tr>
-			<tr>
-				<input type="submit" class="btn btn-success" id="button" value="Сохранить изменения">
-			</tr>
-			<tr>
-				<a class="btn btn-primary" href="${spd.url}" role="button">Закрыть
-					без изменений</a>
-			</tr>
-		</table>
+		<input type="submit" class="btn btn-success" id="button" value="Записать"> 	
+		<a class="btn btn-danger" href="${spd.url}" role="button">Отмена</a>
 
-		<h1 align="center">
-			СПД
-			<c:out value="${spd.alias}" />
-			=> Редактирование
-		</h1>
 		<p>
 		<table border="0" width="50%">
 			<tr align="left">
@@ -168,15 +158,7 @@
 		</table>
 	</form>
 
-
-	<!-- ---------------------------------------------------------------------------------------- -->
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-		integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-		integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-
-</body>
-</html>
+</div> <!-- .container-fluid -->
+	
+<!-- footer -->
+<jsp:include page="../footer.jsp" />

@@ -1,7 +1,7 @@
 <p class="p4">
 
 <div class="container">
-	<nav class="navbar fixed-bottom navbar-inverse bg-secondary" style="background-color: #191970;"> <!-- colour: MidnightBlue -->
+	<nav class="navbar fixed-bottom navbar-light bg-faded"> <!-- colour: MidnightBlue -->
 		<p class="p-invert">© 2017 Apollon Saifullin. All rights reserved. 
 		Contact information: <a href="mailto:apollo.saifullin@gmail.com"> e-mail</a></p>
 	</nav>
