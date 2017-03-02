@@ -20,14 +20,20 @@ public class AgreementController {
 	@Autowired(required = true)
 	private SPDRepository spdRepository;
 
+	@RequestMapping(value = "/agreements", method = RequestMethod.GET)
+	public String getAddAgreement(Model model) {
+		model.addAttribute("agreements", agreementRepository.findAll());
+		return "agreement/getAll";
+	}
+	
 	@RequestMapping(value = "/agreement", params = "add", method = RequestMethod.GET)
 	public String getAddAgreement(@RequestParam int spdId, Model model) {
 		model.addAttribute("spd", spdRepository.findOne(spdId));
 		return "agreement/add";
 	}
-
-	@RequestMapping(value = "/agreement", params = "edit", method = RequestMethod.GET)
-	public String getEditAgreement(@RequestParam int id, Model model) {
+	
+	@RequestMapping(value = "/agreement", method = RequestMethod.GET)
+	public String getAgreement(@RequestParam int id, Model model) {
 		Agreement agreement = agreementRepository.findOne(id);
 		int specNumber = agreementRepository.findMaxSpecificationNumberByAgreementId(id);
 		model.addAttribute("agreement", agreement);

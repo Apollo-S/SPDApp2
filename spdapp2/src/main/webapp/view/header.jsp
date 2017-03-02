@@ -31,13 +31,15 @@
 		<a class="navbar-brand" href="main">SPDApp2</a>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="nav navbar-nav">
+				<a class="nav-item nav-link" href="main">Главная</a> 
 				<li class="nav-item dropdown">
 			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			          Справочники
 			        </a>
 			        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-			          <a class="dropdown-item" href="#">Налоги</a>
-			          <a class="dropdown-item" href="#">Another action</a>
+			          <a class="dropdown-item" href="taxes">Налоги</a>
+			          <a class="dropdown-item" href="spds">Список СПД</a>
+			          <a class="dropdown-item" href="agreements">Договоры с СПД</a>
 			          <a class="dropdown-item" href="#">Something else here</a>
 			        </div>
 		      	</li>

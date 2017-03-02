@@ -11,8 +11,7 @@
 	<c:set var="spd" value="${agreement.spd}"/>
 
 	<nav class="breadcrumb">
-		<a class="breadcrumb-item" href="main">Главная</a>
-		<a class="breadcrumb-item" href="getAllSPD">Список СПД</a> 
+		<a class="breadcrumb-item" href="spds">Список СПД</a> 
 		<a class="breadcrumb-item" href="${spd.url}">СПД <c:out	value="${spd.alias}" /></a> 
 		<a class="breadcrumb-item" href="${agreement.url}">Договор <c:out value="${agreement.number}" /></a> 
 		<span class="breadcrumb-item active"><b>Тарифы от <c:out value="${agreementTarif.dateStart}" /></b></span>

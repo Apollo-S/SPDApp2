@@ -1,42 +1,34 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Edit specification</title>
-</head>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<body>
-	<p>
-	
+<jsp:include page="../header.jsp" />
+
+<title>Edit specification</title>
+
+<div class="container-fluid">
+
 	<c:set var="agreement" value="${specification.agreement}" />
 	<c:set var="spd" value="${agreement.spd}" />
+	
+	<nav class="breadcrumb">
+		<a class="breadcrumb-item" href="spds">Список СПД</a> 
+		<a class="breadcrumb-item" href="${spd.url}">СПД <c:out	value="${spd.alias}" /></a> 
+		<a class="breadcrumb-item" href="${agreement.url}">Договор <c:out value="${agreement.number}" /></a> 
+		<span class="breadcrumb-item active"><b>Спецификация № <c:out value="${specification.specificationNumber}" /> от 
+											<fmt:formatDate	value="${specification.dateStart}" pattern="dd.MM.yyyy" />г.</b></span>
+	</nav>
 	
 	<form class="form" role="form" action="specification" method="post">
 		<input type="hidden" name="edit">
 		<input type="hidden" name="id" value="${specification.id}">
 		<input type="hidden" name="agreementId" value="${agreement.id}">
 		<input type="hidden" name="spdId" value="${spd.id}">
-
-	<table>
-		<tr>
-			<a class="btn btn-primary" href="getAllSPD" role="button">Вернуться к списку СПД</a>
-		</tr>
-		<tr>
-			<input type="submit" class="btn btn-success" id="button" value="Записать и вернуться к Договору">
-		</tr>
-		<tr>
-			<a class="btn btn-primary" href="agreement?edit=&id=${agreement.id}&spdId=${spd.id}" role="button">Закрыть без изменений</a>
-		</tr>
-	</table>
 	
-	<p>
-	<h1 align="center">Спецификация № <c:out value="${specification.specificationNumber}"/> к договору № <c:out value="${agreement.number}"/> </h1>
-		<p>
+		<input type="submit" class="btn btn-success" id="button" value="Записать">
+		<a class="btn btn-danger" href="${agreement.url}" role="button">Отмена</a>
 		
+		<p>
 		
 		<table border="0" width="50%">			
 			<tr>
@@ -135,59 +127,59 @@
 		<!-- Tab panes -->
 		<div class="tab-content">
 		
-		<div class="tab-pane active" id="calculation" role="tabpanel">
+			<div class="tab-pane active" id="calculation" role="tabpanel">
+		
+			<!-- Button trigger modal -->
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCalculation">Добавить расчет</button>
 	
-		<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCalculation">Добавить расчет</button>
-
-			<!-- Modal -->
-			<div class="modal fade" id="modalCalculation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-				aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-							<h5 class="modal-title" id="exampleModalLabel">Новый расчет к спецификации № <c:out value="${specification.specificationNumber}"/></h5>
-						</div>
-						<div class="modal-body">
-						<form action="specification" method="post">
-							<input type="hidden" name="add"> 
-							<input type="hidden" name="specificationId"	value="${specification.id}">
-							<input type="hidden" name="spdId" value="${spd.id}">
-							<table border="0" width="50%">
-								<tr>
-									<td valign="top">
-										<div class="form-group">
-											<label for=calculationNumber class="col-sm-10 control-label">Номер расчета (п/п)</label>
-											<div class="col-sm-10">
-												<input type="text" class="form-control" id="calculationNumber" name="calculationNumber" value="${calculationNumber}">
+				<!-- Modal -->
+				<div class="modal fade" id="modalCalculation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h5 class="modal-title" id="exampleModalLabel">Новый расчет к спецификации № <c:out value="${specification.specificationNumber}"/></h5>
+							</div>
+							<div class="modal-body">
+							<form action="specification" method="post">
+								<input type="hidden" name="add"> 
+								<input type="hidden" name="specificationId"	value="${specification.id}">
+								<input type="hidden" name="spdId" value="${spd.id}">
+								<table border="0" width="50%">
+									<tr>
+										<td valign="top">
+											<div class="form-group">
+												<label for=calculationNumber class="col-sm-10 control-label">Номер расчета (п/п)</label>
+												<div class="col-sm-10">
+													<input type="text" class="form-control" id="calculationNumber" name="calculationNumber" value="${calculationNumber}">
+												</div>
 											</div>
-										</div>
-										<div class="form-group">
-											<label for="dateStart" class="col-sm-10 control-label">Дата расчета</label>
-											<div class="col-sm-10">
-												<input type="date" class="form-control" id="dateStart" name="dateStart"
-													placeholder="Введите дату спецификации" value="${dateStart}">
+											<div class="form-group">
+												<label for="dateStart" class="col-sm-10 control-label">Дата расчета</label>
+												<div class="col-sm-10">
+													<input type="date" class="form-control" id="dateStart" name="dateStart"
+														placeholder="Введите дату спецификации" value="${dateStart}">
+												</div>
 											</div>
-										</div>
-									</td>
-								</tr>
-							</table>
-						<p>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-							<input type="submit" class="btn btn-primary" id="button" value="Добавить">
+										</td>
+									</tr>
+								</table>
+							<p>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+								<input type="submit" class="btn btn-primary" id="button" value="Добавить">
+							</div>
+						</form>
 						</div>
-					</form>
 					</div>
 				</div>
 			</div>
-		</div>
-
-			<p>	
-		...
+	
+				<p>	
+			...
 	</div>
 	
 	<div class="tab-pane" id="jobName" role="tabpanel">
@@ -242,14 +234,9 @@
 		</div>
 		...
 	</div>
+	</div>
 	
-		<!-- ---------------------------------------------------------------------------------------- -->
-		
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-
-</body>
-</html>
+</div> <!-- .container-fluid -->
+	
+<!-- footer -->
+<jsp:include page="../footer.jsp" />

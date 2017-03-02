@@ -26,12 +26,10 @@ public class AccountController {
 		return "account/add";
 	}
 
-	@RequestMapping(value = "/account", params = "edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/account", method = RequestMethod.GET)
 	public String getEditAccount(@RequestParam int id, Model model) {
 		Account account = accountRepository.findOne(id);
-		SPD spd = spdRepository.findOne(account.getSpd().getId());
 		model.addAttribute("account", account);
-		model.addAttribute("spd", spd);
 		return "account/edit";
 	}
 

@@ -3,39 +3,42 @@
 
 <jsp:include page="../header.jsp" />
 
-<title>SPD List</title>
+<title>Agreements List</title>
 
 <div class="container-fluid">
 
 	<nav class="breadcrumb">
-		<span class="breadcrumb-item active"><b>Список СПД</b></span>
+		<span class="breadcrumb-item active"><b>Договоры</b></span>
 	</nav>
 	
-	<form action="spd" method="get">
+	<form action="agreement" method="get">
 		<input type="hidden" name="add"> 
-		<button type="submit" class = "btn btn-success">Новый контрагент</button>
+		<button type="submit" class = "btn btn-success">Новый договор !!!</button>
 	</form>
 	
 	<p>
 
-	<table class="table table-sm table-bordered table-stripped">
+	<table class="table table-sm table-bordered table-hover">
 		<thead class="thead-inverse">
-			<tr>
-				<th align="center">ID</th>
-				<th align="center">ФИО</th>
-				<th align="center">ИНН</th>
-				<th align="center">Подробнее/Удалить</th>
+			<tr align="center">
+				<th>ID</th>
+				<th>СПД</th>
+				<th>Номер договора</th>
+				<th>Дата</th>
+				<th>Подробнее/Удалить</th>
 			</tr>
 		</thead>
 
-		<c:forEach items="${spds}" var="spd">
+		<c:forEach items="${agreements}" var="agreement">
+			<c:set var="spd" value="${agreement.spd}"/>
 			<tr>
-				<td>${spd.id}</td>
+				<td>${agreement.id}</td>
 				<td>${spd.alias}</td>
-				<td>${spd.inn}</td>
+				<td>${agreement.number}</td>
+				<td>${agreement.dateStart}</td>
 				<td>
 					<div class="btn-group" role="group">
-						<a class="btn btn-warning btn-sm" href="${spd.url}" role="button">Подробнее</a>
+						<a class="btn btn-warning btn-sm" href="${agreement.url}" role="button">Подробнее</a>
 						<form action="spd" method="post">
 							<input type="hidden" name="delete"> 
 							<input type="hidden" name="id" value="${spd.id}"> 

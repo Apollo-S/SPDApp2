@@ -10,8 +10,7 @@
 	<c:set var="spd" value="${agreement.spd}"/>
 
 	<nav class="breadcrumb">
-		<a class="breadcrumb-item" href="main">Главная</a>
-		<a class="breadcrumb-item" href="getAllSPD">Список СПД</a> 
+		<a class="breadcrumb-item" href="spds">Список СПД</a> 
 		<a class="breadcrumb-item" href="${spd.url}">СПД <c:out	value="${spd.alias}" /></a> 
 		<span class="breadcrumb-item active"><b>Договор № <c:out value="${agreement.number}" /></b></span>
 	</nav>
@@ -134,9 +133,7 @@
 							<table>
 								<tr>
 									<form action="specification" method="get">
-										<input type="hidden" name="edit">
 										<input type="hidden" name="id" value="${specification.id}">
-										<input type="hidden" name="agreementId" value="${agreement.id}">
 										<button type="submit" class="btn btn-outline-warning btn-sm">Подробнее</button>
 									</form>
 								</tr>

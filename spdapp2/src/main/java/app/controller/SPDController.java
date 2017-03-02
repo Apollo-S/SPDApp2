@@ -26,10 +26,10 @@ public class SPDController {
 	@Autowired(required = true)
 	private SPDRepository spdRepository;
 
-	@RequestMapping(value = "/getAllSPD", method = RequestMethod.GET)
+	@RequestMapping(value = "/spds", method = RequestMethod.GET)
 	public String getAllSPD(Model model) {
 		logger.info("Entering to the getAllSPD() method***");
-		model.addAttribute("spdList", spdRepository.findAll());
+		model.addAttribute("spds", spdRepository.findAll());
 		return "spd/getAll";
 	}
 

@@ -7,11 +7,15 @@
 
 <div class="container-fluid">
 
-	<nav class="breadcrumb">
-		<span class="breadcrumb-item active"><b>Главная</b></span>
-	</nav>
-	
-	<a class="btn btn-primary" href="getAllSPD" role="button">Список СПД</a>
+	<div class="jumbotron">
+		<h1 class="display-3">Добро пожаловать</h1>
+		<p class="lead">Bla-bla-bla...</p>
+		<hr class="my-4">
+		<p>Bla-bla-bla...</p>
+		<p class="lead">
+			<a class="btn btn-primary btn-lg" href="spds" role="button">Просмотреть всех СПД</a>
+		</p>
+	</div>
 
 </div>
 

@@ -21,13 +21,14 @@ public class SpecificationController {
 	private SpecificationRepository specRepository;
 	
 	
-	@RequestMapping(value = "/specification", params = "edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/specification", method = RequestMethod.GET)
 	public String getEditSpecification(@RequestParam int id, Model model) {
 		Specification specification = specRepository.findOne(id);
 		model.addAttribute("specification", specification);
 		return "specification/edit";
 	}
-	
+
+// TODO have to finish Controller	
 //	@Override
 //	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 //			throws ServletException, IOException {
