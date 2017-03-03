@@ -99,7 +99,7 @@ public class SPDController {
 	@RequestMapping(value = "/spd", params = "delete", method = RequestMethod.POST)
 	public String postDeleteSPD(@RequestParam int id) {
 		spdRepository.delete(id);
-		return "redirect:getAllSPD";
+		return "redirect:spds";
 	}
 
 }

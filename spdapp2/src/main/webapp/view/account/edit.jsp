@@ -10,7 +10,6 @@
 	<c:set var="spd" value="${account.spd}"/>
 
 	<nav class="breadcrumb">
-		<a class="breadcrumb-item" href="main">Главная</a>
 		<a class="breadcrumb-item" href="getAllSPD">Список СПД</a> 
 		<a class="breadcrumb-item" href="${spd.url}">СПД <c:out	value="${spd.alias}" /></a> 
 		<span class="breadcrumb-item active"><b>Расчетный счет № <c:out value="${account.accountNumber}" /></b></span>
