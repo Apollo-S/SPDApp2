@@ -29,7 +29,7 @@
 
 	<!-- Tab panes -->
 	<div class="tab-content">
-		<div class="tab-pane active" id="main" role="tabpanel">
+		<div class="tab-pane fade show active" id="main" role="tabpanel">
 			<p>
 			<ul>
 				<c:set var="address" value="${spd.address}" />
@@ -64,8 +64,7 @@
 			<p>
 		</div>
 		
-<!-- 	Tab panel 'Договоры' -->
-		<div class="tab-pane" id="agreement" role="tabpanel">
+		<div class="tab-pane fade" id="agreement" role="tabpanel">
 			<p>
 			<p>
 			<!-- Button trigger modal -->
@@ -116,6 +115,7 @@
 		</div>
 	
 		<p>
+		
 		<table class="table table-sm table-bordered">
 				<thead class="thead-default">
 					<tr>
@@ -158,7 +158,7 @@
 
 
 		</div>
-		<div class="tab-pane" id="bankprops" role="tabpanel">
+		<div class="tab-pane fade" id="bankprops" role="tabpanel">
 		<p>
 			<form action="account" method="get">
 				<input type="hidden" name="add"> <input type="hidden"
@@ -204,7 +204,7 @@
 			</table>
 			
 		</div>
-		<div class="tab-pane" id="payments" role="tabpanel">
+		<div class="tab-pane fade" id="payments" role="tabpanel">
 		<p>
 		<p>
 		<!-- Button trigger modal -->

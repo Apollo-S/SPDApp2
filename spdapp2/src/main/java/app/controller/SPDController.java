@@ -66,12 +66,13 @@ public class SPDController {
 	}
 
 	@RequestMapping(value = "/spd", params = "edit", method = RequestMethod.POST)
-	public String postEditSPD(@RequestParam int id, @RequestParam String surname, @RequestParam String firstname,
+	public String postEditSPD(@RequestParam Integer id, @RequestParam String surname, @RequestParam String firstname,
 			@RequestParam String lastname, @RequestParam String alias, @RequestParam String inn,
 			@RequestParam String passport, @RequestParam String description, @RequestParam Date dated,
 			@RequestParam String country, @RequestParam String region, @RequestParam String city,
 			@RequestParam String street, @RequestParam String building, @RequestParam String flat,
 			@RequestParam String zip) {
+		logger.info("***Begin edit SPD, entering postEditSPD() method***");
 		SPD spd = spdRepository.findOne(id);
 		Address address = spd.getAddress();
 		RegistrationInfo regInfo = spd.getRegistrationInfo();
@@ -92,7 +93,8 @@ public class SPDController {
 		spd.setPassport(passport);
 		spd.setAddress(address);
 		spd.setRegistrationInfo(regInfo);
-		spdRepository.save(spd);
+		spd = spdRepository.save(spd);
+		logger.info("***Finish edit SPD, out of postEditSPD() method***");
 		return "redirect:" + spd.getUrl();
 	}
 

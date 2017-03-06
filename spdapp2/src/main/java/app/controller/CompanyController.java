@@ -55,7 +55,8 @@ public class CompanyController {
 		company.setEdrpou(edrpou);
 		company.setInn(inn);
 		company.setVatCertificate(vatCertificate);
-		companyRepository.save(company);
+		company = companyRepository.save(company);
+		logger.info("***Saving is OK!!!***");
 		return "redirect:companies";
 	}
 	
