@@ -52,15 +52,17 @@
 					placeholder="Введите № свидетельства" value="${company.vatCertificate}">
 			</div>
 		</div>
-		<p>
+	
+	</form>
 
-			<!-- Nav tabs -->
-		
-		<ul class="nav nav-tabs" role="tablist">
-			<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#address" role="tab">Адрес</a></li>
-			<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#director" role="tab">Директор</a></li>
-			<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#messages" role="tab">Messages</a></li>
-		</ul>
+	<!-- Nav tabs -->
+	<p>
+	
+	<ul class="nav nav-tabs" role="tablist">
+		<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#address" role="tab">Адрес</a></li>
+		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#director" role="tab">Директор</a></li>
+		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#messages" role="tab">Messages</a></li>
+	</ul>
 
 		<p>
 
@@ -69,9 +71,9 @@
 			<div class="tab-pane fade show active" id="address" role="tabpanel">	
 				<p>
 				<!-- Button trigger modal -->
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCompanyAddress">Новый адрес</button>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCompanyAddressAdd">Новый адрес</button>
 				<!-- Modal -->
-				<div class="modal fade" id="modalCompanyAddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+				<div class="modal fade" id="modalCompanyAddressAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 				aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -82,9 +84,25 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form action="agreement" method="post">
+							<form action="companyAddress" method="post">
 								<input type="hidden" name="add"> 
-								<p>
+								<input type="hidden" name="companyId" value="${company.id}"> 
+									<div class="row">
+										<div class="col-sm">
+											<label for="presentation" class="col-sm"><b>Представление</b></label> 
+											<input type="text" class="form-control" id="presentation"
+												name="presentation" placeholder="Введите адрес"">
+										</div>
+									</div>
+									<p>
+									<div class="row">
+										<div class="col-sm">
+											<label for="dateStart" class="col-sm"><b>Дата начала действия</b></label> 
+											<input type="date" class="form-control" id="dateStart"
+												name="dateStart" placeholder="Введите дату начала действия"">
+										</div>
+									</div>
+									<p>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
 									<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
@@ -110,24 +128,54 @@
 						<td><c:out value="${address.presentation}"/></td>
 						<td><c:out value="${address.dateStart}"/></td>
 						<td>
-						
-							<div class="row">
-								
-								<div class="col-3">
-									<form action="agreement" method="get">
-										<input type="hidden" name="id" value="${company.id}">
-										<button type="submit" class="btn btn-outline-warning btn-sm">Подробнее</button>
-									</form>
+							<div class="btn-group" role="group">
+								<!-- Button trigger modal -->
+								<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalCompanyAddressEdit${address.id}">Изменить</button>
+								<!-- Modal -->
+								<div class="modal fade" id="modalCompanyAddressEdit${address.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+									aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel"><c:out value="${company.title}"/> | Редактировать адрес</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<form action="companyAddress" method="post">
+													<input type="hidden" name="edit"> 
+													<input type="hidden" name="id" value="${address.id}"> 
+													<div class="row">
+														<div class="col-sm">
+															<label for="presentation" class="col-sm"><b>Представление</b></label> 
+															<input type="text" class="form-control" id="presentation"
+																name="presentation" placeholder="Введите адрес" value="${address.presentation}">
+														</div>
+													</div>
+													<p>
+													<div class="row">
+														<div class="col-sm">
+															<label for="dateStart" class="col-sm"><b>Дата начала действия</b></label> 
+															<input type="date" class="form-control" id="dateStart"
+																name="dateStart" placeholder="Введите дату начала действия" value="${address.dateStart}">
+														</div>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+														<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
 								</div>
-								<div class="col-3">
-									<form action="agreement" method="post">
-										<input type="hidden" name="delete"> 
-										<input type="hidden" name="id" value="${company.id}">
-										<button type="submit" class="btn btn-outline-danger btn-sm">Удалить (осторожно!)</button>
-									</form>
-								</div>
+								<form action="companyAddress" method="post">
+									<input type="hidden" name="delete"> 
+									<input type="hidden" name="id" value="${address.id}">
+									<button type="submit" class="btn btn-outline-danger btn-sm">Удалить (осторожно!)</button>
+								</form>
 							</div>
-							
 						</td>
 					</tr>
 				</c:forEach>
@@ -147,7 +195,7 @@
 
 
 
-	</form>
+
 
 </div> <!-- .container-fluid -->
 	
