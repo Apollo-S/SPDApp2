@@ -52,7 +52,7 @@
 			</div>
 			<div class="col"></div>
 			<div class="col-2">
-				<label for="dateStart"><b>Дата открытия</b></label>
+				<label for="dateStart"><b>Дата создания</b></label>
 					<input type="date" class="form-control" id="dateStart"
 						name="dateStart" placeholder="Введите дату" value=<c:out value="${specification.dateStart}"/>>
 			</div>

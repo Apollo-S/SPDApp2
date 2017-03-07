@@ -25,7 +25,7 @@
 			<div class="row">
 				<div class="col">
 					<input type="submit" class="btn btn-success" id="button" value="Записать"> 	
-					<a class="btn btn-danger" href="companies" role="button">Отмена</a>
+					<a class="btn btn-danger" href="${spd.url}" role="button">Отмена</a>
 				</div>
 			</div>
 		</nav>
@@ -40,8 +40,15 @@
 			</div>
 			<div class="col-2">
 				<label for="date"><b>Дата</b></label>
-					<input type="date" class="form-control" id="dateStart" name="dateStart" placeholder="Введите дату"
+				<input type="date" class="form-control" id="dateStart" name="dateStart" placeholder="Введите дату"
 						value="${agreement.dateStart}">
+			</div>
+			<div class="col-2"></div>
+			<div class="col-2">
+				<label for="company"><b>Компания-наниматель</b></label>
+				<select class="form-control">
+  					<option>Default select</option>
+				</select>
 			</div>
 		</div>
 	</form>
@@ -58,18 +65,18 @@
 	</ul>
 	<p>
 	
-<!-- 		Specification Tab -->
 	<!-- Tab panes -->
 	<div class="tab-content">
 	
+	<!-- Specification Tab -->
 	<div class="tab-pane active" id="spec" role="tabpanel">
 
 		<!-- Button trigger modal -->
 		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSpec">Добавить спецификацию</button>
 		<!-- Modal -->
-		<div class="modal fade" id="modalSpec" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		<div class="modal fade bd-example-modal-sm" id="modalSpec" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 			aria-hidden="true">
-			<div class="modal-dialog" role="document">
+			<div class="modal-dialog modal-sm" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Новая спецификация</h5>
@@ -78,39 +85,39 @@
 						</button>
 					</div>
 					<div class="modal-body">
-					<form action="specification" method="post">
-						<input type="hidden" name="add"> 
-						<input type="hidden" name="agreementId"	value="${agreement.id}">
-						<input type="hidden" name="spdId" value="${spd.id}">
-						<table border="0" width="50%">
-							<tr>
-								<td valign="top">
-									<div class="form-group">
-										<label for="specNumber" class="col-sm-10 control-label">Номер спецификации (п/п)</label>
-										<div class="col-sm-10">
-											<input type="text" class="form-control" id="specNumber" name="specNumber" value="${specNumber}">
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="dateStart" class="col-sm-10 control-label">Дата спецификации</label>
-										<div class="col-sm-10">
-											<input type="date" class="form-control" id="dateStart" name="dateStart"
-												placeholder="Введите дату спецификации" value="${dateStart}">
-										</div>
-									</div>
-								</td>
-							</tr>
-						</table>
-					<p>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-						<input type="submit" class="btn btn-primary" id="button" value="Добавить">
+						<form action="specification" method="post">
+							<input type="hidden" name="add"> 
+							<input type="hidden" name="agreementId"	value="${agreement.id}">
+							
+							<div class="row">
+								<div class="col">
+									<label for="specNumber"><b>№ п/п</b></label>
+								</div>
+								<div class="col">
+									<input type="text" class="form-control" id="specNumber" name="specNumber" 
+										value="${specNumber}">
+								</div>
+							</div>
+							<p>
+							<div class="row">
+								<div class="col">
+									<label for="dateStart"><b>Дата</b></label>
+								</div>
+								<div class="col">
+									<input type="date" class="form-control" id="dateStart" name="dateStart"
+										placeholder="" value="${dateStart}">
+								</div>
+							</div>
+							<p>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+								<input type="submit" class="btn btn-primary" id="button" value="Добавить">
+							</div>
+						</form>
 					</div>
-				</form>
 				</div>
 			</div>
 		</div>
-	</div>
 
 		<p>
 		<table class="table table-sm table-bordered">
@@ -130,40 +137,32 @@
 					<td valign="middle">${specification.dateFinish}</td>
 					<td valign="middle">${specification.specificationSum}</td>
 					<td>
-						<table>
-							<tr>
-								<form action="specification" method="get">
-									<input type="hidden" name="id" value="${specification.id}">
-									<button type="submit" class="btn btn-outline-warning btn-sm">Подробнее</button>
-								</form>
-							</tr>
-							<tr>
+						<div class="btn-group" role="group">
+								<a class="btn btn-warning btn-sm" href="${specification.url}" role="button">Подробнее</a>
 								<form action="specification" method="post">
 									<input type="hidden" name="delete">
 									<input type="hidden" name="id" value="${specification.id}">
 									<input type="hidden" name="spdId" value="${spd.id}">
 									<button type="submit" class="btn btn-outline-danger btn-sm">Удалить (осторожно!)</button>
 								</form>
-							</tr>
-						</table>
+						</div>		
 					</td>
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
 	
-<!-- 		Tarif Tab -->
-			<div class="tab-pane" id="tarif" role="tabpanel">
-			<p>
+	<!-- Tarif Tab -->
+	<div class="tab-pane" id="tarif" role="tabpanel">
+	
+	<p>
 
-			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTarif">Добавить ставки</button>
-
-			<!-- Modal -->
-		
-			<div class="modal fade" id="modalTarif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTarif">Добавить ставки</button>
+		<!-- Modal -->
+		<div class="modal fade bd-example-modal-lg" id="modalTarif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 				aria-hidden="true">
-				<div class="modal-dialog" role="document">
+				<div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="exampleModalLabel">Новые ставки к Договору № ${agreement.number}</h5>
@@ -172,46 +171,33 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form action="tarif" method="post">
-								<input type="hidden" name="add"> 
-								<input type="hidden" name="spdId" value="${spd.id}">
-								<table border="0" width="120%">
-									<tr>
-										<td valign="top">
-											<div class="form-group">
-												<input type="hidden" class="form-control" id="agreementId" name="agreementId"
-													value=<c:out value="${agreement.id}"/>>
-											</div>
-											<div class="form-group">
-												<label for="configuring" class="col-sm-10 control-label"><b>Конфигурирование</b></label>
-												<div class="col-sm-10">
-													<input type="text" class="form-control" id="configuring" name="configuring"
-														placeholder="Введите сумму (конфигурирование)">
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="programming" class="col-sm-10 control-label"><b>Программирование</b></label>
-												<div class="col-sm-10">
-													<input type="text" class="form-control" id="programming" name="programming"
-														placeholder="Введите сумму (программирование)">
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="architecting" class="col-sm-10 control-label"><b>Архит. доработки</b></label>
-												<div class="col-sm-10">
-													<input type="text" class="form-control" id="architecting" name="architecting"
-														placeholder="Введите сумму (арх. доработки)">
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="dateStart" class="col-sm-6 control-label"><b>Дата начала действия</b></label>
-												<div class="col-sm-10">
-													<input type="date" class="form-control" id="dateStart" name="dateStart" placeholder="Введите дату"
-														value="${dateStart}">
-												</div>
-											</div>
-									</tr>
-								</table>
+							<form action="agreementTarif" method="post">
+								<input type="hidden" name="add">
+								<input type="hidden" name="agreementId" value="${agreement.id}"/>
+								
+								<div class="row">
+									<div class="col">
+										<label for="configuring"><b>Конфигурирование, грн</b></label>
+										<input type="text" class="form-control" id="configuring" name="configuring">
+									</div>
+									<div class="col">
+										<label for="programming"><b>Программирование, грн</b></label>
+										<input type="text" class="form-control" id="programming" name="programming">
+									</div>
+									<div class="col">
+										<label for="architecting"><b>Архит. доработки</b></label>
+										<input type="text" class="form-control" id="architecting" name="architecting">
+									</div>
+								</div>
+								<p>
+								<div class="row">
+									<div class="col"></div>
+									<div class="col-4">
+										<label for="dateStart" ><b>Действуют с</b></label>
+										<input type="date" class="form-control" id="dateStart" name="dateStart" placeholder="Введите дату"
+											value="${dateStart}">
+									</div>	
+								</div>	
 								<p>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
@@ -241,26 +227,16 @@
 						<td valign="middle">${tarif.architecting}</td>
 						<td valign="middle">${tarif.dateStart}</td>
 						<td>
-						<table>
-								<tr>
-									<form action="agreementTarif" method="get">
-										<input type="hidden" name="edit"> 
-										<input type="hidden" name="id" value="${tarif.id}">
-										<input type="hidden" name="agreementId" value="${agreement.id}">
-										<button type="submit" class="btn btn-outline-warning btn-sm">Подробнее</button>
-									</form>
-								</tr>
-								<tr>
-									<form action="tarif" method="post">
+							<div class="btn-group" role="group">
+									<a class="btn btn-warning btn-sm" href="" role="button">Modal...</a>
+									<form action="agreementTarif" method="post">
 										<input type="hidden" name="delete"> 
 										<input type="hidden" name="id" value="${tarif.id}">
-										<input type="hidden" name="spdId" value="${spd.id}">
 										<button type="submit" class="btn btn-outline-danger btn-sm">Удалить (осторожно!)</button>
 									</form>
-								</tr>
-							</table>
-						</td>
-					</tr>
+							</div>
+					
+					</td>
 				</c:forEach>
 			</table>
 		</div>
