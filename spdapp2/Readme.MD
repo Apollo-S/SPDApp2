@@ -3,7 +3,7 @@ Briefing of SPDApp2 web application
 
 (This application is developed for my personal needs) 
 Main goal - is the accounting of individual-entrepreneurs (agreements, payments, accounts, 
-printing documents).
+printing documents, payroll calculation). 
  
 For example
 ===========
@@ -15,7 +15,7 @@ Current features
 ================
 + add services for all controllers?
 + change jsp -> jspx
-+ исправить баг с неправильным представлением названия банка (пропадают данные из-за кавычек)
+[resolved] исправить баг с неправильным представлением названия банка (пропадают данные из-за кавычек)
  
 Future features
 ===============
