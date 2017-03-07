@@ -1,5 +1,6 @@
 package app.entity;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -13,7 +14,8 @@ public abstract class BaseEntity {
 	private Integer id;
 
 	@Version
-	private Integer version;
+	@Column(name = "optlock", columnDefinition = "integer DEFAULT 0", nullable = false)
+	private Integer version = 0;
 
 	public Integer getId() {
 		return id;
