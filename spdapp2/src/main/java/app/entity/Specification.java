@@ -40,24 +40,13 @@ public class Specification extends UrlEntity implements Serializable {
 	@Column(name = "architecting_hours")
 	private Integer architectingHours;
 	
-	@Column(name = "company_id") // TODO  @OneToOne relations
-	private Integer companyId;
-
 	public Specification() {
 	}
 
-	public Specification(Agreement agreement, Integer specificationNumber, Date dateStart,
-			Date dateFinish, Double specificationSum, Integer configuringHours, Integer programmingHours, Integer architectingHours,
-			Integer companyId) {
+	public Specification(Agreement agreement, Integer specificationNumber, Date dateStart) {
 		this.agreement = agreement;
 		this.specificationNumber = specificationNumber;
 		this.dateStart = dateStart;
-		this.dateFinish = dateFinish;
-		this.specificationSum = specificationSum;
-		this.configuringHours = configuringHours;
-		this.programmingHours = programmingHours;
-		this.architectingHours = architectingHours;
-		this.companyId = companyId;
 	}
 
 	public Agreement getAgreement() {
@@ -122,14 +111,6 @@ public class Specification extends UrlEntity implements Serializable {
 
 	public void setArchitectingHours(Integer architectingHours) {
 		this.architectingHours = architectingHours;
-	}
-
-	public Integer getCompanyId() {
-		return companyId;
-	}
-
-	public void setCompanyId(Integer companyId) {
-		this.companyId = companyId;
 	}
 	
 }

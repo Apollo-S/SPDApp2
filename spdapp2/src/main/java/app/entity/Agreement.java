@@ -21,6 +21,10 @@ public class Agreement extends UrlEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "spd_id")
 	private SPD spd;
+	
+	@ManyToOne
+	@JoinColumn(name = "company_id")
+	private Company company;
 
 	@Column(name = "number")
 	private String number;
