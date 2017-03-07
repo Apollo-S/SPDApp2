@@ -61,7 +61,7 @@
 	<ul class="nav nav-tabs" role="tablist">
 		<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#address" role="tab">Адрес</a></li>
 		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#director" role="tab">Директор</a></li>
-		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#messages" role="tab">Messages</a></li>
+		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#agreements" role="tab">Связанные договоры</a></li>
 	</ul>
 
 		<p>
@@ -91,7 +91,7 @@
 										<div class="col-sm">
 											<label for="presentation" class="col-sm"><b>Представление</b></label> 
 											<input type="text" class="form-control" id="presentation"
-												name="presentation" placeholder="Введите адрес"">
+												name="presentation" placeholder="Введите адрес">
 										</div>
 									</div>
 									<p>
@@ -99,12 +99,12 @@
 										<div class="col-sm">
 											<label for="dateStart" class="col-sm"><b>Дата начала действия</b></label> 
 											<input type="date" class="form-control" id="dateStart"
-												name="dateStart" placeholder="Введите дату начала действия"">
+												name="dateStart" placeholder="Введите дату начала действия">
 										</div>
 									</div>
 									<p>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
 									<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
 								</div>
 							</form>
@@ -155,14 +155,16 @@
 													</div>
 													<p>
 													<div class="row">
-														<div class="col-sm">
+												
+														<div class="col-6">
 															<label for="dateStart" class="col-sm"><b>Дата начала действия</b></label> 
 															<input type="date" class="form-control" id="dateStart"
 																name="dateStart" placeholder="Введите дату начала действия" value="${address.dateStart}">
 														</div>
 													</div>
+													<p>	
 													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+														<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
 														<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
 													</div>
 												</form>
@@ -183,7 +185,7 @@
 		</div>
 		
 		<div class="tab-pane fade" id="director" role="tabpanel">...</div>
-		<div class="tab-pane fade" id="messages" role="tabpanel">...</div>
+		<div class="tab-pane fade" id="agreements" role="tabpanel">...</div>
 	</div>
 
 
