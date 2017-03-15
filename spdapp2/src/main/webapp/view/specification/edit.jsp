@@ -87,7 +87,7 @@
 	<p>
 		<div class="row">
 			<div class="col-4">
-				<input type="text" id="sum" name="sum" class="form-control">
+				<input type="text" id="sum" name="sum" class="form-control" readonly>
 			</div>
 			
 			<div class="col-2">
