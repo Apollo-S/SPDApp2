@@ -1,13 +1,14 @@
 package app.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
-
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "specification")
@@ -22,9 +23,11 @@ public class Specification extends UrlEntity implements Serializable {
 	@Column(name = "specification_number")
 	private Integer specificationNumber;
 	
+	@Temporal(TemporalType.DATE)
 	@Column(name = "date_start")
 	private Date dateStart;
 	
+	@Temporal(TemporalType.DATE)
 	@Column(name = "date_finish")
 	private Date dateFinish;
 	
