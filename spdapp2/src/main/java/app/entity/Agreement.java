@@ -1,7 +1,7 @@
 package app.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "agreement")
@@ -29,7 +31,7 @@ public class Agreement extends UrlEntity implements Serializable {
 	@Column(name = "number")
 	private String number;
 
-// TODO	 use Calendar class with annotation @Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.DATE)
 	@Column(name = "date_start")
 	private Date dateStart;
 
