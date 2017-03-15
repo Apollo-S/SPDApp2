@@ -48,7 +48,7 @@
 			<div class="col-2">
 				<label for="specificationSum"><b>Общая сумма</b></label>
 					<input type="text" class="form-control" id="specificationSum"
-						name="specificationSum" placeholder="" value=<c:out value="${specification.specificationSum}"/>>
+						name="specificationSum" placeholder="" value=<c:out value="${specification.specificationSum}"/> readonly>
 			</div>
 			<div class="col"></div>
 			<div class="col-2">
@@ -65,25 +65,35 @@
 		<p>
 		<div class="row">
 			<div class="col-2">
-				<label for="configuringHours"><b>Конфигурирование (часы)</b></label>
-				<input type="number" class="form-control" id="configuringHours"
+				<label for="configuringHours"><b>Конфигурирование</b></label>
+				<label id="configuringHoursTarif"><b>${currentTarif.configuring}</b></label>
+				<input onchange="calcSpecificationSum()" type="number" class="form-control" id="configuringHours"
 					name="configuringHours" placeholder="" value=<c:out value="${specification.configuringHours}"/>>
 			</div>
-
 			<div class="col-2">
 				<label for="programmingHours"><b>Программирование</b></label>
-				<input type="number" class="form-control" id="programmingHours"
+				<label id="programmingHoursTarif"><b>${currentTarif.programming}</b></label>
+				<input onchange="calcSpecificationSum()" type="number" class="form-control" id="programmingHours"
 					name="programmingHours" placeholder="" value=<c:out value="${specification.programmingHours}"/>>
-			</div>	
+			</div>
 			<div class="col-2">
-				<label for="architectingHours"><b>Архит. доработки [часы]</b></label>
-				<input type="text" class="form-control" id="architectingHours"
+				<label for="architectingHours"><b>Архит. доработки</b></label>
+				<label id="architectingHoursTarif"><b>${currentTarif.architecting}</b></label>
+				<input onchange="calcSpecificationSum()" type="number" class="form-control" id="architectingHours"
 					name="architectingHours" placeholder="" value=<c:out value="${specification.architectingHours}"/>>
-			
-			</div>	
-		</div>	
+			</div>
+		</div>
 	</form>
-	
+	<p>
+		<div class="row">
+			<div class="col-4">
+				<input type="text" id="sum" name="sum" class="form-control">
+			</div>
+			
+			<div class="col-2">
+				<button data-onload="calcSpecificationSum();" onclick="calcSpecificationSum()" class="btn btn-success">Рассчитать (тест)</button>
+			</div>
+		</div>
 	<p>
 	
 	<!-- Nav tabs -->
@@ -149,7 +159,7 @@
 		</div>
 	</div>
 
-		<p>	
+	<p>	
 	...
 </div>
 	
