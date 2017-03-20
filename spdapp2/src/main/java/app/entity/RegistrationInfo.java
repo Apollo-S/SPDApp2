@@ -1,10 +1,12 @@
 package app.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "registration_info")
@@ -15,7 +17,8 @@ public class RegistrationInfo extends UrlEntity implements Serializable {
 	@Column(name = "description")
 	private String description;
 
-	@Column(name = "dated") // TODO	 use Calendar class with annotation @Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.DATE)
+	@Column(name = "dated")
 	private Date dated;
 
 	public RegistrationInfo() {
