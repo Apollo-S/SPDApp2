@@ -1,8 +1,7 @@
 package app.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
-
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "payment")
@@ -23,16 +23,18 @@ public class Payment extends UrlEntity implements Serializable {
 	@JoinColumn(name = "spd_id")
 	private SPD spd;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "payment_type_id")
 	private PaymentType paymentType;
 
 	@Column(name = "value")
 	private Double value;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "date_start")
 	private Date dateStart;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "date_finish")
 	private Date dateFinish;
 
@@ -40,7 +42,6 @@ public class Payment extends UrlEntity implements Serializable {
 	}
 
 	public Payment(SPD spd, PaymentType paymentType, Double value, Date dateStart, Date dateFinish) {
-		super();
 		this.spd = spd;
 		this.paymentType = paymentType;
 		this.value = value;
