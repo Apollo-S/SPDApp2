@@ -31,8 +31,9 @@ public class CompanyController {
 
 	@RequestMapping(value = "/companies", method = RequestMethod.GET)
 	public String getAllCompanies(Model model) {
-		logger.info("***Entering to the getAllCompanies() method***");
+		logger.info("<== Entering to the getAllCompanies() method ... ==>");
 		model.addAttribute("companies", companyRepository.findAll());
+		logger.info("<== Out of 'getAllCompanies()' method ... ==>");
 		return "company/getAll";
 	}
 
@@ -78,7 +79,7 @@ public class CompanyController {
 		logger.info("<== Enter to 'postDeleteCompany()' method ... ==>");
 		logger.info("***Starting delete 'Company' by ID=" + id + " ==>");
 		companyRepository.delete(id);
-		logger.info("<== 'Agreement' with ID=" + id + " was deleted from DB ==>");
+		logger.info("<== 'Company' with ID=" + id + " was deleted from DB ==>");
 		logger.info("<== Out of 'postDeleteCompany()' method ... ==>");
 		return "redirect:companies";
 	}
