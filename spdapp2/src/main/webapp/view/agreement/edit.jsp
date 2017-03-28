@@ -46,8 +46,10 @@
 			<div class="col-2"></div>
 			<div class="col-2">
 				<label for="company"><b>Компания-наниматель</b></label>
-				<select class="form-control">
-  					<option>Default select</option>
+				<select name="company_id" class="form-control">
+					<c:forEach var="company" items="${companies}">
+  						<option value="${company.id}">${company.title}</option>
+  					</c:forEach>
 				</select>
 			</div>
 		</div>
@@ -91,11 +93,11 @@
 							
 							<div class="row">
 								<div class="col">
-									<label for="specNumber"><b>№ п/п</b></label>
+									<label for="specificationNumber"><b>№ п/п</b></label>
 								</div>
 								<div class="col">
-									<input type="text" class="form-control" id="specNumber" name="specNumber" 
-										value="${specNumber}">
+									<input type="text" class="form-control" id="specificationNumber" name="specificationNumber" 
+										value="${specificationNumber}">
 								</div>
 							</div>
 							<p>
@@ -120,7 +122,7 @@
 		</div>
 
 		<p>
-		<table class="table table-sm table-bordered">
+		<table class="table table-sm table-bordered table-hover">
 			<thead class="thead-default">
 				<tr>
 					<th>#</th>
@@ -132,19 +134,19 @@
 			</thead>
 			<c:forEach items="${agreement.specifications}" var="specification">
 				<tr>
-					<td valign="middle">${specification.specificationNumber}</td>
-					<td valign="middle">${specification.dateStart}</td>
-					<td valign="middle">${specification.dateFinish}</td>
-					<td valign="middle">${specification.specificationSum}</td>
+					<td onclick="goToAddress('${specification.url}')">${specification.specificationNumber}</td>
+					<td onclick="goToAddress('${specification.url}')">${specification.dateStart}</td>
+					<td onclick="goToAddress('${specification.url}')">${specification.dateFinish}</td>
+					<td onclick="goToAddress('${specification.url}')">${specification.specificationSum}</td>
 					<td>
 						<div class="btn-group" role="group">
-								<a class="btn btn-warning btn-sm" href="${specification.url}" role="button">Подробнее</a>
-								<form action="specification" method="post">
-									<input type="hidden" name="delete">
-									<input type="hidden" name="id" value="${specification.id}">
-									<input type="hidden" name="spdId" value="${spd.id}">
-									<button type="submit" class="btn btn-outline-danger btn-sm">Удалить (осторожно!)</button>
-								</form>
+							<a class="btn btn-warning btn-sm" href="${specification.url}" role="button">Подробнее</a>
+							<form action="specification" method="post">
+								<input type="hidden" name="delete">
+								<input type="hidden" name="id" value="${specification.id}">
+<%-- 									<input type="hidden" name="spdId" value="${spd.id}"> --%>
+								<button type="submit" class="btn btn-danger btn-sm">Удалить (осторожно!)</button>
+							</form>
 						</div>		
 					</td>
 				</tr>
@@ -155,8 +157,6 @@
 	<!-- Tarif Tab -->
 	<div class="tab-pane" id="tarif" role="tabpanel">
 	
-	<p>
-
 		<!-- Button trigger modal -->
 		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTarif">Добавить ставки</button>
 		<!-- Modal -->
@@ -194,8 +194,7 @@
 									<div class="col"></div>
 									<div class="col-4">
 										<label for="dateStart" ><b>Действуют с</b></label>
-										<input type="date" class="form-control" id="dateStart" name="dateStart" placeholder="Введите дату"
-											value="${dateStart}">
+										<input type="date" class="form-control" id="dateStart" name="dateStart">
 									</div>	
 								</div>	
 								<p>
@@ -210,7 +209,7 @@
 			</div>
 
 			<p>
-				<table class="table table-sm table-bordered">
+				<table class="table table-sm table-bordered table-hover">
 				<thead class="thead-default">
 					<tr>
 						<th>Конфигурирование</th>
@@ -222,21 +221,76 @@
 				</thead>
 				<c:forEach items="${agreement.tarifs}" var="tarif">
 					<tr>
-						<td valign="middle">${tarif.configuring}</td>
-						<td valign="middle">${tarif.programming}</td>
-						<td valign="middle">${tarif.architecting}</td>
-						<td valign="middle">${tarif.dateStart}</td>
+						<c:set var="openModal" value="$('#modalTarifEdit${tarif.id}').modal('show')" />
+						<td onclick="${openModal}">${tarif.configuring}</td>
+						<td onclick="${openModal}">${tarif.programming}</td>
+						<td onclick="${openModal}">${tarif.architecting}</td>
+						<td onclick="${openModal}">${tarif.dateStart}</td>
 						<td>
 							<div class="btn-group" role="group">
-									<a class="btn btn-warning btn-sm" href="" role="button">Modal...</a>
-									<form action="agreementTarif" method="post">
-										<input type="hidden" name="delete"> 
-										<input type="hidden" name="id" value="${tarif.id}">
-										<button type="submit" class="btn btn-outline-danger btn-sm">Удалить (осторожно!)</button>
-									</form>
+								<!-- Button trigger modal -->
+								<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalTarifEdit${tarif.id}">Редактировать ставки</button>
+								<!-- Modal -->
+								<div class="modal fade bd-example-modal-lg" id="modalTarifEdit${tarif.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+										aria-hidden="true">
+									<div class="modal-dialog modal-lg" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">Редактирование ставок к Договору № ${agreement.number}</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<form action="agreementTarif" method="post">
+													<input type="hidden" name="edit">
+													<input type="hidden" name="id" value="${tarif.id}"/>
+													
+													<div class="row">
+														<div class="col">
+															<label for="configuring"><b>Конфигурирование, грн</b></label>
+															<input type="text" class="form-control" id="configuring" name="configuring" 
+																value="${tarif.configuring}" >
+														</div>
+														<div class="col">
+															<label for="programming"><b>Программирование, грн</b></label>
+															<input type="text" class="form-control" id="programming" name="programming" 
+																value="${tarif.programming}" >
+														</div>
+														<div class="col">
+															<label for="architecting"><b>Архит. доработки</b></label>
+															<input type="text" class="form-control" id="architecting" name="architecting" 
+																value="${tarif.architecting}" >
+														</div>
+													</div>
+													<p>
+													<div class="row">
+														<div class="col"></div>
+														<div class="col-4">
+															<label for="dateStart" ><b>Действуют с</b></label>
+															<input type="date" class="form-control" id="dateStart" name="dateStart" 
+																value="${tarif.dateStart}" >
+														</div>
+													</div>	
+													<p>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+														<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<form action="agreementTarif" method="post">
+									<input type="hidden" name="delete"> 
+									<input type="hidden" name="id" value="${tarif.id}">
+									<button type="submit" class="btn btn-danger btn-sm">Удалить (осторожно!)</button>
+								</form>
 							</div>
 					
-					</td>
+						</td>
+					</tr>
 				</c:forEach>
 			</table>
 		</div>

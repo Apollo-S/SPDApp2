@@ -1,5 +1,5 @@
 <%@ page session="false" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="../header.jsp" />
 
@@ -18,21 +18,21 @@
 	
 	<p>
 
-	<table class="table table-sm table-bordered table-stripped">
+	<table class="table table-sm table-bordered table-hover">
 		<thead class="thead-inverse">
 			<tr>
-				<th align="center">ID</th>
-				<th align="center">ФИО</th>
-				<th align="center">ИНН</th>
-				<th align="center">Подробнее/Удалить</th>
+				<th>ID</th>
+				<th>ФИО</th>
+				<th>ИНН</th>
+				<th>Подробнее/Удалить</th>
 			</tr>
 		</thead>
 
 		<c:forEach items="${spds}" var="spd">
 			<tr>
-				<td>${spd.id}</td>
-				<td>${spd.alias}</td>
-				<td>${spd.inn}</td>
+				<td onclick="goToAddress('${spd.url}')">${spd.id}</td>
+				<td onclick="goToAddress('${spd.url}')">${spd.alias}</td>
+				<td onclick="goToAddress('${spd.url}')">${spd.inn}</td>
 				<td>
 					<div class="btn-group" role="group">
 						<a class="btn btn-warning btn-sm" href="${spd.url}" role="button">Подробнее</a>

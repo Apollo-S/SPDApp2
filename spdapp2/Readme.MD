@@ -21,5 +21,7 @@ Future features
 ===============
 * Agreement template printing for entrepreneur
 * Agreement pdf files saving into BD (upload, download)
+* Localization
 * REST WS
+* Spring Security
 

@@ -1,8 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
 <jsp:include page="../header.jsp" />
 
@@ -110,7 +109,7 @@
 			
 			<p>
 			
-			<table class="table table-sm table-bordered">
+			<table class="table table-sm table-bordered table-hover">
 				<thead class="thead-default">
 					<tr>
 						<th>Номер</th>
@@ -120,9 +119,9 @@
 				</thead>
 				<c:forEach items="${spd.agreements}" var="agreement">
 					<tr>
-						<td valign="middle"><c:out value="${agreement.number}"/></td>
-						<td valign="middle"><c:out value="${agreement.dateStart}"/></td>
-						<td valign="middle">
+						<td onclick="goToAddress('${agreement.url}')"><c:out value="${agreement.number}"/></td>
+						<td onclick="goToAddress('${agreement.url}')"><c:out value="${agreement.dateStart}"/></td>
+						<td>
 							<div class="btn-group" role="group">
 								<a class="btn btn-outline-warning btn-sm" href="${agreement.url}" role="button">Подробнее</a>
 								<form action="agreement" method="post">
@@ -189,7 +188,7 @@
 				</div>
 			</div>
 			<p>
-			<table class="table table-sm table-bordered">
+			<table class="table table-sm table-bordered table-hover">
 				<thead class="thead-default">
 					<tr>
 						<th>Номер счета</th>
@@ -200,9 +199,10 @@
 				</thead>
 				<c:forEach items="${spd.accounts}" var="account">
 					<tr>
-						<td>${account.accountNumber}</td>
-						<td>${account.mfo}</td>
-						<td>${account.bankName}</td>
+						<c:set var="openModal" value="$('#modalSPDAccountEdit${account.id}').modal('show')" />
+						<td onclick="${openModal}">${account.accountNumber}</td>
+						<td onclick="${openModal}">${account.mfo}</td>
+						<td onclick="${openModal}">${account.bankName}</td>
 						<td>
 							<div class="btn-group" role="group">
 								<!-- Button trigger modal -->
@@ -328,7 +328,7 @@
 				</div>
 			</div>
 			<p>
-			<table class="table table-sm table-bordered">
+			<table class="table table-sm table-bordered table-hover">
 				<thead class="thead-default">
 					<tr>
 						<th>Наименование</th>
@@ -341,8 +341,9 @@
 				<c:forEach items="${spd.payments}" var="payment">
 				<c:set var="paymentType" value="${payment.paymentType}" />
 					<tr>
-						<td>${paymentType.title}</td>
-						<td>
+						<c:set var="openModal" value="$('#modalPaymentEdit${payment.id}').modal('show')" />
+						<td onclick="${openModal}">${paymentType.title}</td>
+						<td onclick="${openModal}">
 							<c:choose>
 								<c:when test="${paymentType.isPercent == true}" >
 									<fmt:formatNumber type="percent" minFractionDigits="2" value="${payment.value}" /> 
@@ -352,8 +353,8 @@
 								</c:otherwise>
 							</c:choose>
 						</td>
-						<td><fmt:formatDate pattern="dd.MM.yyyy" value="${payment.dateStart}" /></td>
-						<td><fmt:formatDate pattern="dd.MM.yyyy" value="${payment.dateFinish}" /></td>
+						<td onclick="${openModal}"><fmt:formatDate pattern="dd.MM.yyyy" value="${payment.dateStart}" /></td>
+						<td onclick="${openModal}"><fmt:formatDate pattern="dd.MM.yyyy" value="${payment.dateFinish}" /></td>
 						<td>
 							<div class="btn-group" role="group">
 								<!-- Button trigger modal -->

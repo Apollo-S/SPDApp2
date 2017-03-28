@@ -1,8 +1,11 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <p class="p4">
 
 <div class="container">
 	<nav class="navbar fixed-bottom navbar-light bg-faded">
-		<p class="p-invert">© 2017 Apollon Saifullin. All rights reserved. 
+		<p class="p-invert">Â© 2017 Apollon Saifullin. All rights reserved. 
 		Contact information: <a href="mailto:apollo.saifullin@gmail.com"> e-mail</a></p>
 	</nav>
 </div>
@@ -12,7 +15,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-	<script src="${pageContext.request.contextPath}/view/scripts.js" charset="utf-8"></script>
+	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script> -->
+	<script src="<c:url value="/resources/js/scripts.js"/>" charset="utf-8"></script>
 	
 </body>
 </html>

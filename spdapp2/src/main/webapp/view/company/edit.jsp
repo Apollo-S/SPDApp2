@@ -155,7 +155,6 @@
 													</div>
 													<p>
 													<div class="row">
-												
 														<div class="col-6">
 															<label for="dateStart" class="col-sm"><b>Дата начала действия</b></label> 
 															<input type="date" class="form-control" id="dateStart"
@@ -187,17 +186,6 @@
 		<div class="tab-pane fade" id="director" role="tabpanel">...</div>
 		<div class="tab-pane fade" id="agreements" role="tabpanel">...</div>
 	</div>
-
-
-
-
-
-
-
-
-
-
-
 
 </div> <!-- .container-fluid -->
 	

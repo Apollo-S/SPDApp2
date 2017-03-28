@@ -81,9 +81,9 @@
 
 		<c:forEach items="${companies}" var="company">
 			<tr>
-				<td>${company.id}</td>
-				<td>${company.title}</td>
-				<td>${company.edrpou}</td>
+				<td onclick="goToAddress('${company.url}')">${company.id}</td>
+				<td onclick="goToAddress('${company.url}')">${company.title}</td>
+				<td onclick="goToAddress('${company.url}')">${company.edrpou}</td>
 				<td>
 					<div class="btn-group" role="group">
 						<a class="btn btn-warning btn-sm" href="${company.url}" role="button">Подробнее</a>
