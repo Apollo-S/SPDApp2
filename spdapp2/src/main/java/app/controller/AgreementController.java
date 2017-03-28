@@ -1,8 +1,8 @@
 package app.controller;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.List;
 import java.text.SimpleDateFormat;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import app.entity.Agreement;
 import app.entity.AgreementTarif;
+import app.entity.Company;
 import app.entity.SPD;
 import app.repository.AgreementRepository;
 import app.repository.AgreementTarifRepository;
+import app.repository.CompanyRepository;
 import app.repository.SPDRepository;
 
 @Controller
@@ -33,6 +35,9 @@ public class AgreementController {
 
 	@Autowired(required = true)
 	private SPDRepository spdRepository;
+	
+	@Autowired(required = true)
+	private CompanyRepository companyRepository;
 
 	@Autowired(required = true)
 	private AgreementTarifRepository tarifRepository;
@@ -60,14 +65,16 @@ public class AgreementController {
 	public String getAgreement(@RequestParam int id, Model model) {
 		logger.info("<== Enter to 'getAgreement()' method ... ==>");
 		Agreement agreement = agreementRepository.findOne(id);
-		int specNumber = agreementRepository.findMaxSpecificationNumberByAgreementId(id);
+		int specificationNumber = agreementRepository.findMaxSpecificationNumberByAgreementId(id);
+		List<Company> companies = companyRepository.findAll();
 		model.addAttribute("agreement", agreement);
-		model.addAttribute("specNumber", specNumber + 1);
+		model.addAttribute("specificationNumber", specificationNumber + 1);
+		model.addAttribute("companies", companies);
 		logger.info("<== Out of 'getAgreement()' method ... ==>");
 		return "agreement/edit";
 	}
 
-	@RequestMapping(value = "/agreement", params = "add", method = RequestMethod.POST)
+	@RequestMapping(value = "/agreement", params = "add", method = RequestMethod.POST) // TODO Add new tarif when new agreement is adding, with the same date
 	public String postAddAgreement(@RequestParam int spdId, @RequestParam String number, @RequestParam Date dateStart) {
 		logger.info("<== Enter to 'postAddAgreement()' method ... ==>");
 		SPD spd = spdRepository.findOne(spdId);
@@ -80,14 +87,17 @@ public class AgreementController {
 	}
 
 	@RequestMapping(value = "/agreement", params = "edit", method = RequestMethod.POST)
-	public String postEditAgreement(@RequestParam int id, @RequestParam String number, @RequestParam Date dateStart) {
+	public String postEditAgreement(@RequestParam int id, @RequestParam String number, @RequestParam Date dateStart, 
+			@RequestParam("company_id") int companyId) {
 		logger.info("<== Enter to 'postEditAgreement()' method ... ==>");
 		Agreement agreement = agreementRepository.findOne(id);
 		logger.info("<== Starting update 'Agreement' by ID=" + agreement.getId() + " ==>");
 		SPD spd = spdRepository.findOne(agreement.getSpd().getId());
+		Company company = companyRepository.findOne(companyId);
 		agreement.setSpd(spd);
 		agreement.setNumber(number);
 		agreement.setDateStart(dateStart);
+		agreement.setCompany(company);
 		agreement = agreementRepository.save(agreement);
 		logger.info("<== Updating of 'Agreement' with ID=" + agreement.getId() + " was successful ==>");
 		logger.info("<== Out of 'postEditAgreement()' method ... ==>");

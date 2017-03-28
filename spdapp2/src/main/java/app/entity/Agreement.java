@@ -76,10 +76,6 @@ public class Agreement extends UrlEntity implements Serializable {
 		this.spd = spd;
 	}
 
-	public void setSpdId(SPD spd) {
-		this.spd = spd;
-	}
-
 	public String getNumber() {
 		return number;
 	}
@@ -94,6 +90,14 @@ public class Agreement extends UrlEntity implements Serializable {
 
 	public void setDateStart(Date dateStart) {
 		this.dateStart = dateStart;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 	
 }

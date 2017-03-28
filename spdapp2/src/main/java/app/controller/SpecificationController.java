@@ -44,7 +44,7 @@ public class SpecificationController {
 		logger.info("<== Enter to 'getEditSpecification()' method ... ==>");
 		Specification specification = specRepository.findOne(id);
 		model.addAttribute("specification", specification);
-		AgreementTarif currentTarif = agreementRepository.findAgreementTarifBySpecificationId(specification.getId());
+		AgreementTarif currentTarif = agreementRepository.findAgreementTarifBySpecificationId(specification.getId()); // TODO Crashes if there is no any tarif. Need to create error page or page with adding new tarifs.
 		logger.info("<== Got 'currentTarif' with ID=" + currentTarif.getId() + " ==>");
 		model.addAttribute("currentTarif", currentTarif);
 		logger.info("<== Out of 'getEditSpecification()' method ... ==>");

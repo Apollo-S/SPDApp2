@@ -2,10 +2,14 @@ package app.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,17 +35,23 @@ public class Specification extends UrlEntity implements Serializable {
 	@Column(name = "date_finish")
 	private Date dateFinish;
 	
-	@Column(name = "specification_sum")
-	private Double specificationSum;
+	@Column(name = "specification_sum", nullable = false)
+	private Double specificationSum = 0.0;
 	
 	@Column(name = "configuring_hours")
-	private Integer configuringHours;
+	private Integer configuringHours = 0;
 	
 	@Column(name = "programming_hours")
-	private Integer programmingHours;
+	private Integer programmingHours = 0;
 	
 	@Column(name = "architecting_hours")
-	private Integer architectingHours;
+	private Integer architectingHours = 0;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "specification", orphanRemoval = true)
+	@OrderBy("part_number ASC")
+	private Set<Calculation> calculations;
+	
+	private Double calculationsTotalAmount;
 	
 	public Specification() {
 	}
@@ -114,6 +124,24 @@ public class Specification extends UrlEntity implements Serializable {
 
 	public void setArchitectingHours(Integer architectingHours) {
 		this.architectingHours = architectingHours;
+	}
+
+	public Set<Calculation> getCalculations() {
+		return calculations;
+	}
+
+	public void setCalculations(Set<Calculation> calculations) {
+		this.calculations = calculations;
+	}
+	
+	public Double getCalculationsTotalAmount() {
+		this.calculationsTotalAmount = 0.0;
+		if (!this.calculations.isEmpty()) {
+			for (Calculation c : this.calculations) {
+				this.calculationsTotalAmount += c.getTurnover().doubleValue();
+			}
+		}
+		return this.calculationsTotalAmount;
 	}
 	
 }
