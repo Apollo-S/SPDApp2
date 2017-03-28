@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+
+.p4 {
+	margin-bottom: 4em;
+	}
+	
+.p-invert {
+	text-align: center;
+	filter: invert(20%);
+	}
