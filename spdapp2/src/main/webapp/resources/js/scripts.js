@@ -14,21 +14,17 @@ $( function() {
 	});
 });
 
-function calcSpecificationSum() {
-	var configuringTarif = +document.getElementById("configuringHoursTarif").value;
-	var programmingTarif = +document.getElementById("programmingHoursTarif").value;
-	var architectingTarif = +document.getElementById("architectingHoursTarif").value;
-	var configuring = +document.getElementById("configuringHours").value;
-	var programming = +document.getElementById("programmingHours").value;
-	var architecting = +document.getElementById("architectingHours").value;
-	var hours = parseInt(configuring + programming + architecting);
-	var days = +hours / 8;
-	var specSum = (configuring * configuringTarif)
-			+ (programming * programmingTarif)
-			+ (architecting * architectingTarif);
+function calcSpecificationSum(configuringTarif, programmingTarif, architectingTarif) {
 	var finalLabel = document.getElementById('sum');
-	finalLabel.innerHTML = '<b>' + "Итого: " + specSum.toFixed(2) + " грн | " + hours + " час. | " + days.toFixed(0) + " дн." + '</b>';
-	document.getElementById("sum").bold();
+	var configuringHours = +document.getElementById('configuringHours').value;
+	var programmingHours = +document.getElementById('programmingHours').value;
+	var architectingHours = +document.getElementById('architectingHours').value;
+	var hours = configuringHours + programmingHours + architectingHours;
+	var days = +hours / 8;
+	var specSum = (configuringHours * configuringTarif)
+					+ (programmingHours * programmingTarif)
+						+ (architectingHours * architectingTarif);
+	finalLabel.innerHTML = '<b>' + "Итого: " + specSum.toFixed(2) + " грн | " + hours.toFixed(0) + " ч. | " + days.toFixed(0) + " дн." + '</b>';
 }
 
 function goToAddress(url) {

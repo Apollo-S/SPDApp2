@@ -33,9 +33,10 @@
 				</div>
 			</div>
 		</nav>
-	
-	
+		
 		<p>
+		
+		<c:set var="calcSpecificationSum" value="calcSpecificationSum(${currentTarif.configuring}, ${currentTarif.programming}, ${currentTarif.architecting})" />
 		
 		<div class="row" >
 			<div class="col-1">
@@ -62,53 +63,51 @@
 		</div>
 		<p>
 		<div class="row">
-			<div class="col-3">
-				<label for="configuringHours"><b>Конфигурирование</b></label>
-				<label id="configuringHoursTarif"><b>${currentTarif.configuring}</b></label>
-				
+			<div class="col-2">
+				<label for="configuringHours"><b>Конфигуратор</b></label>
 			</div>
-			<div class="col-3">
-				<label for="programmingHours"><b>Программирование</b></label>
-				<label id="programmingHoursTarif"><b>${currentTarif.programming}</b></label>
-				
+			<div class="col-2">
+				<label for="programmingHours"><b>Программист</b></label>
 			</div>
-			<div class="col-3">
+			<div class="col-2">
 				<label for="architectingHours"><b>Архит. доработки</b></label>
-				<input type="hidden" id="architectingHoursTarif" value="${currentTarif.architecting}"/>
 			</div>
 		</div>
 		
 		<div class="row">
-			<div class="col-3">
+			<div class="col-2">
 				<div class="input-group">
-					<input onchange="calcSpecificationSum()" type="number" class="form-control" id="configuringHours"
+					<input onchange="${calcSpecificationSum}" type="number" class="form-control" id="configuringHours"
 						name="configuringHours" value=<c:out value="${specification.configuringHours}"/>>
-					<span class="input-group-addon"><b>* ${currentTarif.configuring} грн/ч</b></span>
+					<span class="input-group-addon"><b>&#215; <fmt:formatNumber type="number" pattern="0" value="${currentTarif.configuring}"/> грн/ч</b></span>
 				</div>
 			</div>
 			
-			<div class="col-3">
+			<div class="col-2">
 				<div class="input-group">
-					<input onchange="calcSpecificationSum()" type="number" class="form-control" id="programmingHours"
+					<input onchange="${calcSpecificationSum}" type="number" class="form-control" id="programmingHours"
 						name="programmingHours" value=<c:out value="${specification.programmingHours}"/>>
-					<span class="input-group-addon"><b>* ${currentTarif.programming} грн/ч</b></span>
+					<span class="input-group-addon"><b>&#215; <fmt:formatNumber type="number" pattern="0" value="${currentTarif.programming}"/> грн/ч</b></span>
 				</div>
 			</div>
-			<div class="col-3">
+			<div class="col-2">
 				<div class="input-group">
-					<input onchange="calcSpecificationSum()" type="number" class="form-control" id="architectingHours"
+					<input onchange="${calcSpecificationSum}" type="number" class="form-control" id="architectingHours"
 						name="architectingHours" value=<c:out value="${specification.architectingHours}"/>>
-					<span class="input-group-addon"><b>* ${currentTarif.architecting} грн/ч</b></span>
+					<span class="input-group-addon"><b>&#215; <fmt:formatNumber type="number" pattern="0" value="${currentTarif.architecting}"/> грн/ч</b></span>
 				</div>
 			</div>
 		</div>
 	</form>
 	<p>
-		<div class="row">
-			<div class="col">
-				<label id="sum" data-onload="calcSpecificationSum();" onclick="calcSpecificationSum()" ></label>
-			</div>
+		
+	<div class="row">
+		<div class="col">
+			<label id="sum"
+				data-onload="${calcSpecificationSum}" onclick="${calcSpecificationSum}">
+			</label>
 		</div>
+	</div>
 	<p>
 	
 	<!-- Nav tabs -->
@@ -173,7 +172,7 @@
 			</div>
 			<p>	
 			
-			<table class="table table-sm table-bordered">
+			<table class="table table-sm table-bordered table-hover">
 				<thead class="thead-default">
 					<tr>
 						<th>#</th>
