@@ -97,17 +97,14 @@
 					<span class="input-group-addon"><b>&#215; <fmt:formatNumber type="number" pattern="0" value="${currentTarif.architecting}"/> грн/ч</b></span>
 				</div>
 			</div>
+			<div class="col">
+				<div class="input-group">
+					<span class="input-group-addon"><b>Итого:</b></span>
+					<span id="sum" class="input-group-addon" data-onload="${calcSpecificationSum}" onclick="${calcSpecificationSum}"></span>
+				</div>
+			</div>
 		</div>
 	</form>
-	<p>
-		
-	<div class="row">
-		<div class="col">
-			<label id="sum"
-				data-onload="${calcSpecificationSum}" onclick="${calcSpecificationSum}">
-			</label>
-		</div>
-	</div>
 	<p>
 	
 	<!-- Nav tabs -->
@@ -172,25 +169,25 @@
 			</div>
 			<p>	
 			
-			<table class="table table-sm table-bordered table-hover">
+			<table class="table table-sm table-bordered table-hover text-right">
 				<thead class="thead-default">
 					<tr>
-						<th>#</th>
-						<th>Период</th>
-						<th>Сальдо нач.</th>
-						<th>Сальдо кон.</th>
-						<th>Сумма</th>
+						<th class="text-center">#</th>
+						<th class="text-center">Период</th>
+						<th class="text-center">Сальдо нач.</th>
+						<th class="text-center">Сальдо кон.</th>
+						<th class="text-center">Сумма</th>
 						<th></th>
 					</tr>
 				</thead>
 				<c:forEach items="${specification.calculations}" var="calculation">
 					<tr>
-						<td onclick="goToAddress('${calculation.url}')">${calculation.partNumber}</td>
-						<td onclick="goToAddress('${calculation.url}')"><fmt:formatDate pattern="MMMM yyyy" value="${calculation.dateStart}"/></td>
+						<td class="text-center" onclick="goToAddress('${calculation.url}')">${calculation.partNumber}</td>
+						<td class="text-left" onclick="goToAddress('${calculation.url}')"><fmt:formatDate pattern="MMMM yyyy" value="${calculation.dateStart}"/></td>
 						<td onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" pattern="0.00" value="${calculation.openingBalance}"/></td>
 						<td onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" pattern="0.00" value="${calculation.closingBalance}"/></td>
 						<td onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" pattern="#,##0.00" value="${calculation.turnover}"/></td>
-						<td>
+						<td  class="text-center">
 							<div class="btn-group" role="group">
 									<a class="btn btn-warning btn-sm" href="${calculation.url}" role="button">Подробнее</a>
 									<form action="specification" method="post">
@@ -205,10 +202,10 @@
 				<thead class="thead-default">
 					<tr>
 						<th></th>
-						<th>Итого:</th>
+						<th class="text-center">Итого:</th>
 						<th></th>
 						<th></th>
-						<th><fmt:formatNumber type="number" pattern="#,##0.00" value="${specification.calculationsTotalAmount}" /></th>
+						<th class="text-right"><fmt:formatNumber type="number" pattern="#,##0.00" value="${specification.calculationsTotalAmount}" /></th>
 						<th></th>
 					</tr>
 				</thead>

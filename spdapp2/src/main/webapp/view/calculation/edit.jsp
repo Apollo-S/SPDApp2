@@ -4,13 +4,16 @@
 
 <jsp:include page="../header.jsp" />
 
-<title>Edit calculation</title>
+<c:set var="specification" value="${calculation.specification}" />
+<c:set var="agreement" value="${specification.agreement}" />
+<c:set var="spd" value="${agreement.spd}" />
+<fmt:setLocale value="en_US" scope="page"/>
+
+<title>Расчет № <c:out value="${calculation.partNumber}" /> за <fmt:formatDate	value="${calculation.dateStart}" pattern="MMMM yyyy" />г. | <c:out value="${spd.alias}" /> | </title>
 
 <div class="container-fluid">
 	
-	<c:set var="specification" value="${calculation.specification}" />
-	<c:set var="agreement" value="${specification.agreement}" />
-	<c:set var="spd" value="${agreement.spd}" />
+	
 	
 	<form class="form" role="form" action="calculation" method="post">
 		<input type="hidden" name="edit">
@@ -40,112 +43,273 @@
 		<p>
 		
 		<div class="row" >
-			<div class="col-2">
-				<div class="input-group">
-					<span class="input-group-addon" id="basic-addon1"><b>№ расчета</b></span>
-					<input type="text" class="form-control" id="partNumber" name="partNumber"
-						value="${calculation.partNumber}" readonly>
+			<div class="col-4">
+				<div class="form-group row">
+					<label for="partNumber" class="col-3 col-form-label"><b>№ расчета</b></label>
+					<div class="col-4">
+						<input type="text" class="form-control text-right" id="partNumber" name="partNumber"
+							value="${calculation.partNumber}" readonly>
+					</div>
 				</div>
 			</div>
+			<div class="col-4">
+				<div class="form-group row">
+					<label for="dateStart" class="col-5 col-form-label"><b>Период расчета</b></label>
+					<div class="col-5">
+						<input type="date" class="form-control" id="dateStart" name="dateStart"
+							value="${calculation.dateStart}" >
+					</div>
+				</div>
+			</div>
+			<div class="col"></div>
 			<div class="col-3">
-				<div class="input-group">
-					<span class="input-group-addon" id="basic-addon1"><b>Сальдо начальное</b></span>
-					<input type="text" class="form-control" id="openingBalance" name="openingBalance" 
-						value="${calculation.openingBalance}" readonly>
+				<div class="form-group row">
+					<label for="openingBalance" class="col-6 col-form-label"><b>Сальдо на начало</b></label>
+					<div class="col-6">
+						<input type="text" style="font-weight: bold;" class="form-control text-right" id="openingBalance" name="openingBalance" 
+							value=<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculation.openingBalance}"/> readonly>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row" >
+			<div class="col-4">
+				<div class="form-group row">
+					<label for="salaryRate" class="col-3 col-form-label"><b>Оклад</b></label>
+					<div class="col-7">
+						<div class="input-group">
+							<input type="text" class="form-control text-right" id="salaryRate" name="salaryRate"
+								value=<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculation.salaryRate}"/> >	
+							<span class="input-group-btn">
+								<button onclick="clearValue('salaryRate')" 
+									class="btn btn-secondary" type="button"><i class="fa fa-remove"></i></button>
+							</span>
+							<span class="input-group-btn">
+								<button onclick="getInitialValueBack('salaryRate', ${calculation.salaryRate})" 
+									class="btn btn-secondary" type="button"><i class="fa fa-undo"></i></button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="form-group row">
+					<label for="withdrawСashСomission" class="col-5 col-form-label"><b>Комиссия банка</b></label>
+					<div class="col-7">
+						<div class="input-group">
+							<input type="text" class="form-control text-right" id="withdrawCashComission" name="withdrawCashComission" onchange="calcBankCostSum()"
+								value=<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculation.withdrawCashComission}"/>>	
+							<span class="input-group-btn">
+								<button onclick="clearValue('withdrawCashComission')" 
+									class="btn btn-secondary" type="button"><i class="fa fa-remove"></i></button>
+							</span>
+							<span class="input-group-btn">
+								<button onclick="getInitialValueBack('withdrawCashComission', ${calculation.withdrawCashComission})" 
+									class="btn btn-secondary" type="button"><i class="fa fa-undo"></i></button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col"></div>
+			<div class="col-3">
+				<div class="form-group row">
+					<label for="singleTax" class="col-6 col-form-label text-left"><b>Единый налог (...)</b></label>
+					<div class="col-6">
+						<input type="text" class="form-control text-right" id="singleTax" name="singleTax"
+							value=<fmt:formatNumber type="number" pattern="#,##0.00" value="${calculation.singleTax}"/> readonly>
+					</div>
+				</div>
+			</div>	
+		</div>
+		
+		<div class="row" >
+			<div class="col-4">
+				<div class="form-group row">
+					<label for="premium" class="col-3 col-form-label"><b>Премия</b></label>
+					<div class="col-7">
+						<div class="input-group">
+							<input type="text" class="form-control text-right" id="premium" name="premium"
+								value=<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculation.premium}"/> >
+							<span class="input-group-btn">
+								<button onclick="clearValue('premium')" 
+									class="btn btn-secondary" type="button"><i class="fa fa-remove"></i></button>
+							</span>
+							<span class="input-group-btn">
+								<button onclick="getInitialValueBack('premium', ${calculation.premium})" 
+									class="btn btn-secondary" type="button"><i class="fa fa-undo"></i></button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="form-group row">
+					<label for="cardServiceFee" class="col-5 col-form-label"><b>Ведение карты</b></label>
+					<div class="col-7">
+						<div class="input-group">
+							<input type="text" class="form-control text-right" id="cardServiceFee" name="cardServiceFee"
+								value=<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculation.cardServiceFee}"/> >
+							<span class="input-group-btn">
+								<button onclick="clearValue('cardServiceFee')" 
+									class="btn btn-secondary" type="button"><i class="fa fa-remove"></i></button>
+							</span>
+							<span class="input-group-btn">
+								<button onclick="getInitialValueBack('cardServiceFee', ${calculation.cardServiceFee})" 
+									class="btn btn-secondary" type="button"><i class="fa fa-undo"></i></button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" >
+			<div class="col-4">
+				<div class="form-group row">
+					<label for="esv" class="col-3 col-form-label"><b>ЕСВ</b></label>
+					<div class="col-7">
+						<div class="input-group">
+							<input type="text" class="form-control text-right" id="esv" name="esv"
+								value=<fmt:formatNumber type="number" pattern="#,##0.00" value="${calculation.esv}"/> >
+							<span class="input-group-btn">
+								<button onclick="clearValue('esv')" 
+									class="btn btn-secondary" type="button"><i class="fa fa-remove"></i></button>
+							</span>
+							<span class="input-group-btn">
+								<button onclick="getInitialValueBack('esv', ${calculation.esv})" 
+									class="btn btn-secondary" type="button"><i class="fa fa-undo"></i></button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="form-group row">
+					<label for="accountServiceFee" class="col-5 col-form-label"><b>Ведение счета</b></label>
+					<div class="col-7">
+						<div class="input-group">
+							<input type="text" class="form-control text-right" id="accountServiceFee" name="accountServiceFee"
+								value=<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculation.accountServiceFee}"/> >
+							<span class="input-group-btn">
+								<button onclick="clearValue('accountServiceFee')" 
+									class="btn btn-secondary" type="button"><i class="fa fa-remove"></i></button>
+							</span>
+							<span class="input-group-btn">
+								<button onclick="getInitialValueBack('accountServiceFee', ${calculation.accountServiceFee})" 
+									class="btn btn-secondary" type="button"><i class="fa fa-undo"></i></button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row" >
+			<div class="col-4">
+				<div class="form-group row">
+					<label for="rent" class="col-3 col-form-label"><b>Аренда</b></label>
+					<div class="col-7">
+						<div class="input-group">
+							<input type="text" class="form-control text-right" id="rent" name="rent"
+								value=<fmt:formatNumber type="number" pattern="#,##0.00" value="${calculation.rent}"/> >
+							<span class="input-group-btn">
+								<button onclick="clearValue('rent')" 
+									class="btn btn-secondary" type="button"><i class="fa fa-remove"></i></button>
+							</span>
+							<span class="input-group-btn">
+								<button onclick="getInitialValueBack('rent', ${calculation.rent})" 
+									class="btn btn-secondary" type="button"><i class="fa fa-undo"></i></button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="form-group row">
+					<label for="bankCost" class="col-5 col-form-label"><b>Всего банк. затрат:</b></label>
+					<div class="col-7">
+						<div class="input-group">
+							<input type="text" style="font-weight: bold;" class="form-control text-center" id="bankCost" name="bankCost" data-onload="calcBankCostSum()"
+								value="" readonly>
+						</div>
+					</div>
 				</div>
 			</div>
 			
-			<div class="col"></div>
+		</div>
+		
+		<div class="row" >
 			<div class="col-4">
 				<div class="form-group row">
-					<label for="dateStart" class="col-4 col-form-label"><b>Период расчета</b></label>
+					<label for="surcharge" class="col-3 col-form-label"><b>Доплата </b></label>
+					<div class="col-8">
+						<div class="input-group">
+							<input type="text" class="form-control text-right" id="surcharge" name="surcharge"
+								value=<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculation.surcharge}"/> >
+							<span class="input-group-btn">
+								<button onclick="clearValue('surcharge')" 
+									class="btn btn-secondary" type="button"><i class="fa fa-remove"></i></button>
+							</span>
+							<span class="input-group-btn">
+								<button onclick="getInitialValueBack('surcharge', ${calculation.surcharge})" 
+									class="btn btn-secondary" type="button"><i class="fa fa-undo"></i></button>
+							</span>
+							<span class="input-group-btn">
+								<button onclick="surchargeUpdate()" 
+									class="btn btn-outline-success" type="button"><i class="fa fa-calculator"></i></button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-3">
+				<button onclick="calculationUpdate()" class="btn btn-info btn-block" type="button""><= Расчитать =></button>
+			</div>
+			<div class="col"></div>
+			<div class="col-3">
+				<div class="form-group row">
+					<label for="closingBalance" class="col-6 col-form-label"><b>Сальдо на конец</b></label>
 					<div class="col-6">
-						<input type="date" class="form-control" id="dateStart" name="dateStart"
-							value="${calculation.dateStart}" >
+						<input type="text" class="form-control text-right" id="closingBalance" name="closingBalance" 
+							value=<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculation.closingBalance}"/> readonly>
 					</div>
 				</div>
 			</div>
 		</div>
 		<p>
 		<div class="row" >
-			<div class="col-2">
+			<div class="col-3">
 				<div class="input-group">
-					<span class="input-group-addon" id="basic-addon1"><b>Оклад</b></span>
-	<!-- 				<label for="salaryRate"><b>Оклад</b></label> -->
-					<input type="text" class="form-control" id="salaryRate" name="salaryRate"
-						value=<c:out value="${calculation.salaryRate}"/>>			
+					<span class="input-group-addon" id="basic-addon1"><b>&sum; к перечислению</b></span>
+					<input type="text" class="form-control text-right" id="turnover" name="turnover"
+						value=<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculation.turnover}"/> readonly>
 				</div>
 			</div>
 			<div class="col-3">
 				<div class="input-group">
-					<span class="input-group-addon" id="basic-addon1"><b>Комиссия банка</b></span>
-	<!-- 				<label for="withdrawСashСomission"><b>Комиссия банка</b></label> -->
-					<input type="text" class="form-control" id="withdrawCashComission" name="withdrawCashComission"
-						value=<c:out value="${calculation.withdrawCashComission}"/>>			
-				</div>
-			</div>
-		</div>
-		<p>
-		<div class="row" >
-			<div class="col-2">
-				<div class="input-group">
-					<span class="input-group-addon" id="basic-addon1"><b>Премия</b></span>
-<!-- 					<label for="premium"><b>Премия</b></label> -->
-					<input type="text" class="form-control" id="premium" name="premium"
-						value=<c:out value="${calculation.premium}"/>>
+					<span class="input-group-addon" id="basic-addon1"><b>На руки</b></span>
+					<input type="text" class="form-control text-right" id="moneyOnHand" name="moneyOnHand"
+						value=<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculation.moneyOnHand}"/> readonly>
 				</div>
 			</div>
 			<div class="col-3">
 				<div class="input-group">
-					<span class="input-group-addon" id="basic-addon1"><b>Ведение карты</b></span>
-<!-- 					<label for="cardServiceFee"><b>Ведение карты</b></label> -->
-					<input type="text" class="form-control" id="cardServiceFee" name="cardServiceFee"
-						value=<c:out value="${calculation.cardServiceFee}"/>>
-				</div>
-			</div>
-		
-		</div>
-		<p>
-		<div class="row" >
-			<div class="col-2">
-				<div class="input-group">
-	<!-- 				<label for="esv"><b>ЕСВ</b></label> -->
-					<span class="input-group-addon" id="basic-addon1"><b>ЕСВ</b></span>
-					<input type="text" class="form-control" id="esv" name="esv"
-						value=<c:out value="${calculation.esv}"/>>
+					<span class="input-group-addon" id="basic-addon1"><b>На карту СПД</b></span>
+					<input type="text" class="form-control text-right" id="moneyTransfer" name="moneyTransfer"
+						value=<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculation.moneyTransfer}"/> readonly>
 				</div>
 			</div>
 			<div class="col-3">
 				<div class="input-group">
-	<!-- 				<label for="accountServiceFee"><b>Ведение счета</b></label> -->
-					<span class="input-group-addon" id="basic-addon1"><b>Ведение счета</b></span>
-					<input type="text" class="form-control" id="accountServiceFee" name="accountServiceFee"
-						value=<c:out value="${calculation.accountServiceFee}"/>>
+					<span class="input-group-addon" id="basic-addon1"><b>Сумма снятия</b></span>
+					<input type="text" class="form-control text-right" id="withdrawCash" name="withdrawCash"
+						value=<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculation.withdrawCash}"/> readonly>
 				</div>
 			</div>
 		</div>
 		<p>
-		<div class="row" >
-			<div class="col-2">
-				<div class="input-group">
-					<span class="input-group-addon" id="basic-addon1"><b>Аренда</b></span>
-					<input type="text" class="form-control" id="rent" name="rent"
-						value=<c:out value="${calculation.rent}"/>>
-				</div>
-			</div>
-		</div>
-		<p>
-		<div class="row" >
-			<div class="col-2">
-				<div class="input-group">
-					<span class="input-group-addon" id="basic-addon1"><b>Доплата к обороту</b></span>
-					<input type="text" class="form-control" id="surcharge" name="surcharge"
-						value=<c:out value="${calculation.surcharge}"/>>
-				</div>
-			</div>
-		</div>
-		
-		
 		
 	</form>
 	
