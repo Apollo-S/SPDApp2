@@ -91,7 +91,7 @@ function calculationUpdate() {
 	var openingBalance = document.getElementById('openingBalance');
 	var closingBalance = document.getElementById('closingBalance');
 
-	var singleTax = document.getElementById('singleTax');
+	var simpleTax = document.getElementById('simpleTax');
 	var cardServiceFee = document.getElementById('cardServiceFee');
 	var accountServiceFee = document.getElementById('accountServiceFee');
 
@@ -100,8 +100,8 @@ function calculationUpdate() {
 	var moneyTransfer = document.getElementById('moneyTransfer');
 	var withdrawCash = document.getElementById('withdrawCash');
 
-	var comissionRate = 0.01; // TODO comissionRate from controller
-	var singleTaxRate = 0.05; // TODO singleTaxRate from controller
+	var comissionRate = document.getElementById('bankComissionRate').value;
+	var simpleTaxRate = document.getElementById('simpleTaxRate').value;
 
 	withdrawCash.value = accounting.formatNumber(
 			(getNum(salaryRate.value) + getNum(premium.value)), 2, " ", ",");
@@ -115,11 +115,11 @@ function calculationUpdate() {
 							+ getNum(esv.value) + getNum(surcharge.value)
 							+ getNum(rent.value) + getNum(withdrawCashComission.value)),
 					2, " ", ",");
-	singleTax.value = accounting.formatNumber(
-			(getNum(turnover.value) * getNum(singleTaxRate)), 2, " ", ",");
+	simpleTax.value = accounting.formatNumber(
+			(getNum(turnover.value) * getNum(simpleTaxRate)), 2, " ", ",");
 	moneyOnHand.value = accounting
 			.formatNumber(
-					(getNum(turnover.value) - (getNum(singleTax.value)
+					(getNum(turnover.value) - (getNum(simpleTax.value)
 							+ getNum(esv.value) + getNum(rent.value)
 							+ getNum(cardServiceFee.value)
 							+ getNum(accountServiceFee.value) + getNum(withdrawCashComission.value))),
