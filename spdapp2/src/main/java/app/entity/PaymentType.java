@@ -17,6 +17,9 @@ public class PaymentType extends UrlEntity implements Serializable {
 	@Column(name = "is_percent", nullable = false)
 	private boolean isPercent = false;
 	
+	@Column(name = "is_bank_comission", nullable = false)
+	private boolean isBankComission = false;
+	
 	public PaymentType() {
 	}
 
