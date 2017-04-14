@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -48,8 +49,8 @@ public class Calculation extends UrlEntity implements Serializable {
 	@Column(name = "account_service_fee")
 	private Double accountServiceFee;
 	
-	@Column(name = "single_tax")
-	private Double singleTax;
+	@Column(name = "simple_tax")
+	private Double simpleTax;
 	
 	@Column(name = "withdraw_cash_comission")
 	private Double withdrawCashComission;
@@ -73,6 +74,12 @@ public class Calculation extends UrlEntity implements Serializable {
 	private Double withdrawCash;
 	
 	public Calculation() {
+	}
+
+	public Calculation(Specification specification, Integer partNumber, Date dateStart) {
+		this.specification = specification;
+		this.dateStart = dateStart;
+		this.partNumber = partNumber;
 	}
 
 	public Specification getSpecification() {
@@ -155,12 +162,12 @@ public class Calculation extends UrlEntity implements Serializable {
 		this.accountServiceFee = accountServiceFee;
 	}
 
-	public Double getSingleTax() {
-		return singleTax;
+	public Double getSimpleTax() {
+		return simpleTax;
 	}
 
-	public void setSingleTax(Double singleTax) {
-		this.singleTax = singleTax;
+	public void setSimpleTax(Double simpleTax) {
+		this.simpleTax = simpleTax;
 	}
 
 	public Double getWithdrawCashComission() {
