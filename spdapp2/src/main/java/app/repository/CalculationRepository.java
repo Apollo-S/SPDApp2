@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import app.entity.Calculation;
-import app.entity.Payment;
 
 @Repository
 public interface CalculationRepository extends JpaRepository<Calculation, Integer> {
@@ -22,8 +21,8 @@ public interface CalculationRepository extends JpaRepository<Calculation, Intege
 	static final String FIND_ACTUAL_BANK_COMISSION_RATE_BY_CALCULATION_ID = "select p.value from Payment p, PaymentType pt "
 			+ "where p.paymentType.id = pt.id and pt.isBankComission = true and p.spd.id = ("
 			+ "select a.spd.id from Agreement a, Specification s, Calculation c "
-			+ "where a.id = s.agreement.id and s.id = c.specification.id and c.id = ?1) and p.dateStart <= ("
-			+ "select c.dateStart from Calculation c where c.id = ?1)";
+			+ "where a.id = s.agreement.id and s.id = c.specification.id and c.id = ?1) and p.dateStart = ("
+			+ "select max(c.dateStart) from Calculation c where c.dateStart <= (select c.dateStart from Calculation c where c.id = ?1))";
 
 	@Transactional
 	@Query(FIND_ACTUAL_ESV_RATE_BY_CALCULATION_ID)
