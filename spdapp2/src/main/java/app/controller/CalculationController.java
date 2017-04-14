@@ -14,11 +14,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import app.entity.Agreement;
-import app.entity.AgreementTarif;
 import app.entity.Calculation;
 import app.entity.Specification;
-import app.repository.AgreementRepository;
 import app.repository.CalculationRepository;
 import app.repository.SpecificationRepository;
 
@@ -30,6 +27,9 @@ public class CalculationController {
 
 	@Autowired(required = true)
 	private CalculationRepository calcRepository;
+	
+	@Autowired(required = true)
+	private SpecificationRepository specRepository;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -43,9 +43,25 @@ public class CalculationController {
 		logger.info("<== Enter to 'getEditCalculation()' method ... ==>");
 		Calculation calculation = calcRepository.findOne(id);
 		model.addAttribute("calculation", calculation);
-		
+		Double actualEsvRate = calcRepository.findActualEsvRateByCalculationId(id);
+		model.addAttribute("esvRate", actualEsvRate);
+		Double actualSimpleTaxRate = calcRepository.findActualSimpleTaxRateByCalculationId(id);
+		model.addAttribute("simpleTaxRate", actualSimpleTaxRate);
+		Double actualBankComissionRate = calcRepository.getActualBankComissionRateByCalculationId(id);
+		model.addAttribute("bankComissionRate", actualBankComissionRate);
 		logger.info("<== Out of 'getEditCalculation()' method ... ==>");
 		return "calculation/edit";
 	}
 
+	@RequestMapping(value = "/calculation", params = "add", method = RequestMethod.POST)
+	public String postAddCalculation(@RequestParam int specificationId, @RequestParam Integer partNumber, @RequestParam Date dateStart) {
+		logger.info("<== Enter to 'postAddCalculation()' method ... ==>");
+		Specification specification = specRepository.findOne(specificationId);
+		logger.info("<== Saving new 'Calculation' for 'Specification='" + specification.getId() + "' ==>");
+		Calculation calculation = new Calculation(specification, partNumber, dateStart);
+		calculation = calcRepository.save(calculation);
+		logger.info("<== Saving new 'Calculation' with ID=" + calculation.getId() + " for 'Specification=" + specification.getId() + "' was successful ==>");
+		logger.info("<== Out of 'postAddCalculation()' method ... ==>");
+		return "redirect:" + calculation.getUrl();
+	}
 }
