@@ -20,6 +20,29 @@ public class PaymentType extends UrlEntity implements Serializable {
 	@Column(name = "is_bank_comission", nullable = false)
 	private boolean isBankComission = false;
 	
+	@Column(name = "alias")
+	private String alias;
+	
+	public boolean isBankComission() {
+		return isBankComission;
+	}
+
+	public void setBankComission(boolean isBankComission) {
+		this.isBankComission = isBankComission;
+	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+
+	public void setPercent(boolean isPercent) {
+		this.isPercent = isPercent;
+	}
+
 	public PaymentType() {
 	}
 

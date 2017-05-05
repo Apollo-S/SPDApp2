@@ -51,8 +51,6 @@ public class Specification extends UrlEntity implements Serializable {
 	@OrderBy("part_number ASC")
 	private Set<Calculation> calculations;
 	
-	private Double calculationsTotalAmount;
-	
 	public Specification() {
 	}
 
@@ -132,16 +130,6 @@ public class Specification extends UrlEntity implements Serializable {
 
 	public void setCalculations(Set<Calculation> calculations) {
 		this.calculations = calculations;
-	}
-	
-	public Double getCalculationsTotalAmount() {
-		this.calculationsTotalAmount = 0.0;
-		if (!this.calculations.isEmpty()) {
-			for (Calculation c : this.calculations) {
-				this.calculationsTotalAmount += c.getTurnover().doubleValue();
-			}
-		}
-		return this.calculationsTotalAmount;
 	}
 	
 }

@@ -25,4 +25,39 @@ public class BeanUtilTest {
 		assertThat(beanUtils.requestedDateFormatter(textDate), is(sqlDate));
 	}
 	
+	@Test
+	public void testConvertStringToDoubleEmptyValue() {
+		String value = "";
+		Double result = null;
+		assertThat(beanUtils.convertStringToDouble(value), is(result));
+	}
+	
+	@Test
+	public void testConvertStringToDoubleWithDigits() {
+		String value = "7 200,89";
+		Double result = 7200.89d;
+		assertThat(beanUtils.convertStringToDouble(value), is(result));
+	}
+	
+	@Test
+	public void testConvertStringToDoubleWithLetters() {
+		String value = "23frg";
+		Double result = null;
+		assertThat(beanUtils.convertStringToDouble(value), is(result));
+	}
+	
+	@Test
+	public void testConvertStringToDoubleWithMinus() {
+		String value = "-7 200,89";
+		Double result = -7200.89d;
+		assertThat(beanUtils.convertStringToDouble(value), is(result));
+	}
+	
+	@Test
+	public void testConvertStringToDoubleWithDigits2() {
+		String value = "7200.89";
+		Double result = 7200.89d;
+		assertThat(beanUtils.convertStringToDouble(value), is(result));
+	}
+	
 }

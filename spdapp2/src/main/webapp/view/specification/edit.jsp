@@ -1,6 +1,7 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <jsp:include page="../header.jsp" />
 
@@ -41,13 +42,15 @@
 		<div class="row" >
 			<div class="col-1">
 				<label for="specificationNumber"><b>№ п/п</b></label>
-				<input type="text" class="form-control" id="specificationNumber" name="specificationNumber"
-					value="${specification.specificationNumber}" readonly>
+				<input type="text" style="font-weight: bold;" class="form-control text-center" id="specificationNumber" name="specificationNumber"
+					value=<c:out value="${specification.specificationNumber}"/> readonly>
 			</div>
 			<div class="col-2">
 				<label for="specificationSum"><b>Общая сумма</b></label>
-				<input type="text" class="form-control" id="specificationSum" name="specificationSum" 
-					value="${specification.specificationSum}" readonly>
+				<fmt:formatNumber value="${calculationsTotalAmount}" groupingUsed="true" minFractionDigits="2" maxFractionDigits="2" var="specificationSum" />
+				
+				<input type="text" style="font-weight: bold;" class="form-control text-center" id="specificationSum" name="specificationSum" 
+					value="${specificationSum}" readonly>
 			</div>
 			<div class="col"></div>
 			<div class="col-2">
@@ -125,38 +128,38 @@
 			<!-- Modal -->
 			<div class="modal fade" id="modalCalculation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 				aria-hidden="true">
-				<div class="modal-dialog" role="document">
+				<div class="modal-dialog modal-sm" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Новый расчет к спецификации № <c:out value="${specification.specificationNumber}"/></h5>
+							<h5 class="modal-title" id="exampleModalLabel">Новый расчет</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
 						<div class="modal-body">
-							<form action="specification" method="post">
+							<form action="calculation" method="post">
 								<input type="hidden" name="add"> 
 								<input type="hidden" name="specificationId"	value="${specification.id}">
 								
-								<table border="0" width="50%">
-									<tr>
-										<td valign="top">
-											<div class="form-group">
-												<label for=calculationNumber class="col-sm-10 control-label">Номер расчета (п/п)</label>
-												<div class="col-sm-10">
-													<input type="text" class="form-control" id="calculationNumber" name="calculationNumber" value="${calculationNumber}">
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="dateStart" class="col-sm-10 control-label">Дата расчета</label>
-												<div class="col-sm-10">
-													<input type="date" class="form-control" id="dateStart" name="dateStart"
-														placeholder="Введите дату спецификации" value="${dateStart}">
-												</div>
-											</div>
-										</td>
-									</tr>
-								</table>
+								<div class="row">
+									<div class="col">
+										<label for=partNumber><b>№ п/п</b></label>
+									</div>
+									<div class="col">
+										<input type="text" class="form-control text-right" id="partNumber" name="partNumber" 
+											value="${nextCalculationNumber}">
+									</div>
+								</div>
+								<p>
+								<div class="row">
+									<div class="col">
+										<label for="dateStart"><b>Дата</b></label>
+									</div>
+									<div class="col">
+										<input type="date" class="form-control" id="dateStart" name="dateStart"
+											value="${dateStart}">
+									</div>
+								</div>
 								<p>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
@@ -190,7 +193,7 @@
 						<td  class="text-center">
 							<div class="btn-group" role="group">
 									<a class="btn btn-warning btn-sm" href="${calculation.url}" role="button">Подробнее</a>
-									<form action="specification" method="post">
+									<form action="calculation" method="post">
 										<input type="hidden" name="delete">
 										<input type="hidden" name="id" value="${calculation.id}">
 										<button type="submit" class="btn btn-danger btn-sm">Удалить (осторожно!)</button>
@@ -205,7 +208,7 @@
 						<th class="text-center">Итого:</th>
 						<th></th>
 						<th></th>
-						<th class="text-right"><fmt:formatNumber type="number" pattern="#,##0.00" value="${specification.calculationsTotalAmount}" /></th>
+						<th class="text-right"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculationsTotalAmount}" /></th>
 						<th></th>
 					</tr>
 				</thead>

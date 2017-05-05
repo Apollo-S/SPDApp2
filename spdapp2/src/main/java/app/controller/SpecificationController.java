@@ -44,6 +44,12 @@ public class SpecificationController {
 		logger.info("<== Enter to 'getEditSpecification()' method ... ==>");
 		Specification specification = specRepository.findOne(id);
 		model.addAttribute("specification", specification);
+		logger.info("<== Finding sum of current Calculations turnover ... ==>");
+		Double calculationsTotalAmount = specRepository.findSumOfCalculationsBySpecificationId(id);
+		model.addAttribute("calculationsTotalAmount", calculationsTotalAmount);
+		logger.info("<== Finding next number for future Calculation ... ==>");
+		int nextCalculationNumber = specRepository.findMaxCalculationNumberBySpecificationId(id);
+		model.addAttribute("nextCalculationNumber", nextCalculationNumber + 1);
 		AgreementTarif currentTarif = agreementRepository.findAgreementTarifBySpecificationId(specification.getId()); // TODO Crashes if there is no any tarif. Need to create error page or page with adding new tarifs.
 		logger.info("<== Got 'currentTarif' with ID=" + currentTarif.getId() + " ==>");
 		model.addAttribute("currentTarif", currentTarif);

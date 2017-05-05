@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,57 +28,58 @@ public class Calculation extends UrlEntity implements Serializable {
 	private Integer partNumber;
 	
 	@Column(name = "opening_balance")
-	private Double openingBalance;
+	private Double openingBalance = 0.0;
 	
 	@Column(name = "esv")
 	private Double esv;
 	
 	@Column(name = "salary_rate")
-	private Double salaryRate;
+	private Double salaryRate ;
 	
 	@Column(name = "premium")
-	private Double premium;
+	private Double premium = 0.0;
 	
 	@Column(name = "surcharge")
-	private Double surcharge;
+	private Double surcharge = 0.0;
 	
 	@Column(name = "card_service_fee")
-	private Double cardServiceFee;
+	private Double cardServiceFee = 0.0;
 	
 	@Column(name = "account_service_fee")
-	private Double accountServiceFee;
+	private Double accountServiceFee = 0.0;
 	
 	@Column(name = "simple_tax")
-	private Double simpleTax;
+	private Double simpleTax = 0.0;
 	
 	@Column(name = "withdraw_cash_comission")
 	private Double withdrawCashComission;
 	
 	@Column(name = "closing_balance")
-	private Double closingBalance;
+	private Double closingBalance = 0.0;
 	
 	@Column(name = "rent")
-	private Double rent;
+	private Double rent = 0.0;
 	
 	@Column(name = "turnover")
-	private Double turnover;
+	private Double turnover = 0.0;
 	
 	@Column(name = "money_on_hand")
-	private Double moneyOnHand;
+	private Double moneyOnHand = 0.0;
 	
 	@Column(name = "money_transfer")
-	private Double moneyTransfer;
+	private Double moneyTransfer = 0.0;
 	
 	@Column(name = "withdraw_cash")
-	private Double withdrawCash;
+	private Double withdrawCash = 0.0;
 	
 	public Calculation() {
 	}
 
-	public Calculation(Specification specification, Integer partNumber, Date dateStart) {
+	public Calculation(Specification specification, Integer partNumber, Date dateStart, Double openingBalance) {
 		this.specification = specification;
 		this.dateStart = dateStart;
 		this.partNumber = partNumber;
+		this.openingBalance = openingBalance;
 	}
 
 	public Specification getSpecification() {
