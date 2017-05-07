@@ -19,6 +19,7 @@ import app.entity.AgreementTarif;
 import app.entity.Specification;
 import app.repository.AgreementRepository;
 import app.repository.SpecificationRepository;
+import utils.BeanUtil;
 
 @Controller
 @Transactional
@@ -73,7 +74,7 @@ public class SpecificationController {
 
 	@RequestMapping(value = "/specification", params = "edit", method = RequestMethod.POST)
 	public String postEditSpecification(@RequestParam Integer id, @RequestParam Integer specificationNumber,
-			@RequestParam Double specificationSum, @RequestParam Date dateStart, @RequestParam Date dateFinish,
+			@RequestParam String specificationSum, @RequestParam Date dateStart, @RequestParam Date dateFinish,
 			@RequestParam Integer configuringHours, @RequestParam Integer programmingHours,
 			@RequestParam Integer architectingHours) {
 		logger.info("<== Enter to 'postEditSpecification()' method ... ==>");
@@ -84,7 +85,7 @@ public class SpecificationController {
 		specification.setDateStart(dateStart);
 		specification.setDateFinish(dateFinish);
 		specification.setSpecificationNumber(specificationNumber);
-		specification.setSpecificationSum(specificationSum);
+		specification.setSpecificationSum(BeanUtil.convertStringToDouble(specificationSum));
 		specification.setConfiguringHours(configuringHours);
 		specification.setProgrammingHours(programmingHours);
 		specification.setArchitectingHours(architectingHours);

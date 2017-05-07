@@ -48,6 +48,13 @@ function getInitialValueBack(inputId, initialValue) {
 	calcBankCostSum();
 }
 
+function formatValueAndCalculate(inputId) {
+	var input = document.getElementById(inputId);
+	var value = getNum(input.value);
+	input.value = accounting.formatNumber(value, 2, " ", ",");
+	calcBankCostSum();
+}
+
 function surchargeUpdate() {
 	var surcharge = document.getElementById('surcharge');
 	var salaryRate = document.getElementById('salaryRate');
