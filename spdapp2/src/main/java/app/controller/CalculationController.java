@@ -29,7 +29,7 @@ public class CalculationController {
 	private static final Logger logger = LoggerFactory.getLogger(CalculationController.class);
 
 	@Autowired(required = true)
-	private CalculationController calcRepository;
+	private CalculationRepository calcRepository;
 
 	@Autowired(required = true)
 	private SpecificationRepository specRepository;
@@ -118,7 +118,9 @@ public class CalculationController {
 		calculation.setOpeningBalance(BeanUtil.convertStringToDouble(openingBalance));
 		calculation.setPremium(BeanUtil.convertStringToDouble(premium));
 		calculation.setRent(BeanUtil.convertStringToDouble(rent));
+		logger.info("<== 'SalaryRate=" + salaryRate + "' ==>");
 		calculation.setSalaryRate(BeanUtil.convertStringToDouble(salaryRate));
+		logger.info("<== 'SalaryRate=" + calculation.getSalaryRate() + "' ==>");
 		calculation.setSurcharge(BeanUtil.convertStringToDouble(surcharge));
 		calculation.setTurnover(BeanUtil.convertStringToDouble(turnover));
 		calculation.setWithdrawCash(BeanUtil.convertStringToDouble(withdrawCash));
