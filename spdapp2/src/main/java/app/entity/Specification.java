@@ -17,40 +17,44 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "specification")
 public class Specification extends UrlEntity implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
 	@JoinColumn(name = "agreement_id")
 	private Agreement agreement;
-	
+
 	@Column(name = "specification_number")
 	private Integer specificationNumber;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "date_start")
 	private Date dateStart;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "date_finish")
 	private Date dateFinish;
-	
+
 	@Column(name = "specification_sum", nullable = false)
 	private Double specificationSum = 0.0;
-	
+
 	@Column(name = "configuring_hours")
 	private Integer configuringHours = 0;
-	
+
 	@Column(name = "programming_hours")
 	private Integer programmingHours = 0;
-	
+
 	@Column(name = "architecting_hours")
 	private Integer architectingHours = 0;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "specification", orphanRemoval = true)
 	@OrderBy("part_number ASC")
 	private Set<Calculation> calculations;
-	
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "specification", orphanRemoval = true)
+	@OrderBy("id ASC")
+	private Set<Job> jobs;
+
 	public Specification() {
 	}
 
@@ -131,5 +135,13 @@ public class Specification extends UrlEntity implements Serializable {
 	public void setCalculations(Set<Calculation> calculations) {
 		this.calculations = calculations;
 	}
-	
+
+	public Set<Job> getJobs() {
+		return jobs;
+	}
+
+	public void setJobs(Set<Job> jobs) {
+		this.jobs = jobs;
+	}
+
 }
