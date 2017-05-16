@@ -7,7 +7,7 @@ public class BeanUtil {
 	
 	private static final char MINUS = '-';
 	private static final String EMPTY = "";
-	private static final String EXCEPT_DIGITS_AND_DOT = "[^0-9.]";
+	private static final String EXCEPT_DIGITS_AND_DOT = "[^-\\d.]";
 	private static final char DOT = '.';
 	private static final char COMMA = ',';
 
@@ -19,27 +19,25 @@ public class BeanUtil {
 	}
 	
 	public static Double convertStringToDouble(String parameter) {
-		if (parameter.equals(EMPTY)) {
-			return null;
-		}
-		parameter = parameter.replace(COMMA, DOT).replaceAll(EXCEPT_DIGITS_AND_DOT, EMPTY);
-		if (BeanUtil.isStringNumeric(parameter)) {
-			return Double.valueOf(parameter);
+		if (!parameter.equals(EMPTY)) {
+			parameter = parameter.replace(COMMA, DOT).replaceAll(EXCEPT_DIGITS_AND_DOT, EMPTY);
+			if (BeanUtil.isStringNumeric(parameter)) {
+				return Double.valueOf(parameter);
+			}
 		}
 		return null;
 	}
 	
 	public static boolean isStringNumeric(String str) {
-		char localeMinusSign = MINUS;
-		boolean isMinus = str.charAt(0) == localeMinusSign; 
+		boolean isMinus = str.charAt(0) == MINUS; 
 		if ((isMinus && str.length() < 2) || ((!isMinus) && !Character.isDigit(str.charAt(0)))) {
 			return false; 
 		}
 		boolean isDecimalSeparatorFound = false;
-		char localeDecimalSeparator = DOT;
+		char decimalSeparator = DOT;
 		for (char c : str.substring(1).toCharArray()) {
 			if (!Character.isDigit(c)) {
-				if (c == localeDecimalSeparator && !isDecimalSeparatorFound) {
+				if (c == decimalSeparator && !isDecimalSeparatorFound) {
 					isDecimalSeparatorFound = true;
 					continue;
 				}

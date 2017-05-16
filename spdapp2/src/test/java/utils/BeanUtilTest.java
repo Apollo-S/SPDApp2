@@ -40,7 +40,7 @@ public class BeanUtilTest {
 	@Test
 	public void testConvertStringToDoubleWithLetters() {
 		String value = "23frg";
-		Double result = null;
+		Double result = 23.0;
 		assertThat(BeanUtil.convertStringToDouble(value), is(result));
 	}
 	
@@ -55,6 +55,13 @@ public class BeanUtilTest {
 	public void testConvertStringToDoubleWithDigits2() {
 		String value = "7200.89";
 		Double result = 7200.89;
+		assertThat(BeanUtil.convertStringToDouble(value), is(result));
+	}
+	
+	@Test
+	public void testConvertStringToDoubleWithDigits3() {
+		String value = "-7200.89";
+		Double result = -7200.89;
 		assertThat(BeanUtil.convertStringToDouble(value), is(result));
 	}
 	
