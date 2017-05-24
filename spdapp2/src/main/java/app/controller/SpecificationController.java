@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import app.entity.Agreement;
 import app.entity.AgreementTarif;
+import app.entity.Job;
 import app.entity.Specification;
 import app.repository.AgreementRepository;
+import app.repository.JobRepository;
 import app.repository.SpecificationRepository;
 import utils.BeanUtil;
 
@@ -32,6 +34,9 @@ public class SpecificationController {
 
 	@Autowired(required = true)
 	private AgreementRepository agreementRepository;
+	
+	@Autowired(required = true)
+	private JobRepository jobRepository;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -105,6 +110,20 @@ public class SpecificationController {
 		logger.info("<== Deleting of 'Specification' with ID=" + specification.getId() + " was successful ==>");
 		logger.info("<== Out of 'postDeleteSpecification()' method ... ==>");
 		return "redirect:" + agreement.getUrl();
+	}
+	
+	@RequestMapping(value = "/job", params = "add", method = RequestMethod.POST)
+	public String postAddJob(@RequestParam Integer specificationId, @RequestParam String jobName,
+			@RequestParam Integer configuring, @RequestParam Integer programming, @RequestParam Integer architecting) {
+		logger.info("<== Enter to 'postAddJob()' method ... ==>");
+		Specification specification = specRepository.findOne(specificationId);
+		logger.info("<== Adding new 'Job' for 'Specification='" + specification.getSpecificationNumber() + "' ==>");
+		Job job = new Job(specification, jobName, configuring, programming, architecting);
+		job = jobRepository.save(job);
+		logger.info("<== Saving new 'Job' with ID=" + job.getId() + " for 'Specification='"
+				+ specification.getSpecificationNumber() + " was successeful ==>");
+		logger.info("<== Out of 'postAddJob()' method ... ==>");
+		return "redirect:" + specification.getUrl();
 	}
 
 }
