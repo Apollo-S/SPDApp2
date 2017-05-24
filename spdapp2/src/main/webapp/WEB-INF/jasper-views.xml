@@ -15,6 +15,6 @@
 	<!-- nott using now -->
 	<bean id="xlsReport"
 		class="org.springframework.web.servlet.view.jasperreports.JasperReportsXlsView"
-		p:url="classpath:specification-report.jrxml" p:reportDataKey="dataSource" />
+		p:url="/report/specification-report.jrxml" p:reportDataKey="dataSource" />
 
 </beans>

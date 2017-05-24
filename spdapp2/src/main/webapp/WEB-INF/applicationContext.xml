@@ -15,11 +15,7 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<context:component-scan base-package="app.controller" />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-	
-	<bean id="placeholderConfig"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location" value="classpath:db.properties" />
-	</bean>
+	<context:property-placeholder location="classpath:db.properties" />
 	
 	<import resource="jasper-views.xml"/>
 
