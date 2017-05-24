@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -77,7 +78,7 @@ public class CompanyController {
 	@RequestMapping(value = "/company", params = "delete", method = RequestMethod.POST)
 	public String postDeleteCompany(@RequestParam int id) {
 		logger.info("<== Enter to 'postDeleteCompany()' method ... ==>");
-		logger.info("***Starting delete 'Company' by ID=" + id + " ==>");
+		logger.info("<== Starting delete 'Company' by ID=" + id + " ==>");
 		companyRepository.delete(id);
 		logger.info("<== 'Company' with ID=" + id + " was deleted from DB ==>");
 		logger.info("<== Out of 'postDeleteCompany()' method ... ==>");
