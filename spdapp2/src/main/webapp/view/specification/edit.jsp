@@ -31,6 +31,7 @@
 				<div class="col">
 					<input type="submit" class="btn btn-success" id="button" value="Записать"> 	
 					<a class="btn btn-danger" href="${agreement.url}" role="button">Отмена</a>
+					<a class="btn btn-info" href="/spdapp2/specification/printpdf?id=${specification.id}" role="button">Отчет</a>
 				</div>
 			</div>
 		</nav>
@@ -221,52 +222,172 @@
 			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalJobName">Добавить работу</button>
 
 			<!-- Modal -->
-			<div class="modal fade" id="modalJobName" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+			<div class="modal fade bd-example-modal-lg" id="modalJobName" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 				aria-hidden="true">
-				<div class="modal-dialog" role="document">
+				<div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Добавить работу</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<h5 class="modal-title" id="exampleModalLabel">Добавить работу</h5>
 						</div>
 						<div class="modal-body">
-						<form action="specification" method="post">
+						<form action="job" method="post">
 							<input type="hidden" name="add"> 
-							<input type="hidden" name="agreementId"	value="${agreement.id}">
-							<input type="hidden" name="spdId" value="${spd.id}">
-							<table border="0" width="50%">
-								<tr>
-									<td valign="top">
-										<div class="form-group">
-											<label for="specNumber" class="col-sm-10 control-label">Номер спецификации (п/п)</label>
-											<div class="col-sm-10">
-												<input type="text" class="form-control" id="specNumber" name="specNumber" value="${specNumber}">
-											</div>
-										</div>
-										<div class="form-group">
-											<label for="dateStart" class="col-sm-10 control-label">Дата спецификации</label>
-											<div class="col-sm-10">
-												<input type="date" class="form-control" id="dateStart" name="dateStart"
-													placeholder="Введите дату спецификации" value="${dateStart}">
-											</div>
-										</div>
-									</td>
-								</tr>
-							</table>
-						<p>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-							<input type="submit" class="btn btn-primary" id="button" value="Добавить">
+							<input type="hidden" name="specificationId"	value="${specification.id}">
+							
+							<div class="row">
+								<div class="col">
+									<label for="jobName"><b>Наименование</b></label>
+									<input type="text" class="form-control" id="jobName" name="jobName">
+								</div>
+							</div>
+							<p>
+							<div class="row">
+								<div class="col">
+									<label for="configuring"><b>Конфигурирование, часы</b></label>
+									<input type="text" class="form-control text-center" id="configuring" name="configuring">
+								</div>
+								<div class="col">
+									<label for="programming"><b>Программирование, часы</b></label>
+									<input type="text" class="form-control text-center" id="programming" name="programming">
+								</div>
+								<div class="col">
+									<label for="architecting"><b>Архит. доработки, часы</b></label>
+									<input type="text" class="form-control text-center" id="architecting" name="architecting">
+								</div>
+							</div>
+							<p>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+								<input type="submit" class="btn btn-primary" id="button" value="Добавить">
+							</div>
+						</form>
 						</div>
-					</form>
 					</div>
 				</div>
 			</div>
+			<p>
+			<table class="table table-sm table-bordered table-hover text-right">
+			
+				<c:set var="configuringHoursAmount" />
+				<c:set var="programmingHoursAmount" />
+				<c:set var="architectingHoursAmount" />
+				<c:set var="jobsSumAmount" />
+				
+				<thead class="thead-default">
+					<tr>
+						
+						<th class="text-center align-middle">Наименование</th>
+						<th class="text-center align-middle">Конфиг.</th>
+						<th class="text-center align-middle">Прогр. дораб.</th>
+						<th class="text-center align-middle">Архит. дораб.</th>
+						<th class="text-center align-middle">Всего</th>
+						<th></th>
+					</tr>
+				</thead>
+				<c:forEach items="${specification.jobs}" var="job">
+					<tr>
+						<c:set var="openModal" value="$('#modalJobEdit${job.id}').modal('show')" />
+						<td class="text-left" onclick="${openModal}">
+							<c:out value="${job.jobName}"/>
+						</td>
+						<td class="text-center align-middle" onclick="${openModal}">
+							<fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${job.configuringHours}"/>
+						</td>
+						<td class="text-center align-middle" onclick="${openModal}">
+							<fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${job.programmingHours}"/>
+						</td>
+						<td class="text-center align-middle" onclick="${openModal}">
+							<fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${job.architectingHours}"/>
+						</td>
+						<td class="text-center align-middle" onclick="${openModal}">
+							<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" 
+								value="${(job.configuringHours * currentTarif.configuring) + (job.programmingHours * currentTarif.programming) + (job.architectingHours * currentTarif.architecting)}"/>
+						</td>
+						<td class="text-center align-middle">
+							<div class="btn-group" role="group">
+								<!-- Button trigger modal -->
+								<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalJobEdit${job.id}">Изменить</button>
+								<!-- Modal -->
+								<div class="modal fade bd-example-modal-lg" id="modalJobEdit${job.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+										aria-hidden="true">
+									<div class="modal-dialog modal-lg" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">Редактирование данных об услуге к Спецификации № <c:out value="${specification.specificationNumber}" /> от 
+														<fmt:formatDate	value="${specification.dateStart}" pattern="dd.MM.yyyy" />г.</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<form action="job" method="post">
+													<input type="hidden" name="edit">
+													<input type="hidden" name="id" value="${job.id}"/>
+													
+													<div class="row">
+														<div class="col">
+															<label for="jobName" class="text-left"><b>Наименование</b></label>
+															<input type="text" class="form-control" id="jobName" name="jobName"
+																value="${job.jobName}">
+														</div>
+													</div>
+													<p>
+													<div class="row">
+														<div class="col">
+															<label for="configuring"><b>Конфигурирование, часы</b></label>
+															<input type="text" class="form-control text-center" id="configuring" name="configuring" 
+																value="${job.configuringHours}" >
+														</div>
+														<div class="col">
+															<label for="programming"><b>Программирование, часы</b></label>
+															<input type="text" class="form-control text-center" id="programming" name="programming" 
+																value="${job.programmingHours}" >
+														</div>
+														<div class="col">
+															<label for="architecting"><b>Архит. доработки, часы</b></label>
+															<input type="text" class="form-control text-center" id="architecting" name="architecting" 
+																value="${job.architectingHours}" >
+														</div>
+													</div>
+													<p>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+														<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<form action="job" method="post">
+									<input type="hidden" name="delete"> 
+									<input type="hidden" name="id" value="${job.id}">
+									<button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+								</form>
+							</div>	
+						</td>
+					</tr>
+					<c:set var="configuringHoursAmount" value="${configuringHoursAmount + job.configuringHours}"/>
+					<c:set var="programmingHoursAmount" value="${programmingHoursAmount + job.programmingHours}"/>
+					<c:set var="architectingHoursAmount" value="${architectingHoursAmount + job.architectingHours}"/>
+					<c:set var="jobsSumAmount" value="${jobsSumAmount + ((job.configuringHours * currentTarif.configuring) + (job.programmingHours * currentTarif.programming) + (job.architectingHours * currentTarif.architecting))}"/>
+				</c:forEach>
+				<thead class="thead-default">
+					<tr>
+						<th class="text-center align-middle">Итого:</th>
+						<th class="text-center align-middle"><fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${configuringHoursAmount}" /></th>
+						<th class="text-center align-middle"><fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${programmingHoursAmount}" /></th>
+						<th class="text-center align-middle"><fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${architectingHoursAmount}" /></th>
+						<th class="text-right align-middle"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${jobsSumAmount}" /></th>
+						<th></th>
+					</tr>
+				</thead>
+			</table>
 		</div>
-		...
-	</div>
+	
 	</div>
 	
 </div> <!-- .container-fluid -->
