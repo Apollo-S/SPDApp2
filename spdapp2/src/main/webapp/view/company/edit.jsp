@@ -64,17 +64,19 @@
 		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#agreements" role="tab">Связанные договоры</a></li>
 	</ul>
 
-		<p>
+	<p>
 
-		<!-- Tab panes -->
-		<div class="tab-content">
-			<div class="tab-pane fade show active" id="address" role="tabpanel">	
-				<p>
-				<!-- Button trigger modal -->
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCompanyAddressAdd">Новый адрес</button>
-				<!-- Modal -->
-				<div class="modal fade" id="modalCompanyAddressAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-				aria-hidden="true">
+	<!-- Tab panes -->
+	<div class="tab-content">
+		
+		<!-- Tab pane 'Address'  -->
+		<div class="tab-pane fade show active" id="address" role="tabpanel">
+			<p>
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCompanyAddressAdd">Новый адрес</button>
+			<!-- Modal -->
+			<div class="modal fade" id="modalCompanyAddressAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+				aria-hidden="true" >
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -87,22 +89,22 @@
 							<form action="companyAddress" method="post">
 								<input type="hidden" name="add"> 
 								<input type="hidden" name="companyId" value="${company.id}"> 
-									<div class="row">
-										<div class="col-sm">
-											<label for="presentation" class="col-sm"><b>Представление</b></label> 
-											<input type="text" class="form-control" id="presentation"
-												name="presentation" placeholder="Введите адрес">
-										</div>
+								<div class="row">
+									<div class="col-sm">
+										<label for="presentation" class="col-sm"><b>Представление</b></label> 
+										<input type="text" class="form-control" id="presentation"
+											name="presentation" placeholder="Введите адрес">
 									</div>
-									<p>
-									<div class="row">
-										<div class="col-sm">
-											<label for="dateStart" class="col-sm"><b>Дата начала действия</b></label> 
-											<input type="date" class="form-control" id="dateStart"
-												name="dateStart" placeholder="Введите дату начала действия">
-										</div>
+								</div>
+								<p>
+								<div class="row">
+									<div class="col-sm">
+										<label for="dateStart" class="col-sm"><b>Действует с</b></label> 
+										<input type="date" class="form-control" id="dateStart"
+											name="dateStart" placeholder="Введите дату начала действия">
 									</div>
-									<p>
+								</div>
+								<p>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
 									<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
@@ -113,21 +115,22 @@
 				</div>
 			</div>
 			<p>
-			<table class="table table-sm table-bordered">
+			<table class="table table-sm table-bordered table-hover">
 				<thead class="thead-default">
 					<tr>
-						<th>ID</th>
-						<th>Адрес</th>
-						<th>Дата начала</th>
-						<th></th>
+						<th class="text-center">ID</th>
+						<th class="text-center">Адрес</th>
+						<th class="text-center">Действует с</th>
+						<th class="text-center"></th>
 					</tr>
 				</thead>
 				<c:forEach items="${company.addresses}" var="address">
 					<tr>
-						<td><c:out value="${address.id}"/></td>
-						<td><c:out value="${address.presentation}"/></td>
-						<td><c:out value="${address.dateStart}"/></td>
-						<td>
+						<c:set var="openModal" value="$('#modalCompanyAddressEdit${address.id}').modal('show')" />
+						<td class="text-center" onclick="${openModal}"><c:out value="${address.id}"/></td>
+						<td class="text-left" onclick="${openModal}"><c:out value="${address.presentation}"/></td>
+						<td class="text-center" onclick="${openModal}"><c:out value="${address.dateStart}"/></td>
+						<td class="text-center">
 							<div class="btn-group" role="group">
 								<!-- Button trigger modal -->
 								<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalCompanyAddressEdit${address.id}">Изменить</button>
@@ -155,8 +158,9 @@
 													</div>
 													<p>
 													<div class="row">
+												
 														<div class="col-6">
-															<label for="dateStart" class="col-sm"><b>Дата начала действия</b></label> 
+															<label for="dateStart" class="col-sm"><b>Действует с</b></label> 
 															<input type="date" class="form-control" id="dateStart"
 																name="dateStart" placeholder="Введите дату начала действия" value="${address.dateStart}">
 														</div>
@@ -183,9 +187,161 @@
 			</table>
 		</div>
 		
-		<div class="tab-pane fade" id="director" role="tabpanel">...</div>
+		<!-- Tab pane 'Director'  -->
+		<div class="tab-pane fade" id="director" role="tabpanel">
+			<p>
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCompanyDirectorAdd">Добавить</button>
+			<!-- Modal -->
+			<div class="modal fade" id="modalCompanyDirectorAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+				aria-hidden="true" >
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel"><c:out value="${company.title}"/> | Новый директор</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form action="companyDirector/add" method="post">
+								<input type="hidden" name="companyId" value="${company.id}"> 
+								<div class="row">
+									<div class="col">
+										<label for="fullName"><b>ФИО</b></label> 
+										<input type="text" class="form-control" id="fullName" name="fullName" >
+									</div>
+								</div>
+								<p>
+								<div class="row">
+									<div class="col">
+										<label for="shortName"><b>Фамилия, инициалы</b></label> 
+										<input type="text" class="form-control" id="shortName" name="shortName" >
+									</div>
+								</div>
+								<p>
+								<div class="row">
+									<div class="col">
+										<label for="post"><b>Должность</b></label> 
+										<input type="text" class="form-control" id="post" name="post" >
+									</div>
+								</div>
+								<p>
+								<div class="row">
+									<div class="col"></div>
+									<div class="col">
+										<label for="employmentDate"><b>Дата начала работы</b></label> 
+										<input type="date" class="form-control" id="employmentDate" name="employmentDate" >
+									</div>
+								</div>
+								<p>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+									<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<p>
+			<table class="table table-sm table-bordered table-hover">
+				<thead class="thead-default">
+					<tr>
+						<th class="text-center">ID</th>
+						<th class="text-center">ФИО</th>
+						<th class="text-center">Фамилия, инициалы</th>
+						<th class="text-center">Работает с</th>
+						<th class="text-center"></th>
+					</tr>
+				</thead>
+				<c:forEach items="${company.directors}" var="director">
+					<tr>
+						<c:set var="openModal" value="$('#modalCompanyDirectorEdit${director.id}').modal('show')" />
+						<td class="text-center" onclick="${openModal}"><c:out value="${director.id}"/></td>
+						<td class="text-left" onclick="${openModal}"><c:out value="${director.fullName}"/></td>
+						<td class="text-left" onclick="${openModal}"><c:out value="${director.shortName}"/></td>
+						<td class="text-center" onclick="${openModal}"><c:out value="${director.employmentDate}"/></td>
+						<td class="text-center">
+							<div class="btn-group" role="group">
+								<!-- Button trigger modal -->
+								<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalCompanyDirectorEdit${director.id}"><i class="fa fa-edit"></i></button>
+								<!-- Modal -->
+								<div class="modal fade" id="modalCompanyDirectorEdit${director.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+									aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel"><c:out value="${company.title}"/> | Редактирование данных о директоре</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<form action="companyDirector/edit/${director.id}" method="post">
+													
+													<div class="row">
+														<div class="col">
+															<label for="fullName"><b>ФИО</b></label> 
+															<input type="text" class="form-control" id="fullName" name="fullName" 
+																value="${director.fullName}" >
+														</div>
+													</div>
+													<p>
+													<div class="row">
+														<div class="col">
+															<label for="shortName"><b>Фамилия, инициалы</b></label> 
+															<input type="text" class="form-control" id="shortName" name="shortName" 
+																value="${director.shortName}" >
+														</div>
+													</div>
+													<p>
+													<div class="row">
+														<div class="col">
+															<label for="post"><b>Должность</b></label> 
+															<input type="text" class="form-control" id="post" name="post" 
+																value="${director.post}" >
+														</div>
+													</div>
+													<p>
+													<div class="row">
+														<div class="col">
+															<label for="employmentDate"><b>Дата начала работы</b></label> 
+															<input type="date" class="form-control" id="employmentDate" name="employmentDate" 
+																value="${director.employmentDate}" >
+														</div>
+														<div class="col">
+															<label for="firedDate"><b>Дата увольнения</b></label> 
+															<input type="date" class="form-control" id="firedDate" name="firedDate" 
+																value="${director.firedDate}">
+														</div>
+													</div>
+													<p>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+														<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<form action="companyAddress/delete/${director.id}" method="post" >
+									<button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+								</form>
+							</div>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+		
+		
+		
 		<div class="tab-pane fade" id="agreements" role="tabpanel">...</div>
+		
 	</div>
+
 
 </div> <!-- .container-fluid -->
 	
