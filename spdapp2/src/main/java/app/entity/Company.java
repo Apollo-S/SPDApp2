@@ -34,6 +34,10 @@ public class Company extends UrlEntity implements Serializable {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "company", orphanRemoval = true)
 	@OrderBy("id ASC")
+	private Set<CompanyDirector> directors;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "company", orphanRemoval = true)
+	@OrderBy("id ASC")
 	private Set<Agreement> agreements;
 
 	public Company() {
@@ -84,6 +88,14 @@ public class Company extends UrlEntity implements Serializable {
 
 	public void setAddresses(Set<CompanyAddress> addresses) {
 		this.addresses = addresses;
+	}
+
+	public Set<CompanyDirector> getDirectors() {
+		return directors;
+	}
+
+	public void setDirectors(Set<CompanyDirector> directors) {
+		this.directors = directors;
 	}
 
 	public Set<Agreement> getAgreements() {
