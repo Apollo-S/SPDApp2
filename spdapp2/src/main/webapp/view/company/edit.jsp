@@ -98,7 +98,7 @@
 								</div>
 								<p>
 								<div class="row">
-									<div class="col-sm">
+									<div class="col-6">
 										<label for="dateStart" class="col-sm"><b>Действует с</b></label> 
 										<input type="date" class="form-control" id="dateStart"
 											name="dateStart" placeholder="Введите дату начала действия">
@@ -158,7 +158,6 @@
 													</div>
 													<p>
 													<div class="row">
-												
 														<div class="col-6">
 															<label for="dateStart" class="col-sm"><b>Действует с</b></label> 
 															<input type="date" class="form-control" id="dateStart"
@@ -204,7 +203,8 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form action="companyDirector/add" method="post">
+							<form action="companyDirector" method="post">
+								<input type="hidden" name="add">
 								<input type="hidden" name="companyId" value="${company.id}"> 
 								<div class="row">
 									<div class="col">
@@ -278,7 +278,9 @@
 												</button>
 											</div>
 											<div class="modal-body">
-												<form action="companyDirector/edit/${director.id}" method="post">
+												<form action="companyDirector" method="post">
+													<input type="hidden" name="edit">
+													<input type="hidden" name="id" value="${director.id}">
 													
 													<div class="row">
 														<div class="col">
@@ -326,7 +328,9 @@
 										</div>
 									</div>
 								</div>
-								<form action="companyAddress/delete/${director.id}" method="post" >
+								<form action="companyDirector" method="post" >
+									<input type="hidden" name="delete">
+									<input type="hidden" name="id" value="${director.id}">
 									<button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
 								</form>
 							</div>

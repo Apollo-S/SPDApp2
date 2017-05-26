@@ -22,7 +22,6 @@ import app.repository.CompanyRepository;
 
 @Controller
 @Transactional
-@RequestMapping(value = "/companyDirector")
 public class CompanyDirectorController {
 
 	private static final Logger logger = LoggerFactory.getLogger(CompanyDirectorController.class);
@@ -40,7 +39,7 @@ public class CompanyDirectorController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/companyDirector", params = "add", method = RequestMethod.POST)
 	public String postAddCompanyDirector(@RequestParam int companyId, @RequestParam String post, @RequestParam String fullName, 
 			@RequestParam String shortName, @RequestParam Date employmentDate) {
 		logger.info("<== Enter to 'postAddCompanyDirector()' method ... ==>");
@@ -53,8 +52,8 @@ public class CompanyDirectorController {
 		return "redirect:" + company.getUrl();
 	}
 	
-	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public String postEditCompanyDirector(@PathVariable("id") Integer id, @RequestParam String post, @RequestParam String fullName, 
+	@RequestMapping(value = "/companyDirector/edit/{id}", method = RequestMethod.POST)
+	public String postEditCompanyDirectorWithPathVar(@PathVariable("id") Integer id, @RequestParam String post, @RequestParam String fullName, 
 			@RequestParam String shortName, @RequestParam Date employmentDate, @RequestParam Date firedDate) {
 		logger.info("<== Enter to 'postEditCompanyDirector()' method ... ==>");
 		CompanyDirector director = directorRepository.findOne(id);
@@ -69,13 +68,30 @@ public class CompanyDirectorController {
 		director = directorRepository.save(director);
 		logger.info("<== Updating of 'CompanyDirector' with ID=" + director.getId() + " was successful ==>");
 		logger.info("<== Out of 'postEditCompanyDirector()' method ... ==>");
-		
-		
-		return "redirect:company?id" + company.getId();
+		return "redirect:" + company.getUrl();
 	}
 	
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-	public String postDeleteCompanyDirector(@PathVariable Integer id) {
+	@RequestMapping(value = "/companyDirector", params="edit", method = RequestMethod.POST)
+	public String postEditCompanyDirector(@RequestParam Integer id, @RequestParam String post, @RequestParam String fullName, 
+			@RequestParam String shortName, @RequestParam Date employmentDate, @RequestParam Date firedDate) {
+		logger.info("<== Enter to 'postEditCompanyDirector()' method ... ==>");
+		CompanyDirector director = directorRepository.findOne(id);
+		Company company = companyRepository.findOne(director.getCompany().getId());
+		logger.info("<== Starting update 'CompanyDirector' by ID=" + director.getId() + " ==>");
+		director.setCompany(company);
+		director.setPost(post);
+		director.setFullName(fullName);
+		director.setShortName(shortName);
+		director.setEmploymentDate(employmentDate);
+		director.setFiredDate(firedDate);
+		director = directorRepository.save(director);
+		logger.info("<== Updating of 'CompanyDirector' with ID=" + director.getId() + " was successful ==>");
+		logger.info("<== Out of 'postEditCompanyDirector()' method ... ==>");
+		return "redirect:" + company.getUrl();
+	}
+	
+	@RequestMapping(value = "/companyDirector", params = "delete", method = RequestMethod.POST)
+	public String postDeleteCompanyDirector(@RequestParam int id) {
 		logger.info("<== Enter to 'postDeleteCompanyDirector()' method ... ==>");
 		logger.info("<== Starting delete 'CompanyDirector' by ID=" + id + " ==>");
 		CompanyDirector director = directorRepository.findOne(id);
