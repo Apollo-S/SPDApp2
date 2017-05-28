@@ -68,5 +68,13 @@ public class Account extends UrlEntity implements Serializable {
 	public void setBankName(String bankName) {
 		this.bankName = bankName;
 	}
+	
+	public String getPresentation() {
+		StringBuilder accountView = new StringBuilder();
+		accountView.append(this.accountNumber);
+		accountView.append(", в " + this.bankName);
+		accountView.append(", МФО " + this.mfo);
+		return accountView.toString();
+	}
 
 }

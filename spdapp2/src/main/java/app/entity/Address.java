@@ -103,4 +103,15 @@ public class Address extends UrlEntity implements Serializable {
 		this.flat = flat;
 	}
 	
+	public String getPresentation() {
+		StringBuilder addressBuilder = new StringBuilder();
+		addressBuilder.append(this.country);
+		addressBuilder.append(this.zip == "" || this.zip == null ? "" : ", " + this.zip);
+		addressBuilder.append(this.region == "" || this.region == null ? "" : ", " + this.region);
+		addressBuilder.append(this.city == "" || this.city == null ? "" : ", " + this.city);
+		addressBuilder.append(this.street == "" || this.street == null ? "" : ", " + this.street);
+		addressBuilder.append(this.building == "" || this.building == null ? "" : ", буд. " + this.building);
+		addressBuilder.append(this.flat == "" || this.flat == null ? "" : ", кв. " + this.flat);
+		return addressBuilder.toString();
+	}
 }

@@ -163,4 +163,8 @@ public class SPD extends UrlEntity implements Serializable {
 		this.payments = payments;
 	}
 	
+	public String getSpdFullName() {
+		return this.surname + " " + this.firstname + " " + this.lastname;
+	}
+	
 }
