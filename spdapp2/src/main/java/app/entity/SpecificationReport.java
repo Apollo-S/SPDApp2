@@ -2,47 +2,55 @@ package app.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 
 public class SpecificationReport extends UrlEntity implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
-	private Agreement agreement;
+	private String agreementTitle;
+	private Date agreementDate;
 	private Integer specificationNumber;
-	private Date dateStart;
-	private Date dateFinish;
-	private Double specificationSum = 0.0;
-	private Integer configuringHours = 0;
-	private Integer programmingHours = 0;
-	private Integer architectingHours = 0;
-	
+	private Date specificationStartDate;
+	private Date specificationFinalDate;
+	private Double specificationSum;
+	private Double configuringRate;
+	private Double programmingRate;
+	private Double architectingRate;
+	private Integer configuringHours;
+	private Integer programmingHours;
+	private Integer architectingHours;
+	private String companyName;
+	private String companyTaxId;
+	private String companyInn;
+	private String companyVatCertificate;
+	private String companyAddress;
+	private String companyAccount;
+	private String companyDirectorFullName;
+	private String companyDirectorShortName;
+	private String companyDirectorPost;
+	private String spdAlias;
+	private String spdFullName;
+	private String spdAddress;
+	private String spdAccount;
+	private String spdInn;
+
 	public SpecificationReport() {
 	}
 
-	public SpecificationReport(Agreement agreement, Integer specificationNumber, Date dateStart) {
-		this.agreement = agreement;
-		this.specificationNumber = specificationNumber;
-		this.dateStart = dateStart;
+	public String getAgreementTitle() {
+		return agreementTitle;
 	}
 
-	public Agreement getAgreement() {
-		return agreement;
+	public void setAgreementTitle(String agreementTitle) {
+		this.agreementTitle = agreementTitle;
 	}
 
-	public void setAgreement(Agreement agreement) {
-		this.agreement = agreement;
+	public Date getAgreementDate() {
+		return agreementDate;
+	}
+
+	public void setAgreementDate(Date agreementDate) {
+		this.agreementDate = agreementDate;
 	}
 
 	public Integer getSpecificationNumber() {
@@ -53,20 +61,20 @@ public class SpecificationReport extends UrlEntity implements Serializable {
 		this.specificationNumber = specificationNumber;
 	}
 
-	public Date getDateStart() {
-		return dateStart;
+	public Date getSpecificationStartDate() {
+		return specificationStartDate;
 	}
 
-	public void setDateStart(Date dateStart) {
-		this.dateStart = dateStart;
+	public void setSpecificationStartDate(Date specificationStartDate) {
+		this.specificationStartDate = specificationStartDate;
 	}
 
-	public Date getDateFinish() {
-		return dateFinish;
+	public Date getSpecificationFinalDate() {
+		return specificationFinalDate;
 	}
 
-	public void setDateFinish(Date dateFinish) {
-		this.dateFinish = dateFinish;
+	public void setSpecificationFinalDate(Date specificationFinalDate) {
+		this.specificationFinalDate = specificationFinalDate;
 	}
 
 	public Double getSpecificationSum() {
@@ -93,6 +101,86 @@ public class SpecificationReport extends UrlEntity implements Serializable {
 		this.programmingHours = programmingHours;
 	}
 
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public String getCompanyTaxId() {
+		return companyTaxId;
+	}
+
+	public void setCompanyTaxId(String companyTaxId) {
+		this.companyTaxId = companyTaxId;
+	}
+
+	public String getCompanyInn() {
+		return companyInn;
+	}
+
+	public void setCompanyInn(String companyInn) {
+		this.companyInn = companyInn;
+	}
+
+	public String getCompanyVatCertificate() {
+		return companyVatCertificate;
+	}
+
+	public void setCompanyVatCertificate(String companyVatCertificate) {
+		this.companyVatCertificate = companyVatCertificate;
+	}
+
+	public String getCompanyAddress() {
+		return companyAddress;
+	}
+
+	public void setCompanyAddress(String companyAddress) {
+		this.companyAddress = companyAddress;
+	}
+
+	public String getCompanyDirectorFullName() {
+		return companyDirectorFullName;
+	}
+
+	public void setCompanyDirectorFullName(String companyDirectorFullName) {
+		this.companyDirectorFullName = companyDirectorFullName;
+	}
+
+	public String getCompanyDirectorShortName() {
+		return companyDirectorShortName;
+	}
+
+	public void setCompanyDirectorShortName(String companyDirectorShortName) {
+		this.companyDirectorShortName = companyDirectorShortName;
+	}
+
+	public String getSpdAlias() {
+		return spdAlias;
+	}
+
+	public void setSpdAlias(String spdAlias) {
+		this.spdAlias = spdAlias;
+	}
+
+	public String getSpdFullName() {
+		return spdFullName;
+	}
+
+	public void setSpdFullName(String spdFullName) {
+		this.spdFullName = spdFullName;
+	}
+
+	public String getSpdAddress() {
+		return spdAddress;
+	}
+
+	public void setSpdAddress(String spdAddress) {
+		this.spdAddress = spdAddress;
+	}
+
 	public Integer getArchitectingHours() {
 		return architectingHours;
 	}
@@ -100,5 +188,61 @@ public class SpecificationReport extends UrlEntity implements Serializable {
 	public void setArchitectingHours(Integer architectingHours) {
 		this.architectingHours = architectingHours;
 	}
-	
+
+	public Double getConfiguringRate() {
+		return configuringRate;
+	}
+
+	public void setConfiguringRate(Double configuringRate) {
+		this.configuringRate = configuringRate;
+	}
+
+	public Double getProgrammingRate() {
+		return programmingRate;
+	}
+
+	public void setProgrammingRate(Double programmingRate) {
+		this.programmingRate = programmingRate;
+	}
+
+	public Double getArchitectingRate() {
+		return architectingRate;
+	}
+
+	public void setArchitectingRate(Double architectingRate) {
+		this.architectingRate = architectingRate;
+	}
+
+	public String getCompanyDirectorPost() {
+		return companyDirectorPost;
+	}
+
+	public void setCompanyDirectorPost(String companyDirectorPost) {
+		this.companyDirectorPost = companyDirectorPost;
+	}
+
+	public String getCompanyAccount() {
+		return companyAccount;
+	}
+
+	public void setCompanyAccount(String companyAccount) {
+		this.companyAccount = companyAccount;
+	}
+
+	public String getSpdInn() {
+		return spdInn;
+	}
+
+	public void setSpdInn(String spdInn) {
+		this.spdInn = spdInn;
+	}
+
+	public String getSpdAccount() {
+		return spdAccount;
+	}
+
+	public void setSpdAccount(String spdAccount) {
+		this.spdAccount = spdAccount;
+	}
+
 }

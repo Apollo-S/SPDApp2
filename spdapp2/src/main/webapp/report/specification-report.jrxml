@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 4.5.0  -->
-<!-- 2017-05-15T16:43:54 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="chathuranga-sample-report" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<!-- 2017-05-28T19:36:48 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="specification-report" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -12,77 +12,419 @@
 	<field name="configuringHours" class="java.lang.Integer">
 		<fieldDescription><![CDATA[configuringHours]]></fieldDescription>
 	</field>
-	<field name="agreement" class="app.entity.Agreement">
-		<fieldDescription><![CDATA[agreement]]></fieldDescription>
+	<field name="specificationFinalDate" class="java.util.Date">
+		<fieldDescription><![CDATA[specificationFinalDate]]></fieldDescription>
+	</field>
+	<field name="agreementDate" class="java.util.Date">
+		<fieldDescription><![CDATA[agreementDate]]></fieldDescription>
+	</field>
+	<field name="specificationStartDate" class="java.util.Date">
+		<fieldDescription><![CDATA[specificationStartDate]]></fieldDescription>
+	</field>
+	<field name="companyName" class="java.lang.String">
+		<fieldDescription><![CDATA[companyName]]></fieldDescription>
+	</field>
+	<field name="spdFullName" class="java.lang.String">
+		<fieldDescription><![CDATA[spdFullName]]></fieldDescription>
 	</field>
 	<field name="specificationNumber" class="java.lang.Integer">
 		<fieldDescription><![CDATA[specificationNumber]]></fieldDescription>
 	</field>
-	<field name="dateFinish" class="java.util.Date">
-		<fieldDescription><![CDATA[dateFinish]]></fieldDescription>
+	<field name="companyAccount" class="java.lang.String">
+		<fieldDescription><![CDATA[companyAccount]]></fieldDescription>
+	</field>
+	<field name="companyDirectorShortName" class="java.lang.String">
+		<fieldDescription><![CDATA[companyDirectorShortName]]></fieldDescription>
+	</field>
+	<field name="spdInn" class="java.lang.String">
+		<fieldDescription><![CDATA[spdInn]]></fieldDescription>
+	</field>
+	<field name="agreementTitle" class="java.lang.String">
+		<fieldDescription><![CDATA[agreementTitle]]></fieldDescription>
+	</field>
+	<field name="companyInn" class="java.lang.String">
+		<fieldDescription><![CDATA[companyInn]]></fieldDescription>
+	</field>
+	<field name="configuringRate" class="java.lang.Double">
+		<fieldDescription><![CDATA[configuringRate]]></fieldDescription>
+	</field>
+	<field name="architectingHours" class="java.lang.Integer">
+		<fieldDescription><![CDATA[architectingHours]]></fieldDescription>
+	</field>
+	<field name="companyDirectorFullName" class="java.lang.String">
+		<fieldDescription><![CDATA[companyDirectorFullName]]></fieldDescription>
+	</field>
+	<field name="spdAlias" class="java.lang.String">
+		<fieldDescription><![CDATA[spdAlias]]></fieldDescription>
+	</field>
+	<field name="programmingRate" class="java.lang.Double">
+		<fieldDescription><![CDATA[programmingRate]]></fieldDescription>
+	</field>
+	<field name="architectingRate" class="java.lang.Double">
+		<fieldDescription><![CDATA[architectingRate]]></fieldDescription>
+	</field>
+	<field name="companyVatCertificate" class="java.lang.String">
+		<fieldDescription><![CDATA[companyVatCertificate]]></fieldDescription>
 	</field>
 	<field name="specificationSum" class="java.lang.Double">
 		<fieldDescription><![CDATA[specificationSum]]></fieldDescription>
 	</field>
-	<field name="dateStart" class="java.util.Date">
-		<fieldDescription><![CDATA[dateStart]]></fieldDescription>
+	<field name="companyTaxId" class="java.lang.String">
+		<fieldDescription><![CDATA[companyTaxId]]></fieldDescription>
 	</field>
-	<field name="calculations" class="java.util.Set">
-		<fieldDescription><![CDATA[calculations]]></fieldDescription>
+	<field name="spdAccount" class="java.lang.String">
+		<fieldDescription><![CDATA[spdAccount]]></fieldDescription>
 	</field>
-	<field name="id" class="java.lang.Integer">
-		<fieldDescription><![CDATA[id]]></fieldDescription>
+	<field name="companyAddress" class="java.lang.String">
+		<fieldDescription><![CDATA[companyAddress]]></fieldDescription>
+	</field>
+	<field name="spdAddress" class="java.lang.String">
+		<fieldDescription><![CDATA[spdAddress]]></fieldDescription>
 	</field>
 	<field name="programmingHours" class="java.lang.Integer">
 		<fieldDescription><![CDATA[programmingHours]]></fieldDescription>
 	</field>
-	<field name="architectingHours" class="java.lang.Integer">
-		<fieldDescription><![CDATA[architectingHours]]></fieldDescription>
+	<field name="companyDirectorPost" class="java.lang.String">
+		<fieldDescription><![CDATA[companyDirectorPost]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="28" splitType="Stretch"/>
+		<band height="199" splitType="Stretch">
+			<textField>
+				<reportElement x="290" y="12" width="265" height="68"/>
+				<textElement>
+					<font fontName="DejaVu Sans" isBold="true"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="1.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Додаток №" + $F{specificationNumber} + " до Договору про виконання робіт № " + $F{agreementTitle} + " від " + (new SimpleDateFormat("dd.MM.yyyy").format($F{agreementDate})) + "р."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="80" width="81" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[м. Київ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="110" width="555" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Тарифи за 1 людино/годину, грн без ПДВ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="420" y="80" width="135" height="21"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new SimpleDateFormat("dd.MM.yyyy").format($F{specificationStartDate})) + "р."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="130" width="180" height="31" forecolor="#000000" backcolor="#C7C5C5"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Конфігурування]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="180" y="130" width="200" height="31" forecolor="#000000" backcolor="#C7C5C5"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Програмні доробки]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="380" y="130" width="175" height="31" forecolor="#000000" backcolor="#C7C5C5"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Архітектурні доробки]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="161" width="180" height="33"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{configuringRate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="161" width="200" height="33"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{programmingRate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="161" width="175" height="33"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{architectingRate}]]></textFieldExpression>
+			</textField>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="100" splitType="Stretch">
-			<textField>
-				<reportElement x="320" y="12" width="201" height="78"/>
-				<textElement>
-					<font fontName="DejaVu Sans"/>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Додаток №" + $F{specificationNumber} + "до Договору про виконання робіт № ... від р."]]></textFieldExpression>
-			</textField>
+				<text><![CDATA[Специфікація послуг]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="31" splitType="Stretch">
+		<band height="36" splitType="Stretch">
 			<staticText>
-				<reportElement x="370" y="0" width="185" height="30"/>
-				<textElement>
-					<font fontName="Calibri" size="14"/>
+				<reportElement mode="Opaque" x="0" y="0" width="40" height="36" backcolor="#C5BEBE"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
 				</textElement>
-				<text><![CDATA[id]]></text>
+				<text><![CDATA[№]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="40" y="0" width="188" height="36" backcolor="#C5BEBE"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Найменування робіт]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="228" y="0" width="79" height="36" backcolor="#C5BEBE"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Конфігуру-
+вання]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="307" y="0" width="81" height="36" backcolor="#C5BEBE"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Програмні
+ доробки]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="388" y="0" width="82" height="36" backcolor="#C5BEBE"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Архітектурні
+ доробки]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="470" y="0" width="85" height="36" backcolor="#C5BEBE"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Загальна
+ вартість, 
+грн без ПДВ]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
-			<textField>
-				<reportElement x="370" y="0" width="185" height="20"/>
-				<textElement>
-					<font fontName="Calibri" size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="49" splitType="Stretch"/>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="265" splitType="Stretch">
+			<textField>
+				<reportElement x="281" y="71" width="274" height="154"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="DejaVu Sans" isBold="true"/>
+					<paragraph firstLineIndent="0" leftIndent="4" rightIndent="0" spacingBefore="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ЕДРПОУ: " + $F{companyTaxId} +", ІПН: " + $F{companyInn} + "\n" +
+											"Свідоцтво ПДВ №: " + $F{companyVatCertificate} + "\n" + 
+											"\n" +
+											"Адреса: " + $F{companyAddress} + "\n" + 
+											"\n" +
+											"П/р: " + $F{companyAccount} + "\n" +
+											"\n" +
+											$F{companyDirectorPost} + "\n"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="7" y="40" width="274" height="31"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ФОП " + $F{spdFullName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="281" y="40" width="274" height="31"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{companyName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="7" y="9" width="274" height="31" backcolor="#C5BEBE"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ВИКОНАВЕЦЬ:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="281" y="9" width="274" height="31" backcolor="#C5BEBE"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ЗАМОВНИК:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="7" y="70" width="274" height="155"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font fontName="DejaVu Sans" isBold="true"/>
+					<paragraph leftIndent="4" spacingBefore="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ІПН: " + $F{spdInn} + "\n" +
+											"\n" +
+											"Адреса: " + $F{spdAddress} + "\n" +
+											"\n" +
+											"П/р: " + $F{spdAccount} + "\n"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="7" y="225" width="274" height="35"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+					<paragraph leftIndent="4" spacingBefore="4" spacingAfter="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA["________________________/" + $F{spdAlias} + "/"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="281" y="225" width="274" height="35"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+					<paragraph leftIndent="4" spacingBefore="4" spacingAfter="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA["________________________/" + $F{companyDirectorShortName} + "/"]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>

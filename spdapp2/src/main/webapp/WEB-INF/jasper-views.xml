@@ -8,11 +8,15 @@
 		http://www.springframework.org/schema/util 
 		http://www.springframework.org/schema/util/spring-util.xsd">
 
-	<bean id="pdfReport"
+	<bean id="specificationReport"
 		class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
-		p:url="/report/specification-report.jrxml" p:reportDataKey="dataSource" />
+		p:url="/report/specification-report.jrxml" p:reportDataKey="dataSourceSpec" />
+		
+	<bean id="specificationJobsSubReport"
+		class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+		p:url="/report/specification-jobs-subreport.jrxml" p:reportDataKey="dataSourceSpecJobs" />
 
-	<!-- nott using now -->
+	<!-- not using now -->
 	<bean id="xlsReport"
 		class="org.springframework.web.servlet.view.jasperreports.JasperReportsXlsView"
 		p:url="/report/specification-report.jrxml" p:reportDataKey="dataSource" />
