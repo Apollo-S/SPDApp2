@@ -2,6 +2,8 @@ package app.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 public class SpecificationReport extends UrlEntity implements Serializable {
 
@@ -33,6 +35,7 @@ public class SpecificationReport extends UrlEntity implements Serializable {
 	private String spdAddress;
 	private String spdAccount;
 	private String spdInn;
+	private List<Job> jobs;
 
 	public SpecificationReport() {
 	}
@@ -243,6 +246,14 @@ public class SpecificationReport extends UrlEntity implements Serializable {
 
 	public void setSpdAccount(String spdAccount) {
 		this.spdAccount = spdAccount;
+	}
+
+	public List<Job> getJobs() {
+		return jobs;
+	}
+
+	public void setJobs(List<Job> jobs) {
+		this.jobs = jobs;
 	}
 
 }
