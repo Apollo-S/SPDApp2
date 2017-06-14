@@ -55,6 +55,10 @@ public class Specification extends UrlEntity implements Serializable {
 	@OrderBy("id ASC")
 	private Set<Job> jobs;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "specification", orphanRemoval = true)
+	@OrderBy("id ASC")
+	private Set<SpecificationPayment> specPayments;
+
 	public Specification() {
 	}
 
@@ -142,6 +146,14 @@ public class Specification extends UrlEntity implements Serializable {
 
 	public void setJobs(Set<Job> jobs) {
 		this.jobs = jobs;
+	}
+
+	public Set<SpecificationPayment> getSpecPayments() {
+		return specPayments;
+	}
+
+	public void setSpecPayments(Set<SpecificationPayment> specPayments) {
+		this.specPayments = specPayments;
 	}
 
 }

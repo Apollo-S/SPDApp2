@@ -81,7 +81,7 @@
 		<div class="row">
 			<div class="col-2">
 				<div class="input-group">
-					<input onchange="${calcSpecificationSum}" type="number" class="form-control" id="configuringHours"
+					<input onchange="${calcSpecificationSum}" type="number" class="form-control text-center" id="configuringHours"
 						name="configuringHours" value=<c:out value="${specification.configuringHours}"/>>
 					<span class="input-group-addon"><b>&#215; <fmt:formatNumber type="number" pattern="0" value="${currentTarif.configuring}"/> грн/ч</b></span>
 				</div>
@@ -89,14 +89,14 @@
 			
 			<div class="col-2">
 				<div class="input-group">
-					<input onchange="${calcSpecificationSum}" type="number" class="form-control" id="programmingHours"
+					<input onchange="${calcSpecificationSum}" type="number" class="form-control text-center" id="programmingHours"
 						name="programmingHours" value=<c:out value="${specification.programmingHours}"/>>
 					<span class="input-group-addon"><b>&#215; <fmt:formatNumber type="number" pattern="0" value="${currentTarif.programming}"/> грн/ч</b></span>
 				</div>
 			</div>
 			<div class="col-2">
 				<div class="input-group">
-					<input onchange="${calcSpecificationSum}" type="number" class="form-control" id="architectingHours"
+					<input onchange="${calcSpecificationSum}" type="number" class="form-control text-center" id="architectingHours"
 						name="architectingHours" value=<c:out value="${specification.architectingHours}"/>>
 					<span class="input-group-addon"><b>&#215; <fmt:formatNumber type="number" pattern="0" value="${currentTarif.architecting}"/> грн/ч</b></span>
 				</div>
@@ -117,6 +117,8 @@
 			href="#calculation" role="tab">Расчеты</a></li>
 		<li class="nav-item"><a class="nav-link" data-toggle="tab" 
 			href="#jobName" role="tab">Список работ</a></li>
+		<li class="nav-item"><a class="nav-link" data-toggle="tab" 
+			href="#specPayment" role="tab">Оплаты</a></li>
 	</ul>
 	<p>
 	
@@ -187,11 +189,11 @@
 				<c:forEach items="${specification.calculations}" var="calculation">
 					<tr>
 						<td class="text-center" onclick="goToAddress('${calculation.url}')">${calculation.partNumber}</td>
-						<td class="text-left" onclick="goToAddress('${calculation.url}')"><fmt:formatDate pattern="MMMM yyyy" value="${calculation.dateStart}"/></td>
-						<td onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" pattern="0.00" value="${calculation.openingBalance}"/></td>
-						<td onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" pattern="0.00" value="${calculation.closingBalance}"/></td>
-						<td onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" pattern="#,##0.00" value="${calculation.turnover}"/></td>
-						<td  class="text-center">
+						<td class="text-center" onclick="goToAddress('${calculation.url}')"><fmt:formatDate pattern="MMMM yyyy" value="${calculation.dateStart}"/></td>
+						<td class="text-center" onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" pattern="0.00" value="${calculation.openingBalance}"/></td>
+						<td class="text-center" onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" pattern="0.00" value="${calculation.closingBalance}"/></td>
+						<td class="text-center" onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" pattern="#,##0.00" value="${calculation.turnover}"/></td>
+						<td class="text-center">
 							<div class="btn-group" role="group">
 									<a class="btn btn-warning btn-sm" href="${calculation.url}" role="button">Подробнее</a>
 									<form action="calculation" method="post">
@@ -209,7 +211,7 @@
 						<th class="text-center">Итого:</th>
 						<th></th>
 						<th></th>
-						<th class="text-right"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculationsTotalAmount}" /></th>
+						<th class="text-center"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculationsTotalAmount}" /></th>
 						<th></th>
 					</tr>
 				</thead>
@@ -382,6 +384,168 @@
 						<th class="text-center align-middle"><fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${programmingHoursAmount}" /></th>
 						<th class="text-center align-middle"><fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${architectingHoursAmount}" /></th>
 						<th class="text-right align-middle"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${jobsSumAmount}" /></th>
+						<th></th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		
+		<div class="tab-pane" id="specPayment" role="tabpanel">
+
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSpecPayment">Добавить оплату</button>
+
+			<!-- Modal -->
+			<div class="modal fade bd-example-modal-lg" id="modalSpecPayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Добавить оплату</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+						<form action="specificationpayment" method="post">
+							<input type="hidden" name="add"> 
+							<input type="hidden" name="specificationId"	value="${specification.id}">
+							
+							<div class="row">
+								<div class="col-3">
+									<label for="paymentNumber"><b>№ п/п</b></label>
+									<input type="text" class="form-control text-center" id="paymentNumber" name="paymentNumber">
+								</div>
+								<div class="col-5">
+									<label for="paymentSum"><b>Сумма платежа, грн</b></label>
+									<input type="text" class="form-control text-right" id="paymentSum" name="paymentSum">
+								</div>
+								<div class="col">
+									<label for="paymentDays"><b>Срок оплаты, дн.</b></label>
+									<input type="text" class="form-control text-center" id="paymentDays" name="paymentDays">
+								</div>
+							</div>
+							<p>
+							<div class="row">
+								<div class="col">
+									<label for="comment"><b>Примечание</b></label>
+									<input type="text" class="form-control text-left" id="comment" name="comment">
+								</div>
+							</div>
+							<p>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+								<input type="submit" class="btn btn-primary" id="button" value="Добавить">
+							</div>
+						</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<p>
+			<table class="table table-sm table-bordered table-hover text-right">
+			
+				<c:set var="totalPaymentSum" />
+				<c:set var="totalPaymentDays" />
+				
+				<thead class="thead-default">
+					<tr>
+						<th class="text-center align-middle">№ п/п</th>
+						<th class="text-center align-middle">Сумма платежа</th>
+						<th class="text-center align-middle">Срок оплаты</th>
+						<th class="text-center align-middle">Примечание</th>
+						<th></th>
+					</tr>
+				</thead>
+				<c:forEach items="${specification.specPayments}" var="specPayment">
+					<tr>
+						<c:set var="openModal" value="$('#modalSpecPayment${specPayment.id}').modal('show')" />
+						<td class="text-center" onclick="${openModal}">
+							<c:out value="${specPayment.paymentNumber}"/>
+						</td>
+						<td class="text-center align-middle" onclick="${openModal}">
+							<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${specPayment.paymentSum}"/>
+						</td>
+						<td class="text-center align-middle" onclick="${openModal}">
+							<fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${specPayment.paymentDays}"/>
+						</td>
+						<td class="text-center align-middle" onclick="${openModal}">
+							<c:out value="${specPayment.comment}" />
+						</td>
+						
+						<td class="text-center align-middle">
+							<div class="btn-group" role="group">
+								<!-- Button trigger modal -->
+								<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalSpecPayment${specPayment.id}">Изменить</button>
+								<!-- Modal -->
+								<div class="modal fade bd-example-modal" id="modalSpecPayment${specPayment.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+										aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">Редактирование данных об оплате к Спецификации № <c:out value="${specification.specificationNumber}" /> от 
+														<fmt:formatDate	value="${specification.dateStart}" pattern="dd.MM.yyyy" />г.</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<form action="specificationpayment" method="post">
+													<input type="hidden" name="edit">
+													<input type="hidden" name="id" value="${specPayment.id}"/>
+													
+													<div class="row">
+														<div class="col-3">
+															<label for="paymentNumber"><b>№ п/п</b></label>
+															<input type="text" class="form-control text-center" id="paymentNumber" name="paymentNumber"
+																value="${specPayment.paymentNumber}" >
+														</div>
+														<div class="col-5">
+															<label for="paymentSum"><b>Сумма платежа, грн</b></label>
+															<input type="text" class="form-control text-right" id="paymentSum" name="paymentSum"
+																value="${specPayment.paymentSum}" >
+														</div>
+														<div class="col">
+															<label for="paymentDays"><b>Срок оплаты, дн.</b></label>
+															<input type="text" class="form-control text-center" id="paymentDays" name="paymentDays"
+																value="${specPayment.paymentDays}" >
+														</div>
+													</div>
+													<p>
+													<div class="row">
+														<div class="col">
+															<label for="comment"><b>Примечание</b></label>
+															<input type="text" class="form-control text-left" id="comment" name="comment"
+																value="${specPayment.comment}" >
+														</div>
+													</div>
+													<p>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+														<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<form action="specificationpayment" method="post">
+									<input type="hidden" name="delete"> 
+									<input type="hidden" name="id" value="${specPayment.id}">
+									<button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+								</form>
+							</div>	
+						</td>
+					</tr>
+					<c:set var="totalPaymentSum" value="${totalPaymentSum + specPayment.paymentSum}"/>
+					<c:set var="totalPaymentDays" value="${totalPaymentDays + specPayment.paymentDays}"/>
+				</c:forEach>
+				<thead class="thead-default">
+					<tr>
+						<th class="text-center align-middle">Итого:</th>
+						<th class="text-center align-middle"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${totalPaymentSum}" /></th>
+						<th class="text-center align-middle"><fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${totalPaymentDays}" /></th>
+						<th></th>
 						<th></th>
 					</tr>
 				</thead>
