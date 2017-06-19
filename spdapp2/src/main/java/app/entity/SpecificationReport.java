@@ -3,9 +3,8 @@ package app.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
-public class SpecificationReport extends UrlEntity implements Serializable {
+public class SpecificationReport implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,6 +35,7 @@ public class SpecificationReport extends UrlEntity implements Serializable {
 	private String spdAccount;
 	private String spdInn;
 	private List<Job> jobs;
+	private List<SpecificationPayment> payments;
 
 	public SpecificationReport() {
 	}
@@ -254,6 +254,14 @@ public class SpecificationReport extends UrlEntity implements Serializable {
 
 	public void setJobs(List<Job> jobs) {
 		this.jobs = jobs;
+	}
+
+	public List<SpecificationPayment> getPayments() {
+		return payments;
+	}
+
+	public void setPayments(List<SpecificationPayment> payments) {
+		this.payments = payments;
 	}
 
 }

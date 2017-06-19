@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 4.5.0  -->
-<!-- 2017-06-14T01:55:56 -->
+<!-- 2017-06-15T00:51:40 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="specification-report" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -109,6 +109,9 @@
 	</field>
 	<field name="jobs" class="java.util.List">
 		<fieldDescription><![CDATA[jobs]]></fieldDescription>
+	</field>
+	<field name="payments" class="java.util.List">
+		<fieldDescription><![CDATA[payments]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -255,6 +258,24 @@
 	<columnFooter>
 		<band splitType="Stretch"/>
 	</columnFooter>
+	<pageFooter>
+		<band height="142">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="7" width="555" height="43"/>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Sans" isBold="true"/>
+					<paragraph lineSpacing="Single" lineSpacingSize="1.0" firstLineIndent="0" leftIndent="0" spacingBefore="2" spacingAfter="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1. Строк виконання робіт до " + $F{specificationFinalDate} + "р. з моменту підписання даного Додатка." + "\n" +
+"2. Порядок виплат винагороди:"]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="50" width="555" height="80"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{payments})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["specification-payments-subreport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageFooter>
 	<lastPageFooter>
 		<band height="272">
 			<textField>

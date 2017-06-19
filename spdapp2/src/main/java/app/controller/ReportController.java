@@ -25,6 +25,7 @@ import app.entity.CompanyAddress;
 import app.entity.CompanyDirector;
 import app.entity.Job;
 import app.entity.Specification;
+import app.entity.SpecificationPayment;
 import app.entity.SpecificationReport;
 import app.repository.AgreementRepository;
 import app.repository.CompanyRepository;
@@ -53,9 +54,9 @@ public class ReportController {
 
 	@RequestMapping(value = "/specification/printpdf", method = RequestMethod.GET)
 	public ModelAndView generatePdfReport(@RequestParam Integer id, ModelAndView modelAndView) {
-		logger.info("<<-------------- generate PDF report ---------->>");
-		Map<String, Object> parameterMap = new HashMap<String, Object>();
-		logger.info("<<-------------- parameterMap created ---------->>");
+		logger.info("<<-------------- Begin to generate PDF report -------------->>");
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		logger.info("<<-------------- Starting fill report --------------->>");
 		Specification specification = specRepository.findOne(id);
 		SpecificationReport report = new SpecificationReport();
 		AgreementTarif currentRate = agreementRepository.findAgreementTarifBySpecificationId(id);
@@ -90,33 +91,18 @@ public class ReportController {
 		report.setSpdAccount(spdAccount.getPresentation());
 		List<Job> jobs = new ArrayList<Job>(specification.getJobs());
 		report.setJobs(jobs);
-		
+		List<SpecificationPayment> payments = new ArrayList<>(specification.getSpecPayments());
+		report.setPayments(payments);		
 		List<SpecificationReport> reports = new ArrayList<>();
 		reports.add(report);
 		JRDataSource jrDataSource = new JRBeanCollectionDataSource(reports);
-		
-		logger.info("<<-------------- jrDataSource created ---------->>");
-		parameterMap.put("dataSourceSpec", jrDataSource);
-//		parameterMap.put("SUBREPORT_DIR", "report/");
-//		parameterMap.put("dataSourceSpecJobs", jrBeanCollectionDataSource);
-		logger.info("<<////////////////// jrDataSource put into parameterMap //////////////////>>");
-		// pdfReport bean has been declared in the jasper-views.xml file
-		modelAndView = new ModelAndView("specificationReport", parameterMap);
-		
-//		JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(jobs);
-//		Map<String, Object> parameterMap2 = new HashMap<String, Object>();
-//		parameterMap2.put("dataSourceSpecJobs", jrBeanCollectionDataSource);
-//		modelAndView.addObject("specificationJobsSubReport", parameterMap2);
-		logger.info("<<-------------- Out of generating PDF report ---------->>");
+		logger.info("<<-------------- jrDataSource created -------------->>");
+		parameters.put("dataSourceSpec", jrDataSource);
+		logger.info("<<-------------- jrDataSource put into parameters -------------->>");
+		logger.info("<<-------------- pdfReport bean has been declared in the jasper-views.xml file -------------->>");
+		modelAndView = new ModelAndView("specificationReport", parameters);
+		logger.info("<<-------------- Out of generating PDF report -------------->>");
 		return modelAndView;
 	}
-
-//	@RequestMapping(value = "helloReport4", method = RequestMethod.GET)
-//	public ModelAndView getRpt4(ModelMap modelMap, ModelAndView modelAndView) {
-//		modelMap.put("datasource", getWidgets());
-//		modelMap.put("format", "pdf");
-//		modelAndView = new ModelAndView("rpt_HelloWorld", modelMap);
-//		return modelAndView;
-//	}
 
 }

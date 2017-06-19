@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 4.5.0  -->
-<!-- 2017-06-14T15:34:46 -->
+<!-- 2017-06-19T15:48:45 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="specification-jobs-subreport.rxml" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -210,7 +210,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}.intValue()]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToBandHeight" x="470" y="0" width="85" height="17">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
@@ -224,7 +224,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{configuringHours} * $P{CONFIGURING_RATE} + $F{programmingHours} * $P{PROGRAMMING_RATE} + $F{architectingHours} * $P{ARCHITECTING_RATE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[(($F{configuringHours}.toString() == null) ? new java.lang.Integer("0") : $F{configuringHours}.intValue()) * $P{CONFIGURING_RATE}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
