@@ -15,6 +15,7 @@ Need to do
 ================
 + add services for all controllers
 + change jsp -> jspx
++ validation
  
 Future features
 ===============
