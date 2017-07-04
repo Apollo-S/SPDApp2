@@ -11,9 +11,8 @@
 	<bean id="specificationReport" class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
 		p:url="classpath:specification-report.jrxml" p:reportDataKey="dataSourceSpec" />
 
-	<bean id="specificationJobsSubReport"
-		class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
-		p:url="classpath:specification-jobs-subreport.jrxml" p:reportDataKey="dataSourceSpecJobs" />
+	<bean id="certificateReport" class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+		p:url="classpath:certificate-report.jrxml" p:reportDataKey="dataSourceCert" />
 
 	<!-- not using now -->
 	<bean id="xlsReport"
