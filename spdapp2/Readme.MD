@@ -16,6 +16,8 @@ Need to do
 + add services for all controllers
 + change jsp -> jspx
 + validation
++ add HandlerExceptionResolver
++ add ContentNegotiatingViewResolver
  
 Future features
 ===============
