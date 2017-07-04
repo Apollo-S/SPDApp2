@@ -31,13 +31,6 @@ public class CompanyDirectorController {
 
 	@Autowired(required = true)
 	private CompanyDirectorRepository directorRepository;
-	
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setLenient(false);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-	}
 
 	@RequestMapping(value = "/companyDirector", params = "add", method = RequestMethod.POST)
 	public String postAddCompanyDirector(@RequestParam int companyId, @RequestParam String post, @RequestParam String fullName, 

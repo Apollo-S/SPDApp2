@@ -28,10 +28,8 @@ import app.entity.Specification;
 import app.entity.SpecificationPayment;
 import app.entity.SpecificationReport;
 import app.repository.AgreementRepository;
-import app.repository.CompanyRepository;
 import app.repository.SpecificationRepository;
 import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Controller
@@ -44,13 +42,6 @@ public class ReportController {
 	
 	@Autowired(required = true)
 	private AgreementRepository agreementRepository;
-	
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setLenient(false);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-	}
 
 	@RequestMapping(value = "/specification/printpdf", method = RequestMethod.GET)
 	public ModelAndView generatePdfReport(@RequestParam Integer id, ModelAndView modelAndView) {
@@ -70,8 +61,10 @@ public class ReportController {
 		report.setSpecificationStartDate(specification.getDateStart());
 		report.setSpecificationFinalDate(specification.getDateFinish());
 		report.setSpecificationSum(specification.getSpecificationSum());
-		report.setConfiguringHours(specification.getConfiguringHours());
+		report.setConfiguringHours((Integer.toString(specification.getConfiguringHours()) == null) ? 0 : specification.getConfiguringHours());
+		logger.info("<<-------------- " + report.getConfiguringHours() + " --------------->>");
 		report.setProgrammingHours(specification.getProgrammingHours());
+		logger.info("<<-------------- " + report.getProgrammingHours() + " --------------->>");
 		report.setArchitectingHours(specification.getArchitectingHours());
 		report.setConfiguringRate(currentRate.getConfiguring());
 		report.setProgrammingRate(currentRate.getProgramming());
@@ -90,6 +83,14 @@ public class ReportController {
 		report.setSpdAddress(specification.getAgreement().getSpd().getAddress().getPresentation());
 		report.setSpdAccount(spdAccount.getPresentation());
 		List<Job> jobs = new ArrayList<Job>(specification.getJobs());
+		for (Job job : jobs) {
+			logger.info("<<-------------- " + job.getConfiguringHours() + ", " + job.getProgrammingHours() + ", " + job.getArchitectingHours() + " --------------->>");
+			int zero = 0;
+			if (job.getConfiguringHours() == null) job.setConfiguringHours(zero);
+			if (job.getProgrammingHours() == null) job.setProgrammingHours(zero);
+			if (job.getArchitectingHours() == null) job.setArchitectingHours(zero);
+			logger.info("<<-------------- " + job.getConfiguringHours() + ", " + job.getProgrammingHours() + ", " + job.getArchitectingHours() + " --------------->>");
+		}
 		report.setJobs(jobs);
 		List<SpecificationPayment> payments = new ArrayList<>(specification.getSpecPayments());
 		report.setPayments(payments);		

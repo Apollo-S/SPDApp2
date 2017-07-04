@@ -33,14 +33,7 @@ public class CalculationController {
 
 	@Autowired(required = true)
 	private SpecificationRepository specRepository;
-
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setLenient(false);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-	}
-
+	
 	@RequestMapping(value = "/calculation", method = RequestMethod.GET)
 	public String getEditCalculation(@RequestParam int id, Model model) {
 		logger.info("<== Enter to 'getEditCalculation()' method ... ==>");

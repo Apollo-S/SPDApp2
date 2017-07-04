@@ -42,13 +42,6 @@ public class SPDController {
 	
 	@Autowired(required = true)
 	private PaymentTypeRepository paymentTypeRepository;
-	
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setLenient(false);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-	}
 
 	@RequestMapping(value = "/spds", method = RequestMethod.GET)
 	public String getAllSPD(Model model) {

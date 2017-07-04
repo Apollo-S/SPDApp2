@@ -38,13 +38,6 @@ public class SpecificationController {
 	@Autowired(required = true)
 	private JobRepository jobRepository;
 
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setLenient(false);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-	}
-
 	@RequestMapping(value = "/specification", method = RequestMethod.GET)
 	public String getEditSpecification(@RequestParam int id, Model model) {
 		logger.info("<== Enter to 'getEditSpecification()' method ... ==>");

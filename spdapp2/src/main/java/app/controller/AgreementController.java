@@ -42,13 +42,6 @@ public class AgreementController {
 	@Autowired(required = true)
 	private AgreementTarifRepository tarifRepository;
 
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setLenient(false);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-	}
-
 	@RequestMapping(value = "/agreements", method = RequestMethod.GET)
 	public String getAddAgreement(Model model) {
 		model.addAttribute("agreements", agreementRepository.findAll());
