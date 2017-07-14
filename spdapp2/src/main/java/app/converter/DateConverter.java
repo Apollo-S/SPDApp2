@@ -1,4 +1,4 @@
-package converter;
+package app.converter;
 
 import java.util.Date;
 
