@@ -1,23 +1,17 @@
 package app.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import app.entity.Account;
 import app.entity.AgreementTarif;
 import app.entity.CompanyAccount;
@@ -93,7 +87,8 @@ public class ReportController {
 		}
 		report.setJobs(jobs);
 		List<SpecificationPayment> payments = new ArrayList<>(specification.getSpecPayments());
-		report.setPayments(payments);		
+		report.setPayments(payments);
+		report.setQuantityOfPayments(payments.size());
 		List<SpecificationReport> reports = new ArrayList<>();
 		reports.add(report);
 		JRDataSource jrDataSource = new JRBeanCollectionDataSource(reports);

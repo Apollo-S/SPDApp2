@@ -36,6 +36,7 @@ public class SpecificationReport implements Serializable {
 	private String spdInn;
 	private List<Job> jobs;
 	private List<SpecificationPayment> payments;
+	private Integer quantityOfPayments;
 
 	public SpecificationReport() {
 	}
@@ -262,6 +263,14 @@ public class SpecificationReport implements Serializable {
 
 	public void setPayments(List<SpecificationPayment> payments) {
 		this.payments = payments;
+	}
+
+	public Integer getQuantityOfPayments() {
+		return quantityOfPayments;
+	}
+
+	public void setQuantityOfPayments(Integer quantityOfPayments) {
+		this.quantityOfPayments = quantityOfPayments;
 	}
 
 }
