@@ -1,21 +1,15 @@
 package app.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import app.entity.Calculation;
 import app.entity.Specification;
 import app.repository.CalculationRepository;
@@ -29,22 +23,22 @@ public class CalculationController {
 	private static final Logger logger = LoggerFactory.getLogger(CalculationController.class);
 
 	@Autowired(required = true)
-	private CalculationRepository calcRepository;
+	private CalculationRepository calculationRepository;
 
 	@Autowired(required = true)
-	private SpecificationRepository specRepository;
+	private SpecificationRepository specificationRepository;
 	
 	@RequestMapping(value = "/calculation", method = RequestMethod.GET)
 	public String getEditCalculation(@RequestParam int id, Model model) {
 		logger.info("<== Enter to 'getEditCalculation()' method ... ==>");
-		Calculation calculation = calcRepository.findOne(id);
+		Calculation calculation = calculationRepository.findOne(id);
 		model.addAttribute("calculation", calculation);
-		Double actualEsvRate = calcRepository.findActualEsvRateByCalculationId(id);
+		Double actualEsvRate = calculationRepository.findActualEsvRateByCalculationId(id);
 		model.addAttribute("esvRate", actualEsvRate);
-		Double actualSimpleTaxRate = calcRepository.findActualSimpleTaxRateByCalculationId(id);
+		Double actualSimpleTaxRate = calculationRepository.findActualSimpleTaxRateByCalculationId(id);
 		model.addAttribute("simpleTaxRate", actualSimpleTaxRate);
 		logger.info("<== Trying to get actualRates ... ==>");
-		Double actualBankComissionRate = calcRepository.findActualRateByAliasAndCalculationId(id,
+		Double actualBankComissionRate = calculationRepository.findActualRateByAliasAndCalculationId(id,
 				"withdrawCashComission");
 		logger.info("<== actualBankComissionRate has been got ... ==>");
 		model.addAttribute("bankComissionRate", actualBankComissionRate);
@@ -57,28 +51,28 @@ public class CalculationController {
 	public String postAddCalculation(@RequestParam int specificationId, @RequestParam Integer partNumber,
 			@RequestParam Date dateStart) {
 		logger.info("<== Enter to 'postAddCalculation()' method ... ==>");
-		Specification specification = specRepository.findOne(specificationId);
+		Specification specification = specificationRepository.findOne(specificationId);
 		logger.info("<== Saving new 'Calculation' for 'Specification='" + specification.getId() + "' ==>");
-		Double openingBalance = specRepository.findClosingBalanceOfLastCalculationBySpecificationId(specificationId);
+		Double openingBalance = calculationRepository.findClosingBalanceOfLastCalculationBySpecificationId(specificationId);
 		Calculation calculation = new Calculation(specification, partNumber, dateStart, openingBalance);
-		calculation = calcRepository.save(calculation);
+		calculation = calculationRepository.save(calculation);
 		Integer calculationId = calculation.getId();
-		calculation.setSalaryRate(calcRepository.findActualRateByAliasAndCalculationId(calculationId, "salaryRate"));
+		calculation.setSalaryRate(calculationRepository.findActualRateByAliasAndCalculationId(calculationId, "salaryRate"));
 		logger.info("<== Salary Rate = " + calculation.getSalaryRate() + " ==>");
-		calculation.setPremium(calcRepository.findActualRateByAliasAndCalculationId(calculationId, "premium"));
+		calculation.setPremium(calculationRepository.findActualRateByAliasAndCalculationId(calculationId, "premium"));
 		logger.info("<== Premium Rate = " + calculation.getPremium() + " ==>");
-		calculation.setEsv(calcRepository.findActualEsvRateByCalculationId(calculationId));
+		calculation.setEsv(calculationRepository.findActualEsvRateByCalculationId(calculationId));
 		logger.info("<== ESV Rate = " + calculation.getEsv() + " ==>");
-		calculation.setRent(calcRepository.findActualRateByAliasAndCalculationId(calculationId, "rent"));
+		calculation.setRent(calculationRepository.findActualRateByAliasAndCalculationId(calculationId, "rent"));
 		logger.info("<== Rent = " + calculation.getRent() + " ==>");
 		calculation.setCardServiceFee(
-				calcRepository.findActualRateByAliasAndCalculationId(calculationId, "cardServiceFee"));
+				calculationRepository.findActualRateByAliasAndCalculationId(calculationId, "cardServiceFee"));
 		logger.info("<== Card Service Fee = " + calculation.getCardServiceFee() + " ==>");
 		calculation.setAccountServiceFee(
-				calcRepository.findActualRateByAliasAndCalculationId(calculationId, "accountServiceFee"));
+				calculationRepository.findActualRateByAliasAndCalculationId(calculationId, "accountServiceFee"));
 		logger.info("<== Account Service Fee = " + calculation.getAccountServiceFee() + " ==>");
 
-		calculation = calcRepository.save(calculation);
+		calculation = calculationRepository.save(calculation);
 		logger.info("<== Saving new 'Calculation' with ID=" + calculation.getId() + " for 'Specification="
 				+ specification.getId() + "' was successful ==>");
 		logger.info("<== Out of 'postAddCalculation()' method ... ==>");
@@ -94,7 +88,7 @@ public class CalculationController {
 			@RequestParam String turnover, @RequestParam String withdrawCash,
 			@RequestParam String withdrawCashComission) {
 		logger.info("<== Enter to 'postEditCalculation()' method ... ==>");
-		Calculation calculation = calcRepository.findOne(id);
+		Calculation calculation = calculationRepository.findOne(id);
 		Specification specification = calculation.getSpecification();
 		logger.info("<== Starting update 'Calculation' by ID=" + calculation.getId() + " ==>");
 		calculation.setSpecification(specification);
@@ -118,7 +112,7 @@ public class CalculationController {
 		calculation.setTurnover(BeanUtil.convertStringToDouble(turnover));
 		calculation.setWithdrawCash(BeanUtil.convertStringToDouble(withdrawCash));
 		calculation.setWithdrawCashComission(BeanUtil.convertStringToDouble(withdrawCashComission));
-		calcRepository.save(calculation);
+		calculationRepository.save(calculation);
 		logger.info("<== Updating of 'postEditCalculation' with ID=" + calculation.getId() + " was successful ==>");
 		logger.info("<== Out of 'postEditCalculation()' method ... ==>");
 		return "redirect:" + specification.getUrl();
@@ -127,10 +121,10 @@ public class CalculationController {
 	@RequestMapping(value = "/calculation", params = "delete", method = RequestMethod.POST)
 	public String postDeleteCalculation(@RequestParam int id) {
 		logger.info("<== Enter to 'postDeleteCalculation()' method ... ==>");
-		Calculation calculation = calcRepository.findOne(id);
+		Calculation calculation = calculationRepository.findOne(id);
 		Specification specification = calculation.getSpecification();
 		logger.info("<== Starting delete 'Calculation' with ID=" + calculation.getId() + " ==>");
-		calcRepository.delete(calculation);
+		calculationRepository.delete(calculation);
 		logger.info("<== Deleting of 'Calculation' with ID=" + calculation.getId() + " was successful ==>");
 		logger.info("<== Out of 'postDeleteCalculation()' method ... ==>");
 		return "redirect:" + specification.getUrl();

@@ -21,7 +21,12 @@ import app.entity.Job;
 import app.entity.Specification;
 import app.entity.SpecificationPayment;
 import app.entity.SpecificationReport;
+import app.repository.AccountRepository;
 import app.repository.AgreementRepository;
+import app.repository.AgreementTarifRepository;
+import app.repository.CompanyAccountRepository;
+import app.repository.CompanyAddressRepository;
+import app.repository.CompanyDirectorRepository;
 import app.repository.SpecificationRepository;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -32,23 +37,35 @@ public class ReportController {
 	private static final Logger logger = LoggerFactory.getLogger(ReportController.class);
 
 	@Autowired(required = true)
-	private SpecificationRepository specRepository;
+	private SpecificationRepository specificationRepository;
 	
 	@Autowired(required = true)
-	private AgreementRepository agreementRepository;
-
+	private AgreementTarifRepository tarifRepository;
+	
+	@Autowired(required = true)
+	private CompanyDirectorRepository compDirectorRepository;
+	
+	@Autowired(required = true)
+	private CompanyAddressRepository compAddressRepository;
+	
+	@Autowired(required = true)
+	private CompanyAccountRepository compAccountRepository;
+	
+	@Autowired(required = true)
+	private AccountRepository accountRepository;
+	
 	@RequestMapping(value = "/specification/printpdf", method = RequestMethod.GET)
 	public ModelAndView generatePdfReport(@RequestParam Integer id, ModelAndView modelAndView) {
 		logger.info("<<-------------- Begin to generate PDF report -------------->>");
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		logger.info("<<-------------- Starting fill report --------------->>");
-		Specification specification = specRepository.findOne(id);
+		Specification specification = specificationRepository.findOne(id);
 		SpecificationReport report = new SpecificationReport();
-		AgreementTarif currentRate = agreementRepository.findAgreementTarifBySpecificationId(id);
-		CompanyDirector director = agreementRepository.findActualDirectorBySpecificationId(id);
-		CompanyAddress companyAddress = agreementRepository.findActualCompanyAddressBySpecificationId(id);
-		CompanyAccount companyAccount = agreementRepository.findActualCompanyAccountBySpecificationId(id);
-		Account spdAccount = agreementRepository.findActualSpdAccountBySpdId(specification.getAgreement().getSpd().getId());
+		AgreementTarif currentRate = tarifRepository.findAgreementTarifBySpecificationId(id);
+		CompanyDirector director = compDirectorRepository.findActualDirectorBySpecificationId(id);
+		CompanyAddress companyAddress = compAddressRepository.findActualCompanyAddressBySpecificationId(id);
+		CompanyAccount companyAccount = compAccountRepository.findActualCompanyAccountBySpecificationId(id);
+		Account spdAccount = accountRepository.findActualSpdAccountBySpdId(specification.getAgreement().getSpd().getId());
 		report.setAgreementTitle(specification.getAgreement().getNumber());
 		report.setAgreementDate(specification.getAgreement().getDateStart());
 		report.setSpecificationNumber(specification.getSpecificationNumber());

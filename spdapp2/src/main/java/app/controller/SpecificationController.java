@@ -19,6 +19,8 @@ import app.entity.AgreementTarif;
 import app.entity.Job;
 import app.entity.Specification;
 import app.repository.AgreementRepository;
+import app.repository.AgreementTarifRepository;
+import app.repository.CalculationRepository;
 import app.repository.JobRepository;
 import app.repository.SpecificationRepository;
 import utils.BeanUtil;
@@ -30,10 +32,16 @@ public class SpecificationController {
 	private static final Logger logger = LoggerFactory.getLogger(SpecificationController.class);
 
 	@Autowired(required = true)
-	private SpecificationRepository specRepository;
-
+	private SpecificationRepository specificationRepository;
+	
+	@Autowired(required = true)
+	private CalculationRepository calculationRepository;
+	
 	@Autowired(required = true)
 	private AgreementRepository agreementRepository;
+	
+	@Autowired(required = true)
+	private AgreementTarifRepository tarifRepository;
 	
 	@Autowired(required = true)
 	private JobRepository jobRepository;
@@ -41,15 +49,15 @@ public class SpecificationController {
 	@RequestMapping(value = "/specification", method = RequestMethod.GET)
 	public String getEditSpecification(@RequestParam int id, Model model) {
 		logger.info("<== Enter to 'getEditSpecification()' method ... ==>");
-		Specification specification = specRepository.findOne(id);
+		Specification specification = specificationRepository.findOne(id);
 		model.addAttribute("specification", specification);
 		logger.info("<== Finding sum of current Calculations turnover ... ==>");
-		Double calculationsTotalAmount = specRepository.findSumOfCalculationsBySpecificationId(id);
+		Double calculationsTotalAmount = calculationRepository.findSumOfCalculationsBySpecificationId(id);
 		model.addAttribute("calculationsTotalAmount", calculationsTotalAmount);
 		logger.info("<== Finding next number for future Calculation ... ==>");
-		int nextCalculationNumber = specRepository.findMaxCalculationNumberBySpecificationId(id);
+		int nextCalculationNumber = calculationRepository.findMaxCalculationNumberBySpecificationId(id);
 		model.addAttribute("nextCalculationNumber", nextCalculationNumber + 1);
-		AgreementTarif currentTarif = agreementRepository.findAgreementTarifBySpecificationId(specification.getId()); // TODO Crashes if there is no any tarif. Need to create error page or page with adding new tarifs.
+		AgreementTarif currentTarif = tarifRepository.findAgreementTarifBySpecificationId(specification.getId()); // TODO Crashes if there is no any tarif. Need to create error page or page with adding new tarifs.
 		logger.info("<== Got 'currentTarif' with ID=" + currentTarif.getId() + " ==>");
 		model.addAttribute("currentTarif", currentTarif);
 		logger.info("<== Out of 'getEditSpecification()' method ... ==>");
@@ -63,7 +71,7 @@ public class SpecificationController {
 		Agreement agreement = agreementRepository.findOne(agreementId);
 		logger.info("<== Adding new 'Specification' for 'Agreement='" + agreement.getNumber() + "' ==>");
 		Specification specification = new Specification(agreement, specificationNumber, dateStart);
-		specification = specRepository.save(specification);
+		specification = specificationRepository.save(specification);
 		logger.info("<== Saving new 'Specification' with ID=" + specification.getId() + " for 'Agreement='"
 				+ agreement.getNumber() + " was successeful ==>");
 		logger.info("<== Out of 'postAddSpecification()' method ... ==>");
@@ -76,7 +84,7 @@ public class SpecificationController {
 			@RequestParam Integer configuringHours, @RequestParam Integer programmingHours,
 			@RequestParam Integer architectingHours) {
 		logger.info("<== Enter to 'postEditSpecification()' method ... ==>");
-		Specification specification = specRepository.findOne(id);
+		Specification specification = specificationRepository.findOne(id);
 		logger.info("<== Starting update 'Specification' by ID=" + specification.getId() + " ==>");
 		Agreement agreement = specification.getAgreement();
 		specification.setAgreement(agreement);
@@ -87,7 +95,7 @@ public class SpecificationController {
 		specification.setConfiguringHours(configuringHours);
 		specification.setProgrammingHours(programmingHours);
 		specification.setArchitectingHours(architectingHours);
-		specification = specRepository.save(specification);
+		specification = specificationRepository.save(specification);
 		logger.info("<== Updating of 'postEditSpecification' with ID=" + specification.getId() + " was successful ==>");
 		logger.info("<== Out of 'postEditSpecification()' method ... ==>");
 		return "redirect:" + agreement.getUrl();
@@ -96,10 +104,10 @@ public class SpecificationController {
 	@RequestMapping(value = "/specification", params = "delete", method = RequestMethod.POST)
 	public String postDeleteSpecification(@RequestParam int id) {
 		logger.info("<== Enter to 'postDeleteSpecification()' method ... ==>");
-		Specification specification = specRepository.findOne(id);
+		Specification specification = specificationRepository.findOne(id);
 		logger.info("<== Starting delete 'Specification' with ID=" + specification.getId() + " ==>");
 		Agreement agreement = specification.getAgreement();
-		specRepository.delete(specification);
+		specificationRepository.delete(specification);
 		logger.info("<== Deleting of 'Specification' with ID=" + specification.getId() + " was successful ==>");
 		logger.info("<== Out of 'postDeleteSpecification()' method ... ==>");
 		return "redirect:" + agreement.getUrl();
@@ -109,7 +117,7 @@ public class SpecificationController {
 	public String postAddJob(@RequestParam Integer specificationId, @RequestParam String jobName,
 			@RequestParam Integer configuring, @RequestParam Integer programming, @RequestParam Integer architecting) {
 		logger.info("<== Enter to 'postAddJob()' method ... ==>");
-		Specification specification = specRepository.findOne(specificationId);
+		Specification specification = specificationRepository.findOne(specificationId);
 		logger.info("<== Adding new 'Job' for 'Specification='" + specification.getSpecificationNumber() + "' ==>");
 		Job job = new Job(specification, jobName, configuring, programming, architecting);
 		job = jobRepository.save(job);

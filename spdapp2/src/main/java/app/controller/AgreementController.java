@@ -2,16 +2,12 @@ package app.controller;
 
 import java.util.Date;
 import java.util.List;
-import java.text.SimpleDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +19,7 @@ import app.repository.AgreementRepository;
 import app.repository.AgreementTarifRepository;
 import app.repository.CompanyRepository;
 import app.repository.SPDRepository;
+import app.repository.SpecificationRepository;
 
 @Controller
 @Transactional
@@ -32,6 +29,9 @@ public class AgreementController {
 
 	@Autowired(required = true)
 	private AgreementRepository agreementRepository;
+	
+	@Autowired(required = true)
+	private SpecificationRepository specificationRepository;
 
 	@Autowired(required = true)
 	private SPDRepository spdRepository;
@@ -58,7 +58,7 @@ public class AgreementController {
 	public String getAgreement(@RequestParam int id, Model model) {
 		logger.info("<== Enter to 'getAgreement()' method ... ==>");
 		Agreement agreement = agreementRepository.findOne(id);
-		int specificationNumber = agreementRepository.findMaxSpecificationNumberByAgreementId(id);
+		int specificationNumber = specificationRepository.findMaxSpecificationNumberByAgreementId(id);
 		List<Company> companies = companyRepository.findAll();
 		model.addAttribute("agreement", agreement);
 		model.addAttribute("specificationNumber", specificationNumber + 1);
