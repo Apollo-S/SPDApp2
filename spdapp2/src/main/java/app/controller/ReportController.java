@@ -22,7 +22,6 @@ import app.entity.Specification;
 import app.entity.SpecificationPayment;
 import app.entity.SpecificationReport;
 import app.repository.AccountRepository;
-import app.repository.AgreementRepository;
 import app.repository.AgreementTarifRepository;
 import app.repository.CompanyAccountRepository;
 import app.repository.CompanyAddressRepository;
@@ -33,6 +32,9 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Controller
 public class ReportController {
+
+	private static final String PARAM_DATA_SOURCE = "dataSourceSpec";
+	private static final String PARAM_VIEW_NAME = "specificationReport";
 
 	private static final Logger logger = LoggerFactory.getLogger(ReportController.class);
 
@@ -58,7 +60,20 @@ public class ReportController {
 	public ModelAndView generatePdfReport(@RequestParam Integer id, ModelAndView modelAndView) {
 		logger.info("<<-------------- Begin to generate PDF report -------------->>");
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		logger.info("<<-------------- Starting fill report --------------->>");
+		List<SpecificationReport> reports = createReport(id);
+		JRDataSource jrDataSource = new JRBeanCollectionDataSource(reports);
+		logger.info("<<-------------- jrDataSource created -------------->>");
+		parameters.put(PARAM_DATA_SOURCE, jrDataSource);
+		logger.info("<<-------------- jrDataSource put into parameters -------------->>");
+		logger.info("<<-------------- pdfReport bean has been declared in the jasper-views.xml file -------------->>");
+		modelAndView = new ModelAndView(PARAM_VIEW_NAME, parameters);
+		logger.info("<<-------------- Out of generating PDF report -------------->>");
+		return modelAndView;
+	}
+
+	private List<SpecificationReport> createReport(Integer id) {
+		List<SpecificationReport> reports = new ArrayList<>();
+		
 		Specification specification = specificationRepository.findOne(id);
 		SpecificationReport report = new SpecificationReport();
 		AgreementTarif currentRate = tarifRepository.findAgreementTarifBySpecificationId(id);
@@ -66,6 +81,7 @@ public class ReportController {
 		CompanyAddress companyAddress = compAddressRepository.findActualCompanyAddressBySpecificationId(id);
 		CompanyAccount companyAccount = compAccountRepository.findActualCompanyAccountBySpecificationId(id);
 		Account spdAccount = accountRepository.findActualSpdAccountBySpdId(specification.getAgreement().getSpd().getId());
+		
 		report.setAgreementTitle(specification.getAgreement().getNumber());
 		report.setAgreementDate(specification.getAgreement().getDateStart());
 		report.setSpecificationNumber(specification.getSpecificationNumber());
@@ -106,16 +122,9 @@ public class ReportController {
 		List<SpecificationPayment> payments = new ArrayList<>(specification.getSpecPayments());
 		report.setPayments(payments);
 		report.setQuantityOfPayments(payments.size());
-		List<SpecificationReport> reports = new ArrayList<>();
+		
 		reports.add(report);
-		JRDataSource jrDataSource = new JRBeanCollectionDataSource(reports);
-		logger.info("<<-------------- jrDataSource created -------------->>");
-		parameters.put("dataSourceSpec", jrDataSource);
-		logger.info("<<-------------- jrDataSource put into parameters -------------->>");
-		logger.info("<<-------------- pdfReport bean has been declared in the jasper-views.xml file -------------->>");
-		modelAndView = new ModelAndView("specificationReport", parameters);
-		logger.info("<<-------------- Out of generating PDF report -------------->>");
-		return modelAndView;
+		return reports;
 	}
 
 }
