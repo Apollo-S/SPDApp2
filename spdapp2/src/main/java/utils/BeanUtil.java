@@ -1,7 +1,6 @@
 package utils;
 
 import java.sql.Date;
-import java.util.Locale;
 
 public class BeanUtil {
 	
