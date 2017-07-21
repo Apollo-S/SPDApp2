@@ -31,7 +31,8 @@
 				<div class="col">
 					<input type="submit" class="btn btn-success" id="button" value="Записать"> 	
 					<a class="btn btn-danger" href="${agreement.url}" role="button">Отмена</a>
-					<a class="btn btn-info" href="/spdapp2/specification/printpdf?id=${specification.id}" role="button">Отчет</a>
+					<a class="btn btn-info" href="/spdapp2/specification/printpdf/spec?id=${specification.id}" role="button">Печать спецификации</a>
+					<a class="btn btn-info" href="/spdapp2/specification/printpdf/cert?id=${specification.id}" role="button">Печать акта вып. работ</a>
 				</div>
 			</div>
 		</nav>
