@@ -34,6 +34,7 @@ public class SpecificationReport implements Serializable {
 	private String spdAddress;
 	private String spdAccount;
 	private String spdInn;
+	private String regInfo;
 	private List<Job> jobs;
 	private List<SpecificationPayment> payments;
 	private Integer quantityOfPayments;
@@ -239,6 +240,14 @@ public class SpecificationReport implements Serializable {
 
 	public void setSpdInn(String spdInn) {
 		this.spdInn = spdInn;
+	}
+
+	public String getRegInfo() {
+		return regInfo;
+	}
+
+	public void setRegInfo(String regInfo) {
+		this.regInfo = regInfo;
 	}
 
 	public String getSpdAccount() {
