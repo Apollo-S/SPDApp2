@@ -14,18 +14,25 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "agreement")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Agreement extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "spd_id")
+	@JsonBackReference(value="spd-agreement")
 	private SPD spd;
 	
 	@ManyToOne
 	@JoinColumn(name = "company_id")
+	@JsonBackReference
 	private Company company;
 
 	@Column(name = "number")
@@ -37,10 +44,12 @@ public class Agreement extends UrlEntity implements Serializable {
 
 	@OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "agreement")
 	@OrderBy("id ASC")
+	@JsonManagedReference
 	private Set<AgreementTarif> tarifs;
 
 	@OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "agreement")
 	@OrderBy("id ASC")
+	@JsonManagedReference
 	private Set<Specification> specifications;
 
 	public Agreement() {

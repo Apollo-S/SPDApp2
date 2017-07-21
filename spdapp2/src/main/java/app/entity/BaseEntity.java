@@ -5,8 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @MappedSuperclass
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public abstract class BaseEntity {
 
 	@Id

@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "company_director")
 public class CompanyDirector extends UrlEntity implements Serializable {
@@ -19,6 +21,7 @@ public class CompanyDirector extends UrlEntity implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_id")
+	@JsonBackReference
 	private Company company;
 
 	@Column(name = "post")

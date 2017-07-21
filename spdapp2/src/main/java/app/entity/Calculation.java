@@ -10,6 +10,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "specification_calculation")
 public class Calculation extends UrlEntity implements Serializable {
@@ -18,6 +20,7 @@ public class Calculation extends UrlEntity implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "specification_id")
+	@JsonBackReference
 	private Specification specification;
 	
 	@Temporal(TemporalType.DATE)

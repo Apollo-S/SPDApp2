@@ -7,8 +7,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "esv_tax")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ESVTax extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;

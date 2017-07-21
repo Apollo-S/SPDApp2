@@ -5,8 +5,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "payment_type")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PaymentType extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;

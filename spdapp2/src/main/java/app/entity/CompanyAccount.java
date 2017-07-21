@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "company_account")
 public class CompanyAccount extends UrlEntity implements Serializable {
@@ -18,6 +20,7 @@ public class CompanyAccount extends UrlEntity implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_id")
+	@JsonBackReference
 	private Company company;
 
 	@Column(name = "presentation")

@@ -10,8 +10,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "company")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Company extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -30,18 +34,22 @@ public class Company extends UrlEntity implements Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "company", orphanRemoval = true)
 	@OrderBy("id ASC")
+	@JsonManagedReference
 	private Set<CompanyAddress> addresses;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "company", orphanRemoval = true)
 	@OrderBy("id ASC")
+	@JsonManagedReference
 	private Set<CompanyDirector> directors;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "company", orphanRemoval = true)
 	@OrderBy("id ASC")
+	@JsonManagedReference
 	private Set<CompanyAccount> accounts;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "company", orphanRemoval = true)
 	@OrderBy("id ASC")
+	@JsonManagedReference
 	private Set<Agreement> agreements;
 
 	public Company() {

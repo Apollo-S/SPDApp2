@@ -12,11 +12,15 @@ import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import app.entity.Address;
 import app.entity.RegistrationInfo;
 
 @Entity
 @Table(name = "spd")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class SPD extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -49,14 +53,17 @@ public class SPD extends UrlEntity implements Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "spd", orphanRemoval = true) 
 	@OrderBy("id ASC")
+	@JsonManagedReference(value="spd-account")
 	private Set<Account> accounts;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "spd", orphanRemoval = true) // TODO try to remove orphanRemoval and use cascadeType.ALL instead; example in favorite video 
 	@OrderBy("id ASC")
+	@JsonManagedReference(value="spd-agreement")
 	private Set<Agreement> agreements;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "spd", orphanRemoval = true)
 	@OrderBy("payment_type_id ASC")
+	@JsonManagedReference(value="spd-payment")
 	private Set<Payment> payments;
 
 	public SPD() {

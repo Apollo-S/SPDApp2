@@ -10,14 +10,19 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name ="agreement_tarif")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class AgreementTarif extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne()
 	@JoinColumn(name = "agreement_id")
+	@JsonBackReference
 	private Agreement agreement;
 
 	@Column(name = "configuring")

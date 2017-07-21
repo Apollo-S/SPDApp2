@@ -8,8 +8,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "registration_info")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class RegistrationInfo extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;

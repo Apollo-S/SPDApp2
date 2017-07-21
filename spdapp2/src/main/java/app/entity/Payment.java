@@ -12,15 +12,19 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "payment")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Payment extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "spd_id")
+	@JsonBackReference(value="spd-payment")
 	private SPD spd;
 
 	@OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)

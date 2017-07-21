@@ -14,14 +14,20 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "specification")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Specification extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
 	@JoinColumn(name = "agreement_id")
+	@JsonBackReference
 	private Agreement agreement;
 
 	@Column(name = "specification_number")
@@ -49,14 +55,17 @@ public class Specification extends UrlEntity implements Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "specification", orphanRemoval = true)
 	@OrderBy("part_number ASC")
+	@JsonManagedReference
 	private Set<Calculation> calculations;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "specification", orphanRemoval = true)
 	@OrderBy("id ASC")
+	@JsonManagedReference
 	private Set<Job> jobs;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "specification", orphanRemoval = true)
 	@OrderBy("id ASC")
+	@JsonManagedReference
 	private Set<SpecificationPayment> specPayments;
 
 	public Specification() {

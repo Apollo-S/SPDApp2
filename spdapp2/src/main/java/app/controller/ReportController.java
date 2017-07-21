@@ -31,10 +31,13 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Controller
+@RequestMapping(value = "/specification")
 public class ReportController {
 
-	private static final String PARAM_DATA_SOURCE = "dataSourceSpec";
-	private static final String PARAM_VIEW_NAME = "specificationReport";
+	private static final String PARAM_DATA_SOURCE_SPEC = "dataSourceSpec";
+	private static final String PARAM_DATA_SOURCE_CERT = "dataSourceCert";
+	private static final String PARAM_VIEW_NAME_SPEC = "specificationReport";
+	private static final String PARAM_VIEW_NAME_CERT = "certificateReport";
 
 	private static final Logger logger = LoggerFactory.getLogger(ReportController.class);
 
@@ -56,24 +59,38 @@ public class ReportController {
 	@Autowired(required = true)
 	private AccountRepository accountRepository;
 	
-	@RequestMapping(value = "/specification/printpdf", method = RequestMethod.GET)
-	public ModelAndView generatePdfReport(@RequestParam Integer id, ModelAndView modelAndView) {
+	@RequestMapping(value = "/printpdf/spec", method = RequestMethod.GET)
+	public ModelAndView generatePdfReportSpec(@RequestParam Integer id, ModelAndView modelAndView) {
 		logger.info("<<-------------- Begin to generate PDF report -------------->>");
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		List<SpecificationReport> reports = createReport(id);
 		JRDataSource jrDataSource = new JRBeanCollectionDataSource(reports);
 		logger.info("<<-------------- jrDataSource created -------------->>");
-		parameters.put(PARAM_DATA_SOURCE, jrDataSource);
+		parameters.put(PARAM_DATA_SOURCE_SPEC, jrDataSource);
 		logger.info("<<-------------- jrDataSource put into parameters -------------->>");
 		logger.info("<<-------------- pdfReport bean has been declared in the jasper-views.xml file -------------->>");
-		modelAndView = new ModelAndView(PARAM_VIEW_NAME, parameters);
+		modelAndView = new ModelAndView(PARAM_VIEW_NAME_SPEC, parameters);
+		logger.info("<<-------------- Out of generating PDF report -------------->>");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/printpdf/cert", method = RequestMethod.GET)
+	public ModelAndView generatePdfReportCert(@RequestParam Integer id, ModelAndView modelAndView) {
+		logger.info("<<-------------- Begin to generate PDF report -------------->>");
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		List<SpecificationReport> reports = createReport(id);
+		JRDataSource jrDataSource = new JRBeanCollectionDataSource(reports);
+		logger.info("<<-------------- jrDataSource created -------------->>");
+		parameters.put(PARAM_DATA_SOURCE_CERT, jrDataSource);
+		logger.info("<<-------------- jrDataSource put into parameters -------------->>");
+		logger.info("<<-------------- pdfReport bean has been declared in the jasper-views.xml file -------------->>");
+		modelAndView = new ModelAndView(PARAM_VIEW_NAME_CERT, parameters);
 		logger.info("<<-------------- Out of generating PDF report -------------->>");
 		return modelAndView;
 	}
 
 	private List<SpecificationReport> createReport(Integer id) {
 		List<SpecificationReport> reports = new ArrayList<>();
-		
 		Specification specification = specificationRepository.findOne(id);
 		SpecificationReport report = new SpecificationReport();
 		AgreementTarif currentRate = tarifRepository.findAgreementTarifBySpecificationId(id);
@@ -103,12 +120,14 @@ public class ReportController {
 		report.setCompanyAddress(companyAddress.getPresentation());
 		report.setCompanyAccount(companyAccount.getPresentation());
 		report.setCompanyDirectorShortName(director.getShortName());
+		report.setCompanyDirectorFullName(director.getFullName());
 		report.setCompanyDirectorPost(director.getPost());
 		report.setSpdFullName(specification.getAgreement().getSpd().getSpdFullName());
 		report.setSpdAlias(specification.getAgreement().getSpd().getAlias());
 		report.setSpdInn(specification.getAgreement().getSpd().getInn());
 		report.setSpdAddress(specification.getAgreement().getSpd().getAddress().getPresentation());
 		report.setSpdAccount(spdAccount.getPresentation());
+		report.setRegInfo(specification.getAgreement().getSpd().getRegistrationInfo().getDescription());
 		List<Job> jobs = new ArrayList<Job>(specification.getJobs());
 		for (Job job : jobs) {
 			logger.info("<<-------------- " + job.getConfiguringHours() + ", " + job.getProgrammingHours() + ", " + job.getArchitectingHours() + " --------------->>");
@@ -122,7 +141,6 @@ public class ReportController {
 		List<SpecificationPayment> payments = new ArrayList<>(specification.getSpecPayments());
 		report.setPayments(payments);
 		report.setQuantityOfPayments(payments.size());
-		
 		reports.add(report);
 		return reports;
 	}
