@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 4.5.0  -->
-<!-- 2017-07-19T15:52:05 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="certificate-report" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<!-- 2017-07-20T03:38:47 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="certificate-report" pageWidth="595" pageHeight="842" columnWidth="509" leftMargin="56" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -34,6 +43,9 @@
 	</field>
 	<field name="companyDirectorShortName" class="java.lang.String">
 		<fieldDescription><![CDATA[companyDirectorShortName]]></fieldDescription>
+	</field>
+	<field name="regInfo" class="java.lang.String">
+		<fieldDescription><![CDATA[regInfo]]></fieldDescription>
 	</field>
 	<field name="quantityOfPayments" class="java.lang.Integer">
 		<fieldDescription><![CDATA[quantityOfPayments]]></fieldDescription>
@@ -99,9 +111,9 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="350" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="12" width="555" height="88"/>
+		<band height="373" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="12" width="509" height="88"/>
 				<textElement textAlignment="Center">
 					<font fontName="DejaVu Sans" isBold="true"/>
 					<paragraph lineSpacing="1_1_2" lineSpacingSize="1.0"/>
@@ -112,32 +124,35 @@
 "до Договору про надання послуг №" + $F{agreementTitle} + " від " + (new SimpleDateFormat("dd.MM.yyyy").format($F{agreementDate})) + "р."]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="120" width="81" height="20"/>
+				<reportElement x="0" y="115" width="81" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" isBold="true"/>
+					<paragraph firstLineIndent="15"/>
 				</textElement>
 				<text><![CDATA[м. Київ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="420" y="120" width="135" height="21"/>
+				<reportElement x="360" y="115" width="149" height="21"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[(new SimpleDateFormat("dd.MM.yyyy").format($F{specificationStartDate})) + "р."]]></textFieldExpression>
+				<textFieldExpression><![CDATA[(new SimpleDateFormat("dd.MM.yyyy").format($F{specificationFinalDate})) + "р."]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="150" width="555" height="60"/>
+				<reportElement x="0" y="150" width="509" height="60"/>
 				<textElement textAlignment="Justified">
 					<font fontName="DejaVu Sans"/>
+					<paragraph lineSpacing="Double" lineSpacingSize="1.0" firstLineIndent="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Цей Акт складено на виконання переліку робіт згідно Додатку №" + $F{specificationNumber} + " до Договору про надання послуг №" + $F{agreementTitle} + " від " + (new SimpleDateFormat("dd.MM.yyyy").format($F{agreementDate})) + "р., укладеного між " + $F{companyName} + "(надалі іменується «Замовник»), та СПД-ФОП " + $F{spdAlias} + "(надалі іменується «Виконавець»)."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Цей Акт складено на виконання переліку робіт згідно Додатку №" + $F{specificationNumber} + " до Договору про надання послуг №" + $F{agreementTitle} + " від " + (new SimpleDateFormat("dd.MM.yyyy").format($F{agreementDate})) + "р., укладеного між " + $F{companyName} + " (надалі іменується «Замовник»), та СПД-ФОП " + $F{spdAlias} + " (надалі іменується «Виконавець»)."]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="0" y="220" width="553" height="120"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="220" width="509" height="153"/>
 				<textElement textAlignment="Justified">
 					<font fontName="DejaVu Sans"/>
+					<paragraph lineSpacing="Double" lineSpacingSize="1.0" firstLineIndent="15" spacingBefore="0"/>
 				</textElement>
-				<textFieldExpression><![CDATA["1. Ми, що нижче підписалися, Виконавець, в особі: " + $F{spdFullName} + ", що діє на підставі документу: " + "DOC" + ", з однієї сторони, і Замовник, в особі: " + $F{companyDirectorPost} + " " + $F{companyDirectorFullName} + ", що діє на підставі Статуту, з іншої сторони, склали цей Акт про те, що роботи, передбачені Додатком №" + $F{specificationNumber} + "до Договору, виконано якісно, в повному обсязі та в строк, згідно з умовами зазначеного вище Додатка №" + $F{specificationNumber} + " до Договору." + "\n" +
+				<textFieldExpression><![CDATA["1. Ми, що нижче підписалися, Виконавець, в особі: " + $F{spdFullName} + ", що діє на підставі документу: " + $F{regInfo} + ", з однієї сторони, і Замовник, в особі: " + $F{companyDirectorPost} + " " + $F{companyDirectorFullName} + ", що діє на підставі Статуту, з іншої сторони, склали цей Акт про те, що роботи, передбачені Додатком №" + $F{specificationNumber} + "до Договору, виконано якісно, в повному обсязі та в строк, згідно з умовами зазначеного вище Додатка №" + $F{specificationNumber} + " до Договору." + "\n" +
 "2. За виконану роботу Замовник сплачує Виконавцеві винагороду у розмірі " + $F{specificationSum} + " грн."+ "\n" +
 "3. У Замовника претензій до якості виконаних робіт немає."]]></textFieldExpression>
 			</textField>
@@ -146,7 +161,7 @@
 	<summary>
 		<band height="271">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="10" width="277" height="31" backcolor="#C5BEBE"/>
+				<reportElement mode="Opaque" x="0" y="10" width="255" height="31" backcolor="#C5BEBE"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -159,7 +174,8 @@
 				<text><![CDATA[ВИКОНАВЕЦЬ:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="277" y="10" width="277" height="31" backcolor="#C5BEBE">
+				<reportElement mode="Opaque" x="255" y="10" width="255" height="31" backcolor="#C5BEBE">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 				</reportElement>
 				<box>
@@ -174,8 +190,7 @@
 				<text><![CDATA[ЗАМОВНИК:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="41" width="277" height="31">
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				<reportElement x="0" y="41" width="255" height="31">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
 				<box>
@@ -190,9 +205,9 @@
 				<textFieldExpression><![CDATA["ФОП " + $F{spdFullName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="277" y="41" width="277" height="31">
-					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				<reportElement x="255" y="41" width="255" height="31">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -206,7 +221,7 @@
 				<textFieldExpression><![CDATA[$F{companyName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="72" width="277" height="155"/>
+				<reportElement x="0" y="72" width="255" height="155"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -217,14 +232,12 @@
 					<font fontName="DejaVu Sans" isBold="true"/>
 					<paragraph leftIndent="4" spacingBefore="4"/>
 				</textElement>
-				<textFieldExpression><![CDATA["ІПН: " + $F{spdInn} + "\n" +
-											"\n" +
-											"Адреса: " + $F{spdAddress} + "\n" +
-											"\n" +
-											"П/р: " + $F{spdAccount} + "\n"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["ІПН: " + $F{spdInn} + "\n" + "\n" +
+"Адреса: " + $F{spdAddress} + "\n" + "\n" +
+"П/р: " + $F{spdAccount} + "\n"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="277" y="73" width="277" height="154"/>
+				<reportElement x="255" y="73" width="255" height="154"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -236,16 +249,13 @@
 					<paragraph firstLineIndent="0" leftIndent="4" rightIndent="0" spacingBefore="4"/>
 				</textElement>
 				<textFieldExpression><![CDATA["ЕДРПОУ: " + $F{companyTaxId} +", ІПН: " + $F{companyInn} + "\n" +
-											"Свідоцтво ПДВ №: " + $F{companyVatCertificate} + "\n" + 
-											"\n" +
-											"Адреса: " + $F{companyAddress} + "\n" + 
-											"\n" +
-											"П/р: " + $F{companyAccount} + "\n" +
-											"\n" +
-											$F{companyDirectorPost} + "\n"]]></textFieldExpression>
+"Свідоцтво ПДВ №: " + $F{companyVatCertificate} + "\n" + "\n" +
+"Адреса: " + $F{companyAddress} + "\n" + "\n" +
+"П/р: " + $F{companyAccount} + "\n" + "\n" +
+$F{companyDirectorPost} + "\n"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="227" width="277" height="35">
+				<reportElement x="0" y="227" width="255" height="35">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 				</reportElement>
 				<box>
@@ -260,7 +270,7 @@
 				<textFieldExpression><![CDATA["________________________/ " + $F{spdAlias} + " /"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="277" y="227" width="277" height="35"/>
+				<reportElement x="255" y="227" width="255" height="35"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
