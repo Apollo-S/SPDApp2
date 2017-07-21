@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -106,6 +107,7 @@ public class Address extends UrlEntity implements Serializable {
 		this.flat = flat;
 	}
 	
+	@JsonIgnore
 	public String getPresentation() {
 		StringBuilder addressBuilder = new StringBuilder();
 		addressBuilder.append(this.country);
