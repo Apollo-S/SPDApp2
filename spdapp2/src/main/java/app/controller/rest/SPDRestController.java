@@ -35,6 +35,7 @@ public class SPDRestController {
 	@RequestMapping(value = "/spd/update/{id}", method = RequestMethod.PUT, headers = "Accept=application/json")
 	public ResponseEntity<Void> updateSpd(@PathVariable("id") int id, @RequestBody SPD spd) {
 		spd.setId(id);
+		spd.setVersion(spdRepository.getOne(id).getVersion());
 		spd = spdRepository.save(spd);
 		HttpHeaders header = new HttpHeaders();
 		return new ResponseEntity<Void>(header, HttpStatus.OK);
