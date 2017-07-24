@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -17,31 +20,57 @@
 
 <body style="background-color: #FFFFFF;">
 
+
+
 	<nav class="navbar fixed-top navbar-toggleable-md navbar-inverse" style="background-color: #191970;"> <!-- colour: MidnightBlue -->
 		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
 			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<a class="navbar-brand" href="main">SPDApp2</a>
+		<c:url value="/" var="urlValue"></c:url>
+		<a class="navbar-brand" href="${urlValue}">SPDApp2</a>
+		
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-			<div class="nav navbar-nav">
-				<a class="nav-item nav-link" href="main">Главная</a> 
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<c:url value="/main" var="urlMain"></c:url>
+					<a class="nav-item nav-link" href="${urlMain}">Главная</a>
+				</li>
 				<li class="nav-item dropdown">
-			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			          Справочники
-			        </a>
-			        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-			          <a class="dropdown-item" href="taxes">Налоги</a>
-			          <a class="dropdown-item" href="spds">Список СПД</a>
-			          <a class="dropdown-item" href="companies">Компании</a>
-			          <a class="dropdown-item" href="agreements">Договоры с СПД</a>
-			          <a class="dropdown-item" href="#">Something else here</a>
-			        </div>
-		      	</li>
-				<a class="nav-item nav-link" href="features">Features</a> 
-				<a class="nav-item nav-link disabled" href="#">Disabled</a>
-			</div>
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Справочники
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" href="taxes">Налоги (не работает)</a>
+						<a class="dropdown-item" href="spds">Список СПД</a>
+						<a class="dropdown-item" href="companies">Компании</a>
+						<a class="dropdown-item" href="agreements">Договоры с СПД</a>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link disabled" href="#">About</a>
+				</li>
+			</ul>
+		
+			<sec:authorize access="authenticated" var="authenticated" />
+			<c:choose>
+				<c:when test="${authenticated}">
+					<sec:authentication property="name" var="userName"/>
+					<span class="navbar-text">
+						<c:out value="${userName}" /> | 
+						<a id ="logout" href="#">Logout</a>
+					</span>
+					<form id="logout-form" action="<c:url value="/logout"/>" method="post">
+						<sec:csrfInput/>
+					</form>
+				</c:when>
+				<c:otherwise>
+					<span class="navbar-text">
+						<a href="<spring:url value="/login"/>">Login</a>
+					</span>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</nav>
 	
