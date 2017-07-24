@@ -4,14 +4,20 @@
 	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
+	
+	<bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+	
 	<security:http auto-config="true" use-expressions="false">
 		<security:form-login login-page="/login" login-processing-url="/login" 
-			username-parameter="custom_username" password-parameter="custom_password"/>
+			username-parameter="custom_username" password-parameter="custom_password"
+			default-target-url="/spds" always-use-default-target="true"
+			authentication-failure-url="/login?error=true"/>
 			
+		<security:logout logout-url="/logout" logout-success-url="/login?logout=true"/>	
+		
 		<security:intercept-url pattern="/spd*" access="ROLE_USER"/>
 		<security:intercept-url pattern="/companies*" access="ROLE_ADMIN"/>
-		<security:intercept-url pattern="/**" access="ROLE_ANONYMOUS, ROLE_USER"/>
+		<security:intercept-url pattern="/**" access="ROLE_ANONYMOUS,ROLE_USER"/>
 	</security:http>
 
 	<security:authentication-manager>
