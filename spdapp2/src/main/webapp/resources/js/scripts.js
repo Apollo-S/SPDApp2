@@ -3,6 +3,14 @@ $('[data-onload]').each(function() {
 	eval($(this).data('onload'));
 });
 
+$(document).ready(function() {
+	$("#logout").click(function(e) {
+		e.preventDefault();
+		$("#logout-form").submit();
+	});
+});
+
+
 $(function() {
 	$("#date").datepicker({
 		format : "dd-mm-yyyy",
