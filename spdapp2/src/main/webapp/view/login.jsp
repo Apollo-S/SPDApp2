@@ -3,7 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<jsp:include page="header-login.jsp" />
+<jsp:include page="header.jsp" />
 
 <title>Log in SPDApp2</title>
 
@@ -23,6 +23,13 @@
 			<input type="password" name="custom_password" class="form-control" />
 		</div>
 		<sec:csrfInput/>
+		<c:if test="${param.logout != null}">
+			<p>Пользователь успешно вышел из системы.<p>
+		</c:if>
+		<c:if test="${param.error != null}">
+			<p>Неверный логин и/или пароль.<p>
+		</c:if>
+		
 		<button type="submit" id="btn-save" class="btn btnprimary">Войти</button>
 	</form>
 
