@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/")
 public class HomeController {
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "main"}, method = RequestMethod.GET)
 	public String goHome() {
 		return "main";
 	}
