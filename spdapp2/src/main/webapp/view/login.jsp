@@ -9,29 +9,41 @@
 
 <div class="container-fluid">
 	
-	<div class="row">
-		<h1>Войти в систему</h1>
+	<div class="wrapper">
+		<c:url value="/login" var="loginVar" />
+		<form class="form-signin" action="${loginVar}" method="POST">
+			<h2 class="form-signin-heading text-center">Войти в систему</h2>
+			<br>
+			<div class="input-group">
+				<span class="input-group-addon" id="basic-addon1">
+					<i class="fa fa-user-circle" style="font-size:24px;"></i>
+				</span> 
+				<input type="text" name="custom_username" class="form-control" placeholder="User" 
+					aria-describedby="basic-addon1"/>
+			</div>
+			<p>
+			<div class="input-group">
+				<span class="input-group-addon" id="basic-addon1">
+					<i class="	fa fa-key" style="font-size:24px;"></i>
+				</span> 
+				<input type="password" name="custom_password" class="form-control" placeholder="Password" 
+					aria-describedby="basic-addon1"/>
+			</div>
+			<br>
+			<sec:csrfInput/>
+			<c:if test="${param.logout != null}">
+				<div class="alert alert-success text-center" role="alert">
+					Пользователь успешно вышел из системы
+				</div>
+			</c:if>
+			<c:if test="${param.error != null}">
+				<div class="alert alert-danger text-center" role="alert">
+					Неверный логин и/или пароль
+				</div>
+			</c:if>
+			<button id="btn-save" class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+		</form>
 	</div>
-	<c:url value="/login" var="loginVar" />
-	<form id="appointment-form" action="${loginVar}" method="POST">
-		<div class="form-group">
-			<label for="make">Пользователь</label>
-			<input name="custom_username" class="form-control" />
-		</div>
-		<div class="form-group">
-			<label for="model">Пароль</label>
-			<input type="password" name="custom_password" class="form-control" />
-		</div>
-		<sec:csrfInput/>
-		<c:if test="${param.logout != null}">
-			<p>Пользователь успешно вышел из системы.<p>
-		</c:if>
-		<c:if test="${param.error != null}">
-			<p>Неверный логин и/или пароль.<p>
-		</c:if>
-		
-		<button type="submit" id="btn-save" class="btn btnprimary">Войти</button>
-	</form>
 
 </div> <!-- .container-fluid -->
 	
