@@ -17,8 +17,7 @@
 	<script src="<c:url value="/resources/js/bootstrap.min.js"/>" ></script>
 	<script src="<c:url value="/resources/js/bootstrap-datepicker.min.js"/>"></script>
 	<script src="<c:url value="/resources/js/accounting.min.js"/>"></script>
-	<script src="<c:url value="/resources/js/scripts.js"/>"> charset="utf-8"</script>
-<%-- 	<script src="${pageContext.request.contextPath}/view/scripts.js" charset="utf-8"></script> --%>
+	<script src="<c:url value="/resources/scripts.js"/>"> charset="utf-8"</script>
 	
 </body>
 </html>
