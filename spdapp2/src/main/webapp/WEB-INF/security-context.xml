@@ -23,11 +23,11 @@
 		
 		<security:intercept-url pattern="/spd*" access="ROLE_USER"/>
 		<security:intercept-url pattern="/companies*" access="ROLE_ADMIN"/>
-		<security:intercept-url pattern="/**" access="ROLE_ANONYMOUS,ROLE_USER"/>
+		<security:intercept-url pattern="/**" access="ROLE_ANONYMOUS, ROLE_USER"/>
 	</security:http>
 
 	<security:authentication-manager>
-		<security:authentication-provider user-service-ref="customUserDetailsService"/>
+		<security:authentication-provider ref="customAuthenticationProvider"/>
 	</security:authentication-manager>
 
 </beans>
