@@ -21,8 +21,8 @@
 		
 		<security:logout logout-url="/logout" logout-success-url="/login?logout=true"/>	
 		
-		<security:intercept-url pattern="/spd*" access="ROLE_ADMIN"/>
-		<security:intercept-url pattern="/companies*" access="ROLE_USER"/>
+		<security:intercept-url pattern="/spd*" access="ROLE_USER"/>
+		<security:intercept-url pattern="/companies*" access="ROLE_ADMIN"/>
 		<security:intercept-url pattern="/**" access="ROLE_ANONYMOUS,ROLE_USER"/>
 	</security:http>
 
