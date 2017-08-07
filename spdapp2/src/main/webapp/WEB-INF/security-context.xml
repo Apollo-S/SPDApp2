@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 	
-	<context:component-scan base-package="app"></context:component-scan>
+	<context:component-scan base-package="app" />
 	
 	<bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
 	
@@ -16,18 +16,26 @@
 	<security:http auto-config="true" use-expressions="false">
 		<security:form-login login-page="/login" login-processing-url="/login" 
 			username-parameter="custom_username" password-parameter="custom_password"
-			default-target-url="/spds" always-use-default-target="true"
+			default-target-url="/spds" 
+			always-use-default-target="true"
 			authentication-failure-url="/login?error=true"/>
 		
 		<security:logout logout-url="/logout" logout-success-url="/login?logout=true"/>	
 		
-		<security:intercept-url pattern="/spd*" access="ROLE_USER"/>
-		<security:intercept-url pattern="/companies*" access="ROLE_ADMIN"/>
-		<security:intercept-url pattern="/**" access="ROLE_ANONYMOUS, ROLE_USER"/>
+		<security:intercept-url pattern="/agreement*" access="ROLE_USER, ROLE_ADMIN"/>
+		<security:intercept-url pattern="/spd*" access="ROLE_USER, ROLE_ADMIN"/>
+		<security:intercept-url pattern="/companies*" access="ROLE_USER, ROLE_ADMIN"/>
+		<security:intercept-url pattern="/**" access="ROLE_ANONYMOUS"/>
 	</security:http>
 
 	<security:authentication-manager>
-		<security:authentication-provider ref="customAuthenticationProvider"/>
+		<security:authentication-provider>
+			<security:jdbc-user-service data-source-ref="dataSource" 
+				group-authorities-by-username-query="
+					select g.id, g.group_name, ga.authority 
+					from groups g, group_members gm, group_authorities ga 
+					where gm.username = ? and g.id = ga.group_id and g.id = gm.group_id" />
+		</security:authentication-provider>
 	</security:authentication-manager>
 
 </beans>

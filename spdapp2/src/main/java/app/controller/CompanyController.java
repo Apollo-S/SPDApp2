@@ -2,6 +2,8 @@ package app.controller;
 
 import java.sql.Date;
 
+import javax.annotation.security.RolesAllowed;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,11 @@ import app.repository.CompanyRepository;
 
 @Controller
 @Transactional
-public class CompanyController {
+public class CompanyController extends BaseController {
+	
+	private static final String REQUEST_MAPPING_COMPANIES = "/companies";
+	private static final String REQUEST_MAPPING_COMPANY_ADDRESS = "/companyAddress";
+	private static final String REQUEST_MAPPING_COMPANY = "/company";
 
 	private static final Logger logger = LoggerFactory.getLogger(CompanyController.class);
 
@@ -28,7 +34,7 @@ public class CompanyController {
 	@Autowired(required = true)
 	private CompanyAddressRepository companyAddressRepository;
 
-	@RequestMapping(value = "/companies", method = RequestMethod.GET)
+	@RequestMapping(value = REQUEST_MAPPING_COMPANIES, method = RequestMethod.GET)
 	public String getAllCompanies(Model model) {
 		logger.info("<== Entering to the getAllCompanies() method ... ==>");
 		model.addAttribute("companies", companyRepository.findAll());
@@ -36,7 +42,7 @@ public class CompanyController {
 		return "company/getAll";
 	}
 
-	@RequestMapping(value = "/company", method = RequestMethod.GET)
+	@RequestMapping(value = REQUEST_MAPPING_COMPANY, method = RequestMethod.GET)
 	public String getEditCompany(@RequestParam int id, Model model) {
 		logger.info("<== Enter to 'getEditCompany()' method ... ==>");
 		Company company = companyRepository.findOne(id);
@@ -45,7 +51,7 @@ public class CompanyController {
 		return "company/edit";
 	}
 
-	@RequestMapping(value = "/company", params = "add", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_COMPANY, params = PARAM_ADD, method = RequestMethod.POST)
 	public String postAddCompany(@RequestParam String title, @RequestParam String edrpou, @RequestParam String inn,
 			@RequestParam String vatCertificate) {
 		logger.info("<== Enter to 'postAddCompany()' method ... ==>");
@@ -57,7 +63,8 @@ public class CompanyController {
 		return "redirect:" + company.getUrl();
 	}
 
-	@RequestMapping(value = "/company", params = "edit", method = RequestMethod.POST)
+	@RolesAllowed(ROLE_ADMIN)
+	@RequestMapping(value = REQUEST_MAPPING_COMPANY, params = PARAM_EDIT, method = RequestMethod.POST)
 	public String postEditCompany(@RequestParam Integer id, @RequestParam String title, @RequestParam String edrpou,
 			@RequestParam String inn, @RequestParam String vatCertificate) {
 		logger.info("<== Enter to 'postEditCompany()' method ... ==>");
@@ -73,7 +80,7 @@ public class CompanyController {
 		return "redirect:companies";
 	}
 
-	@RequestMapping(value = "/company", params = "delete", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_COMPANY, params = PARAM_DELETE, method = RequestMethod.POST)
 	public String postDeleteCompany(@RequestParam int id) {
 		logger.info("<== Enter to 'postDeleteCompany()' method ... ==>");
 		logger.info("<== Starting delete 'Company' by ID=" + id + " ==>");
@@ -83,7 +90,7 @@ public class CompanyController {
 		return "redirect:companies";
 	}
 
-	@RequestMapping(value = "/companyAddress", params = "add", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_COMPANY_ADDRESS, params = PARAM_ADD, method = RequestMethod.POST)
 	public String postAddCompanyAddress(@RequestParam int companyId, @RequestParam String presentation,
 			@RequestParam Date dateStart) {
 		logger.info("<== Enter to 'postAddCompanyAddress()' method ... ==>");
@@ -96,7 +103,7 @@ public class CompanyController {
 		return "redirect:" + company.getUrl();
 	}
 
-	@RequestMapping(value = "/companyAddress", params = "edit", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_COMPANY_ADDRESS, params = PARAM_EDIT, method = RequestMethod.POST)
 	public String postEditCompanyAddress(@RequestParam int id, @RequestParam String presentation,
 			@RequestParam Date dateStart) {
 		logger.info("<== Enter to 'postEditCompanyAddress()' method ... ==>");
@@ -112,7 +119,7 @@ public class CompanyController {
 		return "redirect:" + company.getUrl();
 	}
 
-	@RequestMapping(value = "/companyAddress", params = "delete", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_COMPANY_ADDRESS, params = PARAM_DELETE, method = RequestMethod.POST)
 	public String postDeleteCompanyAddress(@RequestParam int id) {
 		logger.info("<== Enter to 'postDeleteCompanyAddress()' method ... ==>");
 		CompanyAddress companyAddress = companyAddressRepository.findOne(id);

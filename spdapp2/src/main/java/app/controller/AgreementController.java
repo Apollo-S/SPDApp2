@@ -23,7 +23,7 @@ import app.repository.SpecificationRepository;
 
 @Controller
 @Transactional
-public class AgreementController {
+public class AgreementController extends BaseController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AgreementController.class);
 
@@ -42,19 +42,19 @@ public class AgreementController {
 	@Autowired(required = true)
 	private AgreementTarifRepository tarifRepository;
 
-	@RequestMapping(value = "/agreements", method = RequestMethod.GET)
+	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT + "s", method = RequestMethod.GET)
 	public String getAddAgreement(Model model) {
 		model.addAttribute("agreements", agreementRepository.findAll());
 		return "agreement/getAll";
 	}
 
-	@RequestMapping(value = "/agreement", params = "add", method = RequestMethod.GET)
+	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT, params = PARAM_ADD, method = RequestMethod.GET)
 	public String getAddAgreement(@RequestParam int spdId, Model model) {
 		model.addAttribute("spd", spdRepository.findOne(spdId));
 		return "agreement/add";
 	}
 
-	@RequestMapping(value = "/agreement", method = RequestMethod.GET)
+	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT, method = RequestMethod.GET)
 	public String getAgreement(@RequestParam int id, Model model) {
 		logger.info("<== Enter to 'getAgreement()' method ... ==>");
 		Agreement agreement = agreementRepository.findOne(id);
@@ -67,7 +67,7 @@ public class AgreementController {
 		return "agreement/edit";
 	}
 
-	@RequestMapping(value = "/agreement", params = "add", method = RequestMethod.POST) // TODO Add new tarif when new agreement is adding, with the same date
+	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT, params = PARAM_ADD, method = RequestMethod.POST) // TODO Add new tarif when new agreement is adding, with the same date
 	public String postAddAgreement(@RequestParam int spdId, @RequestParam String number, @RequestParam Date dateStart) {
 		logger.info("<== Enter to 'postAddAgreement()' method ... ==>");
 		SPD spd = spdRepository.findOne(spdId);
@@ -79,7 +79,7 @@ public class AgreementController {
 		return "redirect:" + agreement.getUrl();
 	}
 
-	@RequestMapping(value = "/agreement", params = "edit", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT, params = PARAM_EDIT, method = RequestMethod.POST)
 	public String postEditAgreement(@RequestParam int id, @RequestParam String number, @RequestParam Date dateStart, 
 			@RequestParam("company_id") int companyId) {
 		logger.info("<== Enter to 'postEditAgreement()' method ... ==>");
@@ -97,7 +97,7 @@ public class AgreementController {
 		return "redirect:" + spd.getUrl();
 	}
 
-	@RequestMapping(value = "/agreement", params = "delete", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT, params = PARAM_DELETE, method = RequestMethod.POST)
 	public String postDeleteAgreement(@RequestParam int id) {
 		logger.info("<== Enter to 'postDeleteAgreement()' method ... ==>");
 		Agreement agreement = agreementRepository.findOne(id);
@@ -109,7 +109,7 @@ public class AgreementController {
 		return "redirect:" + spd.getUrl();
 	}
 	
-	@RequestMapping(value = "/agreementTarif", params = "add", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT_TARIF, params = PARAM_ADD, method = RequestMethod.POST)
 	public String postAddAgreementTarif(@RequestParam Integer agreementId, @RequestParam Double configuring, @RequestParam Double programming, 
 			@RequestParam Double architecting, @RequestParam Date dateStart) {
 		logger.info("<== Enter to 'postAgreementTarifEdit()' method ... ==>");
@@ -122,7 +122,7 @@ public class AgreementController {
 		return "redirect:" + agreement.getUrl();
 	}
 
-	@RequestMapping(value = "/agreementTarif", params = "edit", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT_TARIF, params = PARAM_EDIT, method = RequestMethod.POST)
 	public String postEditAgreementTarif(@RequestParam Integer id, @RequestParam Double configuring,
 			@RequestParam Double programming, @RequestParam Double architecting, @RequestParam Date dateStart) {
 		logger.info("<== Enter to 'postEditAgreementTarif()' method ... ==>");
@@ -140,7 +140,7 @@ public class AgreementController {
 		return "redirect:" + agreement.getUrl();
 	}
 	
-	@RequestMapping(value = "/agreementTarif", params = "delete", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT_TARIF, params = PARAM_DELETE, method = RequestMethod.POST)
 	public String postDeleteAgreementTarif(@RequestParam int id) {
 		logger.info("<== Enter to 'postDeleteAgreementTarif()' method ... ==>");
 		AgreementTarif tarif = tarifRepository.findOne(id);
