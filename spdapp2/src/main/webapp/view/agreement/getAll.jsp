@@ -3,7 +3,7 @@
 
 <jsp:include page="../header.jsp" />
 
-<title>Agreements List</title>
+<title>Договоры с СПД</title>
 
 <div class="container-fluid">
 
