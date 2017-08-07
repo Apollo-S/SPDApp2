@@ -8,7 +8,9 @@
 	xmlns:repository="http://www.springframework.org/schema/data/repository"
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
@@ -21,6 +23,10 @@
 	<context:component-scan base-package="app.controller" />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<context:property-placeholder location="classpath:db.properties" />
+	
+	<jdbc:initialize-database enabled="true" data-source="dataSource">
+		<jdbc:script location="classpath:init.sql"/>
+	</jdbc:initialize-database>
 	
 	<import resource="jasper-views.xml"/>
 
