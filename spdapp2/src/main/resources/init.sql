@@ -6,7 +6,7 @@ drop table if exists `groups`;
 
 create table `users` (
 	`username` varchar(50) NOT NULL PRIMARY KEY,
-	`password` varchar(50) NOT NULL,
+	`password` varchar(150) NOT NULL,
    `enabled` boolean NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -40,9 +40,9 @@ create table `group_members` (
 
 insert into `users`(`username`, `password`, `enabled`) 
 values 
-	('admin', '123', true),
-	('user', '123', true),
-	('user_blocked', '123', true);
+	('admin', '64b484d528cccca4dfe3036419f8a94f823ae76e8e1ffc1c245273827718469f83982b2e7a3f1e0d', true),
+	('user', 'de606efdad4166552eac27deba0fd33827839d9fe47d7d268c962fbe533b527d7a95c9c711125130', true),
+	('user_blocked', '60c7c3a707aff3cf7d2d5926685691bedd2e541db6f568597f55ba6f2e6598804232b87a0122988a', false);
 
 insert into `groups`(`group_name`) 
 VALUES 
