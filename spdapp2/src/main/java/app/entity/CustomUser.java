@@ -29,7 +29,7 @@ public class CustomUser extends UrlEntity implements UserDetails, Serializable {
 	@Column(name = "username", length = 25)
 	private String username;
 
-	@Column(name = "password", length = 25)
+	@Column(name = "password", length = 150)
 	private String password;
 
 	@Column(name = "email", length = 25)
@@ -37,6 +37,9 @@ public class CustomUser extends UrlEntity implements UserDetails, Serializable {
 
 	@Column(name = "role", length = 25)
 	private String role;
+	
+	@Column(name = "enabled")
+	private boolean enabled;
 
 	public CustomUser() {
 	}
@@ -122,6 +125,10 @@ public class CustomUser extends UrlEntity implements UserDetails, Serializable {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 }
