@@ -22,6 +22,10 @@ $(function() {
 	});
 });
 
+function goBack() {
+		window.history.back()
+	}
+
 function goToAddress(url) {
 	window.location.href = url;
 }

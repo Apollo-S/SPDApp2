@@ -5,12 +5,6 @@
 
 <jsp:include page="header.jsp" />
 
-<script>
-	function goBack() {
-		window.history.back()
-	}
-</script>
-
 <title>Error</title>
 
 <div class="container-fluid">
