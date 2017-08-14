@@ -40,7 +40,12 @@ public class HomeController {
 	public String goHome() {
 		return "main";
 	}
-
+	
+	@RequestMapping(value = "/about", method = RequestMethod.GET)
+	public String goAbout() {
+		return "about";
+	}
+	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String goLogin() {
 		return "login";

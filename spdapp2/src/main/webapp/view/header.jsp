@@ -39,15 +39,16 @@
 						Справочники
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item" href="taxes">Налоги (не работает)</a>
+						<a class="dropdown-item" href="taxes">Налоги (пока не работает)</a>
 						<a class="dropdown-item" href="spds">Список СПД</a>
 						<a class="dropdown-item" href="companies">Компании</a>
 						<a class="dropdown-item" href="agreements">Договоры с СПД</a>
-						<a class="dropdown-item" href="users">Пользователи</a>
+						<a class="dropdown-item" href="users">Пользователи (пока не работает)</a>
 					</div>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link disabled" href="#">About</a>
+				<li class="nav-item active">
+					<c:url value="/about" var="urlAbout"></c:url>
+					<a class="nav-item nav-link" href="${urlAbout}">Инфо</a>
 				</li>
 			</ul>
 		
