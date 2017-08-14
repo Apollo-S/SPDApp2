@@ -29,7 +29,18 @@
 				<input type="password" name="custom_password" class="form-control" placeholder="Password" 
 					aria-describedby="basic-addon1"/>
 			</div>
-			<br>
+			<p>
+			<div class="input-group">
+				<div class="row text-right">
+					<div class="col text-right">
+						<label>
+							<c:out value="Запомнить меня" />
+							<input type="checkbox" id="remember" name="remember-me" checked/>
+						</label>
+					</div>
+				</div>
+			</div>
+			<p>
 			<sec:csrfInput/>
 			<c:if test="${param.logout != null}">
 				<div class="alert alert-success text-center" role="alert">
