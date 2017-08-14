@@ -1,5 +1,6 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <jsp:include page="../header.jsp" />
 
@@ -24,6 +25,7 @@
 			<p>
 			<div class="row">
 				<div class="col">
+					<sec:csrfInput/>
 					<input type="submit" class="btn btn-success" id="button" value="Записать"> 	
 					<a class="btn btn-danger" href="${spd.url}" role="button">Отмена</a>
 				</div>
@@ -113,6 +115,7 @@
 							<p>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+								<sec:csrfInput/>
 								<input type="submit" class="btn btn-primary" id="button" value="Добавить">
 							</div>
 						</form>
@@ -145,6 +148,7 @@
 								<input type="hidden" name="delete">
 								<input type="hidden" name="id" value="${specification.id}">
 <%-- 									<input type="hidden" name="spdId" value="${spd.id}"> --%>
+								<sec:csrfInput/>
 								<button type="submit" class="btn btn-danger btn-sm">Удалить (осторожно!)</button>
 							</form>
 						</div>		
@@ -200,6 +204,7 @@
 								<p>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+									<sec:csrfInput/>
 									<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
 								</div>
 							</form>
@@ -275,6 +280,7 @@
 													<p>
 													<div class="modal-footer">
 														<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+														<sec:csrfInput/>
 														<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
 													</div>
 												</form>
@@ -285,6 +291,7 @@
 								<form action="agreementTarif" method="post">
 									<input type="hidden" name="delete"> 
 									<input type="hidden" name="id" value="${tarif.id}">
+									<sec:csrfInput/>
 									<button type="submit" class="btn btn-danger btn-sm">Удалить (осторожно!)</button>
 								</form>
 							</div>

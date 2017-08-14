@@ -1,5 +1,6 @@
 <%@ page session="false" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <jsp:include page="../header.jsp" />
 
@@ -42,6 +43,7 @@
 						<form action="spd" method="post">
 							<input type="hidden" name="delete"> 
 							<input type="hidden" name="id" value="${spd.id}"> 
+							<sec:csrfInput/>
 							<button type="submit" class="btn btn-danger btn-sm">Удалить</button>
 						</form>
 					</div>

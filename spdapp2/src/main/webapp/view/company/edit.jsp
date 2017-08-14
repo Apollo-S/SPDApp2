@@ -1,5 +1,5 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 
@@ -109,6 +109,7 @@
 								<p>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+									<sec:csrfInput/>
 									<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
 								</div>
 							</form>
@@ -169,6 +170,7 @@
 													<p>	
 													<div class="modal-footer">
 														<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+														<sec:csrfInput/>
 														<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
 													</div>
 												</form>
@@ -179,6 +181,7 @@
 								<form action="companyAddress" method="post">
 									<input type="hidden" name="delete"> 
 									<input type="hidden" name="id" value="${address.id}">
+									<sec:csrfInput/>
 									<button type="submit" class="btn btn-outline-danger btn-sm">Удалить (осторожно!)</button>
 								</form>
 							</div>
@@ -239,6 +242,7 @@
 								<p>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+									<sec:csrfInput/>
 									<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
 								</div>
 							</form>
@@ -323,6 +327,7 @@
 													<p>
 													<div class="modal-footer">
 														<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+														<sec:csrfInput/>
 														<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
 													</div>
 												</form>
@@ -333,6 +338,7 @@
 								<form action="companyDirector" method="post" >
 									<input type="hidden" name="delete">
 									<input type="hidden" name="id" value="${director.id}">
+									<sec:csrfInput/>
 									<button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
 								</form>
 							</div>

@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <jsp:include page="../header.jsp" />
 
@@ -36,6 +37,7 @@
 			<p>
 			<div class="row">
 				<div class="col">
+					<sec:csrfInput/>
 					<input type="submit" class="btn btn-success" id="button" value="Записать"> 	
 					<a class="btn btn-danger" href="${specification.url}" role="button">Отмена</a>
 				</div>

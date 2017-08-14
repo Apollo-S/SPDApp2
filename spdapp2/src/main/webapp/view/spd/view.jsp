@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 
 <jsp:include page="../header.jsp" />
 
@@ -54,6 +55,7 @@
 				</form>
 				<form action="spd" method="post">
 					<input type="hidden" name="delete"> <input type="hidden" name="id" value="${spd.id}">
+					<sec:csrfInput/>
 					<button type="submit" class="btn btn-danger">Удалить СПД (осторожно!)</button>
 				</form>
 			</div>
@@ -99,6 +101,7 @@
 								<p>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+									<sec:csrfInput/>
 									<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
 								</div>
 							</form>
@@ -127,6 +130,7 @@
 								<form action="agreement" method="post">
 									<input type="hidden" name="delete"> 
 									<input type="hidden" name="id" value="${agreement.id}">
+									<sec:csrfInput/>
 									<button type="submit" class="btn btn-outline-danger btn-sm">Удалить (осторожно!)</button>
 								</form>
 							</div>
@@ -180,6 +184,7 @@
 								<p>	
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+									<sec:csrfInput/>
 									<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
 								</div>
 							</form>
@@ -245,6 +250,7 @@
 													<p>	
 													<div class="modal-footer">
 														<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+														<sec:csrfInput/>
 														<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
 													</div>
 												</form>
@@ -255,6 +261,7 @@
 								<form action="account" method="post">
 									<input type="hidden" name="delete"> 
 									<input type="hidden" name="id" value="${account.id}">
+									<sec:csrfInput/>
 									<button type="submit" class="btn btn-outline-danger btn-sm">Удалить</button>
 								</form>
 							</div>
@@ -320,6 +327,7 @@
 							<p>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+								<sec:csrfInput/>
 								<input type="submit" class="btn btn-primary" id="button" value="Добавить">
 							</div>
 						</form>
@@ -417,6 +425,7 @@
 												<p>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+													<sec:csrfInput/>
 													<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
 												</div>
 											</form>
@@ -428,6 +437,7 @@
 								<form action="payment" method="post">
 									<input type="hidden" name="delete">
 									<input type="hidden" name="id" value="${payment.id}">
+									<sec:csrfInput/>
 									<button type="submit" class="btn btn-outline-danger btn-sm">Удалить</button>
 								</form>
 							</div>
