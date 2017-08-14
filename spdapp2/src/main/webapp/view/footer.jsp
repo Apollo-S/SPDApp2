@@ -1,11 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <p class="p4">
 
 <div class="container">
 	<nav class="navbar fixed-bottom navbar-light bg-faded">
-		<p class="p-invert">© 2017 Apollon Saifullin. All rights reserved. 
+		<jsp:useBean id="date" class="java.util.Date" /> 
+		<p class="p-invert">© 2016-<fmt:formatDate value="${date}" pattern="yyyy" /> Apollon Saifullin. All rights reserved. 
 		Contact information: <a href="mailto:apollo.saifullin@gmail.com"> e-mail</a></p>
 	</nav>
 </div>
