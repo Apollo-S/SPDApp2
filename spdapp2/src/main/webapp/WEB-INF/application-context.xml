@@ -24,9 +24,9 @@
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<context:property-placeholder location="classpath:db.properties" />
 	
-<!-- 	<jdbc:initialize-database enabled="true" data-source="dataSource"> -->
-<!-- 		<jdbc:script location="classpath:init.sql"/> -->
-<!-- 	</jdbc:initialize-database> -->
+	<jdbc:initialize-database enabled="${db.initialize}" data-source="dataSource">
+		<jdbc:script location="${db.script_location}"/>
+	</jdbc:initialize-database>
 	
 	<import resource="jasper-views.xml"/>
 
@@ -49,10 +49,27 @@
 
 	<jpa:repositories base-package="app.repository" />
 
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="dataSource" ref="dataSource" />
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="packagesToScan" value="app" />
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">${db.hbm2ddl}</prop>
+				<prop key="hibernate.dialect">${db.dialect}</prop>
+				<prop key="hibernate.jdbc.fetch_size">${db.fetch_size}</prop>
+				<prop key="hibernate.jdbc.batch_size">${db.batch_size}</prop>
+			</props>
+		</property>
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="generateDdl" value="${db.generate_ddl}" />
+				<property name="database" value="${db.database}" />
+				<property name="showSql" value="${db.show_sql}" />
+			</bean>
+		</property>
+
+<!-- 		<property name="packagesToScan" value="app" />
+		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="generateDdl" value="true" />
@@ -60,12 +77,14 @@
 		</property>
 		<property name="jpaProperties">
 			<props>
+				<prop key="hibernate.hbm2ddl.auto">${db.hbm2ddl}</prop>
 				<prop key="hibernate.dialect">${db.dialect}</prop>
-				<prop key="hibernate.jdbc.fetch_size">50</prop>
-				<prop key="hibernate.jdbc.batch_size">10</prop>
-				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hbm2ddl.import_files">import.sql</prop>
+				<prop key="hibernate.jdbc.fetch_size">${db.fetch_size}</prop>
+				<prop key="hibernate.jdbc.batch_size">${db.batch_size}</prop>
+				<prop key="hibernate.show_sql">${db.show_sql}</prop>
 			</props>
-		</property>
+		</property> -->
 	</bean>
 
 	<bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"

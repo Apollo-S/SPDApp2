@@ -14,10 +14,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "user")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "users")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class CustomUser extends UrlEntity implements UserDetails, Serializable {
 
+	private static final String URL_USER_ID = "user?id=";
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "first_name", length = 30)
@@ -37,14 +38,15 @@ public class CustomUser extends UrlEntity implements UserDetails, Serializable {
 
 	@Column(name = "role", length = 25)
 	private String role;
-	
+
 	@Column(name = "enabled")
-	private boolean enabled;
+	private String enabled;
 
 	public CustomUser() {
 	}
 
-	public CustomUser(String firstName, String lastName, String username, String password, String email, String role) {
+	public CustomUser(String firstName, String lastName, String username, String password, String email, String role,
+			String enabled) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -52,6 +54,7 @@ public class CustomUser extends UrlEntity implements UserDetails, Serializable {
 		this.password = password;
 		this.email = email;
 		this.role = role;
+		this.enabled = enabled;
 	}
 
 	public String getUsername() {
@@ -127,7 +130,16 @@ public class CustomUser extends UrlEntity implements UserDetails, Serializable {
 		return true;
 	}
 
-	public void setEnabled(boolean enabled) {
+	@Override
+	public String getUrl() {
+		return URL_USER_ID + getId();
+	}
+
+	public String getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(String enabled) {
 		this.enabled = enabled;
 	}
 
