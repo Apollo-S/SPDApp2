@@ -43,7 +43,7 @@
 						<a class="dropdown-item" href="spds">Список СПД</a>
 						<a class="dropdown-item" href="companies">Компании</a>
 						<a class="dropdown-item" href="agreements">Договоры с СПД</a>
-						<a class="dropdown-item" href="users">Пользователи (пока не работает)</a>
+						<a class="dropdown-item" href="users">Пользователи</a>
 					</div>
 				</li>
 				<li class="nav-item active">

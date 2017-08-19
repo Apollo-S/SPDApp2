@@ -193,7 +193,7 @@
 				<c:forEach items="${specification.calculations}" var="calculation">
 					<tr>
 						<td class="text-center" onclick="goToAddress('${calculation.url}')">${calculation.partNumber}</td>
-						<td class="text-center" onclick="goToAddress('${calculation.url}')"><fmt:formatDate pattern="MMMM yyyy" value="${calculation.dateStart}"/></td>
+						<td class="text-center" onclick="goToAddress('${calculation.url}')"><fmt:formatDate pattern="MMMM" value="${calculation.dateStart}"/><fmt:formatDate pattern="yyyy" value="${calculation.dateStart}"/></td>
 						<td class="text-center" onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" pattern="0.00" value="${calculation.openingBalance}"/></td>
 						<td class="text-center" onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" pattern="0.00" value="${calculation.closingBalance}"/></td>
 						<td class="text-center" onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" pattern="#,##0.00" value="${calculation.turnover}"/></td>

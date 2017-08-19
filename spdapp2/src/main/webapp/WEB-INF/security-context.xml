@@ -24,26 +24,17 @@
 
 		<security:access-denied-handler error-page="/403" />
 
-		<security:intercept-url pattern="/main"
-			access="ROLE_USER, ROLE_ADMIN" />
-		<security:intercept-url pattern="/about"
-			access="ROLE_USER, ROLE_ADMIN" />
-		<security:intercept-url pattern="/agreement*"
-			access="ROLE_USER, ROLE_ADMIN" />
-		<security:intercept-url pattern="/specification*"
-			access="ROLE_USER, ROLE_ADMIN" />
-		<security:intercept-url pattern="/specification/printpdf/spec*"
-			access="ROLE_USER, ROLE_ADMIN" />
-		<security:intercept-url pattern="/specification/printpdf/cert*"
-			access="ROLE_USER, ROLE_ADMIN" />
-		<security:intercept-url pattern="/calculation*"
-			access="ROLE_USER, ROLE_ADMIN" />
-		<security:intercept-url pattern="/spd*"
-			access="ROLE_USER, ROLE_ADMIN" />
-		<security:intercept-url pattern="/companies*"
-			access="ROLE_USER, ROLE_ADMIN" />
-		<security:intercept-url pattern="/**"
-			access="ROLE_ANONYMOUS" />
+		<security:intercept-url pattern="/main" access="ROLE_USER, ROLE_ADMIN" />
+		<security:intercept-url pattern="/about" access="ROLE_USER, ROLE_ADMIN" />
+		<security:intercept-url pattern="/agreement*" access="ROLE_USER, ROLE_ADMIN" />
+		<security:intercept-url pattern="/specification*" access="ROLE_USER, ROLE_ADMIN" />
+		<security:intercept-url pattern="/specification/printpdf/spec*" access="ROLE_USER, ROLE_ADMIN" />
+		<security:intercept-url pattern="/specification/printpdf/cert*" access="ROLE_USER, ROLE_ADMIN" />
+		<security:intercept-url pattern="/calculation*" access="ROLE_USER, ROLE_ADMIN" />
+		<security:intercept-url pattern="/spd*" access="ROLE_USER, ROLE_ADMIN" />
+		<security:intercept-url pattern="/companies*" access="ROLE_USER, ROLE_ADMIN" />
+		<security:intercept-url pattern="/user*" access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/**" access="ROLE_ANONYMOUS" />
 
 		<security:remember-me
 			data-source-ref="dataSource"
@@ -63,14 +54,12 @@
 		<constructor-arg ref="customUserDetailsService" />
 	</bean>
 
-	<!-- Uses a database table to maintain a set of persistent login data -->
 	<bean id="jdbcTokenRepository"
 		class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl">
 		<property name="createTableOnStartup" value="false" />
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<!-- Authentication Manager (uses same UserDetailsService as RememberMeService) -->
 	<security:authentication-manager>
 		<security:authentication-provider
 			user-service-ref="customUserDetailsService">
