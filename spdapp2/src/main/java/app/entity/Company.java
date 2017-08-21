@@ -20,16 +20,16 @@ public class Company extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "title")
+	@Column(name = "title", length = 100)
 	private String title;
 
-	@Column(name = "edrpou")
+	@Column(name = "edrpou", length = 15)
 	private String edrpou;
 
-	@Column(name = "inn")
+	@Column(name = "inn", length = 15)
 	private String inn;
 
-	@Column(name = "vat_certificate")
+	@Column(name = "vat_certificate", length = 15)
 	private String vatCertificate;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "company", orphanRemoval = true)

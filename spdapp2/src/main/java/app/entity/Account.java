@@ -24,13 +24,13 @@ public class Account extends UrlEntity implements Serializable {
 	@JsonBackReference(value="spd-account")
 	private SPD spd;
 	
-	@Column(name = "account_number")	
+	@Column(name = "account_number", length = 35)	
 	private String accountNumber;
 	
-	@Column(name = "mfo")		
+	@Column(name = "mfo", length = 10)		
 	private String mfo;
 	
-	@Column(name = "bank_name")	
+	@Column(name = "bank_name", length = 150)	
 	private String bankName;
 
 	public Account() {

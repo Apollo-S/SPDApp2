@@ -14,7 +14,7 @@ public class PaymentType extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "title")
+	@Column(name = "title", length = 30)
 	private String title;
 
 	@Column(name = "is_percent", nullable = false)
@@ -23,7 +23,7 @@ public class PaymentType extends UrlEntity implements Serializable {
 	@Column(name = "is_bank_comission", nullable = false)
 	private boolean isBankComission = false;
 	
-	@Column(name = "alias")
+	@Column(name = "alias", length = 30)
 	private String alias;
 	
 	public boolean isBankComission() {

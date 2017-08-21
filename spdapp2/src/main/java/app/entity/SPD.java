@@ -26,22 +26,22 @@ public class SPD extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "surname")
+	@Column(name = "surname", length = 50)
 	private String surname;
 
-	@Column(name = "firstname")
+	@Column(name = "firstname", length = 50)
 	private String firstname;
 
-	@Column(name = "lastname")
+	@Column(name = "lastname", length = 50)
 	private String lastname;
 
-	@Column(name = "alias")
+	@Column(name = "alias", length = 50)
 	private String alias;
 
-	@Column(name = "inn")
+	@Column(name = "inn", length = 10)
 	private String inn;
 
-	@Column(name = "passport")
+	@Column(name = "passport", length = 150)
 	private String passport;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)

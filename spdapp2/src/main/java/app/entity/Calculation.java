@@ -16,6 +16,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Table(name = "specification_calculation")
 public class Calculation extends UrlEntity implements Serializable {
 	
+	private static final String DECIMAL_10_2_DEFAULT_0_00 = "Decimal(10,2) default '0.00'";
+
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
@@ -30,50 +32,50 @@ public class Calculation extends UrlEntity implements Serializable {
 	@Column(name = "part_number")
 	private Integer partNumber;
 	
-	@Column(name = "opening_balance")
-	private Double openingBalance = 0.0;
+	@Column(name = "opening_balance", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
+	private Double openingBalance;
 	
-	@Column(name = "esv")
+	@Column(name = "esv", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
 	private Double esv;
 	
-	@Column(name = "salary_rate")
+	@Column(name = "salary_rate", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
 	private Double salaryRate ;
 	
-	@Column(name = "premium")
-	private Double premium = 0.0;
+	@Column(name = "premium", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
+	private Double premium;
 	
-	@Column(name = "surcharge")
-	private Double surcharge = 0.0;
+	@Column(name = "surcharge", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
+	private Double surcharge;
 	
-	@Column(name = "card_service_fee")
-	private Double cardServiceFee = 0.0;
+	@Column(name = "card_service_fee", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
+	private Double cardServiceFee;
 	
-	@Column(name = "account_service_fee")
-	private Double accountServiceFee = 0.0;
+	@Column(name = "account_service_fee", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
+	private Double accountServiceFee;
 	
-	@Column(name = "simple_tax")
-	private Double simpleTax = 0.0;
+	@Column(name = "simple_tax", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
+	private Double simpleTax;
 	
-	@Column(name = "withdraw_cash_comission")
+	@Column(name = "withdraw_cash_comission", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
 	private Double withdrawCashComission;
 	
-	@Column(name = "closing_balance")
-	private Double closingBalance = 0.0;
+	@Column(name = "closing_balance", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
+	private Double closingBalance;
 	
-	@Column(name = "rent")
-	private Double rent = 0.0;
+	@Column(name = "rent", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
+	private Double rent;
 	
-	@Column(name = "turnover")
-	private Double turnover = 0.0;
+	@Column(name = "turnover", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
+	private Double turnover;
 	
-	@Column(name = "money_on_hand")
-	private Double moneyOnHand = 0.0;
+	@Column(name = "money_on_hand", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
+	private Double moneyOnHand;
 	
-	@Column(name = "money_transfer")
-	private Double moneyTransfer = 0.0;
+	@Column(name = "money_transfer", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
+	private Double moneyTransfer;
 	
-	@Column(name = "withdraw_cash")
-	private Double withdrawCash = 0.0;
+	@Column(name = "withdraw_cash", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
+	private Double withdrawCash;
 	
 	public Calculation() {
 	}

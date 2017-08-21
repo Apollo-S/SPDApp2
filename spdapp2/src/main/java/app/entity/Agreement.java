@@ -35,7 +35,7 @@ public class Agreement extends UrlEntity implements Serializable {
 	@JsonBackReference
 	private Company company;
 
-	@Column(name = "number")
+	@Column(name = "number", length = 255)
 	private String number;
 
 	@Temporal(TemporalType.DATE)

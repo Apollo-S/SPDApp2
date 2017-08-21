@@ -41,7 +41,7 @@ public class Specification extends UrlEntity implements Serializable {
 	@Column(name = "date_finish")
 	private Date dateFinish;
 
-	@Column(name = "specification_sum", nullable = false)
+	@Column(name = "specification_sum", columnDefinition="Decimal(10,2) default '0.00'")
 	private Double specificationSum = 0.0;
 
 	@Column(name = "configuring_hours")

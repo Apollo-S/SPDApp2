@@ -15,25 +15,25 @@ public class Address extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "country")
+	@Column(name = "country", length = 20)
 	private String country;
 
-	@Column(name = "region")
+	@Column(name = "region", length = 75)
 	private String region;
 
-	@Column(name = "city")
+	@Column(name = "city", length = 50)
 	private String city;
 
-	@Column(name = "street")
+	@Column(name = "street", length = 50)
 	private String street;
 
-	@Column(name = "building")
+	@Column(name = "building", length = 20)
 	private String building;
 
-	@Column(name = "flat")
+	@Column(name = "flat", length = 20)
 	private String flat;
 	
-	@Column(name = "zip")
+	@Column(name = "zip", length = 7)
 	private String zip;
 
 	public Address() {

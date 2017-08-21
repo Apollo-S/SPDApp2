@@ -21,7 +21,7 @@ public class Job extends UrlEntity implements Serializable {
 	@JsonBackReference
 	private Specification specification;
 	
-	@Column(name = "job_name")
+	@Column(name = "job_name", length = 900)
 	private String jobName;
 	
 	@Column(name = "configuring_hours")

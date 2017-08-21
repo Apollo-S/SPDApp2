@@ -17,7 +17,7 @@ public class RegistrationInfo extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "description")
+	@Column(name = "description", length = 255)
 	private String description;
 
 	@Temporal(TemporalType.DATE)

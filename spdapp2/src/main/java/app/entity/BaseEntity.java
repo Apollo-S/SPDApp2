@@ -16,6 +16,7 @@ public abstract class BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "id")
 	private Integer id;
 
 	@Version

@@ -24,13 +24,13 @@ public class CompanyDirector extends UrlEntity implements Serializable {
 	@JsonBackReference
 	private Company company;
 
-	@Column(name = "post")
+	@Column(name = "post", length = 50)
 	private String post;
 
-	@Column(name = "full_name")
+	@Column(name = "full_name", length = 255)
 	private String fullName;
 
-	@Column(name = "short_name")
+	@Column(name = "short_name", length = 100)
 	private String shortName;
 
 	@Temporal(TemporalType.DATE)

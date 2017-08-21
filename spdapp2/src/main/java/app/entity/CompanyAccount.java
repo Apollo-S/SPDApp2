@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -23,9 +25,10 @@ public class CompanyAccount extends UrlEntity implements Serializable {
 	@JsonBackReference
 	private Company company;
 
-	@Column(name = "presentation")
+	@Column(name = "presentation", length = 255)
 	private String presentation;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "date_start")
 	private Date dateStart;
 
