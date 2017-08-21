@@ -53,7 +53,8 @@ public class CalculationController {
 		logger.info("<== Enter to 'postAddCalculation()' method ... ==>");
 		Specification specification = specificationRepository.findOne(specificationId);
 		logger.info("<== Saving new 'Calculation' for 'Specification='" + specification.getId() + "' ==>");
-		Double openingBalance = calculationRepository.findClosingBalanceOfLastCalculationBySpecificationId(specificationId);
+		Double openingBalance = calculationRepository.findClosingBalanceOfLastCalculationByAgreementId(specification.getAgreement().getId());
+		logger.info("<== The value of 'openingBalance' is " + openingBalance + "' ==>");
 		Calculation calculation = new Calculation(specification, partNumber, dateStart, openingBalance);
 		calculation = calculationRepository.save(calculation);
 		Integer calculationId = calculation.getId();
@@ -86,7 +87,7 @@ public class CalculationController {
 			@RequestParam String moneyTransfer, @RequestParam String openingBalance, @RequestParam String premium,
 			@RequestParam String rent, @RequestParam String salaryRate, @RequestParam String surcharge,
 			@RequestParam String turnover, @RequestParam String withdrawCash,
-			@RequestParam String withdrawCashComission) {
+			@RequestParam String withdrawCashComission, @RequestParam String simpleTax) {
 		logger.info("<== Enter to 'postEditCalculation()' method ... ==>");
 		Calculation calculation = calculationRepository.findOne(id);
 		Specification specification = calculation.getSpecification();
@@ -109,6 +110,7 @@ public class CalculationController {
 		calculation.setSalaryRate(BeanUtil.convertStringToDouble(salaryRate));
 		logger.info("<== 'SalaryRate=" + calculation.getSalaryRate() + "' ==>");
 		calculation.setSurcharge(BeanUtil.convertStringToDouble(surcharge));
+		calculation.setSimpleTax(BeanUtil.convertStringToDouble(simpleTax));
 		calculation.setTurnover(BeanUtil.convertStringToDouble(turnover));
 		calculation.setWithdrawCash(BeanUtil.convertStringToDouble(withdrawCash));
 		calculation.setWithdrawCashComission(BeanUtil.convertStringToDouble(withdrawCashComission));
