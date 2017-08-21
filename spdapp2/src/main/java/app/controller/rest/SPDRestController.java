@@ -35,6 +35,15 @@ public class SPDRestController {
 		return new ResponseEntity<List<SPD>>(spds, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = HEADER_JSON) 
+	public ResponseEntity<SPD> getSPDById(@PathVariable(PARAM_ID) int id) {
+		SPD spd = spdRepository.findOne(id);
+		if(spd == null) {
+			return new ResponseEntity<SPD>(spd, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<SPD>(spd, HttpStatus.FOUND);
+	}
+	
 	@RequestMapping(value = "/add/", method = RequestMethod.POST, headers = HEADER_JSON)
 	public ResponseEntity<Void> addSpd(@RequestBody SPD spd) {
 		spd = spdRepository.save(spd);
