@@ -1,5 +1,7 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <jsp:include page="../header.jsp" />
@@ -128,20 +130,20 @@
 		<table class="table table-sm table-bordered table-hover">
 			<thead class="thead-default">
 				<tr>
-					<th>#</th>
-					<th>Нач. дата</th>
-					<th>Кон. дата</th>
-					<th>Сумма</th>
+					<th class="text-center">#</th>
+					<th class="text-center">Нач. дата</th>
+					<th class="text-center">Кон. дата</th>
+					<th class="text-center">Сумма</th>
 					<th></th>
 				</tr>
 			</thead>
 			<c:forEach items="${agreement.specifications}" var="specification">
 				<tr>
-					<td onclick="goToAddress('${specification.url}')">${specification.specificationNumber}</td>
-					<td onclick="goToAddress('${specification.url}')">${specification.dateStart}</td>
-					<td onclick="goToAddress('${specification.url}')">${specification.dateFinish}</td>
-					<td onclick="goToAddress('${specification.url}')">${specification.specificationSum}</td>
-					<td>
+					<td class="text-center" onclick="goToAddress('${specification.url}')">${specification.specificationNumber}</td>
+					<td class="text-center" onclick="goToAddress('${specification.url}')"><fmt:formatDate value="${specification.dateStart}" pattern="dd.MM.yyyy" /></td>
+					<td class="text-center" onclick="goToAddress('${specification.url}')"><fmt:formatDate value="${specification.dateFinish}" pattern="dd.MM.yyyy" /></td>
+					<td class="text-center" onclick="goToAddress('${specification.url}')"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${specification.specificationSum}" /></td>
+					<td class="text-center">
 						<div class="btn-group" role="group">
 							<a class="btn btn-warning btn-sm" href="${specification.url}" role="button">Подробнее</a>
 							<form action="specification" method="post">
@@ -149,7 +151,7 @@
 								<input type="hidden" name="id" value="${specification.id}">
 <%-- 									<input type="hidden" name="spdId" value="${spd.id}"> --%>
 								<sec:csrfInput/>
-								<button type="submit" class="btn btn-danger btn-sm">Удалить (осторожно!)</button>
+								<button type="submit" class="btn btn-danger btn-sm">Удалить</button>
 							</form>
 						</div>		
 					</td>
@@ -217,20 +219,20 @@
 				<table class="table table-sm table-bordered table-hover">
 				<thead class="thead-default">
 					<tr>
-						<th>Конфигурирование</th>
-						<th>Программирование</th>
-						<th>Архит. доработки</th>
-						<th>Начало действия</th>
-						<th></th>
+						<th class="text-center" >Конфигурирование</th>
+						<th class="text-center" >Программирование</th>
+						<th class="text-center" >Архит. доработки</th>
+						<th class="text-center" >Начало действия</th>
+						<th class="text-center" ></th>
 					</tr>
 				</thead>
 				<c:forEach items="${agreement.tarifs}" var="tarif">
 					<tr>
 						<c:set var="openModal" value="$('#modalTarifEdit${tarif.id}').modal('show')" />
-						<td onclick="${openModal}">${tarif.configuring}</td>
-						<td onclick="${openModal}">${tarif.programming}</td>
-						<td onclick="${openModal}">${tarif.architecting}</td>
-						<td onclick="${openModal}">${tarif.dateStart}</td>
+						<td class="text-center" onclick="${openModal}"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${tarif.configuring}" /></td>
+						<td class="text-center" onclick="${openModal}"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${tarif.programming}" /></td>
+						<td class="text-center" onclick="${openModal}"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${tarif.architecting}" /></td>
+						<td class="text-center" onclick="${openModal}"><fmt:formatDate value="${tarif.dateStart}" pattern="dd.MM.yyyy" /></td>
 						<td>
 							<div class="btn-group" role="group">
 								<!-- Button trigger modal -->
@@ -292,7 +294,7 @@
 									<input type="hidden" name="delete"> 
 									<input type="hidden" name="id" value="${tarif.id}">
 									<sec:csrfInput/>
-									<button type="submit" class="btn btn-danger btn-sm">Удалить (осторожно!)</button>
+									<button type="submit" class="btn btn-danger btn-sm">Удалить</button>
 								</form>
 							</div>
 					

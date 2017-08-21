@@ -193,10 +193,10 @@
 				<c:forEach items="${specification.calculations}" var="calculation">
 					<tr>
 						<td class="text-center" onclick="goToAddress('${calculation.url}')">${calculation.partNumber}</td>
-						<td class="text-center" onclick="goToAddress('${calculation.url}')"><fmt:formatDate pattern="MMMM" value="${calculation.dateStart}"/><fmt:formatDate pattern="yyyy" value="${calculation.dateStart}"/></td>
-						<td class="text-center" onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" pattern="0.00" value="${calculation.openingBalance}"/></td>
-						<td class="text-center" onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" pattern="0.00" value="${calculation.closingBalance}"/></td>
-						<td class="text-center" onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" pattern="#,##0.00" value="${calculation.turnover}"/></td>
+						<td class="text-center" onclick="goToAddress('${calculation.url}')"><fmt:formatDate pattern="MMMM" value="${calculation.dateStart}"/> <fmt:formatDate pattern="yyyy" value="${calculation.dateStart}"/></td>
+						<td class="text-center" onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculation.openingBalance}" /></td>
+						<td class="text-center" onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculation.closingBalance}"/></td>
+						<td class="text-center" onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculation.turnover}"/></td>
 						<td class="text-center">
 							<div class="btn-group" role="group">
 									<a class="btn btn-warning btn-sm" href="${calculation.url}" role="button">Подробнее</a>
@@ -204,7 +204,7 @@
 										<input type="hidden" name="delete">
 										<input type="hidden" name="id" value="${calculation.id}">
 										<sec:csrfInput/>
-										<button type="submit" class="btn btn-danger btn-sm">Удалить (осторожно!)</button>
+										<button type="submit" class="btn btn-danger btn-sm">Удалить</button>
 									</form>
 							</div>		
 						</td>
