@@ -10,6 +10,7 @@ import app.entity.Calculation;
 @Repository
 public interface CalculationRepository extends JpaRepository<Calculation, Integer> {
 	
+	static final String PARAM_AGREEMENT_ID = "agreementId";
 	static final String PARAM_SPECIFICATION_ID = "specificationId";
 	static final String PARAM_CALCULATION_ID = "calculationId";
 	static final String PARAM_ALIAS = "alias";
@@ -17,8 +18,9 @@ public interface CalculationRepository extends JpaRepository<Calculation, Intege
 			+ "where c.specification.id = :specificationId";
 	static final String FIND_SUM_OF_CALCULATIONS_BY_SPECIFICATION_ID = "select sum(c.turnover) from Specification s, Calculation c "
 			+ "where s.id = c.specification.id and s.id = :specificationId";
-	static final String FIND_CLOSING_BALANCE_OF_LAST_CALCULATION_BY_SPECIFICATION_ID = "SELECT COALESCE(c.closing_balance, 0) FROM specification_calculation c "
-			+ "WHERE c.specification_id = :specificationId ORDER BY c.id DESC LIMIT 1";
+	static final String FIND_CLOSING_BALANCE_OF_LAST_CALCULATION_BY_AGREEMENT_ID = "select COALESCE(sc.closing_balance, 0) " 
+			+ "from agreement a join specification s on s.agreement_id = a.id join specification_calculation sc on sc.specification_id = s.id "
+			+ "where a.id = :agreementId order by sc.id desc limit 1";
 	static final String FIND_ACTUAL_ESV_RATE_BY_CALCULATION_ID = "select e.value from ESVTax e "
 			+ "where e.dateStart = (select max(e.dateStart) from ESVTax e where e.dateStart <= ("
 			+ "select c.dateStart from Calculation c where c.id = ?1))";
@@ -45,8 +47,8 @@ public interface CalculationRepository extends JpaRepository<Calculation, Intege
 	public Double findSumOfCalculationsBySpecificationId(@Param(PARAM_SPECIFICATION_ID) Integer specificationId);
 	
 	@Transactional
-	@Query(value = FIND_CLOSING_BALANCE_OF_LAST_CALCULATION_BY_SPECIFICATION_ID, nativeQuery = true)
-	public Double findClosingBalanceOfLastCalculationBySpecificationId(@Param(PARAM_SPECIFICATION_ID) Integer specificationId);
+	@Query(value = FIND_CLOSING_BALANCE_OF_LAST_CALCULATION_BY_AGREEMENT_ID, nativeQuery = true)
+	public Double findClosingBalanceOfLastCalculationByAgreementId(@Param(PARAM_AGREEMENT_ID) Integer agreementId);
 	
 	@Transactional
 	@Query(FIND_ACTUAL_ESV_RATE_BY_CALCULATION_ID)
