@@ -182,10 +182,10 @@
 			<table class="table table-sm table-bordered table-hover text-right">
 				<thead class="thead-default">
 					<tr>
-						<th class="text-center">#</th>
+						<th class="text-center">№ п/п</th>
 						<th class="text-center">Период</th>
-						<th class="text-center">Сальдо нач.</th>
-						<th class="text-center">Сальдо кон.</th>
+						<th class="text-center">Сальдо на начало</th>
+						<th class="text-center">Сальдо на конец</th>
 						<th class="text-center">Сумма</th>
 						<th></th>
 					</tr>

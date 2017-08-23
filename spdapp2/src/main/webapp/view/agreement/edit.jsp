@@ -222,8 +222,8 @@
 						<th class="text-center" >Конфигурирование</th>
 						<th class="text-center" >Программирование</th>
 						<th class="text-center" >Архит. доработки</th>
-						<th class="text-center" >Начало действия</th>
-						<th class="text-center" ></th>
+						<th class="text-center" >Действует с</th>
+						<th class="text-center" >Действия</th>
 					</tr>
 				</thead>
 				<c:forEach items="${agreement.tarifs}" var="tarif">
@@ -233,10 +233,10 @@
 						<td class="text-center" onclick="${openModal}"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${tarif.programming}" /></td>
 						<td class="text-center" onclick="${openModal}"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${tarif.architecting}" /></td>
 						<td class="text-center" onclick="${openModal}"><fmt:formatDate value="${tarif.dateStart}" pattern="dd.MM.yyyy" /></td>
-						<td>
-							<div class="btn-group" role="group">
+						<td class="text-center">
+							<div class="btn-group btn-group-sm" role="toolbar" aria-label="Basic example">
 								<!-- Button trigger modal -->
-								<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalTarifEdit${tarif.id}">Редактировать ставки</button>
+								<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalTarifEdit${tarif.id}"><i class="fa fa-pencil-square-o"></i> Изменить тарифы</button>
 								<!-- Modal -->
 								<div class="modal fade bd-example-modal-lg" id="modalTarifEdit${tarif.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 										aria-hidden="true">
@@ -294,7 +294,7 @@
 									<input type="hidden" name="delete"> 
 									<input type="hidden" name="id" value="${tarif.id}">
 									<sec:csrfInput/>
-									<button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+									<button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> Удалить</button>
 								</form>
 							</div>
 					

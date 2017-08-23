@@ -37,14 +37,20 @@
 				<td class="text-center" onclick="goToAddress('${spd.url}')">${spd.alias}</td>
 				<td class="text-center" onclick="goToAddress('${spd.url}')">${spd.inn}</td>
 				<td class="text-center">
-					<div class="btn-group" role="group">
-						<a class="btn btn-warning btn-sm" href="${spd.url}" role="button">Подробнее</a>
-						<form action="spd" method="post">
-							<input type="hidden" name="delete"> 
-							<input type="hidden" name="id" value="${spd.id}"> 
-							<sec:csrfInput/>
-							<button type="submit" class="btn btn-danger btn-sm">Удалить</button>
-						</form>
+					<div class="d-flex justify-content-center">
+						<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+							<div class="btn-group mr-2" role="group" aria-label="First group">
+								<a class="btn btn-success btn-sm" href="${spd.url}" role="button"><i class="fa fa-edit"></i> Подробнее</a>
+							</div>
+							<div class="btn-group mr-2" role="group" aria-label="First group">
+								<form action="spd" method="post">
+									<input type="hidden" name="delete"> 
+									<input type="hidden" name="id" value="${spd.id}"> 
+									<sec:csrfInput/>
+									<button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> Удалить</button>
+								</form>
+							</div>
+						</div>
 					</div>
 				</td>
 			</tr>

@@ -47,7 +47,7 @@
 			
 			<br>
 			<sec:csrfInput/>
-			<button id="btn-save" class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
+			<button id="btn-save" class="btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-user-plus"></i> Зарегистрироваться</button>
 		</form>
 	</div>
 

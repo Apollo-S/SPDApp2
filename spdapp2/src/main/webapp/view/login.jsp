@@ -52,7 +52,7 @@
 					Неверный логин и/или пароль
 				</div>
 			</c:if>
-			<button id="btn-save" class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+			<button id="btn-save" class="btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-sign-in"></i> Войти</button>
 		</form>
 	</div>
 
