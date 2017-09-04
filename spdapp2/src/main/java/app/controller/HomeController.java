@@ -14,16 +14,14 @@ import app.repository.CustomUserRepository;
 
 @Controller
 @RequestMapping(value = "/")
-public class HomeController {
-
-	private static final String PARAM_ROLE_USER = "ROLE_USER";
+public class HomeController extends BaseController {
 
 	@Autowired(required = true)
 	private CustomUserRepository userRepository;
 
 	@RequestMapping(value = { "/register" }, method = RequestMethod.POST)
 	public String register(@ModelAttribute CustomUser user) {
-		user.setRole(PARAM_ROLE_USER);
+		user.setRole(ROLE_USER);
 		user = userRepository.save(user);
 		Authentication authentication = new UsernamePasswordAuthenticationToken(user, 
 				user.getPassword(), user.getAuthorities());
@@ -34,11 +32,6 @@ public class HomeController {
 	@RequestMapping(value = { "/register" }, method = RequestMethod.GET)
 	public String goRegister() {
 		return "register";
-	}
-
-	@RequestMapping(value = { "/", "main" }, method = RequestMethod.GET)
-	public String goHome() {
-		return "main";
 	}
 	
 	@RequestMapping(value = "/about", method = RequestMethod.GET)
