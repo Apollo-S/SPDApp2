@@ -76,9 +76,10 @@
 	
 	<!-- Specification Tab -->
 	<div class="tab-pane active" id="spec" role="tabpanel">
-
 		<!-- Button trigger modal -->
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSpec">Добавить спецификацию</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSpec">
+			<i class="fa fa-plus"></i> Добавить спецификацию
+		</button>
 		<!-- Modal -->
 		<div class="modal fade bd-example-modal-sm" id="modalSpec" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 			aria-hidden="true">
@@ -130,7 +131,7 @@
 		<table class="table table-sm table-bordered table-hover">
 			<thead class="thead-default">
 				<tr>
-					<th class="text-center">#</th>
+					<th class="text-center">№</th>
 					<th class="text-center">Нач. дата</th>
 					<th class="text-center">Кон. дата</th>
 					<th class="text-center">Сумма</th>
@@ -144,15 +145,25 @@
 					<td class="text-center" onclick="goToAddress('${specification.url}')"><fmt:formatDate value="${specification.dateFinish}" pattern="dd.MM.yyyy" /></td>
 					<td class="text-center" onclick="goToAddress('${specification.url}')"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${specification.specificationSum}" /></td>
 					<td class="text-center">
-						<div class="btn-group" role="group">
-							<a class="btn btn-warning btn-sm" href="${specification.url}" role="button">Подробнее</a>
-							<form action="specification" method="post">
-								<input type="hidden" name="delete">
-								<input type="hidden" name="id" value="${specification.id}">
-<%-- 									<input type="hidden" name="spdId" value="${spd.id}"> --%>
-								<sec:csrfInput/>
-								<button type="submit" class="btn btn-danger btn-sm">Удалить</button>
-							</form>
+						
+						<div class="d-flex justify-content-center">
+							<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+								<div class="btn-group mr-2" role="group" aria-label="First group">
+									<a class="btn btn-success btn-sm" href="${specification.url}" role="button">
+										<i class="fa fa-edit"></i> Подробнее
+									</a>
+								</div>
+								<div class="btn-group mr-2" role="group" aria-label="Second group">
+									<form action="specification" method="post">
+										<input type="hidden" name="delete">
+										<input type="hidden" name="id" value="${specification.id}">
+										<sec:csrfInput/>
+										<button type="submit" class="btn btn-danger btn-sm">
+											<i class="fa fa-trash-o"></i> Удалить
+										</button>
+									</form>
+								</div>
+							</div>
 						</div>		
 					</td>
 				</tr>
@@ -164,7 +175,9 @@
 	<div class="tab-pane" id="tarif" role="tabpanel">
 	
 		<!-- Button trigger modal -->
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTarif">Добавить ставки</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTarif">
+			<i class="fa fa-plus"></i> Добавить ставки
+		</button>
 		<!-- Modal -->
 		<div class="modal fade bd-example-modal-lg" id="modalTarif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 				aria-hidden="true">
@@ -214,7 +227,6 @@
 					</div>
 				</div>
 			</div>
-
 			<p>
 				<table class="table table-sm table-bordered table-hover">
 				<thead class="thead-default">
@@ -235,67 +247,75 @@
 						<td class="text-center" onclick="${openModal}"><fmt:formatDate value="${tarif.dateStart}" pattern="dd.MM.yyyy" /></td>
 						<td class="text-center">
 							<div class="btn-group btn-group-sm" role="toolbar" aria-label="Basic example">
-								<!-- Button trigger modal -->
-								<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalTarifEdit${tarif.id}"><i class="fa fa-pencil-square-o"></i> Изменить тарифы</button>
-								<!-- Modal -->
-								<div class="modal fade bd-example-modal-lg" id="modalTarifEdit${tarif.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-										aria-hidden="true">
-									<div class="modal-dialog modal-lg" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel">Редактирование ставок к Договору № ${agreement.number}</h5>
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">
-												<form action="agreementTarif" method="post">
-													<input type="hidden" name="edit">
-													<input type="hidden" name="id" value="${tarif.id}"/>
-													
-													<div class="row">
-														<div class="col">
-															<label for="configuring"><b>Конфигурирование, грн</b></label>
-															<input type="text" class="form-control" id="configuring" name="configuring" 
-																value="${tarif.configuring}" >
-														</div>
-														<div class="col">
-															<label for="programming"><b>Программирование, грн</b></label>
-															<input type="text" class="form-control" id="programming" name="programming" 
-																value="${tarif.programming}" >
-														</div>
-														<div class="col">
-															<label for="architecting"><b>Архит. доработки</b></label>
-															<input type="text" class="form-control" id="architecting" name="architecting" 
-																value="${tarif.architecting}" >
-														</div>
+								<div class="d-flex justify-content-center">
+									<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+										<div class="btn-group mr-2" role="group" aria-label="First group">
+										<!-- Button trigger modal -->
+											<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalTarifEdit${tarif.id}"><i class="fa fa-pencil-square-o"></i> Изменить тарифы</button>
+										</div>
+										<!-- Modal -->
+										<div class="modal fade bd-example-modal-lg" id="modalTarifEdit${tarif.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+												aria-hidden="true">
+											<div class="modal-dialog modal-lg" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">Редактирование ставок к Договору № ${agreement.number}</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
 													</div>
-													<p>
-													<div class="row">
-														<div class="col"></div>
-														<div class="col-4">
-															<label for="dateStart" ><b>Действуют с</b></label>
-															<input type="date" class="form-control" id="dateStart" name="dateStart" 
-																value="${tarif.dateStart}" >
-														</div>
-													</div>	
-													<p>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-														<sec:csrfInput/>
-														<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
+													<div class="modal-body">
+														<form action="agreementTarif" method="post">
+															<input type="hidden" name="edit">
+															<input type="hidden" name="id" value="${tarif.id}"/>
+															
+															<div class="row">
+																<div class="col">
+																	<label for="configuring"><b>Конфигурирование, грн</b></label>
+																	<input type="text" class="form-control" id="configuring" name="configuring" 
+																		value="${tarif.configuring}" >
+																</div>
+																<div class="col">
+																	<label for="programming"><b>Программирование, грн</b></label>
+																	<input type="text" class="form-control" id="programming" name="programming" 
+																		value="${tarif.programming}" >
+																</div>
+																<div class="col">
+																	<label for="architecting"><b>Архит. доработки</b></label>
+																	<input type="text" class="form-control" id="architecting" name="architecting" 
+																		value="${tarif.architecting}" >
+																</div>
+															</div>
+															<p>
+															<div class="row">
+																<div class="col"></div>
+																<div class="col-4">
+																	<label for="dateStart" ><b>Действуют с</b></label>
+																	<input type="date" class="form-control" id="dateStart" name="dateStart" 
+																		value="${tarif.dateStart}" >
+																</div>
+															</div>	
+															<p>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+																<sec:csrfInput/>
+																<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
+															</div>
+														</form>
 													</div>
-												</form>
+												</div>
 											</div>
+										</div>
+										<div class="btn-group mr-2" role="group" aria-label="Second group">
+											<form action="agreementTarif" method="post">
+												<input type="hidden" name="delete"> 
+												<input type="hidden" name="id" value="${tarif.id}">
+												<sec:csrfInput/>
+												<button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> Удалить</button>
+											</form>
 										</div>
 									</div>
 								</div>
-								<form action="agreementTarif" method="post">
-									<input type="hidden" name="delete"> 
-									<input type="hidden" name="id" value="${tarif.id}">
-									<sec:csrfInput/>
-									<button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> Удалить</button>
-								</form>
 							</div>
 					
 						</td>

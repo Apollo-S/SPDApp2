@@ -7,9 +7,13 @@
 <div class="container">
 	<nav class="navbar fixed-bottom navbar-light" style="background-color: #E6E6FA;">
 		<jsp:useBean id="date" class="java.util.Date" /> 
+			<div class="mx-auto">
+				<span>© 2016-<fmt:formatDate value="${date}" pattern="yyyy" /> Apollon Saifullin. All rights reserved. 
+					Contact information: <a href="mailto:apollo.saifullin@gmail.com"> e-mail</a>
+				</span>
+			</div>
 			
-			<span>© 2016-<fmt:formatDate value="${date}" pattern="yyyy" /> Apollon Saifullin. All rights reserved. 
-			Contact information: <a href="mailto:apollo.saifullin@gmail.com"> e-mail</a></span>
+			
 			
 	</nav>
 	

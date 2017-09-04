@@ -4,7 +4,7 @@
 
 <jsp:include page="../header.jsp" />
 
-<title>Companies</title>
+<title>Компании</title>
 
 <div class="container-fluid">
 
@@ -14,7 +14,9 @@
 
 	<!-- 'Add Company' -->
 	<!-- Button trigger modal -->
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgreement">Новая компания</button>
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgreement">
+		<i class="fa fa-plus"></i> Новая компания
+	</button>
 	<!-- Modal -->
 	<div class="modal fade" id="modalAgreement" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 		aria-hidden="true">
@@ -72,29 +74,39 @@
 	<p>
 
 	<table class="table table-sm table-bordered table-hover">
-		<thead class="thead-inverse">
-			<tr align="center">
-				<th>ID</th>
-				<th>Название</th>
-				<th>ЕДРПОУ</th>
-				<th>Подробнее/Удалить</th>
+		<thead class="thead-default">
+			<tr>
+				<th class="text-center">ID</th>
+				<th class="text-center">Название</th>
+				<th class="text-center">ЕДРПОУ</th>
+				<th class="text-center"></th>
 			</tr>
 		</thead>
 
 		<c:forEach items="${companies}" var="company">
 			<tr>
-				<td onclick="goToAddress('${company.url}')">${company.id}</td>
-				<td onclick="goToAddress('${company.url}')">${company.title}</td>
-				<td onclick="goToAddress('${company.url}')">${company.edrpou}</td>
-				<td>
-					<div class="btn-group" role="group">
-						<a class="btn btn-warning btn-sm" href="${company.url}" role="button">Подробнее</a>
-						<form action="company" method="post">
-							<input type="hidden" name="delete"> 
-							<input type="hidden" name="id" value="${company.id}"> 
-							<sec:csrfInput/>
-							<button type="submit" class="btn btn-danger btn-sm">Удалить</button>
-						</form>
+				<td class="text-center" onclick="goToAddress('${company.url}')">${company.id}</td>
+				<td class="text-center" onclick="goToAddress('${company.url}')">${company.title}</td>
+				<td class="text-center" onclick="goToAddress('${company.url}')">${company.edrpou}</td>
+				<td class="text-center">
+					<div class="d-flex justify-content-center">
+						<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+							<div class="btn-group mr-2" role="group" aria-label="First group">
+								<a class="btn btn-success btn-sm" href="${company.url}" role="button">
+									<i class="fa fa-edit"></i> Подробнее
+								</a>
+							</div>
+							<div class="btn-group mr-2" role="group" aria-label="Second group">
+								<form action="company" method="post">
+									<input type="hidden" name="delete"> 
+									<input type="hidden" name="id" value="${company.id}"> 
+									<sec:csrfInput/>
+									<button type="submit" class="btn btn-danger btn-sm">
+										<i class="fa fa-trash-o"></i> Удалить
+									</button>
+								</form>
+							</div>
+						</div>
 					</div>
 				</td>
 			</tr>

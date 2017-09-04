@@ -29,12 +29,22 @@
 			</div>
 			<p>
 			<div class="row">
-				<div class="col">
+				<div class="col-2">
 					<sec:csrfInput/>
 					<input type="submit" class="btn btn-success" id="button" value="Записать"> 	
 					<a class="btn btn-danger" href="${agreement.url}" role="button">Отмена</a>
-					<a class="btn btn-info" href="/spdapp2/specification/printpdf/spec?id=${specification.id}" role="button">Печать спецификации</a>
-					<a class="btn btn-info" href="/spdapp2/specification/printpdf/cert?id=${specification.id}" role="button">Печать акта вып. работ</a>
+				</div>
+				<div class="col">
+					<div class="dropdown">
+						<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false"><i class="fa fa-print"></i> Печать
+						</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<a class="dropdown-item" href="/spdapp2/specification/printpdf/spec?id=${specification.id}">Спецификация</a>
+							<a class="dropdown-item" href="/spdapp2/specification/printpdf/cert?id=${specification.id}">Акт вып. работ</a>
+						</div>
+					</div>
+			
 				</div>
 			</div>
 		</nav>
@@ -130,7 +140,9 @@
 	
 		<div class="tab-pane active" id="calculation" role="tabpanel">
 			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCalculation">Добавить расчет</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCalculation">
+				<i class="fa fa-plus"></i> Добавить расчет
+			</button>
 			<!-- Modal -->
 			<div class="modal fade" id="modalCalculation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 				aria-hidden="true">
@@ -198,14 +210,24 @@
 						<td class="text-center" onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculation.closingBalance}"/></td>
 						<td class="text-center" onclick="goToAddress('${calculation.url}')"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculation.turnover}"/></td>
 						<td class="text-center">
-							<div class="btn-group" role="group">
-									<a class="btn btn-warning btn-sm" href="${calculation.url}" role="button">Подробнее</a>
-									<form action="calculation" method="post">
-										<input type="hidden" name="delete">
-										<input type="hidden" name="id" value="${calculation.id}">
-										<sec:csrfInput/>
-										<button type="submit" class="btn btn-danger btn-sm">Удалить</button>
-									</form>
+							<div class="d-flex justify-content-end">
+								<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+									<div class="btn-group mr-2" role="group" aria-label="First group">
+										<a class="btn btn-success btn-sm" href="${calculation.url}" role="button">
+											<i class="fa fa-edit"></i> Изменить
+										</a>
+									</div>
+									<div class="btn-group mr-2" role="group" aria-label="Second group">
+										<form action="calculation" method="post">
+											<input type="hidden" name="delete">
+											<input type="hidden" name="id" value="${calculation.id}">
+											<sec:csrfInput/>
+											<button type="submit" class="btn btn-danger btn-sm">
+												<i class="fa fa-trash-o"></i> Удалить
+											</button>
+										</form>
+									</div>
+								</div>
 							</div>		
 						</td>
 					</tr>
@@ -226,8 +248,9 @@
 		<div class="tab-pane" id="jobName" role="tabpanel">
 
 			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalJobName">Добавить работу</button>
-
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalJobName">
+				<i class="fa fa-plus"></i> Добавить работу
+			</button>
 			<!-- Modal -->
 			<div class="modal fade bd-example-modal-lg" id="modalJobName" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 				aria-hidden="true">
@@ -315,68 +338,78 @@
 								value="${(job.configuringHours * currentTarif.configuring) + (job.programmingHours * currentTarif.programming) + (job.architectingHours * currentTarif.architecting)}"/>
 						</td>
 						<td class="text-center align-middle">
-							<div class="btn-group" role="group">
-								<!-- Button trigger modal -->
-								<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalJobEdit${job.id}">Изменить</button>
-								<!-- Modal -->
-								<div class="modal fade bd-example-modal-lg" id="modalJobEdit${job.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-										aria-hidden="true">
-									<div class="modal-dialog modal-lg" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel">Редактирование данных об услуге к Спецификации № <c:out value="${specification.specificationNumber}" /> от 
-														<fmt:formatDate	value="${specification.dateStart}" pattern="dd.MM.yyyy" />г.</h5>
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">
-												<form action="job" method="post">
-													<input type="hidden" name="edit">
-													<input type="hidden" name="id" value="${job.id}"/>
-													
-													<div class="row">
-														<div class="col">
-															<label for="jobName" class="text-left"><b>Наименование</b></label>
-															<input type="text" class="form-control" id="jobName" name="jobName"
-																value="${job.jobName}">
+							<div class="d-flex justify-content-end">
+								<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+									<div class="btn-group mr-2" role="group" aria-label="First group">
+									<!-- Button trigger modal -->
+										<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalJobEdit${job.id}">
+											<i class="fa fa-edit"></i> Изменить
+										</button>
+									</div>
+									<!-- Modal -->
+									<div class="modal fade bd-example-modal-lg" id="modalJobEdit${job.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+											aria-hidden="true">
+										<div class="modal-dialog modal-lg" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">Редактирование данных об услуге к Спецификации № <c:out value="${specification.specificationNumber}" /> от 
+															<fmt:formatDate	value="${specification.dateStart}" pattern="dd.MM.yyyy" />г.</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<form action="job" method="post">
+														<input type="hidden" name="edit">
+														<input type="hidden" name="id" value="${job.id}"/>
+														
+														<div class="row">
+															<div class="col">
+																<label for="jobName" class="text-left"><b>Наименование</b></label>
+																<input type="text" class="form-control" id="jobName" name="jobName"
+																	value="${job.jobName}">
+															</div>
 														</div>
-													</div>
-													<p>
-													<div class="row">
-														<div class="col">
-															<label for="configuring"><b>Конфигурирование, часы</b></label>
-															<input type="text" class="form-control text-center" id="configuring" name="configuring" 
-																value="${job.configuringHours}" >
+														<p>
+														<div class="row">
+															<div class="col">
+																<label for="configuring"><b>Конфигурирование, часы</b></label>
+																<input type="text" class="form-control text-center" id="configuring" name="configuring" 
+																	value="${job.configuringHours}" >
+															</div>
+															<div class="col">
+																<label for="programming"><b>Программирование, часы</b></label>
+																<input type="text" class="form-control text-center" id="programming" name="programming" 
+																	value="${job.programmingHours}" >
+															</div>
+															<div class="col">
+																<label for="architecting"><b>Архит. доработки, часы</b></label>
+																<input type="text" class="form-control text-center" id="architecting" name="architecting" 
+																	value="${job.architectingHours}" >
+															</div>
 														</div>
-														<div class="col">
-															<label for="programming"><b>Программирование, часы</b></label>
-															<input type="text" class="form-control text-center" id="programming" name="programming" 
-																value="${job.programmingHours}" >
+														<p>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+															<sec:csrfInput/>
+															<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
 														</div>
-														<div class="col">
-															<label for="architecting"><b>Архит. доработки, часы</b></label>
-															<input type="text" class="form-control text-center" id="architecting" name="architecting" 
-																value="${job.architectingHours}" >
-														</div>
-													</div>
-													<p>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-														<sec:csrfInput/>
-														<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
-													</div>
-												</form>
+													</form>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-								<form action="job" method="post">
-									<input type="hidden" name="delete"> 
-									<input type="hidden" name="id" value="${job.id}">
-									<sec:csrfInput/>
-									<button type="submit" class="btn btn-danger btn-sm">Удалить</button>
-								</form>
+								<div class="btn-group mr-2" role="group" aria-label="Second group">
+									<form action="job" method="post">
+										<input type="hidden" name="delete"> 
+										<input type="hidden" name="id" value="${job.id}">
+										<sec:csrfInput/>
+										<button type="submit" class="btn btn-danger btn-sm">
+											<i class="fa fa-trash-o"></i> Удалить
+										</button>
+									</form>
+								</div>
 							</div>	
 						</td>
 					</tr>
@@ -401,7 +434,9 @@
 		<div class="tab-pane" id="specPayment" role="tabpanel">
 
 			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSpecPayment">Добавить оплату</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSpecPayment">
+				<i class="fa fa-plus"></i> Добавить оплату
+			</button>
 
 			<!-- Modal -->
 			<div class="modal fade bd-example-modal-lg" id="modalSpecPayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -483,68 +518,78 @@
 						</td>
 						
 						<td class="text-center align-middle">
-							<div class="btn-group" role="group">
-								<!-- Button trigger modal -->
-								<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalSpecPayment${specPayment.id}">Изменить</button>
-								<!-- Modal -->
-								<div class="modal fade bd-example-modal" id="modalSpecPayment${specPayment.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-										aria-hidden="true">
-									<div class="modal-dialog" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel">Редактирование данных об оплате к Спецификации № <c:out value="${specification.specificationNumber}" /> от 
-														<fmt:formatDate	value="${specification.dateStart}" pattern="dd.MM.yyyy" />г.</h5>
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">
-												<form action="specificationpayment" method="post">
-													<input type="hidden" name="edit">
-													<input type="hidden" name="id" value="${specPayment.id}"/>
-													
-													<div class="row">
-														<div class="col-3">
-															<label for="paymentNumber"><b>№ п/п</b></label>
-															<input type="text" class="form-control text-center" id="paymentNumber" name="paymentNumber"
-																value="${specPayment.paymentNumber}" >
+							<div class="d-flex justify-content-end">
+								<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+									<div class="btn-group mr-2" role="group" aria-label="First group">
+									<!-- Button trigger modal -->
+										<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalSpecPayment${specPayment.id}">
+											<i class="fa fa-edit"></i> Изменить
+										</button>
+									</div>
+									<!-- Modal -->
+									<div class="modal fade bd-example-modal" id="modalSpecPayment${specPayment.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+											aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">Редактирование данных об оплате к Спецификации № <c:out value="${specification.specificationNumber}" /> от 
+															<fmt:formatDate	value="${specification.dateStart}" pattern="dd.MM.yyyy" />г.</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<form action="specificationpayment" method="post">
+														<input type="hidden" name="edit">
+														<input type="hidden" name="id" value="${specPayment.id}"/>
+														
+														<div class="row">
+															<div class="col-3">
+																<label for="paymentNumber"><b>№ п/п</b></label>
+																<input type="text" class="form-control text-center" id="paymentNumber" name="paymentNumber"
+																	value="${specPayment.paymentNumber}" >
+															</div>
+															<div class="col-5">
+																<label for="paymentSum"><b>Сумма платежа, грн</b></label>
+																<input type="text" class="form-control text-right" id="paymentSum" name="paymentSum"
+																	value="${specPayment.paymentSum}" >
+															</div>
+															<div class="col">
+																<label for="paymentDays"><b>Срок оплаты, дн.</b></label>
+																<input type="text" class="form-control text-center" id="paymentDays" name="paymentDays"
+																	value="${specPayment.paymentDays}" >
+															</div>
 														</div>
-														<div class="col-5">
-															<label for="paymentSum"><b>Сумма платежа, грн</b></label>
-															<input type="text" class="form-control text-right" id="paymentSum" name="paymentSum"
-																value="${specPayment.paymentSum}" >
+														<p>
+														<div class="row">
+															<div class="col">
+																<label for="comment"><b>Примечание</b></label>
+																<input type="text" class="form-control text-left" id="comment" name="comment"
+																	value="${specPayment.comment}" >
+															</div>
 														</div>
-														<div class="col">
-															<label for="paymentDays"><b>Срок оплаты, дн.</b></label>
-															<input type="text" class="form-control text-center" id="paymentDays" name="paymentDays"
-																value="${specPayment.paymentDays}" >
+														<p>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+															<sec:csrfInput/>
+															<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
 														</div>
-													</div>
-													<p>
-													<div class="row">
-														<div class="col">
-															<label for="comment"><b>Примечание</b></label>
-															<input type="text" class="form-control text-left" id="comment" name="comment"
-																value="${specPayment.comment}" >
-														</div>
-													</div>
-													<p>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-														<sec:csrfInput/>
-														<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
-													</div>
-												</form>
+													</form>
+												</div>
 											</div>
 										</div>
 									</div>
+									<div class="btn-group mr-2" role="group" aria-label="Second group">
+										<form action="specificationpayment" method="post">
+											<input type="hidden" name="delete"> 
+											<input type="hidden" name="id" value="${specPayment.id}">
+											<sec:csrfInput/>
+											<button type="submit" class="btn btn-danger btn-sm">
+												<i class="fa fa-trash-o"></i> Удалить
+											</button>
+										</form>
+									</div>
 								</div>
-								<form action="specificationpayment" method="post">
-									<input type="hidden" name="delete"> 
-									<input type="hidden" name="id" value="${specPayment.id}">
-									<sec:csrfInput/>
-									<button type="submit" class="btn btn-danger btn-sm">Удалить</button>
-								</form>
 							</div>	
 						</td>
 					</tr>

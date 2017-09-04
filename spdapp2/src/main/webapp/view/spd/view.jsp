@@ -74,7 +74,9 @@
 			<p>
 			<p>
 			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgreement">Новый договор</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgreement">
+				<i class="fa fa-plus"></i> Новый договор
+			</button>
 			<!-- Modal -->
 			<div class="modal fade" id="modalAgreement" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 			aria-hidden="true">
@@ -125,7 +127,7 @@
 						<th class="text-center">Номер</th>
 						<th class="text-center">Дата</th>
 						<th class="text-center">Заказчик</th>
-						<th class="text-center">Действия</th>
+						<th class="text-center"></th>
 					</tr>
 				</thead>
 				<c:forEach items="${spd.agreements}" var="agreement">
@@ -160,7 +162,9 @@
 		<div class="tab-pane fade" id="bankprops" role="tabpanel">
 		
 			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAccount">Новый счет</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAccount">
+				<i class="fa fa-plus"></i> Новый счет
+			</button>
 			<!-- Modal -->
 			<div class="modal fade" id="modalAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 			aria-hidden="true">
@@ -297,7 +301,9 @@
 			<p>
 			<p>
 			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPayment">Добавить</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPayment">
+				<i class="fa fa-plus"></i> Добавить выплату
+			</button>
 			<p>
 			<!-- Modal -->
 			<div class="modal fade" id="modalPayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

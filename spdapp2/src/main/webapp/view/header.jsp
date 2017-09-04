@@ -88,7 +88,7 @@
 							<font color="#f5f5f5"> / </font>
 							<a href="<spring:url value="/register"/>" style="color: #f5f5f5;"><i class="fa fa-user-plus"></i> Регистрация</a>
 						</span>
-					</ul></div>
+					</ul>
 				</c:otherwise>
 			</c:choose>
 	</nav>
