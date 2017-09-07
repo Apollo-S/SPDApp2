@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 
 <jsp:include page="../header.jsp" />
@@ -75,7 +76,9 @@
 		<div class="tab-pane fade show active" id="address" role="tabpanel">
 			<p>
 			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCompanyAddressAdd">Новый адрес</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCompanyAddressAdd">
+				<i class="fa fa-plus"></i> Новый адрес
+			</button>
 			<!-- Modal -->
 			<div class="modal fade" id="modalCompanyAddressAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 				aria-hidden="true" >
@@ -118,7 +121,10 @@
 				</div>
 			</div>
 			<p>
-			<table class="table table-sm table-bordered table-hover">
+			<table class="table table-sm table-hover">
+				
+				<c:set var="totalAddressCount" />
+				
 				<thead class="thead-default">
 					<tr>
 						<th class="text-center">ID</th>
@@ -131,63 +137,83 @@
 					<tr>
 						<c:set var="openModal" value="$('#modalCompanyAddressEdit${address.id}').modal('show')" />
 						<td class="text-center" onclick="${openModal}"><c:out value="${address.id}"/></td>
-						<td class="text-left" onclick="${openModal}"><c:out value="${address.presentation}"/></td>
-						<td class="text-center" onclick="${openModal}"><c:out value="${address.dateStart}"/></td>
-						<td class="text-center">
-							<div class="btn-group" role="group">
-								<!-- Button trigger modal -->
-								<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalCompanyAddressEdit${address.id}">Изменить</button>
-								<!-- Modal -->
-								<div class="modal fade" id="modalCompanyAddressEdit${address.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-									aria-hidden="true">
-									<div class="modal-dialog" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel"><c:out value="${company.title}"/> | Редактировать адрес</h5>
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">
-												<form action="companyAddress" method="post">
-													<input type="hidden" name="edit"> 
-													<input type="hidden" name="id" value="${address.id}"> 
-													<div class="row">
-														<div class="col-sm">
-															<label for="presentation" class="col-sm"><b>Представление</b></label> 
-															<input type="text" class="form-control" id="presentation"
-																name="presentation" placeholder="Введите адрес" value="${address.presentation}">
+						<td class="text-center" onclick="${openModal}"><c:out value="${address.presentation}"/></td>
+						<td class="text-center" onclick="${openModal}"><fmt:formatDate	value="${address.dateStart}" pattern="dd.MM.yyyy" /></td>
+						<td>
+							<div class="d-flex justify-content-end">
+								<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+									<div class="btn-group mr-2" role="group" aria-label="First group">
+									<!-- Button trigger modal -->
+										<button type="button" class="btn btn-success btn-sm" data-toggle="modal" 
+											data-target="#modalCompanyAddressEdit${address.id}">
+											<i class="fa fa-edit"></i> Изменить
+										</button>
+									</div>
+									<!-- Modal -->
+									<div class="modal fade" id="modalCompanyAddressEdit${address.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel"><c:out value="${company.title}"/> | Редактировать адрес</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<form action="companyAddress" method="post">
+														<input type="hidden" name="edit"> 
+														<input type="hidden" name="id" value="${address.id}"> 
+														<div class="row">
+															<div class="col-sm">
+																<label for="presentation" class="col-sm"><b>Представление</b></label> 
+																<input type="text" class="form-control" id="presentation"
+																	name="presentation" placeholder="Введите адрес" value="${address.presentation}">
+															</div>
 														</div>
-													</div>
-													<p>
-													<div class="row">
-														<div class="col-6">
-															<label for="dateStart" class="col-sm"><b>Действует с</b></label> 
-															<input type="date" class="form-control" id="dateStart"
-																name="dateStart" placeholder="Введите дату начала действия" value="${address.dateStart}">
+														<p>
+														<div class="row">
+															<div class="col-6">
+																<label for="dateStart" class="col-sm"><b>Действует с</b></label> 
+																<input type="date" class="form-control" id="dateStart"
+																	name="dateStart" placeholder="Введите дату начала действия" value="${address.dateStart}">
+															</div>
 														</div>
-													</div>
-													<p>	
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-														<sec:csrfInput/>
-														<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
-													</div>
-												</form>
+														<p>	
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+															<sec:csrfInput/>
+															<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
+														</div>
+													</form>
+												</div>
 											</div>
 										</div>
 									</div>
+									<div class="btn-group mr-2" role="group" aria-label="Second group">
+										<form action="companyAddress" method="post">
+											<input type="hidden" name="delete"> 
+											<input type="hidden" name="id" value="${address.id}">
+											<sec:csrfInput/>
+											<button type="submit" class="btn btn-danger btn-sm">
+												<i class="fa fa-trash-o"></i> Удалить
+											</button>
+										</form>
+									</div>
 								</div>
-								<form action="companyAddress" method="post">
-									<input type="hidden" name="delete"> 
-									<input type="hidden" name="id" value="${address.id}">
-									<sec:csrfInput/>
-									<button type="submit" class="btn btn-outline-danger btn-sm">Удалить (осторожно!)</button>
-								</form>
 							</div>
 						</td>
 					</tr>
+					<c:set var="totalAddressCount" value="${totalAddressCount + 1}" />
 				</c:forEach>
+				<thead class="thead-default">
+					<tr>
+						<th class="text-center">Всего: <fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${totalAddressCount}" /></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
 			</table>
 		</div>
 		
@@ -195,7 +221,9 @@
 		<div class="tab-pane fade" id="director" role="tabpanel">
 			<p>
 			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCompanyDirectorAdd">Добавить</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCompanyDirectorAdd">
+				<i class="fa fa-plus"></i> Добавить
+			</button>
 			<!-- Modal -->
 			<div class="modal fade" id="modalCompanyDirectorAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 				aria-hidden="true" >
@@ -251,7 +279,10 @@
 				</div>
 			</div>
 			<p>
-			<table class="table table-sm table-bordered table-hover">
+			<table class="table table-sm table-hover">
+				
+				<c:set var="totalDirectorCount" />
+				
 				<thead class="thead-default">
 					<tr>
 						<th class="text-center">ID</th>
@@ -265,92 +296,112 @@
 					<tr>
 						<c:set var="openModal" value="$('#modalCompanyDirectorEdit${director.id}').modal('show')" />
 						<td class="text-center" onclick="${openModal}"><c:out value="${director.id}"/></td>
-						<td class="text-left" onclick="${openModal}"><c:out value="${director.fullName}"/></td>
-						<td class="text-left" onclick="${openModal}"><c:out value="${director.shortName}"/></td>
-						<td class="text-center" onclick="${openModal}"><c:out value="${director.employmentDate}"/></td>
-						<td class="text-center">
-							<div class="btn-group" role="group">
-								<!-- Button trigger modal -->
-								<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalCompanyDirectorEdit${director.id}"><i class="fa fa-edit"></i></button>
-								<!-- Modal -->
-								<div class="modal fade" id="modalCompanyDirectorEdit${director.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-									aria-hidden="true">
-									<div class="modal-dialog" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel"><c:out value="${company.title}"/> | Редактирование данных о директоре</h5>
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">
-												<form action="companyDirector" method="post">
-													<input type="hidden" name="edit">
-													<input type="hidden" name="id" value="${director.id}">
-													
-													<div class="row">
-														<div class="col">
-															<label for="fullName"><b>ФИО</b></label> 
-															<input type="text" class="form-control" id="fullName" name="fullName" 
-																value="${director.fullName}" >
+						<td class="text-center" onclick="${openModal}"><c:out value="${director.fullName}"/></td>
+						<td class="text-center" onclick="${openModal}"><c:out value="${director.shortName}"/></td>
+						<td class="text-center" onclick="${openModal}"><fmt:formatDate	value="${director.employmentDate}" pattern="dd.MM.yyyy" /></td>
+						<td>
+							<div class="d-flex justify-content-end">
+								<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+									<div class="btn-group mr-2" role="group" aria-label="First group">
+									<!-- Button trigger modal -->
+										<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalCompanyDirectorEdit${director.id}">
+											<i class="fa fa-edit"></i> Изменить
+										</button>
+									</div>
+									<!-- Modal -->
+									<div class="modal fade" id="modalCompanyDirectorEdit${director.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel"><c:out value="${company.title}"/> | Редактирование данных о директоре</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<form action="companyDirector" method="post">
+														<input type="hidden" name="edit">
+														<input type="hidden" name="id" value="${director.id}">
+														
+														<div class="row">
+															<div class="col">
+																<label for="fullName"><b>ФИО</b></label> 
+																<input type="text" class="form-control" id="fullName" name="fullName" 
+																	value="${director.fullName}" >
+															</div>
 														</div>
-													</div>
-													<p>
-													<div class="row">
-														<div class="col">
-															<label for="shortName"><b>Фамилия, инициалы</b></label> 
-															<input type="text" class="form-control" id="shortName" name="shortName" 
-																value="${director.shortName}" >
+														<p>
+														<div class="row">
+															<div class="col">
+																<label for="shortName"><b>Фамилия, инициалы</b></label> 
+																<input type="text" class="form-control" id="shortName" name="shortName" 
+																	value="${director.shortName}" >
+															</div>
 														</div>
-													</div>
-													<p>
-													<div class="row">
-														<div class="col">
-															<label for="post"><b>Должность</b></label> 
-															<input type="text" class="form-control" id="post" name="post" 
-																value="${director.post}" >
+														<p>
+														<div class="row">
+															<div class="col">
+																<label for="post"><b>Должность</b></label> 
+																<input type="text" class="form-control" id="post" name="post" 
+																	value="${director.post}" >
+															</div>
 														</div>
-													</div>
-													<p>
-													<div class="row">
-														<div class="col">
-															<label for="employmentDate"><b>Дата начала работы</b></label> 
-															<input type="date" class="form-control" id="employmentDate" name="employmentDate" 
-																value="${director.employmentDate}" >
+														<p>
+														<div class="row">
+															<div class="col">
+																<label for="employmentDate"><b>Дата начала работы</b></label> 
+																<input type="date" class="form-control" id="employmentDate" name="employmentDate" 
+																	value="${director.employmentDate}" >
+															</div>
+															<div class="col">
+																<label for="firedDate"><b>Дата увольнения</b></label> 
+																<input type="date" class="form-control" id="firedDate" name="firedDate" 
+																	value="${director.firedDate}">
+															</div>
 														</div>
-														<div class="col">
-															<label for="firedDate"><b>Дата увольнения</b></label> 
-															<input type="date" class="form-control" id="firedDate" name="firedDate" 
-																value="${director.firedDate}">
+														<p>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+															<sec:csrfInput/>
+															<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
 														</div>
-													</div>
-													<p>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-														<sec:csrfInput/>
-														<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
-													</div>
-												</form>
+													</form>
+												</div>
 											</div>
 										</div>
 									</div>
+									<div class="btn-group mr-2" role="group" aria-label="Second group">
+										<form action="companyDirector" method="post" >
+											<input type="hidden" name="delete">
+											<input type="hidden" name="id" value="${director.id}">
+											<sec:csrfInput/>
+											<button type="submit" class="btn btn-danger btn-sm">
+												<i class="fa fa-trash-o"></i> Удалить
+											</button>
+										</form>
+									</div>
 								</div>
-								<form action="companyDirector" method="post" >
-									<input type="hidden" name="delete">
-									<input type="hidden" name="id" value="${director.id}">
-									<sec:csrfInput/>
-									<button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-								</form>
 							</div>
 						</td>
 					</tr>
+					<c:set var="totalDirectorCount" value="${totalDirectorCount + 1}" />
 				</c:forEach>
+				<thead class="thead-default">
+					<tr>
+						<th class="text-center">Всего: <fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${totalDirectorCount}" /></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
 			</table>
 		</div>
 		
-		
-		
-		<div class="tab-pane fade" id="agreements" role="tabpanel">...</div>
+		<div class="tab-pane fade" id="agreements" role="tabpanel">
+			...
+		</div>
 		
 	</div>
 

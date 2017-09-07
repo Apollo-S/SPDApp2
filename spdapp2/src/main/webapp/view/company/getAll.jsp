@@ -1,6 +1,7 @@
 <%@ page session="false" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 
 <jsp:include page="../header.jsp" />
 
@@ -73,7 +74,10 @@
 
 	<p>
 
-	<table class="table table-sm table-bordered table-hover">
+	<table class="table table-sm table-hover">
+	
+		<c:set var="totalCount" />
+	
 		<thead class="thead-default">
 			<tr>
 				<th class="text-center">ID</th>
@@ -89,7 +93,7 @@
 				<td class="text-center" onclick="goToAddress('${company.url}')">${company.title}</td>
 				<td class="text-center" onclick="goToAddress('${company.url}')">${company.edrpou}</td>
 				<td class="text-center">
-					<div class="d-flex justify-content-center">
+					<div class="d-flex justify-content-end">
 						<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 							<div class="btn-group mr-2" role="group" aria-label="First group">
 								<a class="btn btn-success btn-sm" href="${company.url}" role="button">
@@ -110,7 +114,16 @@
 					</div>
 				</td>
 			</tr>
+			<c:set var="totalCount" value="${totalCount + 1}" />
 		</c:forEach>
+		<thead class="thead-default">
+					<tr>
+						<th class="text-center">Всего: <fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${totalCount}" /></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
 	</table>
 
 </div>

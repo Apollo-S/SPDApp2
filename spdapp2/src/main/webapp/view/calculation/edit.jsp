@@ -10,7 +10,7 @@
 <c:set var="agreement" value="${specification.agreement}" />
 <c:set var="spd" value="${agreement.spd}" />
 
-<title>Расчет № <c:out value="${calculation.partNumber}" /> за <fmt:formatDate	value="${calculation.dateStart}" pattern="MMMM yyyy" />г. | <c:out value="${spd.alias}" /> | </title>
+<title>Расчет № <c:out value="${calculation.partNumber}" /> за <fmt:formatDate	value="${calculation.dateStart}" pattern="MMMM" /> <fmt:formatDate	value="${calculation.dateStart}" pattern="yyyy" />г. | <c:out value="${spd.alias}" /> | </title>
 
 <div class="container-fluid">
 	
@@ -31,7 +31,7 @@
 					<a class="breadcrumb-item" href="${specification.url}">Спецификация № <c:out value="${specification.specificationNumber}" /> от 
 														<fmt:formatDate	value="${specification.dateStart}" pattern="dd.MM.yyyy" />г.</a>
 					<span class="breadcrumb-item active"><b>Расчет № <c:out value="${calculation.partNumber}" /> за 
-														<fmt:formatDate	value="${calculation.dateStart}" pattern="MMMM yyyy" />г.</b></span>
+														<fmt:formatDate	value="${calculation.dateStart}" pattern="MMMM" /> <fmt:formatDate	value="${calculation.dateStart}" pattern="yyyy" />г.</b></span>
 				</div>
 			</div>
 			<p>
@@ -90,11 +90,11 @@
 								value=<fmt:formatNumber value="${calculation.salaryRate}" minFractionDigits="2" maxFractionDigits="2"/> >	
 							<span class="input-group-btn">
 								<button onclick="clearValue('salaryRate')" 
-									class="btn btn-secondary" type="button"><i class="fa fa-remove"></i></button>
+									class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
 							</span>
 							<span class="input-group-btn">
 								<button onclick="getInitialValueBack('salaryRate', ${calculation.salaryRate})" 
-									class="btn btn-secondary" type="button"><i class="fa fa-undo"></i></button>
+									class="btn btn-info" type="button"><i class="fa fa-undo"></i></button>
 							</span>
 						</div>
 					</div>
@@ -110,11 +110,11 @@
 								value=<fmt:formatNumber value="${calculation.withdrawCashComission}" minFractionDigits="2" maxFractionDigits="2"/> >	
 							<span class="input-group-btn">
 								<button onclick="clearValue('withdrawCashComission')" 
-									class="btn btn-secondary" type="button"><i class="fa fa-remove"></i></button>
+									class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
 							</span>
 							<span class="input-group-btn">
 								<button onclick="getInitialValueBack('withdrawCashComission', ${calculation.withdrawCashComission})" 
-									class="btn btn-secondary" type="button"><i class="fa fa-undo"></i></button>
+									class="btn btn-info" type="button"><i class="fa fa-undo"></i></button>
 							</span>
 						</div>
 					</div>
@@ -143,11 +143,11 @@
 								value=<fmt:formatNumber value="${calculation.premium}" minFractionDigits="2" maxFractionDigits="2" />>
 							<span class="input-group-btn">
 								<button onclick="clearValue('premium')" 
-									class="btn btn-secondary" type="button"><i class="fa fa-remove"></i></button>
+									class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
 							</span>
 							<span class="input-group-btn">
 								<button onclick="getInitialValueBack('premium', ${calculation.premium})" 
-									class="btn btn-secondary" type="button"><i class="fa fa-undo"></i></button>
+									class="btn btn-info" type="button"><i class="fa fa-undo"></i></button>
 							</span>
 						</div>
 					</div>
@@ -163,11 +163,11 @@
 								value=<fmt:formatNumber value="${calculation.cardServiceFee}" minFractionDigits="2" maxFractionDigits="2"/>>
 							<span class="input-group-btn">
 								<button onclick="clearValue('cardServiceFee')" 
-									class="btn btn-secondary" type="button"><i class="fa fa-remove"></i></button>
+									class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
 							</span>
 							<span class="input-group-btn">
 								<button onclick="getInitialValueBack('cardServiceFee', ${calculation.cardServiceFee})" 
-									class="btn btn-secondary" type="button"><i class="fa fa-undo"></i></button>
+									class="btn btn-info" type="button"><i class="fa fa-undo"></i></button>
 							</span>
 						</div>
 					</div>
@@ -186,11 +186,11 @@
 								value=<fmt:formatNumber value="${calculation.esv}" minFractionDigits="2" maxFractionDigits="2" />>
 							<span class="input-group-btn">
 								<button onclick="clearValue('esv')" 
-									class="btn btn-secondary" type="button"><i class="fa fa-remove"></i></button>
+									class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
 							</span>
 							<span class="input-group-btn">
 								<button onclick="getInitialValueBack('esv', ${calculation.esv})" 
-									class="btn btn-secondary" type="button"><i class="fa fa-undo"></i></button>
+									class="btn btn-info" type="button"><i class="fa fa-undo"></i></button>
 							</span>
 						</div>
 					</div>
@@ -206,11 +206,11 @@
 								value=<fmt:formatNumber value="${calculation.accountServiceFee}" minFractionDigits="2" maxFractionDigits="2" />>
 							<span class="input-group-btn">
 								<button onclick="clearValue('accountServiceFee')" 
-									class="btn btn-secondary" type="button"><i class="fa fa-remove"></i></button>
+									class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
 							</span>
 							<span class="input-group-btn">
 								<button onclick="getInitialValueBack('accountServiceFee', ${calculation.accountServiceFee})" 
-									class="btn btn-secondary" type="button"><i class="fa fa-undo"></i></button>
+									class="btn btn-info" type="button"><i class="fa fa-undo"></i></button>
 							</span>
 						</div>
 					</div>
@@ -229,11 +229,11 @@
 								value=<fmt:formatNumber value="${calculation.rent}" minFractionDigits="2" maxFractionDigits="2"/>>
 							<span class="input-group-btn">
 								<button onclick="clearValue('rent')" 
-									class="btn btn-secondary" type="button"><i class="fa fa-remove"></i></button>
+									class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
 							</span>
 							<span class="input-group-btn">
 								<button onclick="getInitialValueBack('rent', ${calculation.rent})" 
-									class="btn btn-secondary" type="button"><i class="fa fa-undo"></i></button>
+									class="btn btn-info" type="button"><i class="fa fa-undo"></i></button>
 							</span>
 						</div>
 					</div>
@@ -265,15 +265,15 @@
 								value=<fmt:formatNumber value="${calculation.surcharge}" minFractionDigits="2" maxFractionDigits="2"/>>
 							<span class="input-group-btn">
 								<button onclick="clearValue('surcharge')" 
-									class="btn btn-secondary" type="button"><i class="fa fa-remove"></i></button>
+									class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
 							</span>
 							<span class="input-group-btn">
 								<button onclick="getInitialValueBack('surcharge', ${calculation.surcharge})" 
-									class="btn btn-secondary" type="button"><i class="fa fa-undo"></i></button>
+									class="btn btn-info" type="button"><i class="fa fa-undo"></i></button>
 							</span>
 							<span class="input-group-btn">
 								<button onclick="surchargeUpdate()" 
-									class="btn btn-outline-success" type="button"><i class="fa fa-calculator"></i></button>
+									class="btn btn-success" type="button"><i class="fa fa-calculator"></i></button>
 							</span>
 						</div>
 					</div>

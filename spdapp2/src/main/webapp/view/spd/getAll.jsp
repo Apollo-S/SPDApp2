@@ -15,82 +15,68 @@
 
 	<form action="spd" method="get">
 		<input type="hidden" name="add">
-		<button type="submit" class="btn btn-success">
+		<button type="submit" class="btn btn-primary">
 			<i class="fa fa-plus"></i>
 			<c:out value=" Новый контрагент" />
 		</button>
 	</form>
 
 	<p>
-	<table class="table table-sm table-bordered table-hover">
-
-		<thead class="thead-default">
-			<tr>
-				<th class="text-center">ID</th>
-				<th class="text-center">ФИО</th>
-				<th class="text-center">ИНН</th>
-				<th class="text-center"></th>
-			</tr>
-		</thead>
-
-		<c:forEach items="${spds}" var="spd">
-			<tr>
-				<td class="text-center" onclick="goToAddress('${spd.url}')">${spd.id}</td>
-				<td class="text-center" onclick="goToAddress('${spd.url}')">${spd.alias}</td>
-				<td class="text-center" onclick="goToAddress('${spd.url}')">${spd.inn}</td>
-				<td class="text-center">
-					<div class="d-flex justify-content-start">
-						<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-							<div class="btn-group mr-2" role="group" aria-label="Third group">
-
-								<div class="dropdown">
-									<button class="btn btn-info dropdown-toggle btn-sm" type="button" id="dropdownMenuButtonSpd${spd.id}"
-										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fa fa-file-text-o"></i> Документы
-									</button>
-
-									<div class="dropdown-menu" aria-labelledby="dropdownMenuButtonSpd${spd.id}">
-
-									
-
-									<c:forEach var="agreement" items="${spd.agreements}">
-														<a class="dropdown-item" href="${agreement.url}">Договор № <c:out value="${agreement.number}" /> от <fmt:formatDate
-																value="${agreement.dateStart}" pattern="dd.MM.yyyy" />г.
-														</a>
-
-														<c:forEach var="specification" items="${agreement.specifications}">
-															<a class="dropdown-item" href="${specification.url}">Спец. № <c:out
-																	value="${specification.specificationNumber}" /> от <fmt:formatDate value="${specification.dateStart}"
-																	pattern="dd.MM.yyyy" />г.
-															</a>
-														</c:forEach>
-														<div class="dropdown-divider"></div>
-
-													</c:forEach>
-
-												</div>
-											</div>
+	<div class="row">
+		<div class="col">
+			<table class="table table-sm table-hover">
+			
+				
+				<c:set var="totalSpdCount" />
+				
+				<thead class="thead-default">
+					<tr>
+						<th class="text-center">ID</th>
+						<th class="text-center">ФИО</th>
+						<th class="text-center">ИНН</th>
+						<th class="text-center"></th>
+					</tr>
+				</thead>
+		
+				<c:forEach items="${spds}" var="spd">
+					<tr>
+						<td class="text-center" onclick="goToAddress('${spd.url}')"><c:out value="${spd.id}" /></td>
+						<td class="text-center" onclick="goToAddress('${spd.url}')"><c:out value="${spd.surname} ${spd.firstname} ${spd.lastname}" /></td>
+						<td class="text-center" onclick="goToAddress('${spd.url}')"><c:out value="${spd.inn}" /></td>
+						<td class="text-center">
+							<div class="d-flex justify-content-end">
+								<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+		
+										<div class="btn-group mr-2" role="group" aria-label="First group">
+											<a class="btn btn-success btn-sm" href="${spd.url}" role="button"><i class="fa fa-edit"></i> Подробнее</a>
+										</div>
+										<div class="btn-group mr-2" role="group" aria-label="Second group">
+											<form action="spd" method="post">
+												<input type="hidden" name="delete"> <input type="hidden" name="id" value="${spd.id}">
+												<sec:csrfInput />
+												<button type="submit" class="btn btn-danger btn-sm">
+													<i class="fa fa-trash-o"></i> Удалить
+												</button>
+											</form>
+										</div>
+		
+									</div>
 								</div>
-
-								<div class="btn-group mr-2" role="group" aria-label="First group">
-									<a class="btn btn-success btn-sm" href="${spd.url}" role="button"><i class="fa fa-edit"></i> Подробнее</a>
-								</div>
-								<div class="btn-group mr-2" role="group" aria-label="Second group">
-									<form action="spd" method="post">
-										<input type="hidden" name="delete"> <input type="hidden" name="id" value="${spd.id}">
-										<sec:csrfInput />
-										<button type="submit" class="btn btn-danger btn-sm">
-											<i class="fa fa-trash-o"></i> Удалить
-										</button>
-									</form>
-								</div>
-
-							</div>
-						</div>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
+						</td>
+					</tr>
+					<c:set var="totalSpdCount" value="${totalSpdCount + 1}" />
+				</c:forEach>
+				<thead class="thead-default">
+					<tr>
+						<th class="text-center">Всего: <fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${totalSpdCount}" /></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
 
 </div>
 

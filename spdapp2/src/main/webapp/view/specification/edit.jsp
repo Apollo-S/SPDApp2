@@ -191,7 +191,7 @@
 			</div>
 			<p>	
 			
-			<table class="table table-sm table-bordered table-hover text-right">
+			<table class="table table-sm table-hover text-right">
 				<thead class="thead-default">
 					<tr>
 						<th class="text-center">№ п/п</th>
@@ -300,7 +300,7 @@
 				</div>
 			</div>
 			<p>
-			<table class="table table-sm table-bordered table-hover text-right">
+			<table class="table table-sm table-hover">
 			
 				<c:set var="configuringHoursAmount" />
 				<c:set var="programmingHoursAmount" />
@@ -487,7 +487,7 @@
 				</div>
 			</div>
 			<p>
-			<table class="table table-sm table-bordered table-hover text-right">
+			<table class="table table-sm table-hover">
 			
 				<c:set var="totalPaymentSum" />
 				<c:set var="totalPaymentDays" />

@@ -121,7 +121,10 @@
 			
 			<p>
 			
-			<table class="table table-sm table-bordered table-hover">
+			<table class="table table-sm table-hover">
+			
+				<c:set var="totalAgreementCount" />
+			
 				<thead class="thead-default">
 					<tr>
 						<th class="text-center">Номер</th>
@@ -136,7 +139,7 @@
 						<td class="text-center" onclick="goToAddress('${agreement.url}')"><fmt:formatDate value="${agreement.dateStart}" pattern="dd.MM.yyyy" /></td>
 						<td class="text-center" onclick="goToAddress('${agreement.url}')"><c:out value="${agreement.company.title}" /></td>
 						<td class="text-center">
-							<div class="d-flex justify-content-center">
+							<div class="d-flex justify-content-end">
 								<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 									<div class="btn-group mr-2" role="group" aria-label="First group">
 										<a class="btn btn-success btn-sm" href="${agreement.url}" role="button"><i class="fa fa-edit"></i> Подробнее</a>
@@ -153,7 +156,16 @@
 							</div>
 						</td>
 					</tr>
+					<c:set var="totalAgreementCount" value="${totalAgreementCount + 1}" />
 				</c:forEach>
+				<thead class="thead-default">
+					<tr>
+						<th class="text-center">Всего: <fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${totalAgreementCount}" /></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
 			</table>
 		</div>
 		
@@ -212,7 +224,10 @@
 				</div>
 			</div>
 			<p>
-			<table class="table table-sm table-bordered table-hover">
+			<table class="table table-sm table-hover">
+				
+				<c:set var="totalAccountCount" />
+				
 				<thead class="thead-default">
 					<tr>
 						<th class="text-center">Номер счета</th>
@@ -228,7 +243,7 @@
 						<td class="text-center" onclick="${openModal}">${account.mfo}</td>
 						<td class="text-center" onclick="${openModal}">${account.bankName}</td>
 						<td class="text-center">
-							<div class="d-flex justify-content-center">
+							<div class="d-flex justify-content-end">
 								<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 									<div class="btn-group mr-2" role="group" aria-label="First group">
 										<!-- Button trigger modal -->
@@ -293,7 +308,16 @@
 							</div>
 						</td>
 					</tr>
+					<c:set var="totalAccountCount" value="${totalAccountCount + 1}" />
 				</c:forEach>
+				<thead class="thead-default">
+					<tr>
+						<th class="text-center">Всего: <fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${totalAccountCount}" /></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
 			</table>
 		</div>
 		
@@ -364,14 +388,17 @@
 				</div>
 			</div>
 			<p>
-			<table class="table table-sm table-bordered table-hover">
+			<table class="table table-sm table-hover">
+				
+				<c:set var="totalPaymentCount" />
+				
 				<thead class="thead-default">
 					<tr>
 						<th class="text-center" rowspan="2">Наименование</th>
 						<th class="text-center" rowspan="2">Сумма</th>
 						<th class="text-center" rowspan="1">Действует с</th>
 						<th class="text-center" rowspan="1">Действует по</th>
-						<th class="text-center" rowspan="2">Действия</th>
+						<th class="text-center" rowspan="2"></th>
 					</tr>
 				</thead>
 				<c:forEach items="${spd.payments}" var="payment">
@@ -392,7 +419,7 @@
 						<td class="text-center" onclick="${openModal}"><fmt:formatDate pattern="dd.MM.yyyy" value="${payment.dateStart}" /></td>
 						<td class="text-center" onclick="${openModal}"><fmt:formatDate pattern="dd.MM.yyyy" value="${payment.dateFinish}" /></td>
 						<td class="text-center">
-							<div class="d-flex justify-content-center">
+							<div class="d-flex justify-content-end">
 								<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 									<div class="btn-group mr-2" role="group" aria-label="First group">
 										<!-- Button trigger modal -->
@@ -475,7 +502,17 @@
 							</div>
 						</td>
 					</tr>
+					<c:set var="totalPaymentCount" value="${totalPaymentCount + 1}" />
 				</c:forEach>
+				<thead class="thead-default">
+					<tr>
+						<th class="text-center">Всего: <fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${totalPaymentCount}" /></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
 			</table>
 		</div>
 		
