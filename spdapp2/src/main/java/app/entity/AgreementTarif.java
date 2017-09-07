@@ -25,13 +25,13 @@ public class AgreementTarif extends UrlEntity implements Serializable {
 	@JsonBackReference
 	private Agreement agreement;
 
-	@Column(name = "configuring")
+	@Column(name = "configuring", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
 	private Double configuring;
 
-	@Column(name = "programming")
+	@Column(name = "programming", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
 	private Double programming;
 
-	@Column(name = "architecting")
+	@Column(name = "architecting", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
 	private Double architecting;
 
 	@Temporal(TemporalType.DATE)

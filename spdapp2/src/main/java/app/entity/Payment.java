@@ -31,7 +31,7 @@ public class Payment extends UrlEntity implements Serializable {
 	@JoinColumn(name = "payment_type_id")
 	private PaymentType paymentType;
 
-	@Column(name = "value")
+	@Column(name = "value", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
 	private Double value;
 
 	@Temporal(TemporalType.DATE)

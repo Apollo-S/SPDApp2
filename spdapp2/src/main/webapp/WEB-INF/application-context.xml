@@ -67,24 +67,6 @@
 				<property name="showSql" value="${db.show_sql}" />
 			</bean>
 		</property>
-
-<!-- 		<property name="packagesToScan" value="app" />
-		<property name="dataSource" ref="dataSource" />
-		<property name="jpaVendorAdapter">
-			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="generateDdl" value="true" />
-			</bean>
-		</property>
-		<property name="jpaProperties">
-			<props>
-				<prop key="hibernate.hbm2ddl.auto">${db.hbm2ddl}</prop>
-				<prop key="hibernate.dialect">${db.dialect}</prop>
-				<prop key="hbm2ddl.import_files">import.sql</prop>
-				<prop key="hibernate.jdbc.fetch_size">${db.fetch_size}</prop>
-				<prop key="hibernate.jdbc.batch_size">${db.batch_size}</prop>
-				<prop key="hibernate.show_sql">${db.show_sql}</prop>
-			</props>
-		</property> -->
 	</bean>
 
 	<bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"

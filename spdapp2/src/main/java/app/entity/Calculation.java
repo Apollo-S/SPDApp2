@@ -15,8 +15,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name = "specification_calculation")
 public class Calculation extends UrlEntity implements Serializable {
-	
-	private static final String DECIMAL_10_2_DEFAULT_0_00 = "Decimal(10,2) default '0.00'";
 
 	private static final long serialVersionUID = 1L;
 

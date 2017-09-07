@@ -18,7 +18,7 @@ public class MainController {
 	@Autowired(required = true)
 	private SPDRepository spdRepository;
 	
-	@RequestMapping(value = { "/", "main" }, method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "main"}, method = RequestMethod.GET)
 	public String goMain(Model model) {
 		logger.info("<== Entering to the getAllSPD() method ==>");
 		model.addAttribute("spds", spdRepository.findAll());

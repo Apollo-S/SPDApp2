@@ -14,6 +14,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public abstract class BaseEntity {
 
+	public static final String DECIMAL_10_2_DEFAULT_0_00 = "Decimal(10,2) default '0.00'";
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "id")

@@ -24,7 +24,7 @@ public class SpecificationPayment extends UrlEntity implements Serializable {
 	@Column(name = "payment_number")
 	private Integer paymentNumber;
 
-	@Column(name = "payment_sum", columnDefinition="Decimal(10,2) default '0.00'")
+	@Column(name = "payment_sum", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
 	private Double paymentSum;
 
 	@Column(name = "payment_days")

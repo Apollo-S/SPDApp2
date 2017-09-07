@@ -67,13 +67,15 @@ public class AgreementController extends BaseController {
 		return "agreement/edit";
 	}
 
-	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT, params = PARAM_ADD, method = RequestMethod.POST) // TODO Add new tarif when new agreement is adding, with the same date
+	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT, params = PARAM_ADD, method = RequestMethod.POST)
 	public String postAddAgreement(@RequestParam int spdId, @RequestParam String number, @RequestParam Date dateStart) {
 		logger.info("<== Enter to 'postAddAgreement()' method ... ==>");
 		SPD spd = spdRepository.findOne(spdId);
 		logger.info("<== Saving new 'Agreement' for 'SPD='" + spd.getAlias() + "' ==>");
 		Agreement agreement = new Agreement(spd, number, dateStart);
 		agreement = agreementRepository.save(agreement);
+		logger.info("<== Adding default zero tarif for new agreement with ID=" + agreement.getId() + " ==>");
+		postAddAgreementTarif(agreement.getId(), 0d, 0d, 0d, dateStart);
 		logger.info("<== Saving new 'Agreement' with ID=" + agreement.getId() + " for 'SPD=" + spd.getAlias() + "' was successful ==>");
 		logger.info("<== Out of 'postAddAgreement()' method ... ==>");
 		return "redirect:" + agreement.getUrl();

@@ -13,7 +13,7 @@ TRUNCATE `spd`;
 INSERT INTO `spd` (`id`, `surname`, `firstname`, `lastname`, `alias`, `inn`, `passport`, `address_id`, `registration_info_id`, `optlock`)
 VALUES
 	(1, 'Пушкін', 'Олександр', 'Сергійович', 'Пушкін О.С.', '2164704018', NULL, 1, 1, 1),
-	(2, 'Путін', 'Володимир', 'Володимирович', 'Путін В.В.', '2430666666', NULL, 7, 2, 0),
+	(2, 'Распутін', 'Григорій', 'Володимирович', 'Распутін Г.В.', '2430666666', NULL, 7, 2, 0),
 	(3, 'Шевченко', 'Тарас', 'Григорович', 'Шевченко Т.Г.', '2150315258', NULL, 6, 3, 0);
 
 TRUNCATE `account`;
@@ -79,7 +79,8 @@ INSERT INTO `agreement` (`id`, `spd_id`, `company_id`, `number`, `date_start`, `
 VALUES
 	(1, 1, 1, '02/13-01', '2013-02-04', 0),
 	(2, 2, 1, '02/13-04', '2013-02-07', 0),
-	(11, 3, 1, '02/13-03', '2013-02-04', 0);
+	(11, 3, 1, '02/13-03', '2013-02-04', 0),
+	(12, 1, 2, '02/13-05', '2013-06-04', 0);
 
 TRUNCATE `agreement_tarif`;
 INSERT INTO `agreement_tarif` (`id`, `agreement_id`, `configuring`, `programming`, `architecting`, `date_start`, `optlock`)
@@ -87,7 +88,8 @@ VALUES
 	(1, 1, 90, 110, 130, '2013-02-04', 0),
 	(3, 2, 75, 90, 110, '2013-02-07', 0),
 	(10, 11, 110, 135, 160, '2013-02-04', 0),
-	(19, 11, 220, 275, 350, '2015-10-01', 0);
+	(19, 11, 220, 275, 350, '2015-10-01', 0),
+	(20, 12, 220, 275, 350, '2013-06-04', 0);
 
 TRUNCATE `company`;
 INSERT INTO `company` (`id`, `title`, `edrpou`, `inn`, `vat_certificate`, `optlock`)
@@ -151,7 +153,8 @@ VALUES
 	(17, 11, 2, '2013-03-05', '2013-04-26', 22620.0000000000, 85, 58, 34, 0),
 	(21, 1, 3, '2013-04-30', '2013-05-31', 8560.0000000000, 48, 22, 14, 0),
 	(34, 2, 3, '2013-04-30', '2013-05-31', 6440.0000000000, 60, 13, 7, 0),
-	(49, 11, 3, '2013-04-29', '2013-05-31', 10680.0000000000, 10, 20, 43, 0);
+	(49, 11, 3, '2013-04-29', '2013-05-31', 10680.0000000000, 10, 20, 43, 0),
+	(50, 12, 1, '2013-06-04', NULL, 0.00, 0, 0, 0, 0);
 
 TRUNCATE `specification_calculation`;
 INSERT INTO `specification_calculation` (`id`, `specification_id`, `date_start`, `part_number`, `opening_balance`, `esv`, `salary_rate`, `premium`, `rent`, `surcharge`, `card_service_fee`, `account_service_fee`, `simple_tax`, `withdraw_cash_comission`, `closing_balance`, `turnover`, `money_on_hand`, `money_transfer`, `withdraw_cash`, `optlock`)

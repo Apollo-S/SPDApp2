@@ -53,7 +53,7 @@ public class SpecificationController {
 		logger.info("<== Finding next number for future Calculation ... ==>");
 		int nextCalculationNumber = calculationRepository.findMaxCalculationNumberBySpecificationId(id);
 		model.addAttribute("nextCalculationNumber", nextCalculationNumber + 1);
-		AgreementTarif currentTarif = tarifRepository.findAgreementTarifBySpecificationId(specification.getId()); // TODO Crashes if there is no any tarif. Need to create error page or page with adding new tarifs.
+		AgreementTarif currentTarif = tarifRepository.findAgreementTarifBySpecificationId(specification.getId());
 		logger.info("<== Got 'currentTarif' with ID=" + currentTarif.getId() + " ==>");
 		model.addAttribute("currentTarif", currentTarif);
 		logger.info("<== Out of 'getEditSpecification()' method ... ==>");

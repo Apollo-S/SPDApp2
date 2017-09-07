@@ -42,9 +42,7 @@
 			data-source-ref="dataSource"
 			token-validity-seconds="18000"
 			remember-me-parameter="remember-me"
-			user-service-ref="customUserDetailsService"
-		/>
-<!-- 		<security:csrf/> -->
+			user-service-ref="customUserDetailsService" />
 
 	</security:http>
 

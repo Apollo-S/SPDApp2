@@ -18,7 +18,7 @@ public class ESVTax extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "value")
+	@Column(name = "value", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
 	private Double value;
 
 	@Temporal(TemporalType.DATE)
