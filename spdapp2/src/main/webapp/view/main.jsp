@@ -45,29 +45,6 @@
 							
 							<c:forEach items="${spd.agreements}" var="agreement">
 							
-								<%-- <div class="alert alert-dark text-center" role="alert">
-									<a class="alert-link" href="${agreement.url}">
-										<strong>Договор № <c:out value="${agreement.number}" /> от <fmt:formatDate
-											value="${agreement.dateStart}" pattern="dd.MM.yyyy" />г.
-										</strong>
-									</a>
-								</div> --%>
-								
-								<!-- <div class="row">
-									<div class="col-6">
-										<div class="alert alert-dark text-center" role="alert">
-											<strong>Спецификации</strong>
-										</div>
-									</div>
-									<div class="col-6">
-										<div class="alert alert-dark text-center" role="alert">
-											<strong>Расчеты</strong>
-										</div>
-									</div>
-								</div> -->
-								
-								
-								
 								<table class="table table-sm table-bordered">
 							
 									<thead>
@@ -118,48 +95,17 @@
 												</c:forEach>
 											</td>
 										<tr>
-										
-										<%-- <div class="row">
-											<div class="col-6">
-												<div class="alert alert-warning text-center" role="alert">
-													<a href="${specification.url}" class="alert-link">
-													<strong>Спецификация № <c:out value="${specification.specificationNumber}" /> от <fmt:formatDate 
-														value="${specification.dateStart}" pattern="dd.MM.yyyy" />г.
-													</strong>
-												</a>
-												</div>
-											</div>
-											<div class="col-6">
-												<div class="alert alert-primary text-center" role="alert">
-													<c:forEach var="calculation" items="${specification.calculations}">
-													<a href="${calculation.url}" class="alert-link">
-														<strong>Расчет № <c:out value="${calculation.partNumber}" /> от <fmt:formatDate 
-															value="${calculation.dateStart}" pattern="dd.MM.yyyy" />г.
-														</strong>
-													</a>
-													<br>
-												</c:forEach>
-												</div>
-											</div>
-										</div> --%>
-										
-										
 									</c:forEach>
-									
 								</table>
-								
 								<br>
-								
 							</c:forEach>
 						</div>
-						
 					</c:forEach>
 				</div>
 			</div>
 		</div>
 
 		<br>
-		
 	
 </div>
 
