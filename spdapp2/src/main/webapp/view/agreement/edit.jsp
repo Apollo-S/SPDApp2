@@ -131,6 +131,7 @@
 		<table class="table table-sm table-hover">
 			
 			<c:set var="totalAgreementCount" />
+			<c:set var="totalAgreementAmount" />
 			
 			<thead class="thead-default">
 				<tr>
@@ -169,6 +170,7 @@
 						</div>		
 					</td>
 				</tr>
+				<c:set var="totalAgreementAmount" value="${totalAgreementAmount + specification.specificationSum}"/>
 				<c:set var="totalAgreementCount" value="${totalAgreementCount + 1}" />
 				</c:forEach>
 				<thead class="thead-default">
@@ -176,7 +178,7 @@
 						<th class="text-center">Всего: <fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${totalAgreementCount}" /></th>
 						<th></th>
 						<th></th>
-						<th></th>
+						<th class="text-center"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${totalAgreementAmount}" /></th>
 						<th></th>
 					</tr>
 				</thead>

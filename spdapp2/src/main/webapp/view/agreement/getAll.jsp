@@ -1,6 +1,7 @@
 <%@ page session="false" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 
 <jsp:include page="../header.jsp" />
 
@@ -14,42 +15,69 @@
 	
 	<form action="agreement" method="get">
 		<input type="hidden" name="add"> 
-		<button type="submit" class = "btn btn-success">Новый договор !!!</button>
+		<button type="submit" class = "btn btn-primary">
+			<i class="fa fa-plus"></i>
+			<c:out value=" Новый договор" />
+		</button>
 	</form>
 	
 	<p>
 
-	<table class="table table-sm table-bordered table-hover">
-		<thead class="thead-inverse">
-			<tr align="center">
-				<th>ID</th>
-				<th>СПД</th>
-				<th>Номер договора</th>
-				<th>Дата</th>
-				<th>Подробнее/Удалить</th>
+	<table class="table table-sm table-hover">
+		<thead class="thead-default">
+			<tr>
+				<th class="text-center align-middle">ID</th>
+				<th class="text-center align-middle">СПД</th>
+				<th class="text-center align-middle">Номер договора</th>
+				<th class="text-center align-middle">Дата</th>
+				<th></th>
 			</tr>
 		</thead>
 
 		<c:forEach items="${agreements}" var="agreement">
+		
+			<c:set var="totalAgreementCount"/>
 			<c:set var="spd" value="${agreement.spd}"/>
 			<tr>
-				<td>${agreement.id}</td>
-				<td>${spd.alias}</td>
-				<td>${agreement.number}</td>
-				<td>${agreement.dateStart}</td>
+				<td class="text-center align-middle">${agreement.id}</td>
+				<td class="text-center align-middle">${spd.alias}</td>
+				<td class="text-center align-middle">${agreement.number}</td>
+				<td class="text-center align-middle">
+					<fmt:formatDate pattern="dd.MM.yyyy" value="${agreement.dateStart}" />
+				</td>
 				<td>
-					<div class="btn-group" role="group">
-						<a class="btn btn-warning btn-sm" href="${agreement.url}" role="button">Подробнее</a>
-						<form action="spd" method="post">
-							<input type="hidden" name="delete"> 
-							<input type="hidden" name="id" value="${spd.id}"> 
-							<sec:csrfInput/>
-							<button type="submit" class="btn btn-danger btn-sm">Удалить</button>
-						</form>
+					<div class="d-flex justify-content-end">
+						<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+							<div class="btn-group mr-2" role="group" aria-label="First group">
+								<a class="btn btn-success btn-sm" href="${agreement.url}" role="button">
+									<i class="fa fa-edit"></i> Подробнее
+								</a>
+							</div>
+							<div class="btn-group mr-2" role="group" aria-label="Second group">
+								<form action="spd" method="post">
+									<input type="hidden" name="delete"> 
+									<input type="hidden" name="id" value="${spd.id}"> 
+									<sec:csrfInput/>
+									<button type="submit" class="btn btn-danger btn-sm">
+										<i class="fa fa-trash-o"></i> Удалить
+									</button>
+								</form>
+							</div>
+						</div>
 					</div>
 				</td>
 			</tr>
+			<c:set var="totalAgreementCount" value="${totalAgreementCount + 1}" />
 		</c:forEach>
+		<thead class="thead-default">
+			<tr>
+				<th class="text-center">Всего: <fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${totalAgreementCount}" /></th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
 	</table>
 
 </div>

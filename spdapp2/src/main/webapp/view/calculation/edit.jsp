@@ -70,8 +70,8 @@
 				<div class="form-group row">
 					<label for="openingBalance" class="col-6 col-form-label"><b>Сальдо на начало</b></label>
 					<div class="col-6">
-						<input type="text" style="font-weight: bold;" class="form-control text-right" id="openingBalance" name="openingBalance" 
-							value=<fmt:formatNumber value="${calculation.openingBalance}" minFractionDigits="2" maxFractionDigits="2"/> readonly>
+						<input type="text" readonly style="font-weight: bold;" class="form-control text-right" id="openingBalance" name="openingBalance" 
+							value=<fmt:formatNumber value="${calculation.openingBalance}" minFractionDigits="2" maxFractionDigits="2"/>>
 					</div>
 				</div>
 			</div>
@@ -125,8 +125,8 @@
 				<div class="form-group row">
 					<label for="simpleTax" class="col-6 col-form-label text-left"><b>Единый налог <fmt:formatNumber type="percent" value="${simpleTaxRate}"/></b></label>
 					<div class="col-6">
-						<input type="text" style="font-weight: bold;" class="form-control text-right" id="simpleTax" name="simpleTax"
-							value=<fmt:formatNumber value="${calculation.simpleTax}" minFractionDigits="2" maxFractionDigits="2"/> readonly>
+						<input type="text" readonly style="font-weight: bold;" class="form-control text-right" id="simpleTax" name="simpleTax"
+							value=<fmt:formatNumber value="${calculation.simpleTax}" minFractionDigits="2" maxFractionDigits="2"/>>
 					</div>
 				</div>
 			</div>	
@@ -287,8 +287,8 @@
 				<div class="form-group row">
 					<label for="closingBalance" class="col-6 col-form-label"><b>Сальдо на конец</b></label>
 					<div class="col-6">
-						<input type="text" style="font-weight: bold;" class="form-control text-right" id="closingBalance" name="closingBalance" 
-							value=<fmt:formatNumber value="${calculation.closingBalance}" minFractionDigits="2" maxFractionDigits="2"/> readonly>
+						<input type="text" readonly style="font-weight: bold;" class="form-control text-right" id="closingBalance" name="closingBalance" 
+							value=<fmt:formatNumber value="${calculation.closingBalance}" minFractionDigits="2" maxFractionDigits="2"/>>
 					</div>
 				</div>
 			</div>
@@ -298,29 +298,29 @@
 			<div class="col-3">
 				<div class="input-group">
 					<span class="input-group-addon" id="basic-addon1"><b>&sum; к перечислению</b></span>
-					<input type="text" style="font-weight: bold;" class="form-control text-right" id="turnover" name="turnover"
-						value=<fmt:formatNumber value="${calculation.turnover}" minFractionDigits="2" maxFractionDigits="2"/> readonly>
+					<input type="text" readonly style="font-weight: bold;" class="form-control text-right" id="turnover" name="turnover"
+						value=<fmt:formatNumber value="${calculation.turnover}" minFractionDigits="2" maxFractionDigits="2"/>>
 				</div>
 			</div>
 			<div class="col-3">
 				<div class="input-group">
 					<span class="input-group-addon" id="basic-addon1"><b>На руки</b></span>
-					<input type="text" style="font-weight: bold;" class="form-control text-right" id="moneyOnHand" name="moneyOnHand"
-						value=<fmt:formatNumber value="${calculation.moneyOnHand}" minFractionDigits="2" maxFractionDigits="2"/> readonly>
+					<input type="text" readonly style="font-weight: bold;" class="form-control text-right" id="moneyOnHand" name="moneyOnHand"
+						value=<fmt:formatNumber value="${calculation.moneyOnHand}" minFractionDigits="2" maxFractionDigits="2"/>>
 				</div>
 			</div>
 			<div class="col-3">
 				<div class="input-group">
 					<span class="input-group-addon" id="basic-addon1"><b>На карту СПД</b></span>
-					<input type="text" style="font-weight: bold;" class="form-control text-right" id="moneyTransfer" name="moneyTransfer"
-						value=<fmt:formatNumber value="${calculation.moneyTransfer}" minFractionDigits="2" maxFractionDigits="2"/> readonly>
+					<input type="text" readonly style="font-weight: bold;" class="form-control text-right" id="moneyTransfer" name="moneyTransfer"
+						value=<fmt:formatNumber value="${calculation.moneyTransfer}" minFractionDigits="2" maxFractionDigits="2"/>>
 				</div>
 			</div>
 			<div class="col-3">
 				<div class="input-group">
 					<span class="input-group-addon" id="basic-addon1"><b>Сумма снятия</b></span>
-					<input type="text" style="font-weight: bold;" class="form-control text-right" id="withdrawCash" name="withdrawCash"
-						value=<fmt:formatNumber value="${calculation.withdrawCash}" minFractionDigits="2" maxFractionDigits="2"/> readonly>
+					<input type="text" readonly style="font-weight: bold;" class="form-control text-right" id="withdrawCash" name="withdrawCash"
+						value=<fmt:formatNumber value="${calculation.withdrawCash}" minFractionDigits="2" maxFractionDigits="2"/>>
 				</div>
 			</div>
 		</div>

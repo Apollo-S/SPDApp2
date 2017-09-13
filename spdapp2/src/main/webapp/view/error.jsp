@@ -15,38 +15,12 @@
 		
 		<div class="row">
 			<div class="col text-center">
-				<button class="btn btn-danger" onclick="goBack()">Налево</button>
-				<strong> = Сюда пойдешь - назад прийдешь, направо пойдешь - к СПД в лапы попадешь</strong>
-				<button class="btn btn-danger" href="spds" role="button">Направо</button>
+				Return back => 
+				<button class="btn btn-danger btn-lg" onclick="goBack()">Go Back</button>
 			</div>
 		</div>
-		
-		<p class="lead text-center">
-			<button class="btn btn-danger" onclick="goBack()">Налево</button>
-			<strong>Налево пойдешь - назад попадешь, </strong>
-		</p>
-		<p class="lead text-center">
-			<strong>Направо пойдешь - к СПД в лапы попадешь, </strong>
-			<button class="btn btn-danger" onclick="goBack()">Направо</button>
-		</p>
-		<p class="lead">
-			<a class="btn btn-primary btn-lg" onclick="goBack()" href="#" role="button">Просмотреть всех СПД</a>
-		</p>
 	</div>
 	
-
-
-	<div class="row">
-		<div class="col text-center">
-		Oops!!! Error...
-	
-	Return back => <button class="btn btn-danger" onclick="goBack()">Go Back</button>
-		</div>
-		
-	
-	</div>
-	
-
 </div> <!-- .container-fluid -->
 	
 <!-- footer -->

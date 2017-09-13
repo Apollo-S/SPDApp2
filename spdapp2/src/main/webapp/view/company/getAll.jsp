@@ -105,9 +105,11 @@
 									<input type="hidden" name="delete"> 
 									<input type="hidden" name="id" value="${company.id}"> 
 									<sec:csrfInput/>
-									<button type="submit" class="btn btn-danger btn-sm">
-										<i class="fa fa-trash-o"></i> Удалить
-									</button>
+									<sec:authorize access="hasRole('ROLE_ADMIN')" >
+										<button type="submit" class="btn btn-danger btn-sm">
+											<i class="fa fa-trash-o"></i> Удалить
+										</button>
+									</sec:authorize>
 								</form>
 							</div>
 						</div>

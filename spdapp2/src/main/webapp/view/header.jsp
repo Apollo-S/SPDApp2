@@ -18,7 +18,7 @@
 
 <body style="background-color: #FFFFFF;">
 
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #00477e;"> <!-- colour: MidnightBlue -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #00477e;"> <!-- colour: MidnightBlue -->
 
 	<sec:authorize access="authenticated" var="authenticated" />
 		
@@ -53,10 +53,12 @@
 									<a class="dropdown-item" href="agreements">Договоры с СПД</a>
 								</div>
 							</li>
-							<li class="nav-item active">
-								<c:url value="/users" var="urlUsers"></c:url>
-								<a class="nav-item nav-link" href="${urlUsers}"><i class="fa fa-users"></i> Пользователи</a>
-							</li>
+							<sec:authorize access="hasRole('ROLE_ADMIN')" >
+								<li class="nav-item active">
+									<c:url value="/users" var="urlUsers"></c:url>
+									<a class="nav-item nav-link" href="${urlUsers}"><i class="fa fa-users"></i> Пользователи</a>
+								</li>
+							</sec:authorize>
 							<li class="nav-item active">
 								<c:url value="/about" var="urlAbout"></c:url>
 								<a class="nav-item nav-link" href="${urlAbout}"><i class="fa fa-info-circle"></i> Инфо</a>
@@ -93,4 +95,4 @@
 			</c:choose>
 	</nav>
 	
-	<p>
+	<p class="p4">

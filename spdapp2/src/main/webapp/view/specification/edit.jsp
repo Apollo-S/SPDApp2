@@ -24,7 +24,8 @@
 					<a class="breadcrumb-item" href="${spd.url}">СПД <c:out	value="${spd.alias}" /></a> 
 					<a class="breadcrumb-item" href="${agreement.url}">Договор <c:out value="${agreement.number}" /></a> 
 					<span class="breadcrumb-item active"><b>Спецификация № <c:out value="${specification.specificationNumber}" /> от 
-														<fmt:formatDate	value="${specification.dateStart}" pattern="dd.MM.yyyy" />г.</b></span>
+						<fmt:formatDate	value="${specification.dateStart}" pattern="dd.MM.yyyy" />г.</b>
+					</span>
 				</div>
 			</div>
 			<p>
@@ -40,11 +41,14 @@
 							aria-haspopup="true" aria-expanded="false"><i class="fa fa-print"></i> Печать
 						</button>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<a class="dropdown-item" href="/spdapp2/specification/printpdf/spec?id=${specification.id}">Спецификация</a>
-							<a class="dropdown-item" href="/spdapp2/specification/printpdf/cert?id=${specification.id}">Акт вып. работ</a>
+							<a class="dropdown-item" href=<c:url value="/specification/printpdf/spec?id=${specification.id}"/>>
+								<i class="fa fa-file-pdf-o"></i> Спецификация
+							</a>
+							<a class="dropdown-item" href=<c:url value="/specification/printpdf/cert?id=${specification.id}"/>>
+								<i class="fa fa-file-pdf-o"></i> Акт вып. работ
+							</a>
 						</div>
 					</div>
-			
 				</div>
 			</div>
 		</nav>
@@ -191,7 +195,7 @@
 			</div>
 			<p>	
 			
-			<table class="table table-sm table-hover text-right">
+			<table class="table table-sm table-hover">
 				<thead class="thead-default">
 					<tr>
 						<th class="text-center">№ п/п</th>
@@ -309,7 +313,6 @@
 				
 				<thead class="thead-default">
 					<tr>
-						
 						<th class="text-center align-middle">Наименование</th>
 						<th class="text-center align-middle">Конфиг.</th>
 						<th class="text-center align-middle">Прогр. дораб.</th>
@@ -424,7 +427,7 @@
 						<th class="text-center align-middle"><fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${configuringHoursAmount}" /></th>
 						<th class="text-center align-middle"><fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${programmingHoursAmount}" /></th>
 						<th class="text-center align-middle"><fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${architectingHoursAmount}" /></th>
-						<th class="text-right align-middle"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${jobsSumAmount}" /></th>
+						<th class="text-center align-middle"><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${jobsSumAmount}" /></th>
 						<th></th>
 					</tr>
 				</thead>

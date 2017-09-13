@@ -4,7 +4,7 @@
 
 <jsp:include page="../header.jsp" />
 
-<title>Edit | СПД <c:out value="${spd.alias}" /></title>
+<title>Новый контрагент</title>
 
 <div class="container-fluid">
 
@@ -41,24 +41,24 @@
 					</h5>
 				</div>
 				<div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-					<div class="card-block">
+					<div class="card-body">
 						<div class="row">
-							<div class="col-sm">
+							<div class="col">
 								<label for="surname" class="col-sm"><b>Фамилия</b></label> <input type="text" class="form-control" id="surname"
 									name="surname" placeholder="Введите фамилию">
 							</div>
-							<div class="col-sm">
+							<div class="col">
 								<label for="firstname" class="col-sm"><b>Имя</b></label> <input type="text" class="form-control" id="firstname"
 									name="firstname" placeholder="Введите имя">
 							</div>
-							<div class="col-sm">
+							<div class="col">
 								<label for="lastname" class="col-sm"><b>Отчество</b></label> <input type="text" class="form-control"
 									id="lastname" name="lastname" placeholder="Введите отчество">
 							</div>
 						</div>
 						<p>
 						<div class="row">
-							<div class="col">
+							<div class="col-8">
 								<label for="alias"><b>Короткое ФИО</b></label> <input type="text" class="form-control" id="alias" name="alias"
 									placeholder="Введите короткое ФИО">
 							</div>
@@ -85,7 +85,7 @@
 					</h5>
 				</div>
 				<div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-					<div class="card-block">
+					<div class="card-body">
 						<div class="row">
 							<div class="col-3">
 								<label for="country"><b>Страна</b></label> <input type="text" class="form-control" id="country" name="country"
@@ -106,13 +106,14 @@
 								<label for="street"><b>Улица</b></label> <input type="text" class="form-control" id="street" name="street"
 									placeholder="Улица">
 							</div>
+							<div class="col-2"></div>
 							<div class="col-1">
 								<label for="building"><b>№ дома</b></label> <input type="text" class="form-control" id="building"
-									name="building" placeholder="Номер дома">
+									name="building" placeholder="№ дома">
 							</div>
 							<div class="col-1">
 								<label for="flat"><b>Квартира</b></label> <input type="text" class="form-control" id="flat" name="flat"
-									placeholder="Квартира">
+									placeholder="№ кв.">
 							</div>
 							<div class="col-2">
 								<label for="zip"><b>Индекс</b></label> <input type="text" class="form-control" id="zip" name="zip"
@@ -131,7 +132,7 @@
 					</h5>
 				</div>
 				<div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-					<div class="card-block">
+					<div class="card-body">
 						<div class="row">
 							<div class="col">
 								<label for="description"><b>Описание</b></label>
