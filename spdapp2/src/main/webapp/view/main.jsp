@@ -10,12 +10,12 @@
 <div class="container-fluid">
 	
 		<div class="row">
-			<div class="col-4">
+			<div class="col-3">
 				<div class="alert alert-dark" role="alert">
 					<h4 class="text-center"><strong>Предприниматели</strong></h4>
 				</div>
 			</div>
-			<div class="col-8">
+			<div class="col-9">
 				<div class="alert alert-dark" role="alert">
 					<h4 class="text-center"><strong>Документы</strong></h4>
 				</div>
@@ -25,7 +25,7 @@
 		<p>
 		
 		<div class="row">
-			<div class="col-4">
+			<div class="col-3">
 				<div class="list-group" id="list-tab" role="tablist">
 					<c:forEach items="${spds}" var="spd">
 					
@@ -36,7 +36,7 @@
 					</div>
 				
 			</div>
-			<div class="col-8">
+			<div class="col-9">
 				<div class="tab-content" id="nav-tabContent">
 					
 					<c:forEach items="${spds}" var="spd">
@@ -45,13 +45,16 @@
 							
 							<c:forEach items="${spd.agreements}" var="agreement">
 							
-								<table class="table table-sm table-bordered">
+								<c:set var="totalSpecificationCount" />
+								<c:set var="totalSpecificationAmount" />
+								
+								<table class="table table-sm ">
 							
 									<thead>
 										<tr>
-											<th class="text-center table-dark" colspan="2">
+											<th class="text-center table-dark" colspan="3">
 												<strong class="text-dark">Договор:</strong>
-												<a class="text-secondary" href="${agreement.url}">
+												<a class="text-danger" href="${agreement.url}">
 													<strong><c:out value="${agreement.number}" /> от <fmt:formatDate
 														value="${agreement.dateStart}" pattern="dd.MM.yyyy" />г.
 													</strong>
@@ -69,6 +72,9 @@
 													Расчеты
 												</strong>
 											</th>
+											<th class="text-center table-active">
+												<strong class="text-dark"></strong>
+											</th>
 										</tr>
 									</thead>
 									
@@ -78,8 +84,8 @@
 											<td class="text-center align-middle">
 												<a href="${specification.url}" class="text-success">
 													<strong>№ <c:out value="${specification.specificationNumber}" /> от <fmt:formatDate 
-														value="${specification.dateStart}" pattern="dd.MM.yyyy" />г. / &#931; =
-														<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${specification.specificationSum}" /> грн.
+														value="${specification.dateStart}" pattern="dd.MM.yyyy" />г. 
+														(<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${specification.specificationSum}" /> грн.)
 													</strong>
 												</a>
 											</td>
@@ -89,13 +95,40 @@
 														<strong>№ <c:out value="${calculation.partNumber}" /> за 
 															<fmt:formatDate value="${calculation.dateStart}" pattern="MMMM" />
 															<fmt:formatDate value="${calculation.dateStart}" pattern="yyyy" />г.
+															(<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${calculation.turnover}" /> грн.)
 														</strong>
 													</a>
 													<br>
 												</c:forEach>
 											</td>
+											<td class="text-right align-middle">
+											
+												<div class="dropdown">
+													<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+														aria-haspopup="true" aria-expanded="false"><i class="fa fa-print"></i> Печать
+													</button>
+													<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+														<a class="dropdown-item" href=<c:url value="/specification/printpdf/spec?id=${specification.id}"/>>
+															<i class="fa fa-file-pdf-o"></i> Спецификация
+														</a>
+														<a class="dropdown-item" href=<c:url value="/specification/printpdf/cert?id=${specification.id}"/>>
+															<i class="fa fa-file-pdf-o"></i> Акт вып. работ
+														</a>
+													</div>
+												</div>
+											
+											</td>
 										<tr>
+									<c:set var="totalSpecificationCount" value="${totalSpecificationCount + 1}" />
+									<c:set var="totalSpecificationAmount" value="${totalSpecificationAmount + specification.specificationSum}" />
 									</c:forEach>
+									<thead class="thead-default">
+										<tr>
+											<th class="text-center">Кол-во: <fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${totalSpecificationCount}" /></th>
+											<th class="text-center">Сумма всего: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${totalSpecificationAmount}" /> грн.</th>
+											<th></th>
+										</tr>
+									</thead>
 								</table>
 								<br>
 							</c:forEach>
