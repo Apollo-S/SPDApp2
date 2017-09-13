@@ -30,7 +30,7 @@ public class Calculation extends UrlEntity implements Serializable {
 	@Column(name = "part_number")
 	private Integer partNumber;
 	
-	@Column(name = "opening_balance", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
+	@Column(name = "opening_balance", nullable = false, columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
 	private Double openingBalance;
 	
 	@Column(name = "esv", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
