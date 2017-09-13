@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import app.repository.SPDRepository;
 
 @Controller
-public class MainController {
+public class MainController extends BaseController {
 
 	private static final Logger logger = LoggerFactory.getLogger(SPDController.class);
 	
 	@Autowired(required = true)
 	private SPDRepository spdRepository;
 	
-	@RequestMapping(value = {"/", "main"}, method = RequestMethod.GET)
+	@RequestMapping(value = {REQUEST_MAPPING_MAIN}, method = RequestMethod.GET)
 	public String goMain(Model model) {
 		logger.info("<== Entering to the getAllSPD() method ==>");
 		model.addAttribute("spds", spdRepository.findAll());

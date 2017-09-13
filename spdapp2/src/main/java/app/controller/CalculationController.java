@@ -18,7 +18,7 @@ import utils.BeanUtil;
 
 @Controller
 @Transactional
-public class CalculationController {
+public class CalculationController extends BaseController {
 
 	private static final Logger logger = LoggerFactory.getLogger(CalculationController.class);
 
@@ -28,7 +28,7 @@ public class CalculationController {
 	@Autowired(required = true)
 	private SpecificationRepository specificationRepository;
 	
-	@RequestMapping(value = "/calculation", method = RequestMethod.GET)
+	@RequestMapping(value = REQUEST_MAPPING_CALCULATION, method = RequestMethod.GET)
 	public String getEditCalculation(@RequestParam int id, Model model) {
 		logger.info("<== Enter to 'getEditCalculation()' method ... ==>");
 		Calculation calculation = calculationRepository.findOne(id);
@@ -47,13 +47,13 @@ public class CalculationController {
 	}
 
 	@Transactional
-	@RequestMapping(value = "/calculation", params = "add", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_CALCULATION, params = PARAM_ADD, method = RequestMethod.POST)
 	public String postAddCalculation(@RequestParam int specificationId, @RequestParam Integer partNumber,
 			@RequestParam Date dateStart) {
 		logger.info("<== Enter to 'postAddCalculation()' method ... ==>");
 		Specification specification = specificationRepository.findOne(specificationId);
 		logger.info("<== Saving new 'Calculation' for 'Specification='" + specification.getId() + "' ==>");
-		Double openingBalance = calculationRepository.findClosingBalanceOfLastCalculationByAgreementId(specification.getAgreement().getId());
+		Double openingBalance = BeanUtil.convertNullToDouble(calculationRepository.findClosingBalanceOfLastCalculationByAgreementId(specification.getAgreement().getId()));
 		logger.info("<== The value of 'openingBalance' is " + openingBalance + "' ==>");
 		Calculation calculation = new Calculation(specification, partNumber, dateStart, openingBalance);
 		calculation = calculationRepository.save(calculation);
@@ -72,7 +72,6 @@ public class CalculationController {
 		calculation.setAccountServiceFee(
 				calculationRepository.findActualRateByAliasAndCalculationId(calculationId, "accountServiceFee"));
 		logger.info("<== Account Service Fee = " + calculation.getAccountServiceFee() + " ==>");
-
 		calculation = calculationRepository.save(calculation);
 		logger.info("<== Saving new 'Calculation' with ID=" + calculation.getId() + " for 'Specification="
 				+ specification.getId() + "' was successful ==>");
@@ -80,7 +79,7 @@ public class CalculationController {
 		return "redirect:" + calculation.getUrl();
 	}
 
-	@RequestMapping(value = "/calculation", params = "edit", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_CALCULATION, params = PARAM_EDIT, method = RequestMethod.POST)
 	public String postEditCalculation(@RequestParam Integer id, @RequestParam Integer partNumber,
 			@RequestParam Date dateStart, @RequestParam String accountServiceFee, @RequestParam String cardServiceFee,
 			@RequestParam String closingBalance, @RequestParam String esv, @RequestParam String moneyOnHand,
@@ -120,7 +119,7 @@ public class CalculationController {
 		return "redirect:" + specification.getUrl();
 	}
 
-	@RequestMapping(value = "/calculation", params = "delete", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_CALCULATION, params = PARAM_DELETE, method = RequestMethod.POST)
 	public String postDeleteCalculation(@RequestParam int id) {
 		logger.info("<== Enter to 'postDeleteCalculation()' method ... ==>");
 		Calculation calculation = calculationRepository.findOne(id);

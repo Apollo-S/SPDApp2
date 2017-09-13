@@ -14,17 +14,19 @@ import app.entity.Agreement;
 import app.entity.AgreementTarif;
 import app.entity.Job;
 import app.entity.Specification;
+import app.entity.SpecificationPayment;
 import app.repository.AgreementRepository;
 import app.repository.AgreementTarifRepository;
 import app.repository.CalculationRepository;
 import app.repository.JobRepository;
+import app.repository.SpecificationPaymentRepository;
 import app.repository.SpecificationRepository;
 import utils.BeanUtil;
 
 @Controller
 @Transactional
-public class SpecificationController {
-
+public class SpecificationController extends BaseController {
+	
 	private static final Logger logger = LoggerFactory.getLogger(SpecificationController.class);
 
 	@Autowired(required = true)
@@ -41,8 +43,11 @@ public class SpecificationController {
 	
 	@Autowired(required = true)
 	private JobRepository jobRepository;
-
-	@RequestMapping(value = "/specification", method = RequestMethod.GET)
+	
+	@Autowired(required = true)
+	private SpecificationPaymentRepository specPaymentRepository;
+	
+	@RequestMapping(value = REQUEST_MAPPING_SPECIFICATION, method = RequestMethod.GET)
 	public String getEditSpecification(@RequestParam int id, Model model) {
 		logger.info("<== Enter to 'getEditSpecification()' method ... ==>");
 		Specification specification = specificationRepository.findOne(id);
@@ -60,7 +65,7 @@ public class SpecificationController {
 		return "specification/edit";
 	}
 
-	@RequestMapping(value = "/specification", params = "add", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_SPECIFICATION, params = PARAM_ADD, method = RequestMethod.POST)
 	public String postAddSpecification(@RequestParam Integer agreementId, @RequestParam Integer specificationNumber,
 			@RequestParam Date dateStart) {
 		logger.info("<== Enter to 'postAddSpecification()' method ... ==>");
@@ -74,7 +79,7 @@ public class SpecificationController {
 		return "redirect:" + specification.getUrl();
 	}
 
-	@RequestMapping(value = "/specification", params = "edit", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_SPECIFICATION, params = PARAM_EDIT, method = RequestMethod.POST)
 	public String postEditSpecification(@RequestParam Integer id, @RequestParam Integer specificationNumber,
 			@RequestParam String specificationSum, @RequestParam Date dateStart, @RequestParam Date dateFinish,
 			@RequestParam Integer configuringHours, @RequestParam Integer programmingHours,
@@ -92,24 +97,23 @@ public class SpecificationController {
 		specification.setProgrammingHours(programmingHours);
 		specification.setArchitectingHours(architectingHours);
 		specification = specificationRepository.save(specification);
-		logger.info("<== Updating of 'postEditSpecification' with ID=" + specification.getId() + " was successful ==>");
+		logger.info("<== Updating of 'Specification' with ID=" + specification.getId() + " was successful ==>");
 		logger.info("<== Out of 'postEditSpecification()' method ... ==>");
 		return "redirect:" + agreement.getUrl();
 	}
 
-	@RequestMapping(value = "/specification", params = "delete", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_SPECIFICATION, params = PARAM_DELETE, method = RequestMethod.POST)
 	public String postDeleteSpecification(@RequestParam int id) {
 		logger.info("<== Enter to 'postDeleteSpecification()' method ... ==>");
 		Specification specification = specificationRepository.findOne(id);
 		logger.info("<== Starting delete 'Specification' with ID=" + specification.getId() + " ==>");
-		Agreement agreement = specification.getAgreement();
 		specificationRepository.delete(specification);
 		logger.info("<== Deleting of 'Specification' with ID=" + specification.getId() + " was successful ==>");
 		logger.info("<== Out of 'postDeleteSpecification()' method ... ==>");
-		return "redirect:" + agreement.getUrl();
+		return "redirect:" + specification.getAgreement().getUrl();
 	}
 	
-	@RequestMapping(value = "/job", params = "add", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_JOB, params = PARAM_ADD, method = RequestMethod.POST)
 	public String postAddJob(@RequestParam Integer specificationId, @RequestParam String jobName,
 			@RequestParam Integer configuring, @RequestParam Integer programming, @RequestParam Integer architecting) {
 		logger.info("<== Enter to 'postAddJob()' method ... ==>");
@@ -121,6 +125,74 @@ public class SpecificationController {
 				+ specification.getSpecificationNumber() + " was successeful ==>");
 		logger.info("<== Out of 'postAddJob()' method ... ==>");
 		return "redirect:" + specification.getUrl();
+	}
+	
+	@RequestMapping(value = REQUEST_MAPPING_JOB, params = PARAM_EDIT, method = RequestMethod.POST)
+	public String postEditJob(@RequestParam Integer id, @RequestParam String jobName, @RequestParam Integer configuring, 
+			@RequestParam Integer programming, @RequestParam Integer architecting) {
+		logger.info("<== Enter to 'postEditJob()' method ... ==>");
+		Job job = jobRepository.findOne(id);
+		logger.info("<== Starting update 'Job' by ID=" + job.getId() + "' ==>");
+		job.setJobName(jobName);
+		job.setConfiguringHours(configuring);
+		job.setProgrammingHours(programming);
+		job.setArchitectingHours(architecting);
+		job = jobRepository.save(job);
+		logger.info("<== Updating of 'Job' with ID=" + job.getId() + " was successful ==>");
+		logger.info("<== Out of 'postEditJob()' method ... ==>");
+		return "redirect:" + job.getSpecification().getUrl();
+	}
+	
+	@RequestMapping(value = REQUEST_MAPPING_JOB, params = PARAM_DELETE, method = RequestMethod.POST)
+	public String postDeleteJob(@RequestParam int id) {
+		logger.info("<== Enter to 'postDeleteJob()' method ... ==>");
+		Job job = jobRepository.findOne(id);
+		logger.info("<== Starting delete 'Job' with ID=" + job.getId() + " ==>");
+		jobRepository.delete(job);
+		logger.info("<== Deleting of 'Job' with ID=" + job.getId() + " was successful ==>");
+		logger.info("<== Out of 'postDeleteJob()' method ... ==>");
+		return "redirect:" + job.getSpecification().getUrl();
+	}
+	
+	@RequestMapping(value = REQUEST_MAPPING_SPECIFICATIONPAYMENT, params = PARAM_ADD, method = RequestMethod.POST)
+	public String postAddSpecPayment(@RequestParam Integer specificationId, @RequestParam Integer paymentNumber,
+			@RequestParam Double paymentSum, @RequestParam Integer paymentDays, @RequestParam String comment) {
+		logger.info("<== Enter to 'postAddSpecPayment()' method ... ==>");
+		Specification specification = specificationRepository.findOne(specificationId);
+		logger.info("<== Adding new 'SpecificationPayment' for 'Specification='" + specification.getSpecificationNumber() + "' ==>");
+		SpecificationPayment specPayment = new SpecificationPayment(specification, paymentNumber, paymentSum, paymentDays, comment);
+		specPayment = specPaymentRepository.save(specPayment);
+		logger.info("<== Saving new 'SpecificationPayment' with ID=" + specPayment.getId() + " for 'Specification='"
+				+ specification.getSpecificationNumber() + " was successeful ==>");
+		logger.info("<== Out of 'postAddSpecPayment()' method ... ==>");
+		return "redirect:" + specification.getUrl();
+	}
+	
+	@RequestMapping(value = REQUEST_MAPPING_SPECIFICATIONPAYMENT, params = PARAM_EDIT, method = RequestMethod.POST)
+	public String postEditSpecPayment(@RequestParam Integer id, @RequestParam Integer paymentNumber,
+			@RequestParam Double paymentSum, @RequestParam Integer paymentDays, @RequestParam String comment) {
+		logger.info("<== Enter to 'postEditSpecPayment()' method ... ==>");
+		SpecificationPayment specPayment = specPaymentRepository.findOne(id);
+		logger.info("<== Starting update 'SpecificationPayment' by ID=" + specPayment.getId() + "' ==>");
+		specPayment.setPaymentNumber(paymentNumber);
+		specPayment.setPaymentSum(paymentSum);
+		specPayment.setPaymentDays(paymentDays);
+		specPayment.setComment(comment);
+		specPayment = specPaymentRepository.save(specPayment);
+		logger.info("<== Updating of 'SpecificationPayment' with ID=" + specPayment.getId() + " was successful ==>");
+		logger.info("<== Out of 'postEditSpecPayment()' method ... ==>");
+		return "redirect:" + specPayment.getSpecification().getUrl();
+	}
+	
+	@RequestMapping(value = REQUEST_MAPPING_SPECIFICATIONPAYMENT, params = PARAM_DELETE, method = RequestMethod.POST)
+	public String postDeleteSpecPayment(@RequestParam int id) {
+		logger.info("<== Enter to 'postDeleteSpecPayment()' method ... ==>");
+		SpecificationPayment specPayment = specPaymentRepository.findOne(id);
+		logger.info("<== Starting delete 'SpecificationPayment' with ID=" + specPayment.getId() + " ==>");
+		specPaymentRepository.delete(specPayment);
+		logger.info("<== Deleting of 'SpecificationPayment' with ID=" + specPayment.getId() + " was successful ==>");
+		logger.info("<== Out of 'postDeleteSpecPayment()' method ... ==>");
+		return "redirect:" + specPayment.getSpecification().getUrl();
 	}
 
 }

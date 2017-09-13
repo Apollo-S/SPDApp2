@@ -10,21 +10,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import app.entity.Company;
 import app.entity.CompanyAddress;
+import app.entity.CompanyDirector;
 import app.repository.CompanyAddressRepository;
+import app.repository.CompanyDirectorRepository;
 import app.repository.CompanyRepository;
 
 @Controller
 @Transactional
 public class CompanyController extends BaseController {
-	
-	private static final String REQUEST_MAPPING_COMPANIES = "/companies";
-	private static final String REQUEST_MAPPING_COMPANY_ADDRESS = "/companyAddress";
-	private static final String REQUEST_MAPPING_COMPANY = "/company";
 
 	private static final Logger logger = LoggerFactory.getLogger(CompanyController.class);
 
@@ -33,6 +32,9 @@ public class CompanyController extends BaseController {
 
 	@Autowired(required = true)
 	private CompanyAddressRepository companyAddressRepository;
+	
+	@Autowired(required = true)
+	private CompanyDirectorRepository directorRepository;
 
 	@RequestMapping(value = REQUEST_MAPPING_COMPANIES, method = RequestMethod.GET)
 	public String getAllCompanies(Model model) {
@@ -129,6 +131,49 @@ public class CompanyController extends BaseController {
 		logger.info("<== Deleting of 'CompanyAddress' with ID=" + companyAddress.getId() + " was successful ==>");
 		logger.info("<== Out of 'postDeleteCompanyAddress()' method ... ==>");
 		return "redirect:" + company.getUrl();
+	}
+	
+	@RequestMapping(value = REQUEST_MAPPING_COMPANY_DIRECTOR, params = PARAM_ADD, method = RequestMethod.POST)
+	public String postAddCompanyDirector(@RequestParam int companyId, @RequestParam String post, @RequestParam String fullName, 
+			@RequestParam String shortName, @RequestParam Date employmentDate) {
+		logger.info("<== Enter to 'postAddCompanyDirector()' method ... ==>");
+		Company company = companyRepository.findOne(companyId);
+		logger.info("<== Adding new 'CompanyDirector' for 'Company='" + company.getTitle() + "' ==>");
+		CompanyDirector companyDirector = new CompanyDirector(company, post, fullName, shortName, employmentDate);
+		companyDirector = directorRepository.save(companyDirector);
+		logger.info("<== Saving new 'CompanyDirector' with ID=" + companyDirector.getId() + " for 'Company='" + company.getTitle() +  " was successeful ==>");
+		logger.info("<== Out of 'postAddCompanyDirector()' method ... ==>");
+		return "redirect:" + company.getUrl();
+	}
+	
+	@RequestMapping(value = REQUEST_MAPPING_COMPANY_DIRECTOR, params=PARAM_EDIT, method = RequestMethod.POST)
+	public String postEditCompanyDirector(@RequestParam Integer id, @RequestParam String post, @RequestParam String fullName, 
+			@RequestParam String shortName, @RequestParam Date employmentDate, @RequestParam Date firedDate) {
+		logger.info("<== Enter to 'postEditCompanyDirector()' method ... ==>");
+		CompanyDirector director = directorRepository.findOne(id);
+		Company company = companyRepository.findOne(director.getCompany().getId());
+		logger.info("<== Starting update 'CompanyDirector' by ID=" + director.getId() + " ==>");
+		director.setCompany(company);
+		director.setPost(post);
+		director.setFullName(fullName);
+		director.setShortName(shortName);
+		director.setEmploymentDate(employmentDate);
+		director.setFiredDate(firedDate);
+		director = directorRepository.save(director);
+		logger.info("<== Updating of 'CompanyDirector' with ID=" + director.getId() + " was successful ==>");
+		logger.info("<== Out of 'postEditCompanyDirector()' method ... ==>");
+		return "redirect:" + company.getUrl();
+	}
+	
+	@RequestMapping(value = REQUEST_MAPPING_COMPANY_DIRECTOR, params = PARAM_DELETE, method = RequestMethod.POST)
+	public String postDeleteCompanyDirector(@RequestParam int id) {
+		logger.info("<== Enter to 'postDeleteCompanyDirector()' method ... ==>");
+		logger.info("<== Starting delete 'CompanyDirector' by ID=" + id + " ==>");
+		CompanyDirector director = directorRepository.findOne(id);
+		directorRepository.delete(director);
+		logger.info("<== 'CompanyDirector' with ID=" + id + " was deleted from DB ==>");
+		logger.info("<== Out of 'postDeleteCompanyDirector()' method ... ==>");
+		return "redirect:" + director.getCompany().getUrl();
 	}
 
 }

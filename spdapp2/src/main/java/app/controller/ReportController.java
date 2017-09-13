@@ -31,8 +31,8 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Controller
-@RequestMapping(value = "/specification")
-public class ReportController {
+@RequestMapping(value = BaseController.REQUEST_MAPPING_SPECIFICATION)
+public class ReportController extends BaseController {
 
 	private static final String PARAM_DATA_SOURCE_SPEC = "dataSourceSpec";
 	private static final String PARAM_DATA_SOURCE_CERT = "dataSourceCert";
@@ -59,7 +59,7 @@ public class ReportController {
 	@Autowired(required = true)
 	private AccountRepository accountRepository;
 	
-	@RequestMapping(value = "/printpdf/spec", method = RequestMethod.GET)
+	@RequestMapping(value = REQUEST_MAPPING_PRINTPDF_SPEC, method = RequestMethod.GET)
 	public ModelAndView generatePdfReportSpec(@RequestParam Integer id, ModelAndView modelAndView) {
 		logger.info("<<-------------- Begin to generate PDF report -------------->>");
 		Map<String, Object> parameters = new HashMap<String, Object>();
@@ -74,7 +74,7 @@ public class ReportController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/printpdf/cert", method = RequestMethod.GET)
+	@RequestMapping(value = REQUEST_MAPPING_PRINTPDF_CERT, method = RequestMethod.GET)
 	public ModelAndView generatePdfReportCert(@RequestParam Integer id, ModelAndView modelAndView) {
 		logger.info("<<-------------- Begin to generate PDF report -------------->>");
 		Map<String, Object> parameters = new HashMap<String, Object>();
@@ -110,6 +110,7 @@ public class ReportController {
 		report.setProgrammingHours(specification.getProgrammingHours());
 		logger.info("<<-------------- " + report.getProgrammingHours() + " --------------->>");
 		report.setArchitectingHours(specification.getArchitectingHours());
+		logger.info("<<-------------- " + report.getArchitectingHours() + " --------------->>");
 		report.setConfiguringRate(currentRate.getConfiguring());
 		report.setProgrammingRate(currentRate.getProgramming());
 		report.setArchitectingRate(currentRate.getArchitecting());

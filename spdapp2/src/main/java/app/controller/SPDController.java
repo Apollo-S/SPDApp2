@@ -23,7 +23,7 @@ import app.repository.SPDRepository;
 
 @Controller
 @Transactional
-public class SPDController {
+public class SPDController extends BaseController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(SPDController.class);
 
@@ -39,27 +39,27 @@ public class SPDController {
 	@Autowired(required = true)
 	private PaymentTypeRepository paymentTypeRepository;
 
-	@RequestMapping(value = "/spds", method = RequestMethod.GET)
+	@RequestMapping(value = REQUEST_MAPPING_SPDS, method = RequestMethod.GET)
 	public String getAllSPD(Model model) {
 		logger.info("Entering to the getAllSPD() method***");
 		model.addAttribute("spds", spdRepository.findAll());
 		return "spd/getAll";
 	}
 
-	@RequestMapping(value = "/spd", params = "add", method = RequestMethod.GET)
+	@RequestMapping(value = REQUEST_MAPPING_SPD, params = PARAM_ADD, method = RequestMethod.GET)
 	public String getAddSPD() {
 		logger.info("<== Entering to the getAddSPD() method ... ==>");
 		return "spd/add";
 	}
 
-	@RequestMapping(value = "/spd", params = "edit", method = RequestMethod.GET)
+	@RequestMapping(value = REQUEST_MAPPING_SPD, params = PARAM_EDIT, method = RequestMethod.GET)
 	public String getEditSPD(@RequestParam int id, Model model) {
 		logger.info("<== Entering to the getEditSPD() method ... ==>");
 		model.addAttribute("spd", spdRepository.findOne(id));
 		return "spd/edit";
 	}
 
-	@RequestMapping(value = "/spd", method = RequestMethod.GET)
+	@RequestMapping(value = REQUEST_MAPPING_SPD, method = RequestMethod.GET)
 	public String getViewSPD(@RequestParam int id, Model model) {
 		logger.info("<== Enter to 'getViewSPD()' method ... ==>");
 		SPD spd = spdRepository.findOne(id);
@@ -69,7 +69,7 @@ public class SPDController {
 		return "spd/view";
 	}
 
-	@RequestMapping(value = "/spd", params = "add", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_SPD, params = PARAM_ADD, method = RequestMethod.POST)
 	public String postAddSPD(@RequestParam String surname, @RequestParam String firstname,
 			@RequestParam String lastname, @RequestParam String alias, @RequestParam String inn,
 			@RequestParam String passport, @RequestParam String description, @RequestParam Date dated,
@@ -87,7 +87,7 @@ public class SPDController {
 		return "redirect:" + spd.getUrl();
 	}
 
-	@RequestMapping(value = "/spd", params = "edit", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_SPD, params = PARAM_EDIT, method = RequestMethod.POST)
 	public String postEditSPD(@RequestParam Integer id, @RequestParam String surname, @RequestParam String firstname,
 			@RequestParam String lastname, @RequestParam String alias, @RequestParam String inn,
 			@RequestParam String passport, @RequestParam String description, @RequestParam Date dated,
@@ -125,7 +125,7 @@ public class SPDController {
 		return "redirect:" + spd.getUrl();
 	}
 
-	@RequestMapping(value = "/spd", params = "delete", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_SPD, params = PARAM_DELETE, method = RequestMethod.POST)
 	public String postDeleteSPD(@RequestParam int id) {
 		logger.info("<== Enter to 'postDeleteSPD()' method ... ==>");
 		logger.info("***Starting delete 'SPD' by ID=" + id + " ==>");
@@ -135,7 +135,7 @@ public class SPDController {
 		return "redirect:spds";
 	}
 
-	@RequestMapping(value = "/account", params = "add", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_SPD_ACCOUNT, params = PARAM_ADD, method = RequestMethod.POST)
 	public String postAddAccount(@RequestParam int spdId, @RequestParam String accountNumber, @RequestParam String mfo,
 			@RequestParam String bankName) {
 		logger.info("<== Enter to 'postAddAccount()' method ... ==>");
@@ -148,7 +148,7 @@ public class SPDController {
 		return "redirect:" + spd.getUrl();
 	}
 
-	@RequestMapping(value = "/account", params = "edit", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_SPD_ACCOUNT, params = PARAM_EDIT, method = RequestMethod.POST)
 	public String postEditAccount(@RequestParam int id, @RequestParam String accountNumber, @RequestParam String mfo,
 			@RequestParam String bankName) {
 		logger.info("<== Enter to 'postEditAccount()' method ... ==>");
@@ -165,7 +165,7 @@ public class SPDController {
 		return "redirect:" + spd.getUrl();
 	}
 
-	@RequestMapping(value = "/account", params = "delete", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_SPD_ACCOUNT, params = PARAM_DELETE, method = RequestMethod.POST)
 	public String postDeleteAccount(@RequestParam int id) {
 		logger.info("<== Enter to 'postDeleteAccount()' method ... ==>");
 		Account account = accountRepository.findOne(id);
@@ -177,7 +177,7 @@ public class SPDController {
 		return "redirect:" + spd.getUrl();
 	}
 	
-	@RequestMapping(value = "/payment", params = "add", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_SPD_PAYMENT, params = PARAM_ADD, method = RequestMethod.POST)
 	public String postAddPayment(@RequestParam int spdId, @RequestParam("payment_type_id") int paymentTypeId, @RequestParam Double value,
 			@RequestParam Date dateStart, @RequestParam Date dateFinish) {
 		logger.info("<== Enter to 'postAddPayment()' method ... ==>");
@@ -191,7 +191,7 @@ public class SPDController {
 		return "redirect:" + spd.getUrl();
 	}
 	
-	@RequestMapping(value = "/payment", params = "edit", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_SPD_PAYMENT, params = PARAM_EDIT, method = RequestMethod.POST)
 	public String postEditPayment(@RequestParam int id, @RequestParam("payment_type_id") int paymentTypeId, @RequestParam Double value,
 			@RequestParam Date dateStart, @RequestParam Date dateFinish) {
 		logger.info("<== Enter to 'postEditPayment()' method ... ==>");
@@ -208,7 +208,7 @@ public class SPDController {
 		return "redirect:" + spd.getUrl();
 	}
 	
-	@RequestMapping(value = "/payment", params = "delete", method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_SPD_PAYMENT, params = PARAM_DELETE, method = RequestMethod.POST)
 	public String postDeletePayment(@RequestParam int id) {
 		logger.info("<== Enter to 'postDeletePayment()' method ... ==>");
 		Payment payment = paymentRepository.findOne(id);

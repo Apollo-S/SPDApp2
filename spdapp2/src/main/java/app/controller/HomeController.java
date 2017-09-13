@@ -13,13 +13,13 @@ import app.entity.CustomUser;
 import app.repository.CustomUserRepository;
 
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping(value = BaseController.REQUEST_MAPPING_BLANK)
 public class HomeController extends BaseController {
 
 	@Autowired(required = true)
 	private CustomUserRepository userRepository;
 
-	@RequestMapping(value = { "/register" }, method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_REGISTER, method = RequestMethod.POST)
 	public String register(@ModelAttribute CustomUser user) {
 		user.setRole(ROLE_USER);
 		user = userRepository.save(user);
@@ -29,17 +29,17 @@ public class HomeController extends BaseController {
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = { "/register" }, method = RequestMethod.GET)
+	@RequestMapping(value = REQUEST_MAPPING_REGISTER, method = RequestMethod.GET)
 	public String goRegister() {
 		return "register";
 	}
 	
-	@RequestMapping(value = "/about", method = RequestMethod.GET)
+	@RequestMapping(value = {REQUEST_MAPPING_BLANK, REQUEST_MAPPING_ABOUT}, method = RequestMethod.GET)
 	public String goAbout() {
 		return "about";
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = REQUEST_MAPPING_LOGIN, method = RequestMethod.GET)
 	public String goLogin() {
 		return "login";
 	}
