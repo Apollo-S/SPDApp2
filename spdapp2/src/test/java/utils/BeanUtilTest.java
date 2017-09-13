@@ -65,4 +65,11 @@ public class BeanUtilTest {
 		assertThat(BeanUtil.convertStringToDouble(value), is(result));
 	}
 	
+	@Test
+	public void testConvertNullToDouble3() {
+		Double value = null;
+		Double result = 0d;
+		assertThat(BeanUtil.convertNullToDouble(value), is(result));
+	}
+	
 }

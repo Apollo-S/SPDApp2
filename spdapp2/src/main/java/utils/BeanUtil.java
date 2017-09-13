@@ -27,6 +27,13 @@ public class BeanUtil {
 		return null;
 	}
 	
+	public static Double convertNullToDouble(Double value) {
+		if (value == null) {
+			return 0d;
+		}
+		return value;
+	}
+	
 	public static boolean isStringNumeric(String str) {
 		boolean isMinus = str.charAt(0) == MINUS; 
 		if ((isMinus && str.length() < 2) || ((!isMinus) && !Character.isDigit(str.charAt(0)))) {
