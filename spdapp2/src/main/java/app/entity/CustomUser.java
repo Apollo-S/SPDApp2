@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class CustomUser extends UrlEntity implements UserDetails, Serializable {
 
-	private static final String URL_USER_ID = "user?id=";
+	private static final String URL_USER_NAME = "user?name=";
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "first_name", length = 30)
@@ -131,7 +131,7 @@ public class CustomUser extends UrlEntity implements UserDetails, Serializable {
 
 	@Override
 	public String getUrl() {
-		return URL_USER_ID + getId();
+		return URL_USER_NAME + getUsername();
 	}
 
 	public boolean getEnabled() {
