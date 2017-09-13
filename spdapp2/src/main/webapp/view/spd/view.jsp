@@ -60,8 +60,10 @@
 						<form action="spd" method="post">
 							<input type="hidden" name="delete"> 
 							<input type="hidden" name="id" value="${spd.id}">
-							<sec:csrfInput/>
-							<button type="submit" class="btn btn-danger"><i class="fa fa-trash-o"></i> Удалить СПД (осторожно!)</button>
+							<sec:csrfInput />
+							<sec:authorize access="hasRole('ROLE_ADMIN')" >
+								<button type="submit" class="btn btn-danger"><i class="fa fa-trash-o"></i> Удалить СПД (осторожно!)</button>
+							</sec:authorize>
 						</form>
 					</div>
 				</div>
@@ -233,7 +235,7 @@
 						<th class="text-center">Номер счета</th>
 						<th class="text-center">МФО</th>
 						<th class="text-center">Наименование банка</th>
-						<th class="text-center">Действия</th>
+						<th class="text-center"></th>
 					</tr>
 				</thead>
 				<c:forEach items="${spd.accounts}" var="account">
