@@ -13,12 +13,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "esv_tax")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler"})
 public class ESVTax extends UrlEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "value", columnDefinition=DECIMAL_10_2_DEFAULT_0_00)
+	@Column(name = "value", nullable = false, columnDefinition = DECIMAL_10_2_DEFAULT_0_00)
 	private Double value;
 
 	@Temporal(TemporalType.DATE)
@@ -27,6 +27,12 @@ public class ESVTax extends UrlEntity implements Serializable {
 
 	public ESVTax() {
 		super();
+	}
+
+	public ESVTax(Double value, Date dateStart) {
+		super();
+		this.value = value;
+		this.dateStart = dateStart;
 	}
 
 	public Double getValue() {
