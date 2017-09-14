@@ -38,6 +38,9 @@
 		<security:intercept-url pattern="/spd*" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/compan*" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/user*" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/tax*" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/esvtax*" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/simpletax*" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/**" access="permitAll" />
 
 		<security:remember-me
