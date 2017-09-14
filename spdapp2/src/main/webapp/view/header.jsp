@@ -47,8 +47,8 @@
 									<i class="fa fa-list"></i> Справочники
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-									<a class="dropdown-item" href="taxes">Налоги (пока не работает)</a>
-									<a class="dropdown-item" href="spds">Список СПД</a>
+									<a class="dropdown-item" href="taxes">Налоги</a>
+									<a class="dropdown-item" href="spds">Предприниматели</a>
 									<a class="dropdown-item" href="companies">Компании</a>
 									<a class="dropdown-item" href="agreements">Договоры с СПД</a>
 								</div>

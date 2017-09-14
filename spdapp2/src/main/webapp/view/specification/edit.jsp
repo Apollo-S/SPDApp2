@@ -20,7 +20,7 @@
 		<nav class="breadcrumb">
 			<div class="row">
 				<div class="col">
-					<a class="breadcrumb-item" href="spds">Список СПД</a> 
+					<a class="breadcrumb-item" href="spds">Предприниматели</a> 
 					<a class="breadcrumb-item" href="${spd.url}">СПД <c:out	value="${spd.alias}" /></a> 
 					<a class="breadcrumb-item" href="${agreement.url}">Договор <c:out value="${agreement.number}" /></a> 
 					<span class="breadcrumb-item active"><b>Спецификация № <c:out value="${specification.specificationNumber}" /> от 

@@ -10,7 +10,7 @@
 <div class="container-fluid">
 
 	<nav class="breadcrumb">
-		<span class="breadcrumb-item active"><b>Список СПД</b></span>
+		<span class="breadcrumb-item active"><b>Предприниматели</b></span>
 	</nav>
 
 	<form action="spd" method="get">
