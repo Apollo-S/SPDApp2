@@ -15,18 +15,21 @@ public abstract class BaseController {
 	static final String REQUEST_MAPPING_COMPANIES = "/companies";
 	static final String REQUEST_MAPPING_COMPANY_ADDRESS = "/companyAddress";
 	static final String REQUEST_MAPPING_COMPANY_DIRECTOR = "/companyDirector";
+	static final String REQUEST_MAPPING_ESV_TAX = "/esvtax";
 	static final String REQUEST_MAPPING_JOB = "/job";
 	static final String REQUEST_MAPPING_LOGIN = "/login";
 	static final String REQUEST_MAPPING_MAIN = "/main";
 	static final String REQUEST_MAPPING_PRINTPDF_CERT = "/printpdf/cert";
 	static final String REQUEST_MAPPING_PRINTPDF_SPEC = "/printpdf/spec";
 	static final String REQUEST_MAPPING_REGISTER = "/register";
+	static final String REQUEST_MAPPING_SIMPLE_TAX = "/simpletax";
 	static final String REQUEST_MAPPING_SPD = "/spd";
 	static final String REQUEST_MAPPING_SPDS = "/spds";
 	static final String REQUEST_MAPPING_SPD_ACCOUNT = "/account";
 	static final String REQUEST_MAPPING_SPD_PAYMENT = "/payment";
 	static final String REQUEST_MAPPING_SPECIFICATION = "/specification";
 	static final String REQUEST_MAPPING_SPECIFICATIONPAYMENT = "/specificationpayment";
+	static final String REQUEST_MAPPING_TAXES = "/taxes";
 	static final String REQUEST_MAPPING_USERS = "/users";
 	static final String REQUEST_MAPPING_USER = "/user";
 
