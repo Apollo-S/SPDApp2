@@ -17,7 +17,7 @@ import app.repository.CustomUserRepository;
 @Transactional
 public class UserController extends BaseController {
 
-	private static final Logger logger = LoggerFactory.getLogger(SPDController.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired(required = true)
 	private CustomUserRepository userRepository;

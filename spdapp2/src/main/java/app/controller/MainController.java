@@ -13,7 +13,7 @@ import app.repository.SPDRepository;
 @Controller
 public class MainController extends BaseController {
 
-	private static final Logger logger = LoggerFactory.getLogger(SPDController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	
 	@Autowired(required = true)
 	private SPDRepository spdRepository;
