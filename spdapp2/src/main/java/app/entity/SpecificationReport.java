@@ -4,12 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class SpecificationReport implements Serializable {
+public class SpecificationReport extends BaseReport implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String agreementTitle;
-	private Date agreementDate;
 	private Integer specificationNumber;
 	private Date specificationStartDate;
 	private Date specificationFinalDate;
@@ -20,42 +18,11 @@ public class SpecificationReport implements Serializable {
 	private Integer configuringHours;
 	private Integer programmingHours;
 	private Integer architectingHours;
-	private String companyName;
-	private String companyTaxId;
-	private String companyInn;
-	private String companyVatCertificate;
-	private String companyAddress;
-	private String companyAccount;
-	private String companyDirectorFullName;
-	private String companyDirectorShortName;
-	private String companyDirectorPost;
-	private String spdAlias;
-	private String spdFullName;
-	private String spdAddress;
-	private String spdAccount;
-	private String spdInn;
-	private String regInfo;
 	private List<Job> jobs;
 	private List<SpecificationPayment> payments;
 	private Integer quantityOfPayments;
 
 	public SpecificationReport() {
-	}
-
-	public String getAgreementTitle() {
-		return agreementTitle;
-	}
-
-	public void setAgreementTitle(String agreementTitle) {
-		this.agreementTitle = agreementTitle;
-	}
-
-	public Date getAgreementDate() {
-		return agreementDate;
-	}
-
-	public void setAgreementDate(Date agreementDate) {
-		this.agreementDate = agreementDate;
 	}
 
 	public Integer getSpecificationNumber() {
@@ -90,110 +57,6 @@ public class SpecificationReport implements Serializable {
 		this.specificationSum = specificationSum;
 	}
 
-	public Integer getConfiguringHours() {
-		return configuringHours;
-	}
-
-	public void setConfiguringHours(Integer configuringHours) {
-		this.configuringHours = configuringHours;
-	}
-
-	public Integer getProgrammingHours() {
-		return programmingHours;
-	}
-
-	public void setProgrammingHours(Integer programmingHours) {
-		this.programmingHours = programmingHours;
-	}
-
-	public String getCompanyName() {
-		return companyName;
-	}
-
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-
-	public String getCompanyTaxId() {
-		return companyTaxId;
-	}
-
-	public void setCompanyTaxId(String companyTaxId) {
-		this.companyTaxId = companyTaxId;
-	}
-
-	public String getCompanyInn() {
-		return companyInn;
-	}
-
-	public void setCompanyInn(String companyInn) {
-		this.companyInn = companyInn;
-	}
-
-	public String getCompanyVatCertificate() {
-		return companyVatCertificate;
-	}
-
-	public void setCompanyVatCertificate(String companyVatCertificate) {
-		this.companyVatCertificate = companyVatCertificate;
-	}
-
-	public String getCompanyAddress() {
-		return companyAddress;
-	}
-
-	public void setCompanyAddress(String companyAddress) {
-		this.companyAddress = companyAddress;
-	}
-
-	public String getCompanyDirectorFullName() {
-		return companyDirectorFullName;
-	}
-
-	public void setCompanyDirectorFullName(String companyDirectorFullName) {
-		this.companyDirectorFullName = companyDirectorFullName;
-	}
-
-	public String getCompanyDirectorShortName() {
-		return companyDirectorShortName;
-	}
-
-	public void setCompanyDirectorShortName(String companyDirectorShortName) {
-		this.companyDirectorShortName = companyDirectorShortName;
-	}
-
-	public String getSpdAlias() {
-		return spdAlias;
-	}
-
-	public void setSpdAlias(String spdAlias) {
-		this.spdAlias = spdAlias;
-	}
-
-	public String getSpdFullName() {
-		return spdFullName;
-	}
-
-	public void setSpdFullName(String spdFullName) {
-		this.spdFullName = spdFullName;
-	}
-
-	public String getSpdAddress() {
-		return spdAddress;
-	}
-
-	public void setSpdAddress(String spdAddress) {
-		this.spdAddress = spdAddress;
-	}
-
-	public Integer getArchitectingHours() {
-		return architectingHours;
-	}
-
-	public void setArchitectingHours(Integer architectingHours) {
-		this.architectingHours = architectingHours;
-	}
-
 	public Double getConfiguringRate() {
 		return configuringRate;
 	}
@@ -218,44 +81,28 @@ public class SpecificationReport implements Serializable {
 		this.architectingRate = architectingRate;
 	}
 
-	public String getCompanyDirectorPost() {
-		return companyDirectorPost;
+	public Integer getConfiguringHours() {
+		return configuringHours;
 	}
 
-	public void setCompanyDirectorPost(String companyDirectorPost) {
-		this.companyDirectorPost = companyDirectorPost;
+	public void setConfiguringHours(Integer configuringHours) {
+		this.configuringHours = configuringHours;
 	}
 
-	public String getCompanyAccount() {
-		return companyAccount;
+	public Integer getProgrammingHours() {
+		return programmingHours;
 	}
 
-	public void setCompanyAccount(String companyAccount) {
-		this.companyAccount = companyAccount;
+	public void setProgrammingHours(Integer programmingHours) {
+		this.programmingHours = programmingHours;
 	}
 
-	public String getSpdInn() {
-		return spdInn;
+	public Integer getArchitectingHours() {
+		return architectingHours;
 	}
 
-	public void setSpdInn(String spdInn) {
-		this.spdInn = spdInn;
-	}
-
-	public String getRegInfo() {
-		return regInfo;
-	}
-
-	public void setRegInfo(String regInfo) {
-		this.regInfo = regInfo;
-	}
-
-	public String getSpdAccount() {
-		return spdAccount;
-	}
-
-	public void setSpdAccount(String spdAccount) {
-		this.spdAccount = spdAccount;
+	public void setArchitectingHours(Integer architectingHours) {
+		this.architectingHours = architectingHours;
 	}
 
 	public List<Job> getJobs() {
