@@ -45,13 +45,24 @@ public class AgreementController extends BaseController {
 	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT + "s", method = RequestMethod.GET)
 	public String getAddAgreement(Model model) {
 		model.addAttribute("agreements", agreementRepository.findAll());
-		return "agreement/getAll";
+		return PAGE_AGREEMENTS;
+	}
+	
+	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT + "s", params = PARAM_DELETE, method = RequestMethod.POST)
+	public String postDeleteAgreements(@RequestParam int id) {
+		logger.info("<==((((((((( Enter to 'postDeleteAgreements()' method ... )))))))))==>");
+		Agreement agreement = agreementRepository.findOne(id);
+		logger.info("<==((((((((( Start delete 'Agreement' by ID=" + agreement.getId() + " )))))))))==>");
+		agreementRepository.delete(agreement);
+		logger.info("<==((((((((( 'Agreement' with ID=" + agreement.getId() + " was deleted from DB )))))))))==>");
+		logger.info("<==((((((((( Out of 'postDeleteAgreements()' method ... )))))))))==>");
+		return PAGE_REDIRECT_TO_AGREEMENTS;
 	}
 
 	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT, params = PARAM_ADD, method = RequestMethod.GET)
 	public String getAddAgreement(@RequestParam int spdId, Model model) {
 		model.addAttribute("spd", spdRepository.findOne(spdId));
-		return "agreement/add";
+		return PAGE_AGREEMENT_ADD;
 	}
 
 	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT, method = RequestMethod.GET)
@@ -64,7 +75,7 @@ public class AgreementController extends BaseController {
 		model.addAttribute("specificationNumber", specificationNumber + 1);
 		model.addAttribute("companies", companies);
 		logger.info("<== Out of 'getAgreement()' method ... ==>");
-		return "agreement/edit";
+		return PAGE_AGREEMENT_EDIT;
 	}
 
 	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT, params = PARAM_ADD, method = RequestMethod.POST)
@@ -78,7 +89,7 @@ public class AgreementController extends BaseController {
 		postAddAgreementTarif(agreement.getId(), 0d, 0d, 0d, dateStart);
 		logger.info("<== Saving new 'Agreement' with ID=" + agreement.getId() + " for 'SPD=" + spd.getAlias() + "' was successful ==>");
 		logger.info("<== Out of 'postAddAgreement()' method ... ==>");
-		return "redirect:" + agreement.getUrl();
+		return PAGE_REDIRECT + agreement.getUrl();
 	}
 
 	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT, params = PARAM_EDIT, method = RequestMethod.POST)
@@ -96,7 +107,7 @@ public class AgreementController extends BaseController {
 		agreement = agreementRepository.save(agreement);
 		logger.info("<== Updating of 'Agreement' with ID=" + agreement.getId() + " was successful ==>");
 		logger.info("<== Out of 'postEditAgreement()' method ... ==>");
-		return "redirect:" + spd.getUrl();
+		return PAGE_REDIRECT + spd.getUrl();
 	}
 
 	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT, params = PARAM_DELETE, method = RequestMethod.POST)
@@ -108,7 +119,7 @@ public class AgreementController extends BaseController {
 		agreementRepository.delete(agreement);
 		logger.info("<== 'Agreement' with ID=" + agreement.getId() + " was deleted from DB ==>");
 		logger.info("<== Out of 'postDeleteAgreement()' method ... ==>");
-		return "redirect:" + spd.getUrl();
+		return PAGE_REDIRECT + spd.getUrl();
 	}
 	
 	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT_TARIF, params = PARAM_ADD, method = RequestMethod.POST)
@@ -121,7 +132,7 @@ public class AgreementController extends BaseController {
 		tarif = tarifRepository.save(tarif);
 		logger.info("<== Saving new 'AgreementTarif' with ID=" + tarif.getId() + " for 'Agreement='" + agreement.getNumber() +  " was successeful ==>");
 		logger.info("<== Out of 'postAddAgreementTarif()' method ... ==>");
-		return "redirect:" + agreement.getUrl();
+		return PAGE_REDIRECT + agreement.getUrl();
 	}
 
 	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT_TARIF, params = PARAM_EDIT, method = RequestMethod.POST)
@@ -139,7 +150,7 @@ public class AgreementController extends BaseController {
 		tarifRepository.save(tarif);
 		logger.info("<== Updating of 'AgreementTarif' with ID=" + tarif.getId() + " was successful ==>");
 		logger.info("<== Out of 'postEditAgreementTarif()' method ... ==>");
-		return "redirect:" + agreement.getUrl();
+		return PAGE_REDIRECT + agreement.getUrl();
 	}
 	
 	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT_TARIF, params = PARAM_DELETE, method = RequestMethod.POST)
@@ -151,7 +162,7 @@ public class AgreementController extends BaseController {
 		tarifRepository.delete(tarif);
 		logger.info("<== Deleting of 'AgreementTarif' with ID=" + tarif.getId() + " was successful ==>");
 		logger.info("<== Out of 'postDeleteAgreementTarif()' method ... ==>");
-		return "redirect:" + agreement.getUrl(); 
+		return PAGE_REDIRECT + agreement.getUrl(); 
 	}
 
 }

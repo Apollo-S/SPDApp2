@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import app.entity.Account;
+import app.entity.Agreement;
+import app.entity.AgreementReport;
 import app.entity.AgreementTarif;
 import app.entity.CompanyAccount;
 import app.entity.CompanyAddress;
@@ -22,6 +24,7 @@ import app.entity.Specification;
 import app.entity.SpecificationPayment;
 import app.entity.SpecificationReport;
 import app.repository.AccountRepository;
+import app.repository.AgreementRepository;
 import app.repository.AgreementTarifRepository;
 import app.repository.CompanyAccountRepository;
 import app.repository.CompanyAddressRepository;
@@ -31,16 +34,21 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Controller
-@RequestMapping(value = BaseController.REQUEST_MAPPING_SPECIFICATION)
+@RequestMapping
 public class ReportController extends BaseController {
 
 	private static final String PARAM_DATA_SOURCE_SPEC = "dataSourceSpec";
 	private static final String PARAM_DATA_SOURCE_CERT = "dataSourceCert";
+	private static final String PARAM_DATA_SOURCE_AGR = "dataSourceAgr";
 	private static final String PARAM_VIEW_NAME_SPEC = "specificationReport";
 	private static final String PARAM_VIEW_NAME_CERT = "certificateReport";
+	private static final String PARAM_VIEW_NAME_AGR = "agreementReport";
 
 	private static final Logger logger = LoggerFactory.getLogger(ReportController.class);
 
+	@Autowired(required = true)
+	private AgreementRepository agreementRepository;
+	
 	@Autowired(required = true)
 	private SpecificationRepository specificationRepository;
 	
@@ -61,30 +69,46 @@ public class ReportController extends BaseController {
 	
 	@RequestMapping(value = REQUEST_MAPPING_PRINTPDF_SPEC, method = RequestMethod.GET)
 	public ModelAndView generatePdfReportSpec(@RequestParam Integer id, ModelAndView modelAndView) {
-		logger.info("<<-------------- Begin to generate PDF report -------------->>");
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		List<SpecificationReport> reports = createReport(id);
-		JRDataSource jrDataSource = new JRBeanCollectionDataSource(reports);
-		logger.info("<<-------------- jrDataSource created -------------->>");
-		parameters.put(PARAM_DATA_SOURCE_SPEC, jrDataSource);
-		logger.info("<<-------------- jrDataSource put into parameters -------------->>");
-		logger.info("<<-------------- pdfReport bean has been declared in the jasper-views.xml file -------------->>");
-		modelAndView = new ModelAndView(PARAM_VIEW_NAME_SPEC, parameters);
-		logger.info("<<-------------- Out of generating PDF report -------------->>");
+		modelAndView = generateReport(id, PARAM_DATA_SOURCE_SPEC, PARAM_VIEW_NAME_SPEC);
 		return modelAndView;
 	}
 	
 	@RequestMapping(value = REQUEST_MAPPING_PRINTPDF_CERT, method = RequestMethod.GET)
 	public ModelAndView generatePdfReportCert(@RequestParam Integer id, ModelAndView modelAndView) {
+		modelAndView = generateReport(id, PARAM_DATA_SOURCE_CERT, PARAM_VIEW_NAME_CERT);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = REQUEST_MAPPING_PRINTPDF_AGR, method = RequestMethod.GET)
+	public ModelAndView generatePdfReportAgr(@RequestParam Integer id, ModelAndView modelAndView) {
+		modelAndView = generateAgreementReport(id, PARAM_DATA_SOURCE_AGR, PARAM_VIEW_NAME_AGR);
+		return modelAndView;
+	}
+	
+	private ModelAndView generateAgreementReport(Integer id, String dataSourceParam, String viewNameParam) {
+		logger.info("<<-------------- Begin to generate Agreement PDF report -------------->>");
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		List<AgreementReport> reports = createAgreementReport(id);
+		JRDataSource jrDataSource = new JRBeanCollectionDataSource(reports);
+		logger.info("<<-------------- jrDataSource created -------------->>");
+		parameters.put(dataSourceParam, jrDataSource);
+		logger.info("<<-------------- jrDataSource put into parameters -------------->>");
+		logger.info("<<-------------- pdfReport bean has been declared in the jasper-views.xml file -------------->>");
+		ModelAndView modelAndView = new ModelAndView(viewNameParam, parameters);
+		logger.info("<<-------------- Out of generating PDF report -------------->>");
+		return modelAndView;
+	}
+
+	private ModelAndView generateReport(Integer id, String dataSourceParam, String viewNameParam) {
 		logger.info("<<-------------- Begin to generate PDF report -------------->>");
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		List<SpecificationReport> reports = createReport(id);
 		JRDataSource jrDataSource = new JRBeanCollectionDataSource(reports);
 		logger.info("<<-------------- jrDataSource created -------------->>");
-		parameters.put(PARAM_DATA_SOURCE_CERT, jrDataSource);
+		parameters.put(dataSourceParam, jrDataSource);
 		logger.info("<<-------------- jrDataSource put into parameters -------------->>");
 		logger.info("<<-------------- pdfReport bean has been declared in the jasper-views.xml file -------------->>");
-		modelAndView = new ModelAndView(PARAM_VIEW_NAME_CERT, parameters);
+		ModelAndView modelAndView = new ModelAndView(viewNameParam, parameters);
 		logger.info("<<-------------- Out of generating PDF report -------------->>");
 		return modelAndView;
 	}
@@ -98,7 +122,6 @@ public class ReportController extends BaseController {
 		CompanyAddress companyAddress = compAddressRepository.findActualCompanyAddressBySpecificationId(id);
 		CompanyAccount companyAccount = compAccountRepository.findActualCompanyAccountBySpecificationId(id);
 		Account spdAccount = accountRepository.findActualSpdAccountBySpdId(specification.getAgreement().getSpd().getId());
-		
 		report.setAgreementTitle(specification.getAgreement().getNumber());
 		report.setAgreementDate(specification.getAgreement().getDateStart());
 		report.setSpecificationNumber(specification.getSpecificationNumber());
@@ -142,6 +165,39 @@ public class ReportController extends BaseController {
 		List<SpecificationPayment> payments = new ArrayList<>(specification.getSpecPayments());
 		report.setPayments(payments);
 		report.setQuantityOfPayments(payments.size());
+		reports.add(report);
+		return reports;
+	}
+	
+	private List<AgreementReport> createAgreementReport(Integer id) {
+		List<AgreementReport> reports = new ArrayList<>();
+		Agreement agreement = agreementRepository.findOne(id);
+		AgreementReport report = new AgreementReport();
+		CompanyDirector director = compDirectorRepository.findActualDirectorByAgreementId(id);
+		CompanyAddress companyAddress = compAddressRepository.findActualCompanyAddressByAgreementId(id);
+		CompanyAccount companyAccount = compAccountRepository.findActualCompanyAccountByAgreementId(id);
+		Account spdAccount = accountRepository.findActualSpdAccountBySpdId(agreement.getSpd().getId());
+		report.setAgreementTitle(agreement.getNumber());
+		logger.info("<<-------------- AgreementTitle = '" + report.getAgreementTitle() + "' --------------->>");
+		report.setAgreementDate(agreement.getDateStart());
+		logger.info("<<-------------- AgreementDate = '" + report.getAgreementDate() + "' --------------->>");
+		report.setCompanyName(agreement.getCompany().getTitle());
+		logger.info("<<-------------- CompanyName = '" + report.getCompanyName() + "' --------------->>");
+		report.setCompanyTaxId(agreement.getCompany().getEdrpou());
+		logger.info("<<-------------- CompanyTaxId = '" + report.getCompanyTaxId() + "' --------------->>");
+		report.setCompanyInn(agreement.getCompany().getInn().equals(null) ? "-" : agreement.getCompany().getInn());
+		report.setCompanyVatCertificate(agreement.getCompany().getVatCertificate().equals(null) ? "-" : agreement.getCompany().getVatCertificate());
+		report.setCompanyAddress(companyAddress.getPresentation());
+		report.setCompanyAccount(companyAccount.getPresentation());
+		report.setCompanyDirectorShortName(director.getShortName());
+		report.setCompanyDirectorFullName(director.getFullName());
+		report.setCompanyDirectorPost(director.getPost());
+		report.setSpdFullName(agreement.getSpd().getSpdFullName());
+		report.setSpdAlias(agreement.getSpd().getAlias());
+		report.setSpdInn(agreement.getSpd().getInn());
+		report.setSpdAddress(agreement.getSpd().getAddress().getPresentation());
+		report.setSpdAccount(spdAccount.getPresentation());
+		report.setRegInfo(agreement.getSpd().getRegistrationInfo().getDescription());
 		reports.add(report);
 		return reports;
 	}
