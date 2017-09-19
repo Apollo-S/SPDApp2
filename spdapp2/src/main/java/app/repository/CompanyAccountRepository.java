@@ -8,13 +8,23 @@ import app.entity.CompanyAccount;
 
 public interface CompanyAccountRepository extends JpaRepository<CompanyAccount, Integer> {
 	
+	static final String PARAM_AGREEMENT_ID = "agreementId";
 	static final String PARAM_SPECIFICATION_ID = "specificationId";
+	static final String FIND_ACTUAL_COMPANY_ACCOUNT_BY_AGREEMENT_ID = "select ca from CompanyAccount ca where ca.company.id = ("
+			+ "select a.company.id from Agreement a where a.id = :agreementId) and ca.dateStart = ("
+			+ "select max(ca.dateStart) from CompanyAccount ca where ca.company.id = ("
+			+ "select a.company.id from Agreement a where a.id = :agreementId) and ca.dateStart <= ("
+			+ "select a.dateStart from Agreement a where a.id = :agreementId))";
 	static final String FIND_ACTUAL_COMPANY_ACCOUNT_BY_SPECIFICATION_ID = "select ca from CompanyAccount ca where ca.company.id = ("
 			+ "select a.company.id from Agreement a, Specification s where a.id = s.agreement.id and s.id = :specificationId) and ca.dateStart = ("
 			+ "select max(ca.dateStart) from CompanyAccount ca where ca.company.id = ("
 			+ "select a.company.id from Agreement a, Specification s where a.id = s.agreement.id and s.id = :specificationId) and ca.dateStart <= ("
 			+ "select s.dateStart from Specification s where s.id = :specificationId))";
 	
+	@Transactional
+	@Query(FIND_ACTUAL_COMPANY_ACCOUNT_BY_AGREEMENT_ID)
+	public CompanyAccount findActualCompanyAccountByAgreementId(@Param(PARAM_AGREEMENT_ID) Integer agreementId);
+
 	@Transactional
 	@Query(FIND_ACTUAL_COMPANY_ACCOUNT_BY_SPECIFICATION_ID)
 	public CompanyAccount findActualCompanyAccountBySpecificationId(@Param(PARAM_SPECIFICATION_ID) Integer specificationId);
