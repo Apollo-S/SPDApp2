@@ -6,7 +6,7 @@
 
 <jsp:include page="../header.jsp" />
 
-<title>Edit agreement</title>
+<title>Договор № <c:out value="${agreement.number}" /> | Редактирование</title>
 
 <div class="container-fluid">
 
@@ -26,11 +26,17 @@
 			</div>
 			<p>
 			<div class="row">
-				<div class="col">
+				<div class="col-2">
 					<sec:csrfInput/>
 					<input type="submit" class="btn btn-success" id="button" value="Записать"> 	
 					<a class="btn btn-danger" href="${spd.url}" role="button">Отмена</a>
 				</div>
+				<div class="col">
+					<a class="btn btn-info" href=<c:url value="/agreement/printpdf/agr?id=${agreement.id}"/> role="button">
+						<i class="fa fa-file-pdf-o"></i> Договор
+					</a>
+				</div>
+				
 			</div>
 		</nav>
 	
@@ -51,9 +57,20 @@
 			<div class="col-2">
 				<label for="company"><b>Компания-наниматель</b></label>
 				<select name="company_id" class="form-control">
+					
 					<c:forEach var="company" items="${companies}">
-  						<option value="${company.id}">${company.title}</option>
+					
+						<c:choose>
+							<c:when test="${company == agreement.company}">
+								<option value="${company.id}" selected>${company.title}</option>
+							</c:when>
+							<c:otherwise>
+								<option value="${company.id}">${company.title}</option>
+							</c:otherwise>
+						</c:choose>
+					
   					</c:forEach>
+  					
 				</select>
 			</div>
 		</div>
