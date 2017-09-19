@@ -41,7 +41,7 @@
 					</h5>
 				</div>
 				<div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-					<div class="card-block">
+					<div class="card-body">
 						<div class="row">
 							<div class="col-sm">
 								<label for="surname" class="col-sm"><b>Фамилия</b></label> <input type="text" class="form-control" id="surname"
@@ -85,7 +85,7 @@
 					</h5>
 				</div>
 				<div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-					<div class="card-block">
+					<div class="card-body">
 						<div class="row">
 							<div class="col-3">
 								<label for="country"><b>Страна</b></label> <input type="text" class="form-control" id="country" name="country"
@@ -131,10 +131,10 @@
 					</h5>
 				</div>
 				<div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-					<div class="card-block">
+					<div class="card-body">
 						<div class="row">
 							<div class="col">
-								<label for="description"><b>Описание</b></label>
+								<label for="description"><b>Запись в ЕГРПОУ</b></label>
 								<input type="text" class="form-control" id="description" name="description" placeholder="Описание"
 										value="${registrationInfo.description}">
 							</div>
