@@ -61,9 +61,10 @@
 	<!-- Nav tabs -->
 	<p>
 	
-	<ul class="nav nav-tabs" role="tablist">
+	<ul class="nav nav-tabs nav-fill" role="tablist">
 		<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#address" role="tab">Адрес</a></li>
 		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#director" role="tab">Директор</a></li>
+		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#account" role="tab">Банковские реквизиты</a></li>
 		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#agreements" role="tab">Связанные договоры</a></li>
 	</ul>
 
@@ -391,6 +392,149 @@
 					<tr>
 						<th class="text-center">Всего: <fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${totalDirectorCount}" /></th>
 						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		
+		<!-- Tab pane 'Account'  -->
+		<div class="tab-pane fade" id="account" role="tabpanel">
+			<p>
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCompanyAccountAdd">
+				<i class="fa fa-plus"></i> Новый счет
+			</button>
+			<!-- Modal -->
+			<div class="modal fade" id="modalCompanyAccountAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+				aria-hidden="true" >
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel"><c:out value="${company.title}"/> | Новый банк. счет</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form action="companyAccount" method="post">
+								<input type="hidden" name="add"> 
+								<input type="hidden" name="companyId" value="${company.id}"> 
+								<div class="row">
+									<div class="col-sm">
+										<label for="presentation" class="col-sm"><b>Представление</b></label> 
+										<input type="text" class="form-control" id="presentation"
+											name="presentation" placeholder="">
+									</div>
+								</div>
+								<p>
+								<div class="row">
+									<div class="col-6">
+										<label for="dateStart" class="col-sm"><b>Действует с</b></label> 
+										<input type="date" class="form-control" id="dateStart"
+											name="dateStart" placeholder="">
+									</div>
+								</div>
+								<p>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+									<sec:csrfInput/>
+									<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<p>
+			<table class="table table-sm table-hover">
+				
+				<thead class="thead-default">
+					<tr>
+						<th class="text-center">ID</th>
+						<th class="text-center">Наименование</th>
+						<th class="text-center">Действует с</th>
+						<th class="text-center"></th>
+					</tr>
+				</thead>
+				<c:forEach items="${company.accounts}" var="account">
+					<tr>
+						<c:set var="openModal" value="$('#modalCompanyAccountEdit${account.id}').modal('show')" />
+						<td class="text-center" onclick="${openModal}"><c:out value="${account.id}"/></td>
+						<td class="text-center" onclick="${openModal}"><c:out value="${account.presentation}"/></td>
+						<td class="text-center" onclick="${openModal}"><fmt:formatDate	value="${account.dateStart}" pattern="dd.MM.yyyy" /></td>
+						<td>
+							<div class="d-flex justify-content-end">
+								<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+									<div class="btn-group mr-2" role="group" aria-label="First group">
+									<!-- Button trigger modal -->
+										<button type="button" class="btn btn-success btn-sm" data-toggle="modal" 
+											data-target="#modalCompanyAccountEdit${account.id}">
+											<i class="fa fa-edit"></i> Изменить
+										</button>
+									</div>
+									<!-- Modal -->
+									<div class="modal fade" id="modalCompanyAccountEdit${account.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel"><c:out value="${company.title}"/> | Редактировать банк. счет</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<form action="companyAccount" method="post">
+														<input type="hidden" name="edit"> 
+														<input type="hidden" name="id" value="${account.id}"> 
+														<div class="row">
+															<div class="col-sm">
+																<label for="presentation" class="col-sm"><b>Представление</b></label> 
+																<input type="text" class="form-control" id="presentation"
+																	name="presentation" placeholder="Введите адрес" value="${fn:replace(account.presentation, '"', '&quot;')}">
+															</div>
+														</div>
+														<p>
+														<div class="row">
+															<div class="col-6">
+																<label for="dateStart" class="col-sm"><b>Действует с</b></label> 
+																<input type="date" class="form-control" id="dateStart"
+																	name="dateStart" placeholder="Введите дату начала действия" value="${account.dateStart}">
+															</div>
+														</div>
+														<p>	
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+															<sec:csrfInput/>
+															<input type="submit" class="btn btn-primary" id="button" value="Сохранить">
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="btn-group mr-2" role="group" aria-label="Second group">
+										<form action="companyAccount" method="post">
+											<input type="hidden" name="delete"> 
+											<input type="hidden" name="id" value="${account.id}">
+											<sec:csrfInput/>
+											<button type="submit" class="btn btn-danger btn-sm">
+												<i class="fa fa-trash-o"></i> Удалить
+											</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</c:forEach>
+				<thead class="thead-default">
+					<tr>
+						<th class="text-center">Всего: <fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" 
+							value="${fn:length(company.accounts)}" /></th>
 						<th></th>
 						<th></th>
 						<th></th>
