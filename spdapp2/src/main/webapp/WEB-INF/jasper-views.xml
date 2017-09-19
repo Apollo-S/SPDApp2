@@ -14,6 +14,9 @@
 	<bean id="certificateReport" class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
 		p:url="classpath:certificate-report.jrxml" p:reportDataKey="dataSourceCert" />
 
+	<bean id="agreementReport" class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView"
+		p:url="classpath:agreement-report.jrxml" p:reportDataKey="dataSourceAgr" />
+
 	<!-- not using now -->
 	<bean id="xlsReport"
 		class="org.springframework.web.servlet.view.jasperreports.JasperReportsXlsView"
