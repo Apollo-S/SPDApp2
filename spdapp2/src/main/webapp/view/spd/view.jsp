@@ -43,7 +43,7 @@
 				<li><b>Паспортные данные: </b> <c:out
 						value="${empty spd.passport ? '-' : spd.passport}" /></li>
 				<li><b>Адрес: </b> <c:if test="${not empty address.zip}">${address.zip}, </c:if><c:if test="${not empty address.country}">${address.country}</c:if><c:if test="${not empty address.region}">, ${address.region}</c:if><c:if test="${not empty address.city}">, ${address.city}</c:if><c:if test="${not empty address.street}">, ${address.street}</c:if><c:if test="${not empty address.building}">, буд. ${address.building}</c:if><c:if test="${not empty address.flat}">, кв. ${address.flat}</c:if></li>
-				<li><b>Данные о регистрации: </b> <c:out
+				<li><b>Данные о регистрации: Запис в ЄДР № </b> <c:out
 						value="${registrationInfo.description} від " /> <fmt:formatDate
 						value="${registrationInfo.dated}" pattern="dd.MM.yyyy" />р.</li>
 			</ul>

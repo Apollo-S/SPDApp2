@@ -1,6 +1,7 @@
 <%@ page session="false" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 
 <jsp:include page="../header.jsp" />
@@ -35,8 +36,6 @@
 		</thead>
 
 		<c:forEach items="${agreements}" var="agreement">
-		
-			<c:set var="totalAgreementCount"/>
 			<c:set var="spd" value="${agreement.spd}"/>
 			<tr>
 				<td class="text-center align-middle">${agreement.id}</td>
@@ -54,9 +53,9 @@
 								</a>
 							</div>
 							<div class="btn-group mr-2" role="group" aria-label="Second group">
-								<form action="spd" method="post">
+								<form action="agreements" method="post">
 									<input type="hidden" name="delete"> 
-									<input type="hidden" name="id" value="${spd.id}"> 
+									<input type="hidden" name="id" value="${agreement.id}"> 
 									<sec:csrfInput/>
 									<button type="submit" class="btn btn-danger btn-sm">
 										<i class="fa fa-trash-o"></i> Удалить
@@ -67,11 +66,10 @@
 					</div>
 				</td>
 			</tr>
-			<c:set var="totalAgreementCount" value="${totalAgreementCount + 1}" />
 		</c:forEach>
 		<thead class="thead-default">
 			<tr>
-				<th class="text-center">Всего: <fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${totalAgreementCount}" /></th>
+				<th class="text-center">Всего: ${fn:length(agreements)}</th>
 				<th></th>
 				<th></th>
 				<th></th>

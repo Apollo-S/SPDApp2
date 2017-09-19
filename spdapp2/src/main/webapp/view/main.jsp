@@ -1,6 +1,7 @@
 <%@ page session="false" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 
 <jsp:include page="header.jsp" />
@@ -45,8 +46,7 @@
 							
 							<c:forEach items="${spd.agreements}" var="agreement">
 							
-								<c:set var="totalSpecificationCount" />
-								<c:set var="totalSpecificationAmount" />
+								<c:set var="totalSpecificationAmount" value="${0}"/>
 								
 								<table class="table table-sm ">
 							
@@ -119,13 +119,22 @@
 											
 											</td>
 										<tr>
-									<c:set var="totalSpecificationCount" value="${totalSpecificationCount + 1}" />
 									<c:set var="totalSpecificationAmount" value="${totalSpecificationAmount + specification.specificationSum}" />
 									</c:forEach>
 									<thead class="thead-default">
 										<tr>
-											<th class="text-center">Кол-во: <fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" value="${totalSpecificationCount}" /></th>
-											<th class="text-center">Сумма всего: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${totalSpecificationAmount}" /> грн.</th>
+											<th class="text-center">
+												<strong class="text-dark">
+													Кол-во: <fmt:formatNumber type="number" minFractionDigits="0" maxFractionDigits="0" 
+														value="${fn:length(agreement.specifications)}" />
+												</strong>
+											</th>
+											<th class="text-center">
+												<strong class="text-dark">
+													Сумма всего: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" 
+														value="${totalSpecificationAmount}" /> грн.
+												</strong>
+											</th>
 											<th></th>
 										</tr>
 									</thead>

@@ -135,7 +135,7 @@
 					<div class="card-body">
 						<div class="row">
 							<div class="col">
-								<label for="description"><b>Описание</b></label>
+								<label for="description"><b>Запись в ЕГРПОУ</b></label>
 								<input type="text" class="form-control" id="description" name="description" placeholder="Описание">
 							</div>
 							<div class="col-2">

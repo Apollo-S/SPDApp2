@@ -35,7 +35,7 @@
 					<div class="col text-right">
 						<label>
 							<c:out value="Запомнить меня" />
-							<input type="checkbox" id="remember" name="remember-me" checked/>
+							<input type="checkbox" id="remember" name="remember-me" />
 						</label>
 					</div>
 				</div>
