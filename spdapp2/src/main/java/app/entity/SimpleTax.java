@@ -26,7 +26,11 @@ public class SimpleTax extends UrlEntity implements Serializable {
 	private Date dateStart;
 
 	public SimpleTax() {
-		super();
+	}
+
+	public SimpleTax(Double value, Date dateStart) {
+		this.value = value;
+		this.dateStart = dateStart;
 	}
 
 	public Double getValue() {

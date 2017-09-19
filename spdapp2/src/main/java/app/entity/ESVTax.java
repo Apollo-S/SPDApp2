@@ -26,11 +26,9 @@ public class ESVTax extends UrlEntity implements Serializable {
 	private Date dateStart;
 
 	public ESVTax() {
-		super();
 	}
 
 	public ESVTax(Double value, Date dateStart) {
-		super();
 		this.value = value;
 		this.dateStart = dateStart;
 	}
