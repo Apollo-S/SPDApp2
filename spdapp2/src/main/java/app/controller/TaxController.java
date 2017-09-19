@@ -13,14 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import app.entity.ESVTax;
+import app.entity.SimpleTax;
 import app.repository.ESVTaxRepository;
 import app.repository.SimpleTaxRepository;
 
 @Controller
 @Transactional
 public class TaxController extends BaseController {
-
-	private static final String PAGE_TAX_GET_ALL = "tax/getAll";
 
 	private static final Logger logger = LoggerFactory.getLogger(TaxController.class);
 
@@ -33,9 +32,9 @@ public class TaxController extends BaseController {
 	@RequestMapping(value = REQUEST_MAPPING_TAXES, method = RequestMethod.GET)
 	public String getAllTaxes(Model model) {
 		logger.info("<==((((((((( Entering to the getAllUsers() method )))))))))==>");
-		model.addAttribute("esvTaxes", esvTaxRepository.findAll());
-		model.addAttribute("simpleTaxes", simpleTaxRepository.findAll());
-		return "tax/getAll";
+		model.addAttribute(ATTRIBUTE_ESV_TAXES, esvTaxRepository.findAll());
+		model.addAttribute(ATTRIBUTE_SIMPLE_TAXES, simpleTaxRepository.findAll());
+		return PAGE_TAXES;
 	}
 	
 	@RequestMapping(value = REQUEST_MAPPING_ESV_TAX, params = PARAM_ADD, method = RequestMethod.POST)
@@ -46,7 +45,7 @@ public class TaxController extends BaseController {
 		esvTax = esvTaxRepository.save(esvTax);
 		logger.info("<==((((((((( Saving new 'ESVTax' with ID=" + esvTax.getId() + " was successeful )))))))))==>");
 		logger.info("<==((((((((( Out of 'postAddEsvTax()' method ... )))))))))==>");
-		return "redirect:taxes";
+		return PAGE_REDIRECT_TO_TAXES;
 	}
 	
 	@RequestMapping(value = REQUEST_MAPPING_ESV_TAX, params = PARAM_EDIT, method = RequestMethod.POST)
@@ -59,18 +58,53 @@ public class TaxController extends BaseController {
 		esvTax = esvTaxRepository.save(esvTax);
 		logger.info("<==((((((((( Updating of 'ESVTax' with ID=" + esvTax.getId() + " was successful )))))))))==>");
 		logger.info("<==((((((((( Out of 'postEditEsvTax()' method ... )))))))))==>");
-		return "redirect:taxes";
+		return PAGE_REDIRECT_TO_TAXES;
 	}
 	
 	@RequestMapping(value = REQUEST_MAPPING_ESV_TAX, params = PARAM_DELETE, method = RequestMethod.POST)
 	public String postDeleteEsvTax(@RequestParam int id) {
-		logger.info("<== Enter to 'postDeleteEsvTax()' method ... ==>");
+		logger.info("<==((((((((( Enter to 'postDeleteEsvTax()' method ... )))))))))==>");
 		ESVTax esvTax = esvTaxRepository.findOne(id);
-		logger.info("<== Starting delete 'ESVTax' with ID=" + esvTax.getId() + " ==>");
+		logger.info("<==((((((((( Starting delete 'ESVTax' with ID=" + esvTax.getId() + " )))))))))==>");
 		esvTaxRepository.delete(esvTax);
-		logger.info("<== Deleting of 'ESVTax' with ID=" + esvTax.getId() + " was successful ==>");
-		logger.info("<== Out of 'postDeleteEsvTax()' method ... ==>");
-		return "redirect:taxes";
+		logger.info("<==((((((((( Deleting of 'ESVTax' with ID=" + esvTax.getId() + " was successful )))))))))==>");
+		logger.info("<==((((((((( Out of 'postDeleteEsvTax()' method ... )))))))))==>");
+		return PAGE_REDIRECT_TO_TAXES;
+	}
+	
+	@RequestMapping(value = REQUEST_MAPPING_SIMPLE_TAX, params = PARAM_ADD, method = RequestMethod.POST)
+	public String postAddSimpleTax(@RequestParam Double value, @RequestParam Date dateStart) {
+		logger.info("<==((((((((( Enter to 'postAddSimpleTax()' method ... )))))))))==>");
+		logger.info("<==((((((((( Adding new 'SimpleTax' )))))))))==>");
+		SimpleTax simpleTax = new SimpleTax(value, dateStart);
+		simpleTax = simpleTaxRepository.save(simpleTax);
+		logger.info("<==((((((((( Saving new 'SimpleTax' with ID=" + simpleTax.getId() + " was successeful )))))))))==>");
+		logger.info("<==((((((((( Out of 'postAddSimpleTax()' method ... )))))))))==>");
+		return PAGE_REDIRECT_TO_TAXES;
+	}
+	
+	@RequestMapping(value = REQUEST_MAPPING_SIMPLE_TAX, params = PARAM_EDIT, method = RequestMethod.POST)
+	public String postEditSimpleTax(@RequestParam Integer id, @RequestParam Double value, @RequestParam Date dateStart) {
+		logger.info("<==((((((((( Enter to 'postEditSimpleTax()' method ... )))))))))==>");
+		SimpleTax simpleTax = simpleTaxRepository.findOne(id);
+		logger.info("<==((((((((( Starting update 'SimpleTax' by ID=" + simpleTax.getId() + "' )))))))))==>");
+		simpleTax.setValue(value);
+		simpleTax.setDateStart(dateStart);
+		simpleTax = simpleTaxRepository.save(simpleTax);
+		logger.info("<==((((((((( Updating of 'SimpleTax' with ID=" + simpleTax.getId() + " was successful )))))))))==>");
+		logger.info("<==((((((((( Out of 'postEditSimpleTax()' method ... )))))))))==>");
+		return PAGE_REDIRECT_TO_TAXES;
+	}
+	
+	@RequestMapping(value = REQUEST_MAPPING_SIMPLE_TAX, params = PARAM_DELETE, method = RequestMethod.POST)
+	public String postDeleteSimpleTax(@RequestParam int id) {
+		logger.info("<==((((((((( Enter to 'postDeleteSimpleTax()' method ... )))))))))==>");
+		SimpleTax esvTax = simpleTaxRepository.findOne(id);
+		logger.info("<==((((((((( Starting delete 'SimpleTax' with ID=" + esvTax.getId() + " )))))))))==>");
+		simpleTaxRepository.delete(esvTax);
+		logger.info("<==((((((((( Deleting of 'SimpleTax' with ID=" + esvTax.getId() + " was successful )))))))))==>");
+		logger.info("<==((((((((( Out of 'postDeleteSimpleTax()' method ... )))))))))==>");
+		return PAGE_REDIRECT_TO_TAXES;
 	}
 	
 }

@@ -26,7 +26,7 @@ import utils.BeanUtil;
 @Controller
 @Transactional
 public class SpecificationController extends BaseController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(SpecificationController.class);
 
 	@Autowired(required = true)
@@ -62,7 +62,7 @@ public class SpecificationController extends BaseController {
 		logger.info("<== Got 'currentTarif' with ID=" + currentTarif.getId() + " ==>");
 		model.addAttribute("currentTarif", currentTarif);
 		logger.info("<== Out of 'getEditSpecification()' method ... ==>");
-		return "specification/edit";
+		return PAGE_SPECIFICATION_EDIT;
 	}
 
 	@RequestMapping(value = REQUEST_MAPPING_SPECIFICATION, params = PARAM_ADD, method = RequestMethod.POST)
@@ -76,7 +76,7 @@ public class SpecificationController extends BaseController {
 		logger.info("<== Saving new 'Specification' with ID=" + specification.getId() + " for 'Agreement='"
 				+ agreement.getNumber() + " was successeful ==>");
 		logger.info("<== Out of 'postAddSpecification()' method ... ==>");
-		return "redirect:" + specification.getUrl();
+		return PAGE_REDIRECT + specification.getUrl();
 	}
 
 	@RequestMapping(value = REQUEST_MAPPING_SPECIFICATION, params = PARAM_EDIT, method = RequestMethod.POST)
@@ -99,7 +99,7 @@ public class SpecificationController extends BaseController {
 		specification = specificationRepository.save(specification);
 		logger.info("<== Updating of 'Specification' with ID=" + specification.getId() + " was successful ==>");
 		logger.info("<== Out of 'postEditSpecification()' method ... ==>");
-		return "redirect:" + agreement.getUrl();
+		return PAGE_REDIRECT + agreement.getUrl();
 	}
 
 	@RequestMapping(value = REQUEST_MAPPING_SPECIFICATION, params = PARAM_DELETE, method = RequestMethod.POST)
@@ -110,7 +110,7 @@ public class SpecificationController extends BaseController {
 		specificationRepository.delete(specification);
 		logger.info("<== Deleting of 'Specification' with ID=" + specification.getId() + " was successful ==>");
 		logger.info("<== Out of 'postDeleteSpecification()' method ... ==>");
-		return "redirect:" + specification.getAgreement().getUrl();
+		return PAGE_REDIRECT + specification.getAgreement().getUrl();
 	}
 	
 	@RequestMapping(value = REQUEST_MAPPING_JOB, params = PARAM_ADD, method = RequestMethod.POST)
@@ -124,7 +124,7 @@ public class SpecificationController extends BaseController {
 		logger.info("<== Saving new 'Job' with ID=" + job.getId() + " for 'Specification='"
 				+ specification.getSpecificationNumber() + " was successeful ==>");
 		logger.info("<== Out of 'postAddJob()' method ... ==>");
-		return "redirect:" + specification.getUrl();
+		return PAGE_REDIRECT + specification.getUrl();
 	}
 	
 	@RequestMapping(value = REQUEST_MAPPING_JOB, params = PARAM_EDIT, method = RequestMethod.POST)
@@ -140,7 +140,7 @@ public class SpecificationController extends BaseController {
 		job = jobRepository.save(job);
 		logger.info("<== Updating of 'Job' with ID=" + job.getId() + " was successful ==>");
 		logger.info("<== Out of 'postEditJob()' method ... ==>");
-		return "redirect:" + job.getSpecification().getUrl();
+		return PAGE_REDIRECT + job.getSpecification().getUrl();
 	}
 	
 	@RequestMapping(value = REQUEST_MAPPING_JOB, params = PARAM_DELETE, method = RequestMethod.POST)
@@ -151,7 +151,7 @@ public class SpecificationController extends BaseController {
 		jobRepository.delete(job);
 		logger.info("<== Deleting of 'Job' with ID=" + job.getId() + " was successful ==>");
 		logger.info("<== Out of 'postDeleteJob()' method ... ==>");
-		return "redirect:" + job.getSpecification().getUrl();
+		return PAGE_REDIRECT + job.getSpecification().getUrl();
 	}
 	
 	@RequestMapping(value = REQUEST_MAPPING_SPECIFICATIONPAYMENT, params = PARAM_ADD, method = RequestMethod.POST)
@@ -165,7 +165,7 @@ public class SpecificationController extends BaseController {
 		logger.info("<== Saving new 'SpecificationPayment' with ID=" + specPayment.getId() + " for 'Specification='"
 				+ specification.getSpecificationNumber() + " was successeful ==>");
 		logger.info("<== Out of 'postAddSpecPayment()' method ... ==>");
-		return "redirect:" + specification.getUrl();
+		return PAGE_REDIRECT + specification.getUrl();
 	}
 	
 	@RequestMapping(value = REQUEST_MAPPING_SPECIFICATIONPAYMENT, params = PARAM_EDIT, method = RequestMethod.POST)
@@ -181,7 +181,7 @@ public class SpecificationController extends BaseController {
 		specPayment = specPaymentRepository.save(specPayment);
 		logger.info("<== Updating of 'SpecificationPayment' with ID=" + specPayment.getId() + " was successful ==>");
 		logger.info("<== Out of 'postEditSpecPayment()' method ... ==>");
-		return "redirect:" + specPayment.getSpecification().getUrl();
+		return PAGE_REDIRECT + specPayment.getSpecification().getUrl();
 	}
 	
 	@RequestMapping(value = REQUEST_MAPPING_SPECIFICATIONPAYMENT, params = PARAM_DELETE, method = RequestMethod.POST)
@@ -192,7 +192,7 @@ public class SpecificationController extends BaseController {
 		specPaymentRepository.delete(specPayment);
 		logger.info("<== Deleting of 'SpecificationPayment' with ID=" + specPayment.getId() + " was successful ==>");
 		logger.info("<== Out of 'postDeleteSpecPayment()' method ... ==>");
-		return "redirect:" + specPayment.getSpecification().getUrl();
+		return PAGE_REDIRECT + specPayment.getSpecification().getUrl();
 	}
 
 }
