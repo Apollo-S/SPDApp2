@@ -133,9 +133,9 @@ VALUES
 TRUNCATE `registration_info`;
 INSERT INTO `registration_info` (`id`, `description`, `dated`, `optlock`)
 VALUES
-	(1, 'Запис в ЄДР № 2 347 000 0000 007784', '2013-01-03', 0),
-	(2, 'Запис в ЄДР № 2 064 000 0000 021827', '2013-01-17', 0),
-	(3, 'Запис в ЄДР № 2 059 000 0000 028918', '2013-01-09', 0);
+	(1, '2 347 000 0000 007784', '2013-01-03', 0),
+	(2, '2 064 000 0000 021827', '2013-01-17', 0),
+	(3, '2 059 000 0000 028918', '2013-01-09', 0);
 
 TRUNCATE `simple_tax`;
 INSERT INTO `simple_tax` (`id`, `value`, `date_start`, `optlock`)
