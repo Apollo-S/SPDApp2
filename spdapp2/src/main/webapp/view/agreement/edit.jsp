@@ -31,12 +31,11 @@
 					<input type="submit" class="btn btn-success" id="button" value="Записать"> 	
 					<a class="btn btn-danger" href="${spd.url}" role="button">Отмена</a>
 				</div>
-				<div class="col">
+				<div class="col-2">
 					<a class="btn btn-info" href=<c:url value="/agreement/printpdf/agr?id=${agreement.id}"/> role="button">
-						<i class="fa fa-file-pdf-o"></i> Договор
+						<i class="fa fa-file-pdf-o"></i> Печать договора
 					</a>
 				</div>
-				
 			</div>
 		</nav>
 	
@@ -57,9 +56,7 @@
 			<div class="col-2">
 				<label for="company"><b>Компания-наниматель</b></label>
 				<select name="company_id" class="form-control">
-					
 					<c:forEach var="company" items="${companies}">
-					
 						<c:choose>
 							<c:when test="${company == agreement.company}">
 								<option value="${company.id}" selected>${company.title}</option>
@@ -68,13 +65,46 @@
 								<option value="${company.id}">${company.title}</option>
 							</c:otherwise>
 						</c:choose>
-					
   					</c:forEach>
-  					
 				</select>
 			</div>
 		</div>
 	</form>
+	
+	<p>
+	<p>
+	
+	<!-- Загрузка подписанного договора в PDF -->
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalAgreementUpload">
+		<i class="fa fa-file-pdf-o"></i> Загрузить подписанный договор
+	</button>
+	<!-- Modal -->
+	<div class="modal fade bd-example-modal" id="modalAgreementUpload" tabindex="-1" role="dialog" aria-labelledby="exampleModalAgreementUpload"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalAgreementUpload">Загрузка подписанного договора</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form method="post" enctype="multipart/form-data" action="/agreement/upload" >
+						<input type="file" class="form-control-file" name="file"><br>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+							<sec:csrfInput/>
+							<input type="submit" class="btn btn-primary" value="Загрузить"> 
+						</div>	
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
 	
 	<p>
 
@@ -118,7 +148,7 @@
 									<label for="specificationNumber"><b>№ п/п</b></label>
 								</div>
 								<div class="col">
-									<input type="text" class="form-control" id="specificationNumber" name="specificationNumber" 
+									<input type="text" class="form-control text-center" id="specificationNumber" name="specificationNumber" 
 										value="${specificationNumber}">
 								</div>
 							</div>
@@ -228,22 +258,22 @@
 								<div class="row">
 									<div class="col">
 										<label for="configuring"><b>Конфигурирование, грн</b></label>
-										<input type="text" class="form-control" id="configuring" name="configuring">
+										<input type="text" class="form-control text-center" id="configuring" name="configuring">
 									</div>
 									<div class="col">
 										<label for="programming"><b>Программирование, грн</b></label>
-										<input type="text" class="form-control" id="programming" name="programming">
+										<input type="text" class="form-control text-center" id="programming" name="programming">
 									</div>
 									<div class="col">
 										<label for="architecting"><b>Архит. доработки</b></label>
-										<input type="text" class="form-control" id="architecting" name="architecting">
+										<input type="text" class="form-control text-center" id="architecting" name="architecting">
 									</div>
 								</div>
 								<p>
 								<div class="row">
 									<div class="col"></div>
 									<div class="col-4">
-										<label for="dateStart" ><b>Действуют с</b></label>
+										<label for="dateStart"><b>Действуют с</b></label>
 										<input type="date" class="form-control" id="dateStart" name="dateStart">
 									</div>	
 								</div>	
