@@ -20,10 +20,10 @@ public abstract class BaseReport {
 	private String spdAddress;
 	private String spdAccount;
 	private String spdInn;
-	private String regInfo;
+	private String regInfoDescription;
+	private Date regInfoDated;
 
 	public BaseReport() {
-		super();
 	}
 
 	public String getAgreementTitle() {
@@ -154,12 +154,20 @@ public abstract class BaseReport {
 		this.spdInn = spdInn;
 	}
 
-	public String getRegInfo() {
-		return regInfo;
+	public String getRegInfoDescription() {
+		return regInfoDescription;
 	}
 
-	public void setRegInfo(String regInfo) {
-		this.regInfo = regInfo;
+	public void setRegInfoDescription(String regInfoDescription) {
+		this.regInfoDescription = regInfoDescription;
+	}
+
+	public Date getRegInfoDated() {
+		return regInfoDated;
+	}
+
+	public void setRegInfoDated(Date regInfoDated) {
+		this.regInfoDated = regInfoDated;
 	}
 
 }

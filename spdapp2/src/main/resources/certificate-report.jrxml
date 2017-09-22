@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 4.5.0  -->
-<!-- 2017-07-20T03:38:47 -->
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 4.5.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="certificate-report" pageWidth="595" pageHeight="842" columnWidth="509" leftMargin="56" rightMargin="30" topMargin="20" bottomMargin="20">
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -44,8 +43,8 @@
 	<field name="companyDirectorShortName" class="java.lang.String">
 		<fieldDescription><![CDATA[companyDirectorShortName]]></fieldDescription>
 	</field>
-	<field name="regInfo" class="java.lang.String">
-		<fieldDescription><![CDATA[regInfo]]></fieldDescription>
+	<field name="regInfoDated" class="java.util.Date">
+		<fieldDescription><![CDATA[regInfoDated]]></fieldDescription>
 	</field>
 	<field name="quantityOfPayments" class="java.lang.Integer">
 		<fieldDescription><![CDATA[quantityOfPayments]]></fieldDescription>
@@ -62,8 +61,8 @@
 	<field name="configuringRate" class="java.lang.Double">
 		<fieldDescription><![CDATA[configuringRate]]></fieldDescription>
 	</field>
-	<field name="class" class="java.lang.Class">
-		<fieldDescription><![CDATA[class]]></fieldDescription>
+	<field name="regInfoDescription" class="java.lang.String">
+		<fieldDescription><![CDATA[regInfoDescription]]></fieldDescription>
 	</field>
 	<field name="architectingHours" class="java.lang.Integer">
 		<fieldDescription><![CDATA[architectingHours]]></fieldDescription>
@@ -152,7 +151,7 @@
 					<font fontName="DejaVu Sans"/>
 					<paragraph lineSpacing="Double" lineSpacingSize="1.0" firstLineIndent="15" spacingBefore="0"/>
 				</textElement>
-				<textFieldExpression><![CDATA["1. Ми, що нижче підписалися, Виконавець, в особі: " + $F{spdFullName} + ", що діє на підставі документу: " + $F{regInfo} + ", з однієї сторони, і Замовник, в особі: " + $F{companyDirectorPost} + " " + $F{companyDirectorFullName} + ", що діє на підставі Статуту, з іншої сторони, склали цей Акт про те, що роботи, передбачені Додатком №" + $F{specificationNumber} + "до Договору, виконано якісно, в повному обсязі та в строк, згідно з умовами зазначеного вище Додатка №" + $F{specificationNumber} + " до Договору." + "\n" +
+				<textFieldExpression><![CDATA["1. Ми, що нижче підписалися, Виконавець, в особі: " + $F{spdFullName} + ", що діє на підставі документу: " + $F{regInfoDescription} + " від " + (new SimpleDateFormat("dd.MM.yyyy").format($F{regInfoDated})) + "р."+ ", з однієї сторони, і Замовник, в особі: " + $F{companyDirectorPost} + " " + $F{companyDirectorFullName} + ", що діє на підставі Статуту, з іншої сторони, склали цей Акт про те, що роботи, передбачені Додатком №" + $F{specificationNumber} + "до Договору, виконано якісно, в повному обсязі та в строк, згідно з умовами зазначеного вище Додатка №" + $F{specificationNumber} + " до Договору." + "\n" +
 "2. За виконану роботу Замовник сплачує Виконавцеві винагороду у розмірі " + $F{specificationSum} + " грн."+ "\n" +
 "3. У Замовника претензій до якості виконаних робіт немає."]]></textFieldExpression>
 			</textField>

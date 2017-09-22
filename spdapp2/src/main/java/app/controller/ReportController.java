@@ -151,7 +151,8 @@ public class ReportController extends BaseController {
 		report.setSpdInn(specification.getAgreement().getSpd().getInn());
 		report.setSpdAddress(specification.getAgreement().getSpd().getAddress().getPresentation());
 		report.setSpdAccount(spdAccount.getPresentation());
-		report.setRegInfo(specification.getAgreement().getSpd().getRegistrationInfo().getDescription());
+		report.setRegInfoDescription(specification.getAgreement().getSpd().getRegistrationInfo().getDescription());
+		report.setRegInfoDated(specification.getAgreement().getSpd().getRegistrationInfo().getDated());
 		List<Job> jobs = new ArrayList<Job>(specification.getJobs());
 		for (Job job : jobs) {
 			logger.info("<<-------------- " + job.getConfiguringHours() + ", " + job.getProgrammingHours() + ", " + job.getArchitectingHours() + " --------------->>");
@@ -197,7 +198,8 @@ public class ReportController extends BaseController {
 		report.setSpdInn(agreement.getSpd().getInn());
 		report.setSpdAddress(agreement.getSpd().getAddress().getPresentation());
 		report.setSpdAccount(spdAccount.getPresentation());
-		report.setRegInfo(agreement.getSpd().getRegistrationInfo().getDescription());
+		report.setRegInfoDescription(agreement.getSpd().getRegistrationInfo().getDescription());
+		report.setRegInfoDated(agreement.getSpd().getRegistrationInfo().getDated());
 		reports.add(report);
 		return reports;
 	}
