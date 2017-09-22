@@ -97,7 +97,7 @@ function surchargeUpdate() {
 		calculationUpdate();
 	}
 	surcharge.value = accounting.formatNumber(getNum(surcharge.value), 2, "",
-			".");
+			",");
 }
 
 function calculationUpdate() {
