@@ -24,8 +24,8 @@
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<context:property-placeholder location="classpath:db.properties" />
 	
-	<jdbc:initialize-database enabled="${db.initialize}" data-source="dataSource">
-		<jdbc:script location="${db.script_location}"/>
+	<jdbc:initialize-database enabled="${db.initialize}" data-source="dataSource" >
+		<jdbc:script location="${db.script_location}" encoding="UTF-8"/>
 	</jdbc:initialize-database>
 	
 	<import resource="jasper-views.xml"/>
