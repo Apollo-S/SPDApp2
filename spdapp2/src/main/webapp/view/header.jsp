@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 
 <!DOCTYPE html>
 <html>
@@ -22,20 +22,22 @@
 
 	<sec:authorize access="authenticated" var="authenticated" />
 		
-			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
 				aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<c:url value="/" var="urlValue"></c:url>
-			<a class="navbar-brand" href="${urlValue}"><i class="fa fa-leaf"></i> SPDApp2</a>
-			
+
 			<c:choose>
 				<c:when test="${authenticated}">
+					<span class="navbar-brand mb-0">
+						<i class="fa fa-leaf"></i> SPDApp2
+					</span>
+					
 					<sec:authentication property="name" var="userName"/>
-					<c:url value="/user?name=${userName}" var="urlUser"></c:url>
+					
+					<c:url value="/user?edit=&name=${userName}" var="urlUser"></c:url>
 					<c:url value="/logout" var="urlLogout"></c:url>
-			
 					<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 						<ul class="navbar-nav mr-auto">
 							<li class="nav-item active">
@@ -84,11 +86,21 @@
 					</form>
 				</c:when>
 				<c:otherwise>
+					<c:url value="/login" var="urlValueLogin" />
+					<c:url value="/register" var="urlValueRegister" />
+					<a class="navbar-brand" href="${urlValueLogin}">
+						<i class="fa fa-leaf"></i> SPDApp2
+					</a>
+						
 					<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
 						<span class="navbar-text active">
-							<a href="<spring:url value="/login"/>" style="color: #f5f5f5;"><i class="fa fa-sign-in"></i> Вход</a> 
+							<a href="${urlValueLogin}" style="color: #f5f5f5;">
+								<i class="fa fa-sign-in"></i> Вход
+							</a>
 							<font color="#f5f5f5"> / </font>
-							<a href="<spring:url value="/register"/>" style="color: #f5f5f5;"><i class="fa fa-user-plus"></i> Регистрация</a>
+							<a href="${urlValueRegister}" style="color: #f5f5f5;">
+								<i class="fa fa-user-plus"></i> Регистрация
+							</a>
 						</span>
 					</ul>
 				</c:otherwise>
