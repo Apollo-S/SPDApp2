@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -14,7 +16,16 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "specification_calculation")
+@NamedQueries({
+	@NamedQuery(name = Calculation.FIND_MAX_CALCULATION_NUMBER_BY_SPECIFICATION_ID, 
+				query = "select coalesce(max(c.partNumber),0) from Calculation c where c.specification.id = :specificationId"),
+	@NamedQuery(name = Calculation.FIND_SUM_OF_CALCULATIONS_BY_SPECIFICATION_ID,
+				query = "select sum(c.turnover) from Specification s, Calculation c where s.id = c.specification.id and s.id = :specificationId")
+})
 public class Calculation extends UrlEntity implements Serializable {
+
+	public static final String FIND_MAX_CALCULATION_NUMBER_BY_SPECIFICATION_ID = "Calculation.findMaxCalculationNumberBySpecificationId";
+	public static final String FIND_SUM_OF_CALCULATIONS_BY_SPECIFICATION_ID = "Calculation.findSumOfCalculationsBySpecificationId";
 
 	private static final long serialVersionUID = 1L;
 

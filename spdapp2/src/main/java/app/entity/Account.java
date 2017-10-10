@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -14,9 +15,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "account")
+@NamedQuery(name = Account.FIND_ACTUAL_SPD_ACCOUNT_BY_SPD_ID, 
+	query = "select ac from Account ac where ac.spd.id = :spdId")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Account extends UrlEntity implements Serializable {
-
+	
+	public static final String FIND_ACTUAL_SPD_ACCOUNT_BY_SPD_ID = "Account.findActualSpdAccountBySpdId";
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne(fetch=FetchType.LAZY)

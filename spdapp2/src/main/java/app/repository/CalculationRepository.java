@@ -14,10 +14,6 @@ public interface CalculationRepository extends JpaRepository<Calculation, Intege
 	static final String PARAM_SPECIFICATION_ID = "specificationId";
 	static final String PARAM_CALCULATION_ID = "calculationId";
 	static final String PARAM_ALIAS = "alias";
-	static final String FIND_MAX_CALCULATION_NUMBER_BY_SPECIFICATION_ID = "select coalesce(max(c.partNumber),0) from Calculation c "
-			+ "where c.specification.id = :specificationId";
-	static final String FIND_SUM_OF_CALCULATIONS_BY_SPECIFICATION_ID = "select sum(c.turnover) from Specification s, Calculation c "
-			+ "where s.id = c.specification.id and s.id = :specificationId";
 	static final String FIND_CLOSING_BALANCE_OF_LAST_CALCULATION_BY_AGREEMENT_ID = "select COALESCE(sc.closing_balance, 0) " 
 			+ "from agreement a join specification s on s.agreement_id = a.id join specification_calculation sc on sc.specification_id = s.id "
 			+ "where a.id = :agreementId order by sc.id desc limit 1";
@@ -38,12 +34,8 @@ public interface CalculationRepository extends JpaRepository<Calculation, Intege
 			+ "SELECT a.spd_id FROM agreement a, specification s, specification_calculation c WHERE a.id = s.agreement_id AND s.id = c.specification_id and c.id = :calculationId) and p.date_start <= ("
 			+ "select max(c.date_start) from specification_calculation c where c.id = :calculationId))";
 	
-	@Transactional
-	@Query(FIND_MAX_CALCULATION_NUMBER_BY_SPECIFICATION_ID)
 	public Integer findMaxCalculationNumberBySpecificationId(@Param(PARAM_SPECIFICATION_ID) Integer specificationId);
 	
-	@Transactional
-	@Query(FIND_SUM_OF_CALCULATIONS_BY_SPECIFICATION_ID)
 	public Double findSumOfCalculationsBySpecificationId(@Param(PARAM_SPECIFICATION_ID) Integer specificationId);
 	
 	@Transactional

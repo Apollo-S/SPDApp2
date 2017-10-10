@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import app.entity.CustomUser;
 import app.repository.CustomUserRepository;
+import utils.PasswordEncoder;
 
 @Controller
 @RequestMapping(value = BaseController.REQUEST_MAPPING_BLANK)
@@ -26,6 +27,8 @@ public class HomeController extends BaseController {
 	@RequestMapping(value = REQUEST_MAPPING_REGISTER, method = RequestMethod.POST)
 	public String register(@ModelAttribute CustomUser user) {
 		user.setRole(ROLE_USER);
+		user.setPassword(PasswordEncoder.getEncodedPassword(user.getPassword()));
+		user.setEnabled(true);
 		user = userRepository.save(user);
 		Authentication authentication = new UsernamePasswordAuthenticationToken(user, 
 				user.getPassword(), user.getAuthorities());

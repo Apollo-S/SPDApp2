@@ -1,13 +1,13 @@
-package app.service;
+package utils;
 
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 public class PasswordEncoder {
 
-	public static void main(String[] args) {
+	public static String getEncodedPassword(String rawPassword) {
 		StandardPasswordEncoder encoder = new StandardPasswordEncoder();
-		String encodedPassword = encoder.encode("123");
-		System.out.println(encodedPassword);
+		String encodedPassword = encoder.encode(rawPassword);
+		return encodedPassword;
 	}
 
 }

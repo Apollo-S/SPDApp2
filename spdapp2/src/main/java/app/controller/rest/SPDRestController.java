@@ -17,7 +17,7 @@ import app.repository.SPDRepository;
 
 @RestController
 @Transactional
-@RequestMapping(value = "/spd")
+@RequestMapping(value = "/api/spd")
 public class SPDRestController {
 	
 	private static final String PARAM_ID = "id";
@@ -26,7 +26,7 @@ public class SPDRestController {
 	@Autowired
 	private SPDRepository spdRepository;
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET, headers = HEADER_JSON) 
+	@RequestMapping(value = "", method = RequestMethod.GET, headers = HEADER_JSON) 
 	public ResponseEntity<List<SPD>> getAllSpd() {
 		List<SPD> spds = spdRepository.findAll();
 		if(spds.size() == 0) {
@@ -44,15 +44,15 @@ public class SPDRestController {
 		return new ResponseEntity<SPD>(spd, HttpStatus.FOUND);
 	}
 	
-	@RequestMapping(value = "/add/", method = RequestMethod.POST, headers = HEADER_JSON)
+	
+	@RequestMapping(value = "/add", method = RequestMethod.POST, headers = "Accept=application/json")
 	public ResponseEntity<Void> addSpd(@RequestBody SPD spd) {
 		spd = spdRepository.save(spd);
 		HttpHeaders header = new HttpHeaders();
 		return new ResponseEntity<Void>(header, HttpStatus.CREATED);
 	}
 	
-	@Transactional
-	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, headers = HEADER_JSON)
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, headers = HEADER_JSON)
 	public ResponseEntity<Void> updateSpd(@PathVariable(PARAM_ID) int id, @RequestBody SPD spd) {
 		spd.setId(id);
 		spd.setVersion(spdRepository.getOne(id).getVersion());
@@ -61,7 +61,7 @@ public class SPDRestController {
 		return new ResponseEntity<Void>(header, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, headers = HEADER_JSON)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, headers = HEADER_JSON)
 	public ResponseEntity<Void> deleteSpd(@PathVariable(PARAM_ID) int id, @RequestBody SPD spd) {
 		spd.setId(id);
 		spd.setVersion(spdRepository.getOne(id).getVersion());
