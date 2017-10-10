@@ -9,8 +9,8 @@
 
 <div class="container-fluid">
 	
+	<c:url value="/login" var="loginVar" />
 	<div class="wrapper">
-		<c:url value="/login" var="loginVar" />
 		<form class="form-signin" action="${loginVar}" method="POST">
 			<h2 class="form-signin-heading text-center">Войти в систему</h2>
 			<br>
@@ -19,7 +19,7 @@
 					<i class="fa fa-user-circle" style="font-size:24px;"></i>
 				</span> 
 				<input type="text" name="custom_username" class="form-control" placeholder="User" 
-					aria-describedby="basic-addon1"/>
+					aria-describedby="basic-addon1" />
 			</div>
 			<p>
 			<div class="input-group">
@@ -27,7 +27,7 @@
 					<i class="	fa fa-key" style="font-size:24px;"></i>
 				</span> 
 				<input type="password" name="custom_password" class="form-control" placeholder="Password" 
-					aria-describedby="basic-addon1"/>
+					aria-describedby="basic-addon1" />
 			</div>
 			<p>
 			<div class="input-group">
@@ -53,6 +53,15 @@
 				</div>
 			</c:if>
 			<button id="btn-save" class="btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-sign-in"></i> Войти</button>
+		</form>
+		<form class="form-signin" action="${loginVar}" method="POST">
+			<h2 class="form-signin-heading text-center">или</h2>
+			<input type="hidden" name="custom_username" value="<c:out value="DemoUser" />"/>
+			<input type="hidden" name="custom_password" value="<c:out value="123" />"/>
+			<sec:csrfInput/>
+			<button id="btn-save" class="btn btn-lg btn-primary btn-block" type="submit">
+				<i class="fa fa-sign-in"></i> Войти как DemoUser
+			</button>
 		</form>
 	</div>
 
