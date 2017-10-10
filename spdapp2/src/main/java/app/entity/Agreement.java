@@ -3,12 +3,15 @@ package app.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -51,6 +54,10 @@ public class Agreement extends UrlEntity implements Serializable {
 	@OrderBy("id ASC")
 	@JsonManagedReference
 	private Set<Specification> specifications;
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	@JoinColumn(name = "agreement_file_id")
+	private AgreementFile agreementFile;
 
 	public Agreement() {
 	}
@@ -107,6 +114,14 @@ public class Agreement extends UrlEntity implements Serializable {
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	public AgreementFile getAgreementFile() {
+		return agreementFile;
+	}
+
+	public void setAgreementFile(AgreementFile agreementFile) {
+		this.agreementFile = agreementFile;
 	}
 	
 }
