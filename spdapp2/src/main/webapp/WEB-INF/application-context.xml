@@ -30,6 +30,8 @@
 	
 	<import resource="jasper-views.xml"/>
 
+	<bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
+
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/view/" />
