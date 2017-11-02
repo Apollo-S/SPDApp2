@@ -24,6 +24,8 @@ public abstract class BaseController {
 	
 	static final String REQUEST_MAPPING_ABOUT = "/about";
 	static final String REQUEST_MAPPING_AGREEMENT = "/agreement";
+	static final String REQUEST_MAPPING_AGREEMENTS = REQUEST_MAPPING_AGREEMENT + "s";
+	static final String REQUEST_MAPPING_AGREEMENT_FILE = "/agreementFile";
 	static final String REQUEST_MAPPING_AGREEMENT_TARIF = "/agreementTarif";
 	static final String REQUEST_MAPPING_BLANK = "/";
 	static final String REQUEST_MAPPING_CALCULATION = "/calculation";

@@ -42,13 +42,13 @@ public class AgreementController extends BaseController {
 	@Autowired(required = true)
 	private AgreementTarifRepository tarifRepository;
 
-	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT + "s", method = RequestMethod.GET)
+	@RequestMapping(value = REQUEST_MAPPING_AGREEMENTS, method = RequestMethod.GET)
 	public String getAddAgreement(Model model) {
 		model.addAttribute("agreements", agreementRepository.findAll());
 		return PAGE_AGREEMENTS;
 	}
 	
-	@RequestMapping(value = REQUEST_MAPPING_AGREEMENT + "s", params = PARAM_DELETE, method = RequestMethod.POST)
+	@RequestMapping(value = REQUEST_MAPPING_AGREEMENTS, params = PARAM_DELETE, method = RequestMethod.POST)
 	public String postDeleteAgreements(@RequestParam int id) {
 		logger.info("<==((((((((( Enter to 'postDeleteAgreements()' method ... )))))))))==>");
 		Agreement agreement = agreementRepository.findOne(id);

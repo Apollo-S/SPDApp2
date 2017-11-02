@@ -34,13 +34,15 @@ public class CalculationController extends BaseController {
 		Calculation calculation = calculationRepository.findOne(id);
 		model.addAttribute("calculation", calculation);
 		Double actualEsvRate = calculationRepository.findActualEsvRateByCalculationId(id);
+		logger.info("<== Value of 'actualEsvRate' is " + actualEsvRate + " ==>");
 		model.addAttribute("esvRate", actualEsvRate);
 		Double actualSimpleTaxRate = calculationRepository.findActualSimpleTaxRateByCalculationId(id);
+		logger.info("<== Value of 'actualSimpleTaxRate' is " + actualSimpleTaxRate + " ==>");
 		model.addAttribute("simpleTaxRate", actualSimpleTaxRate);
 		logger.info("<== Trying to get actualRates ... ==>");
 		Double actualBankComissionRate = calculationRepository.findActualRateByAliasAndCalculationId(id,
 				"withdrawCashComission");
-		logger.info("<== actualBankComissionRate has been got ... ==>");
+		logger.info("<== Value of 'actualBankComissionRate' is " + actualBankComissionRate + " ==>");
 		model.addAttribute("bankComissionRate", actualBankComissionRate);
 		logger.info("<== Out of 'getEditCalculation()' method ... ==>");
 		return "calculation/edit";
