@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,9 +16,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name ="agreement_tarif")
+@NamedQuery(name = AgreementTarif.FIND_AGREEMENT_TARIF_BY_SPECIFICATION_ID, 
+			query = "select a from AgreementTarif a where a.agreement.id = (" +
+					"select s.agreement.id from Specification s where s.id = :specificationId) and a.dateStart = (" +
+					"select max(a.dateStart) from AgreementTarif a where a.agreement.id = (" +
+					"select s.agreement.id from Specification s where s.id = :specificationId) and a.dateStart <= (" +
+					"select s.dateStart from Specification s where s.id = :specificationId))")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class AgreementTarif extends UrlEntity implements Serializable {
 
+	public static final String FIND_AGREEMENT_TARIF_BY_SPECIFICATION_ID = "AgreementTarif.findAgreementTarifBySpecificationId";
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne()
