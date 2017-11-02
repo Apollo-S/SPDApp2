@@ -15,8 +15,6 @@
 		<span class="breadcrumb-item active"><b>СПД <c:out value="${spd.alias}" /></b></span>
 	</nav>
 	
-	<p>
-	
 	<!-- Nav tabs -->
 	<ul class="nav nav-tabs nav-fill" role="tablist">
 		<li class="nav-item"><a class="nav-link active" data-toggle="tab"
@@ -28,6 +26,7 @@
 		<li class="nav-item"><a class="nav-link" data-toggle="tab"
 			href="#payments" role="tab"><i class="fa fa-usd"></i> Выплаты</a></li>
 	</ul>
+
 
 	<!-- Tab panes -->
 	<div class="tab-content">

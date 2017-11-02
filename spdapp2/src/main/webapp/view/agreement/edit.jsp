@@ -91,7 +91,13 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form method="post" enctype="multipart/form-data" action="/agreement/upload" >
+					<c:url value="agreementFile" var="agreementFileUrl"/>
+					<form action="${agreementFileUrl}" method="post" enctype="multipart/form-data" >
+						<input type="hidden" name="add">
+						<input type="hidden" name="agreementId" value="${agreement.id}">
+						
+						<input type="text" class="form-control" name="filename" ><br>
+						<input type="text" class="form-control" name="description" ><br>
 						<input type="file" class="form-control-file" name="file"><br>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
@@ -335,17 +341,17 @@
 														<div class="row">
 															<div class="col">
 																<label for="configuring"><b>Конфигурирование, грн</b></label>
-																<input type="text" class="form-control" id="configuring" name="configuring" 
+																<input type="text" class="form-control text-center" id="configuring" name="configuring" 
 																	value="${tarif.configuring}" >
 															</div>
 															<div class="col">
 																<label for="programming"><b>Программирование, грн</b></label>
-																<input type="text" class="form-control" id="programming" name="programming" 
+																<input type="text" class="form-control text-center" id="programming" name="programming" 
 																	value="${tarif.programming}" >
 															</div>
 															<div class="col">
 																<label for="architecting"><b>Архит. доработки</b></label>
-																<input type="text" class="form-control" id="architecting" name="architecting" 
+																<input type="text" class="form-control text-center" id="architecting" name="architecting" 
 																	value="${tarif.architecting}" >
 															</div>
 														</div>

@@ -91,19 +91,21 @@
 					<a class="navbar-brand" href="${urlValueLogin}">
 						<i class="fa fa-leaf"></i> SPDApp2
 					</a>
-						
-					<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-						<span class="navbar-text active">
-							<a href="${urlValueLogin}" style="color: #f5f5f5;">
-								<i class="fa fa-sign-in"></i> Вход
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item active">
+							<a class="nav-link" href="${urlValueLogin}">
+								<i class="fa fa-sign-in"></i> Войти
 							</a>
-							<font color="#f5f5f5"> / </font>
-							<a href="${urlValueRegister}" style="color: #f5f5f5;">
-								<i class="fa fa-user-plus"></i> Регистрация
-							</a>
-						</span>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link">/</a>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link" href="${urlValueRegister}"> <i
+								class="fa fa-user-plus"></i> Регистрация
+						</a></li>
 					</ul>
-				</c:otherwise>
+			</c:otherwise>
 			</c:choose>
 	</nav>
 	

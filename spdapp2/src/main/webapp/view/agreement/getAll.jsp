@@ -38,10 +38,10 @@
 		<c:forEach items="${agreements}" var="agreement">
 			<c:set var="spd" value="${agreement.spd}"/>
 			<tr>
-				<td class="text-center align-middle">${agreement.id}</td>
-				<td class="text-center align-middle">${spd.alias}</td>
-				<td class="text-center align-middle">${agreement.number}</td>
-				<td class="text-center align-middle">
+				<td class="text-center align-middle" onclick="goToAddress('${agreement.url}')">${agreement.id}</td>
+				<td class="text-center align-middle" onclick="goToAddress('${agreement.url}')">${spd.alias}</td>
+				<td class="text-center align-middle" onclick="goToAddress('${agreement.url}')">${agreement.number}</td>
+				<td class="text-center align-middle" onclick="goToAddress('${agreement.url}')">
 					<fmt:formatDate pattern="dd.MM.yyyy" value="${agreement.dateStart}" />
 				</td>
 				<td>
