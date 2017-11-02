@@ -15,26 +15,25 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "account")
-@NamedQuery(name = Account.FIND_ACTUAL_SPD_ACCOUNT_BY_SPD_ID, 
-	query = "select ac from Account ac where ac.spd.id = :spdId")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@NamedQuery(name = Account.FIND_ACTUAL_SPD_ACCOUNT_BY_SPD_ID, query = "select ac from Account ac where ac.spd.id = :spdId")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Account extends UrlEntity implements Serializable {
-	
+
 	public static final String FIND_ACTUAL_SPD_ACCOUNT_BY_SPD_ID = "Account.findActualSpdAccountBySpdId";
 	private static final long serialVersionUID = 1L;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="spd_id")
-	@JsonBackReference(value="spd-account")
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "spd_id")
+	@JsonBackReference(value = "spd-account")
 	private SPD spd;
-	
-	@Column(name = "account_number", length = 35)	
+
+	@Column(name = "account_number", length = 35)
 	private String accountNumber;
-	
-	@Column(name = "mfo", length = 10)		
+
+	@Column(name = "mfo", length = 10)
 	private String mfo;
-	
-	@Column(name = "bank_name", length = 150)	
+
+	@Column(name = "bank_name", length = 150)
 	private String bankName;
 
 	public Account() {
@@ -78,7 +77,7 @@ public class Account extends UrlEntity implements Serializable {
 	public void setBankName(String bankName) {
 		this.bankName = bankName;
 	}
-	
+
 	@JsonIgnore
 	public String getPresentation() {
 		StringBuilder accountView = new StringBuilder();
@@ -86,6 +85,16 @@ public class Account extends UrlEntity implements Serializable {
 		accountView.append(", в " + this.bankName);
 		accountView.append(", МФО " + this.mfo);
 		return accountView.toString();
+	}
+
+	@JsonIgnore
+	@Override
+	public String toString() {
+		StringBuilder accountViewBuilder = new StringBuilder();
+		accountViewBuilder.append(this.accountNumber);
+		accountViewBuilder.append(", в " + this.bankName);
+		accountViewBuilder.append(", МФО " + this.mfo);
+		return accountViewBuilder.toString();
 	}
 
 }
