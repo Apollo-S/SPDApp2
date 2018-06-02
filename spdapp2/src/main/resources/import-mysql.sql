@@ -1,4 +1,4 @@
-USE `spd`;
+USE `sql7240946`;
 
 SET FOREIGN_KEY_CHECKS=0;
 
